@@ -894,10 +894,14 @@
 							Reporte_indigo_templates::componente_especial($post);
 							
 							foreach ($array_posts as $kap => $ap){
+								$size = wp_is_mobile() ? "medium" : "medium_large";
+								$args = array("size" => $size);
+								$post = utilerias_cm::get_slim_elements($ap, $args);
+
 								Reporte_indigo_templates::componente_contenedor(
 									function($index, $total, $post){
-										echo ($index == 0) ? '<div class="col-md-5 col-lg-4"><div class="row">' : '';
-										Reporte_indigo_templates::componente_piensa($post);
+										echo ($index == 0) ? '<div class="container-lista-especial"><div class="row">' : '';
+										Reporte_indigo_templates::componente_lista_especial($post);
 										echo ($index == $total - 1) ? '</div></div>' : '';
 									}, [
 										"index" => $kap,
@@ -919,107 +923,5 @@
 			</div>
 		</div>
 	</div>
-
-	<?php try{
-		if(!array_key_exists('especial', $response))
-			throw new Exception("No hay post para el bloque", 1);
-
-		$posts 			= $response['especial'];
-
-		if(!utilerias_cm::validate_array($posts))
-			throw new Exception("No hay posts", 1);
-
-		if(!array_key_exists(0, $posts))
-			throw new Exception("No hay posts", 1);
-
-		$post 			= $posts[0];
-
-		if(!property_exists($post, 'array_posts'))
-			throw new Exception("No hay posts", 1);
-
-		$array_posts  	= $post->array_posts;
-
-		if(empty($array_posts))
-			throw new Exception("No hay posts", 1);
-
-		$size 			= wp_is_mobile() ? "medium" : "medium_large";
-		$args 			= array("size" => $size);
-		$post 			= utilerias_cm::get_slim_elements($post, $args);
-
-		$post_title 	= $post["post_title"];
-		$post_image 	= $post["post_image"];
-		$post_tema 		= $post["post_tema"]; ?>
-	
-		<div class="position-relative w-100 h-auto bgs-112 pb-3">
-			<div class="container">
-				<div class="row c-especial">
-					<div class="col-lg-8 col-md-7" >
-						<div class="position-relative py-4 mt-3 bgs-102 shadow-sm rounded-100">
-							<div class="container">
-								<div class="row">
-									<div class="col-12">
-										<article>
-											<header>
-												<?php if(!empty($post_tema)){ ?>
-													<a href="<?=$post_tema->link;?>" alt="<?=$post_tema->name;?>" title="<?=$post_tema->name;?>" class="c-topic">
-														<h2 class="fsize-12 col-103"><?=$post_tema->name;?></h2>
-													</a>
-												<?php } ?>
-
-												<h3 class="col-104 fsize-22-26 fsize-768-16-22 c-title line-clamp-2"><?=$post_title;?></h3>
-											</header>
-										</article>
-										<picture class="c-picture-100 shadow-sm bgs-110 mt-3 rounded-102">
-											<img class="lazy" data-src="<?=$post_image['link'];?>" alt="<?=$post_image['caption'];?>" title="<?=$post_image['caption'];?>">
-											<div class="display-overlay"></div>
-										</picture>
-									</div>
-								</div>
-							</div>	
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-5 pl-0">
-						<div class="row c-posts">
-							<?php foreach ($array_posts as $kap => $ap) {
-								$size 			= wp_is_mobile() ? "medium" : "medium_large";
-								$args 			= array("size" => $size);
-								$post 			= utilerias_cm::get_slim_elements($ap, $args);
-
-								$post_title 	= $post["post_title"];
-								$post_image 	= $post["post_image"];
-								$post_tema 		= $post["post_tema"];
-								$format_link 	= $post["format_link"];
-
-								$bb 			= $kap == 3 ? "" : " border-100 "; ?>
-								<div class="col-12" data-image="<?=$post_image['link'];?>">
-									<div class="container">
-										<div class="row py-3 <?=$bb;?>">
-											<div class="col-12">
-												<article>
-													<header>
-														<?php if(!empty($post_tema)){ ?>
-															<a href="<?=$post_tema->link;?>" alt="<?=$post_tema->name;?>" title="<?=$post_tema->name;?>" class="c-topic">
-																<h2 class="fsize-12 col-102"><?=$post_tema->name;?></h2>
-															</a>
-														<?php } ?>
-
-														<a href="<?=$format_link;?>" alt="<?=$post_title;?>" title="<?=$post_title;?>" class="c-title line-clamp-2">
-															<h3 class="col-101 fsize-16-22"><?=$post_title;?></h3>
-														</a>
-													</header>
-												</article>
-											</div>
-										</div>
-									</div>
-								</div>
-							<?php } ?>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	<?php }catch(Exception $e){
-		print_r("<!-- ERROR: ".$e->getMessage()." -->");
-	} ?>
 </main>
 <?php get_footer(); ?>
