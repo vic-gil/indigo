@@ -465,21 +465,33 @@
 							} else {
 								Reporte_indigo_test::log('No hay post para el bloque');
 							}
-							
 						} 
 
-						Reporte_indigo_templates::componente_contenedor([
-							"index" => $kp,
-							"total" => $total,
-							"class" => "col-md-6 col-lg-8",
-							"posts" => $post
-						], function($index, $post){
-							if($index > 0 && $index < 4)
-								Reporte_indigo_templates::componente_piensa($post);
-							if($index >= 4)
-								Reporte_indigo_templates::componente_piensa($post, "vmedium", false);
-						});
+						Reporte_indigo_templates::componente_contenedor(
+							function($index, $total, $post){
+								echo ($index == 0) ? '<div class="col-md-6 col-lg-8"><div class="row">' : '';
+								if($index > 0 && $index < 4) Reporte_indigo_templates::componente_piensa($post);
+								if($index >= 4) Reporte_indigo_templates::componente_piensa($post, "vmedium", false);
+								echo ($index == $total - 1) ? '</div></div>' : '';
+							}, [
+								"index" => $kp,
+								"total" => $total,
+								"posts" => $post
+							]
+						);
 					}
+
+					Reporte_indigo_templates::componente_contenedor(
+						function($index, $total, $post){
+						?>
+						<div class="col-md-6 col-lg-4">
+							<div class="row">
+								
+							</div>
+						</div>
+						<?php
+						}
+					);
 				} else {
 					Reporte_indigo_test::log('No hay post para el bloque 100-101');
 				}
@@ -551,16 +563,18 @@
 		</div>
 	</div>
 
-	<!-- Indigo Play -->
+	<?php
+		Reporte_indigo_test::comment('IndigoPlay');
+	?>
+
 	<div class="container">
 		<div class="row">
-			<div class="col-12 mt-3 section-title">
-				<a href="<?=site_url('indigo-videos');?>" alt="IndigoPlay" title="IndigoPlay">
-					<h2 class="pb-2">IndigoPlay<i class="fas fa-angle-double-right"></i></h2>
-				</a>
-			</div>
+			<?php
+				Reporte_indigo_templates::componente_titulo("indigo-videos", "IndigoPlay");
+			?>
 		</div>
 	</div>
+
 
 	<?php try{
 		if(!array_key_exists('play', $response))
@@ -864,12 +878,44 @@
 	<div class="container-especial">
 		<div class="container">
 			<div class="row">
-				<div class="componente-especial">
-					
-				</div>
-				<div class="componente-lista-especial">
-					
-				</div>
+				<?php
+				if( array_key_exists('especial', $response) ){
+					$posts = $response['especial'];
+
+					if( utilerias_cm::validate_array($posts) && array_key_exists(0, $posts) ){
+						$post = $posts[0];
+
+						if( property_exists($post, 'array_posts') && ! empty($post->array_posts) ) {
+							$array_posts = $post->array_posts;
+							$total = count($array_posts);
+							$size = wp_is_mobile() ? "medium" : "medium_large";
+							$args = array("size" => $size);
+							$post = utilerias_cm::get_slim_elements($post, $args);
+							Reporte_indigo_templates::componente_especial($post);
+							
+							foreach ($array_posts as $kap => $ap){
+								Reporte_indigo_templates::componente_contenedor(
+									function($index, $total, $post){
+										echo ($index == 0) ? '<div class="col-md-5 col-lg-4"><div class="row">' : '';
+										Reporte_indigo_templates::componente_piensa($post);
+										echo ($index == $total - 1) ? '</div></div>' : '';
+									}, [
+										"index" => $kap,
+										"total" => $total,
+										"posts" => $post
+									]
+								);
+							}
+						} else {
+							Reporte_indigo_test::log('No hay posts');
+						}
+					} else {
+						Reporte_indigo_test::log('No hay posts');
+					}
+				} else {
+					Reporte_indigo_test::log('No hay post para el bloque');
+				}
+				?>
 			</div>
 		</div>
 	</div>
