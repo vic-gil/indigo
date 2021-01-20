@@ -21,8 +21,8 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		/**
 		 * Componente web Contenedor
 		 *
-		 * @param Array $args  			Array configuration
 		 * @param callable $component   function HTML Component.
+		 * @param Array $args  			Array configuration [ index => (int), total => (int), posts => [Array] ]
 		 * @return void
 		 */
 		public static function componente_contenedor(callable $fn, $args = []) {
@@ -694,7 +694,6 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					<a href="<?=$data["format_link"]?>" title="<?=$data["post_title"];?>">
 						<picture>
 							<?php
-								//get_the_post_thumbnail($data["ID"], "large");
 								Reporte_indigo_templates::componente_imagen($data['post_image']);
 								if( ! empty($data['post_jwplayer']) ) {
 									Reporte_indigo_templates::componente_boton_jwplayer($data);
@@ -703,6 +702,34 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 						</picture>
 					</a>
 				</figure>
+			</article>
+		</div>
+		<?php
+		}
+
+		/**
+		 * Componente web lista especial
+		 *
+		 * @param array $data 		Array post data.
+		 * @param string $variation HTML Class string.
+		 * @return void
+		 */
+		public static function componente_lista_especial($data, $variation = "") {
+		?>
+		<div class="component-lista-especial <?=$variation;?>">
+			<article itemtype="http://schema.org/Article">
+				<div class="entry-content">
+					<h2>
+						<a href="<?=$data["post_tema"]->link?>" title="<?=$data["post_tema"]->name;?>">
+							<?=$data["post_tema"]->name;?>		
+						</a>
+					</h2>
+					<h3>
+						<a href="<?=$data["format_link"]?>" title="<?=$data["post_title"];?>">
+							<?=$data["post_title"];?>
+						</a>
+					</h3>
+				</div>
 			</article>
 		</div>
 		<?php
