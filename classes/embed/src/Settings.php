@@ -6,7 +6,7 @@ class Settings {
     private $wpConfigSettings;
 
     public function __construct() {
-        $this->wpConfigSettings = defined('OEMBED_PLUS_FACEBOOK_APP_ID') && defined('OEMBED_PLUS_FACEBOOK_SECRET');
+        $this->wpConfigSettings = defined('OEMBED_FACEBOOK_APP_ID') && defined('OEMBED_FACEBOOK_SECRET');
     }
 
 	public static function runHook(): void {
@@ -45,7 +45,7 @@ class Settings {
 	public function registerSettings(): void {
 		register_setting( 'writing', 'oembed_facebook_app_id', [
 			'type' => 'integer',
-			'description' => 'The App ID for the Facebook App',
+			'description' => 'El App ID de la aplicación de Facebook',
 			'sanitize_callback' => static function(?string $string): ?string {
 				return (int) $string;
 			}
@@ -53,7 +53,7 @@ class Settings {
 
 		register_setting( 'writing', 'oembed_facebook_app_secret', [
 			'type' => 'string',
-			'description' => 'The App secret for the Facebook App',
+			'description' => 'El App secret de la aplicación de Facebook',
 			'sanitize_callback' => static function(?string $string): ?string {
 				return strtolower(preg_replace("/[^A-z0-9]+/", '', $string));
 			}
