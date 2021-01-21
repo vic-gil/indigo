@@ -144,12 +144,17 @@
 	</head>
 	<body>
 		<header>
+			<?php 
+			Reporte_indigo_test::comment('Etiqueta de dominio');
+			if( header::tag_domain() )
+				Reporte_indigo_templates::componente_tag_domain( home_url(), get_bloginfo('name'), "www.reporteindigo.com");
+			?>
 			<?php Reporte_indigo_test::comment('Fixed'); ?>
 			<nav class="navbar" style="display: none;">
 				<div class="content">
 					<div>
-						<a href="<?=home_url();?>" title="<?=bloginfo('name');?>">
-							<img src="<?=IMAGESPATH;?>/generales/logo-circle-blue.png" title="<?=bloginfo('name');?>" width="30" height="28" />
+						<a href="<?=home_url();?>" title="<?=get_bloginfo('name');?>">
+							<img src="<?=IMAGESPATH;?>/generales/logo-circle-blue.png" title="<?=get_bloginfo('name');?>" width="30" height="28" />
 						</a>
 					</div>
 					<div class="newsletter">
@@ -157,89 +162,55 @@
 					</div>
 				</div>
 			</nav>
-
-			<?php 
-			Reporte_indigo_test::comment('Etiqueta de dominio');
-			
-			if(!header::tag_domain())
-				Reporte_indigo_templates::componente_tag_domain( home_url(), get_bloginfo('name'), "www.reporteindigo.com");
+			<?php
+			Reporte_indigo_test::comment('Encabezado desktop');
 			?>
+			<div class="navmain">
+				<div class="row">
+					<div class="nav-social">
+						<ul>
+							<li>
+								<a href="https://www.facebook.com/R.Indigo" title="Síguenos en Facebook" target="_blank" class="fab fa-facebook-f" rel="noopener noreferrer" aria-label="Síguenos en Facebook">
+									<span>Facebook</span>
+								</a>
+							</li>
+							<li>
+								<a href="https://twitter.com/Reporte_Indigo" title="Síguenos en Twitter" target="_blank" class="fab fa-twitter" rel="noopener noreferrer" aria-label="Síguenos en Twitter">
+									<span>Twitter</span>
+								</a>
+							</li>
+							<li>
+								<a href="https://www.youtube.com/user/reporteindigo" title="Suscribete a nuestro canal de Youtube" target="_blank" class="fab fa-youtube" rel="noopener noreferrer" aria-label="Suscribete a nuestro canal de Youtube">
+									<span>Youtube</span>
+								</a>
+							</li>
+							<li>
+								<a href="https://www.instagram.com/reporte_indigo" title="Síguenos en Instagram" target="_blank" class="fab fa-instagram" rel="noopener noreferrer" aria-label="Síguenos en Instagram">
+									<span>Instagram</span>
+								</a>
+							</li>
+							<li>
+								<a href="https://t.me/rindigo_noticias" title="Suscríbete al grupo de Telegram" target="_blank" class="fab fa-telegram-plane" rel="noopener noreferrer" aria-label="Suscríbete al grupo de Telegram">
+									<span>Telegram</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="nav-logo">
+						<a href="<?=home_url();?>" title="<?=get_bloginfo('name');?>">
+							<img src="<?=IMAGESPATH;?>/generales/logo-light-original.png" title="<?=get_bloginfo('name');?>" />
+						</a>
+					</div>
+					<div class="nav-suscribe">
+						<a href="<?=get_permalink(get_page_by_path( 'Newsletter' ));?>"><span class="fas fa-plus-circle"></span> SUSCRÍBETE</a>
+					</div>
+				</div>
+				
+			</div>
+
 		</header>
 
 		<header>
-			<!-- Encabezado mobile -->
-			<div class="container d-lg-none d-block">
-				<div class="row">
-					<div class="col-md-1 col-2 bgs-105 text-center p-0">
-						<div class="d-flex flex-row bd-highlight h-100 align-items-center justify-content-center">
-						  	<div class="bd-highlight">
-						  		<a class="nav-link bgs-105 btn-action-toggle" alt="" title="" data-bar="#menu-hiden" data-icon="fa-bars" id="_menu_mobile">
-						  			<i class="fas fa-bars col-100"></i>
-						  		</a>	
-						  	</div>
-						</div>
-					</div>
-					<div class="col-md-10 col-8 bgs-102 py-2 text-center">
-						<a href="<?=$url;?>" alt="<?=bloginfo('name');?>" title="<?=bloginfo('name');?>">
-							<img src="<?=IMAGESPATH;?>/generales/logo-light.png" alt="<?=bloginfo('name');?>" title="<?=bloginfo('name');?>">
-						</a>
-					</div>
-					<div class="col-md-1 col-2 bgs-105 text-center p-0">
-						<div class="d-flex flex-row bd-highlight h-100 align-items-center justify-content-center">
-						  	<div class="bd-highlight">
-						  		<a class="nav-link bgs-105 btn-action-toggle" alt="" title="" data-bar="#search-hiden" data-icon="fa-search" id="_search_mobile">
-						  			<i class="fas fa-search col-100"></i>
-						  		</a>
-						  	</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Encabezado desktop -->
-			<div class="container py-3 bgs-102 d-none d-lg-block">
-				<div class="row">
-					<div class="col-lg-4">
-						<ul class="nav nav-fill">
-						  	<li class="nav-item">
-						    	<a class="nav-link" href="https://www.facebook.com/R.Indigo" alt="https://www.facebook.com/R.Indigo" title="https://www.facebook.com/R.Indigo" target="_blank"><i class="col-103 fsize-16 fab fa-facebook-f"></i></a>
-						  	</li>
-						  	<li class="nav-item">
-						  	  	<a class="nav-link" href="https://twitter.com/Reporte_Indigo" alt="https://twitter.com/Reporte_Indigo" title="https://twitter.com/Reporte_Indigo" target="_blank"><i class="col-103 fsize-16 fab fa-twitter"></i></a>
-						  	</li>
-						  	<li class="nav-item">
-						  	  	<a class="nav-link" href="https://www.youtube.com/user/reporteindigo" alt="https://www.youtube.com/user/reporteindigo" title="https://www.youtube.com/user/reporteindigo" target="_blank"><i class="col-103 fsize-16 fab fa-youtube"></i></a>
-						  	</li>
-						  	<li class="nav-item">
-						  	  	<a class="nav-link" href="https://www.instagram.com/reporte_indigo" alt="https://www.instagram.com/reporte_indigo" title="https://www.instagram.com/reporte_indigo" target="_blank"><i class="col-103 fsize-16 fab fa-instagram"></i></a>
-						  	</li>
-						  	<li class="nav-item">
-						  	  	<a class="nav-link" href="https://t.me/rindigo_noticias" alt="https://t.me/rindigo_noticias" title="https://t.me/rindigo_noticias" target="_blank"><i class="col-103 fsize-16 fab fa-telegram-plane"></i></a>
-						  	</li>
-						</ul>
-					</div>
-					<div class="col-lg-4 text-center">
-						<a href="<?=$url;?>" alt="<?=bloginfo('name');?>" title="<?=bloginfo('name');?>">
-							<img class="mwx-250" src="<?=IMAGESPATH;?>/generales/logo-light-original.png" alt="<?=bloginfo('name');?>" title="<?=bloginfo('name');?>">
-						</a>
-					</div>
-					<div class="col-lg-4">
-						<ul class="nav justify-content-end"> <!-- nav-fill -->
-						  	<li class="nav-item">
-						    	<a class="nav-link" href="<?=$link_newsletter;?>" alt="<?=bloginfo('name');?>" title="<?=bloginfo('name');?>">
-						    		<span class="col-104 roboto-regular fsize-10"><i class="col-103 fSize14 fas fa-plus-circle"></i> SUSCRÍBETE</span>
-						    	</a>
-						  	</li>
-						  	<!-- <li class="nav-item">
-						  	  	<a class="nav-link" href="" alt="<?=bloginfo('name');?>" title="<?=bloginfo('name');?>">
-						  	  		<span class="col-104 roboto-regular fsize-10">INICIAR SESIÓN</span>
-						  	  	</a>
-						  	</li> -->
-						</ul>
-					</div>
-				</div>
-			</div>
-
 			<!-- Menu -->
 			<div class="container d-none d-lg-block">
 				<div class="row">
@@ -340,4 +311,3 @@
 				</div>
 			</div>
 		</header>
-?>
