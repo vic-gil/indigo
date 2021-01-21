@@ -25,6 +25,25 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 * @param Array $args  			Array configuration [ index => (int), total => (int), posts => [Array] ]
 		 * @return void
 		 */
+		public static function componente_tag_domain($link, $title, $msg) {
+		?>
+		<div class="tag-domain">
+			<h2>
+				<a href="<?=$link;?>" title="<?=$title;?>">
+					<?=$msg?>
+				</a>
+			</h2>
+		</div>
+		<?php
+		}
+
+		/**
+		 * Componente web Contenedor
+		 *
+		 * @param callable $component   function HTML Component.
+		 * @param Array $args  			Array configuration [ index => (int), total => (int), posts => [Array] ]
+		 * @return void
+		 */
 		public static function componente_contenedor(callable $fn, $args = []) {
 			$index = array_key_exists( 'index', $args ) ? $args['index'] : 0;
 			$total = array_key_exists( 'total', $args ) ? $args['total'] : 0;
