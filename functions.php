@@ -41,4 +41,15 @@ function reporte_indigo_setup() {
 }
 
 add_action( 'after_setup_theme', 'reporte_indigo_setup' );
+
+/**
+ * Carga todos los scripts que se ejecutan en tu tema
+ * (Puede ser de cabecera o pie de página por ejemplo)
+ *
+ **/
+function reporte_indigo_default_scripts(){
+	echo '"use strict";const showMenu=async(e,t,n)=>{document.getElementById(e).addEventListener("click",function(e){for(let e of document.querySelectorAll(".listen"))t!==e.id&&e.classList.remove(n);document.getElementById(t).classList.toggle(n)})};(async()=>{showMenu("exec-search","listen-search","activo"),showMenu("exec-menu","listen-menu","activo")})();';
+}
+
+add_action( 'wp_footer', 'reporte_indigo_default_scripts' , 5 );
 ?>
