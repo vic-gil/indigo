@@ -166,7 +166,7 @@
 			Reporte_indigo_test::comment('Encabezado desktop');
 			?>
 			<div class="navmain">
-				<div class="row">
+				<div class="sx1">
 					<div class="nav-social">
 						<ul>
 							<li>
@@ -205,109 +205,49 @@
 						<a href="<?=get_permalink(get_page_by_path( 'Newsletter' ));?>"><span class="fas fa-plus-circle"></span> SUSCRÍBETE</a>
 					</div>
 				</div>
-				
-			</div>
-
-		</header>
-
-		<header>
-			<!-- Menu -->
-			<div class="container d-none d-lg-block">
-				<div class="row">
-					<div class="col-12 p-0 bgs-103">
-						<ul class="nav nav-fill nav-menu-descktop">
-						  	<li class="nav-item">
-						    	<a class="nav-link bgs-105 btn-action-toggle" alt="" title="" data-bar="#menu-hiden" data-icon="fa-bars" id="_menu"><i class="fas fa-bars col-100"></i></a>
-						  	</li>
-						  	<li class="nav-item nav-item-dd position-relative">
-						  	  	<a class="nav-link <?php 'ri-reporte' == get_post_type() ? print_r('active') : ''; ?>" href="<?=site_url('reporte');?>" alt="REPORTE" title="REPORTE">REPORTE</a>
-									
-						  	  	<div class="c-subitems">
-						  	  		<?php $link_ciudad = get_permalink(get_page_by_path( 'Ciudad' ));?>
-							    	<a href="<?=$link_ciudad.'?city=cdmx';?>" alt="CDMX" title="CDMX">CDMX</a>
-							    	<a href="<?=$link_ciudad.'?city=gdl';?>" alt="GDL" title="GDL">GDL</a>
-							    	<a href="<?=$link_ciudad.'?city=mty';?>" alt="MTY" title="MTY">MTY</a>
-							  	</div>
-						  	</li>
-						  	<li class="nav-item">
-						  	  	<a class="nav-link <?php 'ri-latitud' == get_post_type() ? print_r('active') : ''; ?>" href="<?=site_url('latitud');?>" alt="LATITUD" title="LATITUD">LATITUD</a>
-						  	</li>
-						  	<li class="nav-item">
-						  	  	<a class="nav-link <?php 'ri-indigonomics' == get_post_type() ? print_r('active') : ''; ?>" href="<?=site_url('indigonomics');?>" alt="INDIGONÓMICS" title="INDIGONÓMICS">INDIGONÓMICS</a>
-						  	</li>
-						  	<li class="nav-item">
-						  	  	<a class="nav-link <?php 'ri-piensa' == get_post_type() ? print_r('active') : ''; ?>" href="<?=site_url('piensa');?>" alt="PIENSA" title="PIENSA">PIENSA</a>
-						  	</li>
-						  	<li class="nav-item">
-						  	  	<a class="nav-link <?php 'ri-fan' == get_post_type() ? print_r('active') : ''; ?>" href="<?=site_url('fan');?>" alt="FAN" title="FAN">FAN</a>
-						  	</li>
-						  	<li class="nav-item">
-						  		<a class="nav-link <?php is_page( 'indigo-noticias' ) ? print_r('active') : ''; ?>" href="<?=site_url('indigo-noticias');?>" alt="INDIGO LIVE" title="INDIGO LIVE">INDIGO LIVE</a>
-						  	</li>
-						  	<li class="nav-item">
-						  	  	<a class="nav-link <?php is_page( 'indigo-videos' ) ? print_r('active') : ''; ?>" href="<?=site_url('indigo-videos');?>" alt="INDIGO PLAY" title="INDIGO PLAY">INDIGO PLAY</a>
-						  	</li>
-						  	<li class="nav-item">
-						  	  	<a class="nav-link <?php 'ri-desglose' == get_post_type() ? print_r('active') : ''; ?>" href="<?=site_url('desglose');?>" alt="DESGLOSE" title="DESGLOSE">DESGLOSE</a>
-						  	</li>
-						  	<li class="nav-item">
-						  	  	<a class="nav-link <?php 'ri-opinion' == get_post_type() ? print_r('active') : ''; ?>" href="<?=site_url('opinion');?>" alt="OPINIÓN" title="OPINIÓN">OPINIÓN</a>
-						  	</li>
-						  	<li class="nav-item">
-						  	  	<a class="nav-link bgs-105 btn-action-toggle" alt="" title="" data-bar="#search-hiden" data-icon="fa-search" id="_search"><i class="fas fa-search col-100"></i></a>
-						  	</li>
-						</ul>
+				<div class="sx2">
+					<div class="nav-burger">
+						<span class="fas fa-bars"></span>
+					</div>
+					<nav class="nav-menu">
+						<?php
+						wp_nav_menu([
+							'theme_location' => 'header',
+							'container'      => false,
+							'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+						]);
+						?>
+					</nav>
+					<div class="nav-search">
+						<span class="fas fa-search"></span>
 					</div>
 				</div>
 			</div>
-		
-			<!-- Hide menu -->
-			<div class="container d--none c-hiddens" id="menu-hiden">
+			<?php
+			Reporte_indigo_test::comment('Menú oculto');
+			?>
+			<div class="navmenu">
 				<div class="row">
-					<div class="col-12 bgs-105 py-3">
-						<ul class="list-group">
-						  	<li class="list-group-item">
-						  		<a href="<?=site_url('reporte');?>" alt="REPORTE" title="REPORTE">REPORTE</a>
-						  		<ul class="list-group">
-						  			<li class="list-group-item"><a href="<?=$link_ciudad.'?city=cdmx';?>" alt="CDMX" title="CDMX">CDMX</a></li>
-									<li class="list-group-item"><a href="<?=$link_ciudad.'?city=gdl';?>" alt="GDL" title="GDL">GDL</a></li>
-									<li class="list-group-item"><a href="<?=$link_ciudad.'?city=mty';?>" alt="MTY" title="MTY">MTY</a></li>
-						  		</ul>
-						  	</li>
-							<li class="list-group-item"><a href="<?=site_url('latitud');?>" alt="LATITUD" title="LATITUD">LATITUD</a></li>
-							<li class="list-group-item"><a href="<?=site_url('indigonomics');?>" alt="INDIGONÓMICS" title="INDIGONÓMICS">INDIGONÓMICS</a></li>
-							<li class="list-group-item"><a href="<?=site_url('piensa');?>" alt="PIENSA" title="PIENSA">PIENSA</a></li>
-							<li class="list-group-item"><a href="<?=site_url('fan');?>" alt="FAN" title="FAN">FAN</a></li>
-							<li class="list-group-item"><a href="<?=site_url('indigo-noticias');?>" alt="INDIGO LIVE" title="INDIGO LIVE">INDIGO LIVE</a></li>
-							<li class="list-group-item"><a href="<?=site_url('indigo-videos');?>" alt="INDIGO PLAY" title="INDIGO PLAY">INDIGO PLAY</a></li>
-							<li class="list-group-item"><a href="<?=site_url('desglose');?>" alt="DESGLOSE" title="DESGLOSE">DESGLOSE</a></li>
-							<li class="list-group-item"><a href="<?=site_url('opinion');?>" alt="OPINIÓN" title="OPINIÓN">OPINIÓN</a></li>
-						</ul>
-					</div>
+					<?php
+					wp_nav_menu([
+						'theme_location' => 'header',
+						'menu_class'     => 'menu-cabecera',
+						'container'      => false,
+						'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+					]);
+					?>
+				</div>
+			</div>
+			<?php
+			Reporte_indigo_test::comment('Búsqueda');
+			?>
+			<div class="navsearch">
+				<div class="content">
+					<form method="get" action="<?=get_bloginfo('url');?>" role="search" aria-label="En todo el sitio">
+						<input type = "text" placeholder="¿Qué nota estás buscando?" role="searchbox" aria-label="Buscar" name="s" autocomplete="off">
+						<button class="fas fa-search" role="button" id="button-search" type="submit"><span>Búsqueda</span></button>
+					</form>
 				</div>
 			</div>
 
-			<!-- Search -->
-			<div class="container d--none c-hiddens" id="search-hiden">
-				<div class="row">
-					<div class="col-12 bgs-105 py-2">
-						<form method="get" action="<?=bloginfo('url');?>">
-							<div class="input-group group-search">
-							  	<input 	type="text"
-							  			class="form-control focus-100 col-100" 
-							  			placeholder="buscar..." 
-							  			aria-label="buscar..." 
-							  			aria-describedby="button-search"
-							  			name="s"
-							  			autocomplete="off">
-							  	<div class="input-group-append">
-							    	<button class="btn focus-100" type="submit" id="button-search">
-							    		<i class="fas fa-search col-100"></i>		
-							    	</button>
-							  	</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
 		</header>
