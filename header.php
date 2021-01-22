@@ -180,7 +180,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="https://www.youtube.com/user/reporteindigo" title="Suscribete a nuestro canal de Youtube" target="_blank" class="fab fa-youtube" rel="noopener noreferrer" aria-label="Suscribete a nuestro canal de Youtube">
+								<a href="https://www.youtube.com/user/reporteindigo" title="Suscríbete a nuestro canal de Youtube" target="_blank" class="fab fa-youtube" rel="noopener noreferrer" aria-label="Suscríbete a nuestro canal de Youtube">
 									<span>Youtube</span>
 								</a>
 							</li>
