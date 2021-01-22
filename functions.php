@@ -48,7 +48,7 @@ add_action( 'after_setup_theme', 'reporte_indigo_setup' );
  *
  **/
 function reporte_indigo_default_scripts(){
-	echo '"use strict";const showMenu=async(e,t,n)=>{document.getElementById(e).addEventListener("click",function(e){for(let e of document.querySelectorAll(".listen"))t!==e.id&&e.classList.remove(n);document.getElementById(t).classList.toggle(n)})};(async()=>{showMenu("exec-search","listen-search","activo"),showMenu("exec-menu","listen-menu","activo")})();';
+	echo '<script type="text/javascript">"use strict";const showMenu=async(e,t,s)=>{document.getElementById(e).addEventListener("click",function(c){for(let t of document.querySelectorAll(".exec"))e!==t.id&&t.classList.remove(s);for(let e of document.querySelectorAll(".listen"))t!==e.id&&e.classList.remove(s);this.classList.toggle(s),document.getElementById(t).classList.toggle(s)})};(async()=>{showMenu("exec-search","listen-search","activo"),showMenu("exec-menu","listen-menu","activo")})();</script>';
 }
 
 add_action( 'wp_footer', 'reporte_indigo_default_scripts' , 5 );
