@@ -35,6 +35,14 @@ add_filter('oembed_fetch_url', static function ($provider_url): string {
 	return $embed->processProviderUrls($provider_url);
 });
 
+add_filter('oembed_fetch_url', static function ($provider_url): string {
+	if (strpos($provider_url, 'https://publish.twitter.com/') !== 0) {
+		return $provider_url;
+	}
+
+	return $provider_url . '&hide_media=true&omit_script=true&dnt=true';
+});
+
 add_action('admin_init', static function (): void {
 	if (defined('OEMBED_HIDE_ADMIN_UI') && !empty(OEMBED_HIDE_ADMIN_UI)) {
 		return;
