@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 <?php $response = index::get(); ?>
 <main>
-	<h1><span class="d-none"><?=bloginfo('name');?></span></h1>
+	<h1 class="hh1"><?=bloginfo('name');?></h1>
 	<?php
 	Reporte_indigo_test::comment('Slide 8 notes');
 
@@ -10,7 +10,7 @@
 
 		if( utilerias_cm::validate_array($posts) ) {
 			?>
-			<div class="container">
+			<div class="container-main">
 				<div class="swiper-container" id="sc-home-top">
 				    <div class="swiper-wrapper">
 						<?php 
@@ -20,7 +20,7 @@
 
 						foreach ($posts as $kp => $p) {
 							$post = utilerias_cm::get_slim_elements($p, $args);
-							Reporte_indigo_templates::componente_deslizador($post, $total);
+							Reporte_indigo_templates::componente_deslizador($post, $kp, $total);
 						}
 						?>
 					</div>
@@ -87,93 +87,22 @@
 
 			<div class="col-lg-4">
 				<div class="row">
-					<!-- Player -->
-					<?php try{
-						if(!class_exists("Ri_player_db"))
-							throw new Exception("Plugin no esta activo", 1);
+					<?php
+					Reporte_indigo_test::comment('Reproductor');
+					if( class_exists("Ri_player_db") ) {
+						$data = Ri_player_db::get_front();
 
-						$data 						= Ri_player_db::get_front();
+						if( $data["success"] == 1 ) {
+							Reporte_indigo_templates::componente_reproductor($data["db"]);
+						} else {
+							Reporte_indigo_test::log( $data["message"] );
+						}
+					} else {
+						Reporte_indigo_test::log('Plugin no esta activo');
+					}
 
-						if($data["success"] != 1)
-							throw new Exception($data["message"], 1);
-							
-						$data						= $data["db"];
-						$player 					= "";
-						$rss 						= array();
-						$live 						= intval($data["live"]);
-						$title 						= "-";
-						$description 				= "-";
-						$rss 						= $data["rss"];
-						
-						if($live == 1){
-							$title 					= $data["item"]["title"];
-							$description 			= $data["item"]["description"];
-							$player 				= $data["item"]["embed"];
-						}else{
-							if(is_array($rss)){
-								if(array_key_exists(0, $rss)){
-									$title 			= $rss[0]["title"];
-									$description 	= $rss[0]["description"];
-									$guid 			= $rss[0]["guid"];
-									$ID 			= "_jwp_".$guid;
- 									$player 		= '<div data-json="'.$guid.'" id="'.$ID.'"></div>';
-								}
-							}
-						} ?>
 
-						<div class="col-lg-12 col-md-6 mt-3" id="indigo-play">
-							<picture class="c-media-100 bgs-110 shadow-sm">
-								<?=$player;?>
-								<?php if ($live == 1) { ?>
-									<img class="live" src="<?=IMAGESPATH;?>/svgs/vivo.svg" alt="<?=$title;?>" title="<?=$title;?>">
-								<?php } ?>
-							</picture>
-
-							<div class="position-relative py-3 bgs-108 shadow-sm rounded-101">
-								<div class="container">
-									<div class="row">
-										<div class="col-12">
-											<div class="d-flex bd-highlight border-101 pb-3" id="info-player">
-											  	<div class="w-100 bd-highlight">
-											  		<article class="">
-												  		<header>
-															<span class="c-title line-clamp-2">
-																<h3 class="col-104 fsize-16 roboto-bold"><?=$title;?></h3>
-															</span>
-														</header>
-												  		<p class="c-summary line-clamp-2 fsize-10 col-100 mt-1"><?=$description;?></p>
-											  		</article>
-											  	</div>
-											  	<div class="flex-shrink-1 bd-highlight d-block d-md-none">
-											  		<button type="button" class="btn btn-primary btn-sm btn-playlist">
-											  			<i class="fas fa-stream"></i>
-											  		</button>
-											  	</div>
-											</div>
-
-											<div class="position-relative" id="c-video-playlist">
-												<ul class="list-group list-group-flush">
-													<?php if(is_array($rss)){ 
-														foreach ($rss as $kr => $r) { ?>
-															<li class="list-group-item bgs-unset border-101">
-																<a data-json="<?=rawurlencode(json_encode($r));?>" alt="<?=$r['title'];?>" title="<?=$r['title'];?>" class="roboto-regular fsize-10 col-100 item-playlist-jwp"><?=$r['title'];?></a>
-															</li>	 		
-														<?php } ?>
-													<?php } ?>
-												</ul>
-											</div>
-										</div>
-										<div class="col-12 text-center mt-3">
-											<button type="button" class="btn btn-primary rounded-pill fsize-10" onclick="utilerias.share(this);" data-title="IndigoPlay" data-link="<?=site_url('indigo-videos');?>">COMPARTIR</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					<?php } catch(Exception $e){
-						print_r("<!-- ERROR: ".$e->getMessage()." -->");
-					} ?>
-
+					?>
 					<!-- Edicion Digital -->
 					<div class="col-lg-12 col-md-6 mt-3">
 						<div class="position-relative py-3 bgs-109 shadow-sm rounded-100">
@@ -214,7 +143,6 @@
 	<?php 
 	Reporte_indigo_test::comment('Newsletter');
 	Reporte_indigo_templates::componente_boletin( get_permalink(get_page_by_path( 'Newsletter' )) );
-	
 	Reporte_indigo_test::comment('Reporte, Estados');
 	?>
 
@@ -390,35 +318,7 @@
 						'range' 		=> 'last7days',
 						'post_type' 	=> $posts_types,
 						'cat' 			=> '',
-						'title_length' 	=> 55,
-						'wpp_start' 	=> '&#32;',
-						'wpp_end' 		=> '&#32;',
-						'post_html' 	=> '
-							<div class="component-lista-imagen">
-								<article itemtype="http://schema.org/Article">
-									<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
-										<a href="{post_topic_link}" title="{post_topic_name}">
-											<picture>
-												<img itemprop="contentUrl" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="  data-src="{thumbnail_image}" alt="{thumbnail_image}" title="{thumbnail_image}" class="lazy" loading="lazy" />
-											<picture>
-										</a>
-									</figure>
-									<div class="entry-data">
-										<div class="entry-title">
-											<h2>
-												<a href="{post_topic_link}" title="{post_topic_name}">
-													{post_topic_name}
-												</a>
-											</h2>
-											<h3>
-												<a href="{url}" title="{text_title}">
-													{text_title}
-												</a>
-											</h3>
-										</div>
-									</div>
-								</article>
-							</div>'
+						'title_length' 	=> 10
 					]);
 				} else {
 					Reporte_indigo_test::log('No existe el plugin para popular post');
@@ -469,7 +369,7 @@
 
 						Reporte_indigo_templates::componente_contenedor(
 							function($index, $total, $post){
-								echo ($index == 0) ? '<div class="col-md-6 col-lg-8"><div class="row">' : '';
+								echo ($index == 0) ? '<div class="col-lg-8 col-md-12"><div class="row">' : '';
 								if($index > 0 && $index < 4) Reporte_indigo_templates::componente_piensa($post);
 								if($index >= 4) Reporte_indigo_templates::componente_piensa($post, "vmedium", false);
 								echo ($index == $total - 1) ? '</div></div>' : '';
@@ -847,7 +747,7 @@
 
 						foreach ($posts as $kp => $p) {
 							$post = utilerias_cm::get_slim_elements($p, $args);
-							Reporte_indigo_templates::componente_deslizador($post, $total);
+							Reporte_indigo_templates::componente_deslizador($post, $kp, $total);
 						}
 						?>
 					</div>
