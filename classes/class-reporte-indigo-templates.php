@@ -92,6 +92,12 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		public static function componente_imagen($data, $author = false) {
 			$title = $author ? $data['name'] : $data['caption'];
 			$url = $author ? $data['photo'] : $data['link'];
+
+			$rewrite = true;
+			if($rewrite == true) {
+				$url = str_replace(get_site_url(), 'https://images.reporteindigo.com', $url);
+			}
+
 		?>
 			<img itemprop="contentUrl" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="<?=$url?>" alt="<?=$title?>" title="<?=$title?>" class="lazy" loading="lazy" />
 		<?php
@@ -106,6 +112,11 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		public static function componente_imagen_galeria($data) {
 			$title = $data['caption'];
 			$url = $data['medium_large'];
+
+			$rewrite = true;
+			if($rewrite == true) {
+				$url = str_replace(get_site_url(), 'https://images.reporteindigo.com', $url);
+			}
 		?>
 			<img itemprop="contentUrl" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="<?=$url?>" alt="<?=$title?>" title="<?=$title?>" class="lazy" loading="lazy" />
 		<?php
@@ -140,10 +151,11 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 * Componente web lista
 		 *
 		 * @param array $data    Array post data.
+		 * @param int $index     Number of item.
 		 * @param int $total     Number of posts.
 		 * @return void
 		 */
-		public static function componente_deslizador($data, $total = FALSE) {
+		public static function componente_deslizador($data, $index, $total = FALSE) {
 		?>
 			<div class="swiper-slide">
 				<article class="deslizador" itemtype="http://schema.org/Article">
@@ -176,14 +188,16 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 						</address>
 						<ul id="sw-nav-top">
 							<?php
-							for($j = 0; $j < $total; $j++) {
-							?>
-							<li class="nav-item">
-							    <a href="javascript:void(0);" class="nav-link <?=$active = $j == 0 ? 'active' : '';?>">
-							    	<i class="fas fa-circle"></i>
-							    </a>
-							</li>
-							<?php
+							if($index == 0){
+								for($j = 0; $j < $total; $j++) {
+								?>
+								<li class="<?=$active = $j == 0 ? 'active' : '';?>">
+								    <a href="javascript:void(0);">
+								    	<i class="fas fa-circle"></i>
+								    </a>
+								</li>
+								<?php
+								}
 							}
 							?>
 						</ul>
@@ -750,6 +764,81 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					</h3>
 				</div>
 			</article>
+		</div>
+		<?php
+		}
+
+		/**
+		 * Componente web lista especial
+		 *
+		 * @param array $data 		Array post data.
+		 * @param string $rss 		Url RSS.
+		 * @param string $variation HTML Class string.
+		 * @return void
+		 */
+		public static function componente_reproductor($data, $variation = "") {
+			$live = intval( $data["live"] );
+			$title = '-';
+			$description = '-';
+		?>
+		<div class="component-reproductor <?=$variation;?>">
+			<figure>
+				<picture>
+					<?php
+					if($live == 1) {
+						$title = $data["item"]["title"];
+						$description = $data["item"]["description"];
+
+						echo $data["item"]["embed"];
+						printf('<img class="live" src="%s" alt="%s" title="%s">',
+							IMAGESPATH . '/svgs/vivo.svg',
+							$data["item"]["title"],
+							$data["item"]["title"]
+						);
+					} else {
+						if( is_array($data["rss"]) && array_key_exists(0, $data["rss"]) ) {
+							$title = $data["rss"][0]["title"];
+							$description = $data["rss"][0]["description"];
+							$rss = $data["rss"][0]["guid"];
+							echo '<div data-json="' . $rss . '" id="_jwp_' . $rss . '"></div>';
+						}
+					}
+					?>
+				</picture>
+			</figure>
+			<div class="entry-player">
+				<div>
+					<div>
+						<h3><?=$title;?></h3>
+					</div>
+					<div>
+						<p><?=$description;?></p>
+					</div>
+				</div>
+				<div>
+					<button type="button">
+						<i class="fas fa-stream"></i>
+					</button>
+				</div>
+			</div>
+			<div class="stream-list">
+				<ul>
+					<?php
+					if( is_array($data["rss"]) ) {
+						foreach ($data["rss"] as $kr => $r) {
+						?>
+						<li>
+							<a href="javascript:void(0)" data-json="<?=rawurlencode(json_encode($r));?>" alt="<?=$r['title'];?>" title="<?=$r['title'];?>" class="item-playlist-jwp"><?=$r['title'];?></a>
+						</li>
+						<?php
+						}
+					}
+					?>
+				</ul>
+			</div>
+			<div class="share-videos">
+				<button type="button" onclick="utilerias.share(this);" data-title="IndigoPlay" data-link="<?=site_url('indigo-videos');?>">COMPARTIR</button>
+			</div>
 		</div>
 		<?php
 		}
