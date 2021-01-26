@@ -100,29 +100,11 @@
 					} else {
 						Reporte_indigo_test::log('Plugin no esta activo');
 					}
-
-
+					
+					Reporte_indigo_test::comment('Edición Digital');
+					Reporte_indigo_templates::componente_edicion();
 					?>
-					<!-- Edicion Digital -->
-					<div class="col-lg-12 col-md-6 mt-3">
-						<div class="position-relative py-3 bgs-109 shadow-sm rounded-100">
-							<div class="container">
-								<div class="row">
-									<div class="col-12">
-										<picture class="c-picture-102 bgs-110 shadow-sm">
-							      			<img class="lazy" data-src="https://services.publish88.com/app/newspaper/publicacion-1158/cover" alt="REPORTE INDIGO MÉXICO" title="REPORTE INDIGO MÉXICO">
-							      			<div class="display-overlay"></div>
-							      		</picture>
-									</div>
-									<?php $link_edicio 	= home_url("edicion-impresa")."?edition_id=1158"; ?>
-									<div class="col-12 mt-3 text-center">
-										<a class="btn btn-primary rounded-pill btn-sm" role="button" href="<?=$link_edicio;?>" alt="EDICIÓN DIGITAL" title="EDICIÓN DIGITAL">VER EDICIÓN DIGITAL</a>
-									</div>
-								</div>
-							</div>	
-						</div>
-					</div>
-
+					
 					<div class="col-lg-12 col-md-6 mt-3 text-center">
 						<div class="position-relative py-3 bgs-110 shadow-sm">
 							<div class="container" style="height: 600px;"></div>
