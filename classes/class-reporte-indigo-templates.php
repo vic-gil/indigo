@@ -769,10 +769,9 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		}
 
 		/**
-		 * Componente web lista especial
+		 * Componente web reproductor
 		 *
-		 * @param array $data 		Array post data.
-		 * @param string $rss 		Url RSS.
+		 * @param array $data 		Array video data.
 		 * @param string $variation HTML Class string.
 		 * @return void
 		 */
@@ -781,7 +780,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 			$title = '-';
 			$description = '-';
 		?>
-		<div class="component-reproductor <?=$variation;?>">
+		<div class="component-reproductor <?=$variation;?>" id="indigo-play">
 			<figure>
 				<picture>
 					<?php
@@ -807,7 +806,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				</picture>
 			</figure>
 			<div class="entry-player">
-				<div>
+				<div class="player-title">
 					<div>
 						<h3><?=$title;?></h3>
 					</div>
@@ -816,12 +815,12 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					</div>
 				</div>
 				<div>
-					<button type="button">
+					<button type="button" class="btn-playlist">
 						<i class="fas fa-stream"></i>
 					</button>
 				</div>
 			</div>
-			<div class="stream-list">
+			<div class="stream-list" id="c-video-playlist">
 				<ul>
 					<?php
 					if( is_array($data["rss"]) ) {
@@ -838,6 +837,37 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 			</div>
 			<div class="share-videos">
 				<button type="button" onclick="utilerias.share(this);" data-title="IndigoPlay" data-link="<?=site_url('indigo-videos');?>">COMPARTIR</button>
+			</div>
+		</div>
+		<?php
+		}
+
+		/**
+		 * Componente web edición digital
+		 *
+		 * @param string $variation HTML Class string.
+		 * @return void
+		 */
+		public static function componente_edicion($variation = "") {
+		?>
+		<div class="component-edicion <?=$variation;?>">
+			<div class="content">
+				<figure>
+					<picture>
+						<?php 
+							$image = [
+								'caption' => 'REPORTE INDIGO MÉXICO',
+								'link' => 'https://services.publish88.com/app/newspaper/publicacion-1158/cover'
+							];
+							Reporte_indigo_templates::componente_imagen($image);	
+						?>
+					</picture>
+				</figure>
+				<div class="share-edicion">
+					<a href="<?=home_url("edicion-impresa")."?edition_id=1158";?>" title="EDICIÓN DIGITAL" role="button">
+						VER EDICIÓN DIGITAL
+					</a>
+				</div>
 			</div>
 		</div>
 		<?php
