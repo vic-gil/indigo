@@ -155,4 +155,45 @@ function custom_media_responsive_size($attr, $attachment, $size) {
 }
 
 add_filter('wp_get_attachment_image_attributes', 'custom_media_responsive_size', 10 , 3);
+
+function reporte_indigo_popular_posts_html_list($popular_posts, $instance){
+    $output = '';
+    
+    foreach( $popular_posts as $popular_post ) {
+    	$post_id = $popular_post->id;
+    	$url = get_the_post_thumbnail_url($post_id, "thumbnail");
+    	$url = str_replace(get_site_url(), 'https://images.reporteindigo.com', $url);
+    	$tema = get_the_terms($post_id, 'ri-tema');
+
+        $output .= '<div class="component-lista-imagen">';
+	$output .= '	<article itemtype="http://schema.org/Article">';
+	$output .= '		<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">';
+	$output .= '			<a href="' . get_permalink($post_id) . '" title="' . esc_attr($popular_post->title) . '">';
+	$output .= '				<picture>';
+	$output .= '					<img itemprop="contentUrl" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="' . $url . '" alt="' . esc_attr($popular_post->title) . '" title="' . esc_attr($popular_post->title) . '" class="lazy" loading="lazy" />';
+	$output .= '				</picture>';
+	$output .= '			</a>';
+	$output .= '		</figure>';
+	$output .= '		<div class="entry-data">';
+	$output .= '			<div class="entry-title">';
+	$output .= '				<h2>';
+	$output .= '					<a href="' . get_term_link($tema[0]->term_id) . '" title="' . $tema[0]->name . '">';
+	$output .= $tema[0]->name;
+	$output .= '					</a>';
+	$output .= '				</h2>';
+	$output .= '				<h3>';
+	$output .= '					<a href="' . get_permalink($post_id) . '" title="' . esc_attr($popular_post->title) . '">' . esc_attr($popular_post->title) . '</a>';
+	$output .= '				</h3>';
+        $output .= '			</div>';
+        $output .= '		</div>';
+        $output .= '	</article>';
+        $output .= '</div>';
+
+    }
+
+    return $output;
+}
+
+add_filter('wpp_custom_html', 'reporte_indigo_popular_posts_html_list', 10, 2);
+
 ?>
