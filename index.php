@@ -41,9 +41,9 @@
 	?>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<div class="col-lg-8">
-				<div class="row">
+				<div class="components">
 					<?php
 					Reporte_indigo_test::comment('5 Notas administradas');
 					if( array_key_exists('general_top', $response) ) {
@@ -86,7 +86,7 @@
 			</div>
 
 			<div class="col-lg-4">
-				<div class="row">
+				<div class="components">
 					<?php
 					Reporte_indigo_test::comment('Reproductor');
 					if( class_exists("Ri_player_db") ) {
@@ -100,7 +100,7 @@
 					} else {
 						Reporte_indigo_test::log('Plugin no esta activo');
 					}
-					
+
 					Reporte_indigo_test::comment('Edición Digital');
 					Reporte_indigo_templates::componente_edicion();
 					?>
@@ -124,12 +124,21 @@
 
 	<?php 
 	Reporte_indigo_test::comment('Newsletter');
-	Reporte_indigo_templates::componente_boletin( get_permalink(get_page_by_path( 'Newsletter' )) );
+	?>
+	<div class="content-max wm">
+		<div class="content">
+		<?php
+			Reporte_indigo_templates::componente_boletin( get_permalink( get_page_by_path( 'Newsletter' ) ) );
+		?>
+		</div>
+	</div>
+	
+	<?php
 	Reporte_indigo_test::comment('Reporte, Estados');
 	?>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<?php
 				Reporte_indigo_templates::componente_titulo("reporte", "Reporte");
 			?>
@@ -137,7 +146,7 @@
 	</div>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<?php 
 				if( array_key_exists('reporte', $response) ) {
 					$reporte = $response['reporte']["primary"];
@@ -193,7 +202,7 @@
 	?>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<?php
 				Reporte_indigo_templates::componente_titulo("indigonomics", "Indigonómics");
 			?>
@@ -201,7 +210,7 @@
 	</div>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<?php 
 			Reporte_indigo_test::comment('Indigonomics 1 Nota');
 			if( array_key_exists('indigonomics', $response) ) {
@@ -255,9 +264,9 @@
 	?>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<div class="col-lg-8">
-				<div class="row">
+				<div class="components">
 					<?php
 					Reporte_indigo_test::comment('Latitud');
 
@@ -287,7 +296,7 @@
 			</div>
 
 			<div class="col-lg-4">
-				<div class="row">
+				<div class="components">
 				<?php
 				Reporte_indigo_test::comment('Lo más visto');
 				Reporte_indigo_templates::componente_titulo("", "Lo más visto");
@@ -300,7 +309,7 @@
 						'range' 		=> 'last7days',
 						'post_type' 	=> $posts_types,
 						'cat' 			=> '',
-						'title_length' 	=> 10
+						'title_length' 	=> 55
 					]);
 				} else {
 					Reporte_indigo_test::log('No existe el plugin para popular post');
@@ -312,7 +321,7 @@
 	</div>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<?php
 				Reporte_indigo_templates::componente_titulo("piensa", "Piensa");
 			?>
@@ -320,7 +329,7 @@
 	</div>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<?php
 			Reporte_indigo_test::comment('Piensa');
 
@@ -351,7 +360,7 @@
 
 						Reporte_indigo_templates::componente_contenedor(
 							function($index, $total, $post){
-								echo ($index == 0) ? '<div class="col-lg-8 col-md-12"><div class="row">' : '';
+								echo ($index == 0) ? '<div class="col-lg-8 col-md-12"><div class="components">' : '';
 								if($index > 0 && $index < 4) Reporte_indigo_templates::componente_piensa($post);
 								if($index >= 4) Reporte_indigo_templates::componente_piensa($post, "vmedium", false);
 								echo ($index == $total - 1) ? '</div></div>' : '';
@@ -367,7 +376,7 @@
 						function($index, $total, $post){
 						?>
 						<div class="col-md-6 col-lg-4">
-							<div class="row">
+							<div class="components">
 								
 							</div>
 						</div>
@@ -389,7 +398,7 @@
 	?>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<?php
 				Reporte_indigo_templates::componente_titulo("fan", "Fan");
 			?>
@@ -397,7 +406,7 @@
 	</div>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<?php 
 			Reporte_indigo_test::comment('Fan 4 Notas');
 
@@ -450,7 +459,7 @@
 	?>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<?php
 				Reporte_indigo_templates::componente_titulo("indigo-videos", "IndigoPlay");
 			?>
@@ -458,172 +467,41 @@
 	</div>
 
 
-	<?php try{
-		if(!array_key_exists('play', $response))
-			throw new Exception("No hay post para el bloque", 1);
-
-		$posts 			= $response['play'];
-
-		if(!utilerias_cm::validate_array($posts))
-			throw new Exception("No hay posts 100", 1);
-
-		if(!array_key_exists(0, $posts))
-			throw new Exception("No hay posts 101", 1);
-		
-		$size 			= wp_is_mobile() ? "medium" : "medium_large";
-		$args 			= array("size" => $size);
-		$post 			= utilerias_cm::get_slim_elements($posts[0], $args);
-
-		$post_title 	= $post["post_title"];
-		$post_excerpt 	= $post["post_excerpt"];
-		$post_image 	= $post["post_image"];
-		$format_link 	= $post["format_link"];
-		$author  		= $post["author"];
-		$post_jwplayer 	= $post["post_jwplayer"];
-		$post_tema 		= $post["post_tema"];
-		$post_ciudad 	= $post["post_ciudad"];
-		$post_type 		= $post["post_type"];
-		
-		unset($posts[0]);
-
-		$posts 			= utilerias_cm::fix_array($posts); ?>
-
-		<div class="position-relative w-100 h-auto py-3 bgs-108 shadow-sm">
-			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<a href="<?=$post_type['link'];?>" alt="<?=$post_type['name'];?>" title="<?=$post_type['name'];?>" class="c-topic">
-							<h2 class="fsize-12 col-106"><?=$post_type['name'];?></h2>
-						</a>
-						<div class="row mt-1">
-							<div class="col-lg-8 position-relative">
-								<picture class="c-picture-100 shadow-sm bgs-110 rounded-102">
-									<img class="lazy" data-src="<?=$post_image['link'];?>" alt="<?=$post_image['caption'];?>" title="<?=$post_image['caption'];?>">
-									<div class="display-overlay"></div>
-									<?php if(!empty($post_jwplayer)){ ?>
-										<div class="position-absolute w-100 h-100 t-0 l-0">
-											<div class="d-flex flex-row bd-highlight justify-content-center align-items-center h-100">
-											  	<div class="bd-highlight">
-											  		<button type="button" class="btn btn-primary rounded-circle btn-jwplayer" data-json="<?=$post_jwplayer;?>" data-title="<?=$post_title;?>">
-											  			<i class="fas fa-play"></i>
-											  		</button>
-											  	</div>
-											</div>
-										</div>
-									<?php } ?>
-								</picture>
-							</div>
-							<div class="col-lg-4 mt-768-3">
-								<article>
-									<header>
-										<?php if(!empty($post_tema)){ ?>
-											<a href="<?=$post_tema->link;?>" alt="<?=$post_tema->name;?>" title="<?=$post_tema->name;?>" class="c-topic">
-												<h2 class="fsize-12 col-103"><?=$post_tema->name;?></h2>
-											</a>
-										<?php } ?>
-										<a href="<?=$format_link;?>" alt="<?=$post_title;?>" title="<?=$post_title;?>" class="c-title line-clamp-3">
-											<h3 class="col-104 fsize-22-26 fsize-768-16-22"><?=$post_title;?></h3>
-										</a>
-									</header>
-
-									<p class="pt-2 col-104 fsize-14-18 fsize-768-12-18 c-summary line-clamp-3"><?=$post_excerpt;?></p>
-
-									<footer>
-										<a href="<?=$author['link'];?>" alt="<?=$author['name'];?>" title="<?=$author['name'];?>" class="c-author pt-2">
-											<h2 class="col-111 fsize-10"><?=$author['name'];?></h2>
-										</a>
-									</footer>
-								</article>
-								<div class="row text-center mt-4">
-									<div class="col-12 text-center">
-										<button type="button" class="btn btn-primary rounded-pill text-center fsize-10 btn-share" onclick="utilerias.share(this);" data-link="<?=$format_link;?>" data-title="<?=rawurlencode($post_title);?>">COMPARTIR</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 mt-3">
-						<hr class="border-101">
-					</div>
-
-					<?php if(!empty($posts)){
-						foreach ($posts as $kp => $p) {
-							$post 			= utilerias_cm::get_slim_elements($p);
-
-							$post_title 	= $post["post_title"];
-							$post_excerpt 	= $post["post_excerpt"];
-							$post_image 	= $post["post_image"];
-							$format_link 	= $post["format_link"];
-							$author  		= $post["author"];
-							$post_jwplayer 	= $post["post_jwplayer"];
-							$post_tema 		= $post["post_tema"];
-							$post_type 		= $post["post_type"]; ?>
-
-							<div class="col-lg-3 col-md-6 mt-3">
-								<a href="<?=$post_type['link'];?>" alt="<?=$post_type['name'];?>" title="<?=$post_type['name'];?>" class="roboto-medium">
-									<h2 class="fsize-12 col-106 text-uppercase"><?=$post_type['name'];?></h2>
-								</a>
-				
-								<picture class="c-picture-100 shadow-sm bgs-110 mt-1 rounded-102 mb-3">
-									<img class="lazy" data-src="<?=$post_image['link'];?>" alt="<?=$post_image['caption'];?>" title="<?=$post_image['caption'];?>">
-									<div class="display-overlay"></div>
-									<?php if(!empty($post_jwplayer)){ ?>
-										<div class="position-absolute w-100 h-100 t-0 l-0">
-											<div class="d-flex flex-row bd-highlight justify-content-center align-items-center h-100">
-											  	<div class="bd-highlight">
-											  		<button type="button" class="btn btn-primary rounded-circle btn-jwplayer" data-json="<?=$post_jwplayer;?>" data-title="<?=$post_title;?>">
-											  			<i class="fas fa-play"></i>
-											  		</button>
-											  	</div>
-											</div>
-										</div>
-									<?php } ?>
-								</picture>
-
-								<article>
-									<header>
-										<?php if(!empty($post_tema)){ ?>
-											<a href="<?=$post_tema->link;?>" alt="<?=$post_tema->name;?>" title="<?=$post_tema->name;?>" class="c-topic">
-												<h2 class="fsize-12 col-103"><?=$post_tema->name;?></h2>
-											</a>
-										<?php } ?>
-										<a href="<?=$format_link;?>" alt="<?=$post_title;?>" title="<?=$post_title;?>" class="c-title line-clamp-3">
-											<h3 class="col-104 fsize-14-18 fsize-768-16-22"><?=$post_title;?></h3>
-										</a>
-									</header>
-
-									<footer>
-										<a href="<?=$author['link'];?>" alt="<?=$author['name'];?>" title="<?=$author['name'];?>" class="c-author pt-2">
-											<h2 class="col-111 fsize-10"><?=$author['name'];?></h2>
-										</a>
-									</footer>
-								</article>
-
-								<div class="row mt-1">
-									<div class="col-12 text-right">
-										<button type="button" class="btn btn-primary btn-sm rounded-circle btn-share" onclick="utilerias.share(this);" data-link="<?=$format_link;?>" data-title="<?=rawurlencode($post_title);?>">
-											<i class="fas fa-share-alt"></i>
-										</button>
-									</div>
-								</div>
-							</div>
-						<?php }
-					} ?>
-				</div>
+	<div class="content-max">
+		<div class="content">
+			<div class="components">
+			<?php
+			if( array_key_exists('play', $response) ) {
+				$posts = $response['play'];
+				if( utilerias_cm::validate_array($posts) && array_key_exists(0, $posts)) {
+					$size = wp_is_mobile() ? "medium" : "medium_large";
+					$args = array("size" => $size);
+					foreach ($posts as $kp => $p){
+						$post = utilerias_cm::get_slim_elements($p, $args);
+						if($kp == 0){
+							Reporte_indigo_templates::componente_play($post, "large");
+						} else {
+							echo $aux = ($kp == 1) ? '<hr>' : '';
+							Reporte_indigo_templates::componente_play($post, "mini");
+						}
+					}
+				} else {
+					Reporte_indigo_test::log('No hay posts 100 - 101');
+				}
+			} else {
+				Reporte_indigo_test::log('No hay post para el bloque');
+			}
+			?>
 			</div>
 		</div>
-	<?php }catch(Exception $e){
-		print_r("<!-- ERROR: ".$e->getMessage()." -->");
-	} ?>
-
+	</div>
 
 	<?php 
 	Reporte_indigo_test::comment('Opinión, Publicidad');
 	?>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<?php
 				Reporte_indigo_templates::componente_titulo("opinion", "Opinión");
 			?>
@@ -631,9 +509,9 @@
 	</div>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<div class="col-lg-8">
-				<div class="row">
+				<div class="components">
 					<?php
 					if( array_key_exists('opinion', $response) ) {
 						$posts = $response['opinion'];
@@ -661,7 +539,7 @@
 				</div>
 			</div>
 			<div class="col-lg-4">
-				<col class="row">
+				<col class="components">
 					<!-- Faltan -->
 				</col>
 			</div>
@@ -673,7 +551,7 @@
 	?>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<?php
 				Reporte_indigo_templates::componente_titulo("", "Selección del editor");
 			?>
@@ -682,7 +560,7 @@
 
 	<div class="container-editor">
 		<div class="container">
-			<div class="row">
+			<div class="components">
 				<?php
 				if( array_key_exists('seleccion', $response) ) {
 					$posts = $response['seleccion'];
@@ -704,7 +582,7 @@
 	</div>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<?php
 				Reporte_indigo_templates::componente_titulo("desglose", "Desglose");
 			?>
@@ -746,7 +624,7 @@
 	?>
 
 	<div class="container">
-		<div class="row">
+		<div class="components">
 			<?php
 				Reporte_indigo_templates::componente_titulo("", "Especial");
 			?>
@@ -759,7 +637,7 @@
 
 	<div class="container-especial">
 		<div class="container">
-			<div class="row">
+			<div class="components">
 				<?php
 				if( array_key_exists('especial', $response) ){
 					$posts = $response['especial'];
@@ -782,7 +660,7 @@
 
 								Reporte_indigo_templates::componente_contenedor(
 									function($index, $total, $post){
-										echo ($index == 0) ? '<div class="container-lista-especial"><div class="row">' : '';
+										echo ($index == 0) ? '<div class="container-lista-especial"><div class="components">' : '';
 										Reporte_indigo_templates::componente_lista_especial($post);
 										echo ($index == $total - 1) ? '</div></div>' : '';
 									}, [
