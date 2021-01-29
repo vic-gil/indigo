@@ -12,7 +12,7 @@
 	<head>
 		<title><?php if (is_single() ) { single_post_title('', true); } else { bloginfo('name'); } ?></title>
 		<meta charset="<?php bloginfo( 'charset' ); ?>">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
 		<meta http-equiv="cleartype" content="on">
 		<meta name="description" content="<?php if ( is_single() ) { if(is_single() && !empty($post->post_excerpt) ) { echo get_the_excerpt(); } else { single_post_title('', true); } } else { bloginfo('name'); echo " - "; bloginfo('description'); } ?>">
@@ -206,8 +206,13 @@
 					</div>
 				</div>
 				<div class="sx2">
-					<div class="nav-burger">
+					<div class="nav-burger exec" id="exec-menu">
 						<span class="fas fa-bars"></span>
+					</div>
+					<div class="nav-logo">
+						<a href="<?=home_url();?>" title="<?=get_bloginfo('name');?>">
+							<img src="<?=IMAGESPATH;?>/generales/logo-light-original.png" title="<?=get_bloginfo('name');?>" />
+						</a>
 					</div>
 					<nav class="nav-menu">
 						<?php
@@ -218,7 +223,7 @@
 						]);
 						?>
 					</nav>
-					<div class="nav-search">
+					<div class="nav-search exec" id="exec-search">
 						<span class="fas fa-search"></span>
 					</div>
 				</div>
@@ -226,14 +231,15 @@
 			<?php
 			Reporte_indigo_test::comment('Menú oculto');
 			?>
-			<div class="navmenu">
-				<div class="row">
+			<div class="navmenu listen" id="listen-menu">
+				<div class="components">
 					<?php
 					wp_nav_menu([
 						'theme_location' => 'header',
 						'menu_class'     => 'menu-cabecera',
 						'container'      => false,
 						'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+						'depth'          => 2
 					]);
 					?>
 				</div>
@@ -241,8 +247,8 @@
 			<?php
 			Reporte_indigo_test::comment('Búsqueda');
 			?>
-			<div class="navsearch">
-				<div class="content">
+			<div class="navsearch listen" id="listen-search">
+				<div class="components">
 					<form method="get" action="<?=get_bloginfo('url');?>" role="search" aria-label="En todo el sitio">
 						<input type = "text" placeholder="¿Qué nota estás buscando?" role="searchbox" aria-label="Buscar" name="s" autocomplete="off">
 						<button class="fas fa-search" role="button" id="button-search" type="submit"><span>Búsqueda</span></button>
