@@ -1,7 +1,8 @@
 <?php $url = home_url(); ?>
+		
 		<footer class="pie">
 			<div class="footer-sections container">
-				<div class="row">
+				<div class="components">
 					<div class="footer-follow">
 						<div class="footer-title">
 							<span>Síguenos</span>
@@ -39,6 +40,7 @@
 							'menu_class'     => 'menu-sitios',
 							'container'      => false,
 							'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+							'depth'          => 1
 						]);
 						?>
 					</div>
@@ -52,6 +54,7 @@
 							'menu_class'     => 'menu-ayuda',
 							'container'      => false,
 							'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+							'depth'          => 1
 						]);
 						?>
 					</div>
