@@ -132,37 +132,55 @@
 	</div>
 
 	<!-- Modal jwplayer -->
-	<div class="modal fade" id="m-share" tabindex="-1" role="dialog" aria-labelledby="m-share-cente" aria-hidden="true">
-	  	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-	    	<div class="modal-content">
-	      		<div class="modal-header">
-	        		<h5 class="modal-title" id="m-jwplayer-section">Comparte</h5>
-	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          			<span aria-hidden="true">&times;</span>
-	        		</button>
-	      		</div>
-	      		<div class="modal-body text-center">
-	     			<h2 class="roboto-bold fsize-16"></h2>
-	     			<div class="row justify-content-center">
-						<div class="col-auto my-3 text-center">
-							<button type="button" class="btn item-social bgsfb100a focus-100 m-2" alt="facebook" title="facebook"><i class="fab fa-facebook-square fsize-18 col-100"></i></button>
-							<button type="button" class="btn item-social bgstw100a focus-100 m-2" alt="twitter" title="twitter"><i class="fab fa-twitter-square fsize-18 col-100"></i></button>
-							<button type="button" class="btn item-social bgswa100a focus-100 m-2" alt="whatsapp" title="whatsapp"><i class="fab fa-whatsapp-square fsize-18 col-100"></i></button>
-							<button type="button" class="btn item-social bgsln100a focus-100 m-2" alt="line" title="line"><i class="fab fa-line fsize-18 col-100"></i></button>
-							<button type="button" class="btn item-social bgstg100a focus-100 m-2" alt="telegram" title="telegram"><i class="fab fa-telegram fsize-18 col-100"></i></button>
-							<button type="button" class="btn item-social bgstb100a focus-100 m-2" alt="tumblr" title="tumblr"><i class="fab fa-tumblr-square fsize-18 col-100"></i></button>
-							<button type="button" class="btn item-social bgsld100a focus-100 m-2" alt="linkedin" title="linkedin"><i class="fab fa-linkedin fsize-18 col-100"></i></button>
-							<button type="button" class="btn item-social bgsfd100a focus-100 m-2" alt="flipboard" title="flipboard"><i class="fab fa-flipboard fsize-18 col-100"></i></button>
-							<button type="button" class="btn item-social bgspt100a focus-100 m-2" alt="pinterest" title="pinterest"><i class="fab fa-pinterest-square fsize-18 col-100"></i></button>
-							<button type="button" class="btn item-social bgsrd100a focus-100 m-2" alt="reddit" title="reddit"><i class="fab fa-reddit-square fsize-18 col-100"></i></button>
-							<button type="button" class="btn item-social bgsvk100a focus-100 m-2" alt="vk" title="vk"><i class="fab fa-vk fsize-18 col-100"></i></button>
-						</div>
-					</div>
-	      		</div>
-	      		<div class="modal-footer">
-	        		<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-	      		</div>
-	    	</div>
-	  	</div>
+	<div class="modal fade" id="m-share" tabindex="-1" role="dialog" aria-labelledby="shareModal" aria-hidden="true">
+  		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<h5 class="modal-title" id="shareModal">Comparte</h5>
+        			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          				<span aria-hidden="true">&times;</span>
+        			</button>
+      			</div>
+      			<div class="modal-body">
+      				<a href="javascript:void(0);" class="fab fa-facebook-square" title="Comparte está nota en facebook" aria-label="Comparte está nota en facebook" role="button">
+      					<span>Facebook</span>
+      				</a>
+      				<a href="javascript:void(0);" class="fab fa-twitter-square" title="Comparte está nota en twitter" aria-label="Comparte está nota en twitter" role="button">
+      					<span>Twitter</span>
+      				</a>
+      				<a href="javascript:void(0);" class="fab fa-whatsapp-square" title="Comparte está nota en whatsapp" aria-label="Comparte está nota en whatsapp" role="button">
+      					<span>Whatsapp</span>
+      				</a>
+      				<a href="javascript:void(0);" class="fab fa-line" title="Comparte está nota en line" aria-label="Comparte está nota en line" role="button">
+      					<span>Line</span>
+      				</a>
+      				<a href="javascript:void(0);" class="fab fa-telegram" title="Comparte está nota en telegram" aria-label="Comparte está nota en telegram" role="button">
+      					<span>Telegram</span>
+      				</a>
+      				<a href="javascript:void(0);" class="fab fa-tumblr-square" title="Comparte está nota en tumblr" aria-label="Comparte está nota en tumblr" role="button">
+      					<span>Tumblr</span>
+      				</a>
+      				<a href="javascript:void(0);" class="fab fa-linkedin" title="Comparte está nota en linkedin" aria-label="Comparte está nota en linkedin" role="button">
+      					<span>Linkedin</span>
+      				</a>
+      				<a href="javascript:void(0);" class="fab fa-flipboard" title="Comparte está nota en flipboard" aria-label="Comparte está nota en flipboard" role="button">
+      					<span>Flipboard</span>
+      				</a>
+      				<a href="javascript:void(0);" class="fab fa-pinterest-square" title="Comparte está nota en pinterest" aria-label="Comparte está nota en pinterest" role="button">
+      					<span>Pinterest</span>
+      				</a>
+      				<a href="javascript:void(0);" class="fab fa-reddit-square" title="Comparte está nota en reddit" aria-label="Comparte está nota en reddit" role="button">
+      					<span>Reddit</span>
+      				</a>
+      				<a href="javascript:void(0);" class="fab fa-vk" title="Comparte está nota en VK" aria-label="Comparte está nota en VK" role="button">
+      					<span>VK</span>
+      				</a>
+      			</div>
+      			<div class="modal-footer">
+        			<button data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
 	</div>
+
 </html>
