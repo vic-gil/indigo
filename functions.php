@@ -48,7 +48,7 @@ add_action( 'after_setup_theme', 'reporte_indigo_setup' );
  *
  **/
 function reporte_indigo_default_scripts(){
-	echo '<script type="text/javascript">"use strict";const showMenu=async(e,t,s)=>{document.getElementById(e).addEventListener("click",function(c){for(let t of document.querySelectorAll(".exec"))e!==t.id&&t.classList.remove(s);for(let e of document.querySelectorAll(".listen"))t!==e.id&&e.classList.remove(s);this.classList.toggle(s),document.getElementById(t).classList.toggle(s)})};(async()=>{showMenu("exec-search","listen-search","activo"),showMenu("exec-menu","listen-menu","activo")})();</script>';
+	echo '<script type="text/javascript">"use strict";const showMenu=async(e,t,c)=>{document.getElementById(e).addEventListener("click",function(o){for(let t of document.querySelectorAll(".exec"))e!==t.id&&t.classList.remove(c);for(let e of document.querySelectorAll(".listen"))t!==e.id&&e.classList.remove(c);this.classList.toggle(c),document.getElementById(t).classList.toggle(c)})};(async()=>{showMenu("exec-search","listen-search","activo"),showMenu("exec-menu","listen-menu","activo"),document.addEventListener("scroll",function(){(document.documentElement.scrollTop||document.body.scrollTop)<document.querySelector(".navmain").offsetHeight?document.querySelector(".navbar").classList.remove("active"):document.querySelector(".navbar").classList.add("active")},{passive:!0})})();</script>';
 }
 
 add_action( 'wp_footer', 'reporte_indigo_default_scripts' , 5 );
