@@ -150,7 +150,7 @@
 				Reporte_indigo_templates::componente_tag_domain( home_url(), get_bloginfo('name'), "www.reporteindigo.com");
 			?>
 			<?php Reporte_indigo_test::comment('Fixed'); ?>
-			<nav class="navbar" style="display: none;">
+			<div class="navbar">
 				<div class="content">
 					<div>
 						<a href="<?=home_url();?>" title="<?=get_bloginfo('name');?>">
@@ -161,7 +161,7 @@
 						<a href="<?=get_permalink(get_page_by_path( 'Newsletter' ));?>"><span class="fas fa-plus-circle"></span> SUSCRÍBETE</a>
 					</div>
 				</div>
-			</nav>
+			</div>
 			<?php
 			Reporte_indigo_test::comment('Encabezado desktop');
 			?>
