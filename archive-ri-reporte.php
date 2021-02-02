@@ -39,43 +39,35 @@
 		$index = 0;
 		if( $nacional->have_posts() ) : 
 			while ( $nacional->have_posts() ) : $nacional->the_post();
-				Reporte_indigo_templates::componente_contenedor(
-					function($index, $total, $post) {
+				if($index == 0){
+					echo '<div class="col-lg-8"><div class="components">';
+					get_template_part( 'template-parts/components/general/ri', 'original' );
+					echo '</div></div>';
+				}
 
-						if($index == 0){
-							echo '<div class="col-lg-8"><div class="components">';
-							get_template_part( 'template-parts/components/general/ri', 'original' );
-							echo '</div></div>';
-						}
+				if ($index == 1)
+					echo '<div class="col-lg-4"><div class="components">';
 
-						if ($index == 1)
-							echo '<div class="col-lg-4"><div class="components">';
+				if($index >= 1 && $index <= 4)
+					get_template_part( 'template-parts/components/lista_imagen/ri', 'original' );
 
-						if($index >= 1 && $index <= 4)
-							get_template_part( 'template-parts/components/lista_imagen/ri', 'original' );
+				if ($index == 4)
+					echo '</div></div><div class="separator"><hr></div>';
 
-						if ($index == 4)
-							echo '</div></div><div class="separator"><hr></div>';
+				if ($index == 5)
+					echo '<div class="col-lg-8"><div class="components">';
 
-						if ($index == 5)
-							echo '<div class="col-lg-8"><div class="components">';
+				if($index >= 5 && $index <= 6)
+					get_template_part( 'template-parts/components/general/ri', 'small' );
 
-						if($index >= 5 && $index <= 6)
-							get_template_part( 'template-parts/components/general/ri', 'small' );
+				if ($index == 6)
+					echo '</div></div>';
 
-						if ($index == 6)
-							echo '</div></div>';
+				if ($index == 7)
+					echo '<div class="col-lg-4"><div class="components">';
 
-						if ($index == 7)
-							echo '<div class="col-lg-4"><div class="components">';
-
-						if($index >= 7)
-							get_template_part( 'template-parts/components/lista/ri', 'original' );
-
-					}, [
-						'index' => $index
-					]
-				);
+				if($index >= 7)
+					get_template_part( 'template-parts/components/lista/ri', 'original' );
 
 				$index++;
 			endwhile;
@@ -131,43 +123,35 @@
 		$index = 0;
 		if( $cdmx->have_posts() ) : 
 			while ( $cdmx->have_posts() ) : $cdmx->the_post();
-				Reporte_indigo_templates::componente_contenedor(
-					function($index, $total, $post) {
+				if($index == 0){
+					echo '<div class="col-lg-8"><div class="components">';
+					get_template_part( 'template-parts/components/general/ri', 'original' );
+					echo '</div></div>';
+				}
 
-						if($index == 0){
-							echo '<div class="col-lg-8"><div class="components">';
-							get_template_part( 'template-parts/components/general/ri', 'original' );
-							echo '</div></div>';
-						}
+				if ($index == 1)
+					echo '<div class="col-lg-4"><div class="components">';
 
-						if ($index == 1)
-							echo '<div class="col-lg-4"><div class="components">';
+				if($index >= 1 && $index <= 4)
+					get_template_part( 'template-parts/components/lista_imagen/ri', 'original' );
 
-						if($index >= 1 && $index <= 4)
-							get_template_part( 'template-parts/components/lista_imagen/ri', 'original' );
+				if ($index == 4)
+					echo '</div></div><div class="separator"><hr></div>';
 
-						if ($index == 4)
-							echo '</div></div><div class="separator"><hr></div>';
+				if ($index == 5)
+					echo '<div class="col-lg-8"><div class="components">';
 
-						if ($index == 5)
-							echo '<div class="col-lg-8"><div class="components">';
+				if($index >= 5 && $index <= 6)
+					get_template_part( 'template-parts/components/general/ri', 'small' );
 
-						if($index >= 5 && $index <= 6)
-							get_template_part( 'template-parts/components/general/ri', 'small' );
+				if ($index == 6)
+					echo '</div></div>';
 
-						if ($index == 6)
-							echo '</div></div>';
+				if ($index == 7)
+					echo '<div class="col-lg-4"><div class="components">';
 
-						if ($index == 7)
-							echo '<div class="col-lg-4"><div class="components">';
-
-						if($index >= 7)
-							get_template_part( 'template-parts/components/lista/ri', 'original' );
-
-					}, [
-						'index' => $index
-					]
-				);
+				if($index >= 7)
+					get_template_part( 'template-parts/components/lista/ri', 'original' );
 
 				$index++;
 			endwhile;
@@ -222,50 +206,43 @@
 		$index = 0;
 		if( $gdl->have_posts() ) : 
 			while ( $gdl->have_posts() ) : $gdl->the_post();
-				Reporte_indigo_templates::componente_contenedor(
-					function($index, $total, $post) {
+				
+				if($index == 0){
+					echo '<div class="col-lg-8"><div class="components">';
+					get_template_part( 'template-parts/components/general/ri', 'original' );
+					echo '</div></div>';
+					echo '<div class="col-lg-4"><div class="components">';
+					/**
+					 *
+					 * Aqui va la publicidad
+					 *
+					**/
+					echo '</div></div><div class="separator"><hr></div>';
+				}	
 
-						if($index == 0){
-							echo '<div class="col-lg-8"><div class="components">';
-							get_template_part( 'template-parts/components/general/ri', 'original' );
-							echo '</div></div>';
-							echo '<div class="col-lg-4"><div class="components">';
-							/**
-							 *
-							 * Aqui va la publicidad
-							 *
-							**/
-							echo '</div></div><div class="separator"><hr></div>';
-						}	
+				if ($index == 1)
+					echo '<div class="col-lg-8"><div class="components">';
 
-						if ($index == 1)
-							echo '<div class="col-lg-8"><div class="components">';
+				if($index >= 1 && $index <= 2)
+					get_template_part( 'template-parts/components/general/ri', 'small' );
 
-						if($index >= 1 && $index <= 2)
-							get_template_part( 'template-parts/components/general/ri', 'small' );
+				if ($index == 2)
+					echo '</div></div>';
 
-						if ($index == 2)
-							echo '</div></div>';
+				if ($index == 3)
+					echo '<div class="col-lg-4"><div class="components">';
 
-						if ($index == 3)
-							echo '<div class="col-lg-4"><div class="components">';
+				if($index >= 3 && $index <= 6)
+					get_template_part( 'template-parts/components/lista/ri', 'original' );
 
-						if($index >= 3 && $index <= 6)
-							get_template_part( 'template-parts/components/lista/ri', 'original' );
+				if ($index == 6)
+					echo '</div></div>';
 
-						if ($index == 6)
-							echo '</div></div>';
+				if ($index == 7)
+					echo '<div class="col-lg-12"><div class="components">';
 
-						if ($index == 7)
-							echo '<div class="col-lg-12"><div class="components">';
-
-						if($index >= 7)
-							get_template_part( 'template-parts/components/lista_imagen/ri', 'mini' );
-
-					}, [
-						'index' => $index
-					]
-				);
+				if($index >= 7)
+					get_template_part( 'template-parts/components/lista_imagen/ri', 'mini' );
 
 				$index++;
 			endwhile;
@@ -332,43 +309,35 @@
 		$index = 0;
 		if( $mty->have_posts() ) : 
 			while ( $mty->have_posts() ) : $mty->the_post();
-				Reporte_indigo_templates::componente_contenedor(
-					function($index, $total, $post) {
+				if($index == 0){
+					echo '<div class="col-lg-8"><div class="components">';
+					get_template_part( 'template-parts/components/general/ri', 'original' );
+					echo '</div></div>';
+				}
 
-						if($index == 0){
-							echo '<div class="col-lg-8"><div class="components">';
-							get_template_part( 'template-parts/components/general/ri', 'original' );
-							echo '</div></div>';
-						}
+				if ($index == 1)
+					echo '<div class="col-lg-4"><div class="components">';
 
-						if ($index == 1)
-							echo '<div class="col-lg-4"><div class="components">';
+				if($index >= 1 && $index <= 4)
+					get_template_part( 'template-parts/components/lista/ri', 'original' );
 
-						if($index >= 1 && $index <= 4)
-							get_template_part( 'template-parts/components/lista/ri', 'original' );
+				if ($index == 4)
+					echo '</div></div><div class="separator"><hr></div>';
 
-						if ($index == 4)
-							echo '</div></div><div class="separator"><hr></div>';
+				if ($index == 5)
+					echo '<div class="col-lg-8"><div class="components">';
 
-						if ($index == 5)
-							echo '<div class="col-lg-8"><div class="components">';
+				if($index >= 5 && $index <= 6)
+					get_template_part( 'template-parts/components/general/ri', 'small' );
 
-						if($index >= 5 && $index <= 6)
-							get_template_part( 'template-parts/components/general/ri', 'small' );
+				if ($index == 6)
+					echo '</div></div>';
 
-						if ($index == 6)
-							echo '</div></div>';
+				if ($index == 7)
+					echo '<div class="col-lg-4"><div class="components">';
 
-						if ($index == 7)
-							echo '<div class="col-lg-4"><div class="components">';
-
-						if($index >= 7)
-							get_template_part( 'template-parts/components/lista/ri', 'original' );
-
-					}, [
-						'index' => $index
-					]
-				);
+				if($index >= 7)
+					get_template_part( 'template-parts/components/lista/ri', 'original' );
 
 				$index++;
 			endwhile;
