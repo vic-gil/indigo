@@ -199,7 +199,6 @@ function reporte_indigo_popular_posts_html_list($popular_posts, $instance){
 }
 
 add_filter('wpp_custom_html', 'reporte_indigo_popular_posts_html_list', 10, 2);
-
 function reporte_indigo_add_image_class($class){
     $class .= ' lazy';
 
@@ -223,5 +222,16 @@ function reporte_indigo_replace_url_image($content){
 }
 
 add_filter('the_content','reporte_indigo_replace_url_image');
+
+
+function reporte_indigo_main_query($query) {
+	if( ! is_admin() && $query->is_main_query() ):
+		$query->set( 'no_found_rows', true );
+	endif;
+
+	return $query;
+}
+
+add_action( 'pre_get_posts', 'reporte_indigo_main_query' );
 
 ?>
