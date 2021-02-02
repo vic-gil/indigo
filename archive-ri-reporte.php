@@ -31,7 +31,7 @@
 			]);
 
 			if ( ! is_wp_error( $nacional ) && $nacional->have_posts() ) {
-   				set_transient('ri_cache_nacional', $nacional, 10 * MINUTE_IN_SECONDS );
+   				set_transient('ri_cache_nacional', $nacional, 30 * MINUTE_IN_SECONDS );
 			}
 
 		}
@@ -115,7 +115,7 @@
 			]);
 
 			if ( ! is_wp_error( $cdmx ) && $cdmx->have_posts() ) {
-   				set_transient('ri_cache_cdmx', $cdmx, 10 * MINUTE_IN_SECONDS );
+   				set_transient('ri_cache_cdmx', $cdmx, 30 * MINUTE_IN_SECONDS );
 			}
 
 		}
@@ -198,7 +198,7 @@
 			]);
 
 			if ( ! is_wp_error( $gdl ) && $gdl->have_posts() ) {
-   				set_transient('ri_cache_gdl', $gdl, 10 * MINUTE_IN_SECONDS );
+   				set_transient('ri_cache_gdl', $gdl, 30 * MINUTE_IN_SECONDS );
 			}
 
 		}
@@ -301,7 +301,7 @@
 			]);
 
 			if ( ! is_wp_error( $mty ) && $mty->have_posts() ) {
-   				set_transient('ri_cache_mty', $mty, 10 * MINUTE_IN_SECONDS );
+   				set_transient('ri_cache_mty', $mty, 30 * MINUTE_IN_SECONDS );
 			}
 
 		}
@@ -319,7 +319,7 @@
 					echo '<div class="col-lg-4"><div class="components">';
 
 				if($index >= 1 && $index <= 4)
-					get_template_part( 'template-parts/components/lista/ri', 'original' );
+					get_template_part( 'template-parts/components/lista_imagen/ri', 'original' );
 
 				if ($index == 4)
 					echo '</div></div><div class="separator"><hr></div>';
