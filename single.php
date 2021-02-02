@@ -45,7 +45,7 @@
 
 				if( $related->have_posts() ) : 
 					while ( $related->have_posts() ) : $related->the_post();
-						get_template_part( 'template-parts/components/general/ri', 'mini' );
+						get_template_part( 'template-parts/components/ri', 'general', [ "class" => "vmini" ] );
 					endwhile;
 				else:
 					Reporte_indigo_test::log('No hay post para el bloque');
