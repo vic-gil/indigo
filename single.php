@@ -19,26 +19,33 @@
 			$tema = get_the_terms( get_the_ID(), 'ri-tema');
 			if( ! empty($tema) ) : $tema = $tema[0];
 
-				$related = new WP_Query([
-					'post_type' 		=> get_post_type(),
-					'posts_per_page' 	=> 3,
-					'post_status'      	=> 'publish',
-					'suppress_filters' 	=> true,
-					'paged'				=> '',
-					'post__not_in'		=> [ get_the_ID() ],
-					'meta_query' 		=> '',
-					'tax_query' 		=> [
-						[
-							'taxonomy' 	=> $tema->taxonomy,
-							'field'	   	=> 'slug',
-							'terms'	 	=> $tema->slug
+				if( false === $related = get_transient('ri_cache_related_' . get_the_ID() ) ) {
+
+					$related = new WP_Query([
+						'post_type' 		=> get_post_type(),
+						'posts_per_page' 	=> 3,
+						'post_status'      	=> 'publish',
+						'suppress_filters' 	=> false,
+						'post__not_in'		=> [ get_the_ID() ],
+						'no_found_rows' 	=> true,
+						'tax_query' 		=> [
+							[
+								'taxonomy' 	=> $tema->taxonomy,
+								'field'	   	=> 'slug',
+								'terms'	 	=> $tema->slug
+							]
 						]
-					]
-				]);
+					]);
+
+					if ( ! is_wp_error( $related ) && $related->have_posts() ) {
+		   				set_transient('ri_cache_related_' . get_the_ID(), $related, 12 * HOUR_IN_SECONDS );
+					}
+
+				}
 
 				if( $related->have_posts() ) : 
 					while ( $related->have_posts() ) : $related->the_post();
-						get_template_part( 'template-parts/components/ri', 'general_mini' );
+						get_template_part( 'template-parts/components/general/ri', 'mini' );
 					endwhile;
 				else:
 					Reporte_indigo_test::log('No hay post para el bloque');
