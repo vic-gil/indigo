@@ -43,6 +43,34 @@ function reporte_indigo_setup() {
 add_action( 'after_setup_theme', 'reporte_indigo_setup' );
 
 /**
+ * Carga todos los estilos en la sección que corresponde
+ *
+ **/
+
+function reporte_indigo_scripts(){
+	wp_enqueue_style( 'critical-style', get_stylesheet_directory_uri() . "/css/critical.css", [], "20210120" );
+
+	if( ! is_home() && ! is_single() && !is_post_type_archive('ri-reporte') ){
+		wp_enqueue_style('bootstrap-min-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', array(), '4.4.1', 'all' );
+		wp_enqueue_style('my-stylesheet-css', get_stylesheet_uri(), array(), '0.0.1', 'all' );
+		wp_enqueue_style('my-768-css', get_template_directory_uri()."/assets/css/768.css", array(), '0.0.1', 'screen and (max-width: 768px)');
+		wp_enqueue_style('my-576-css', get_template_directory_uri()."/assets/css/576.css", array(), '0.0.1', 'screen and (max-width: 576px)');
+		wp_enqueue_style('my-425-css', get_template_directory_uri()."/assets/css/425.css", array(), '0.0.1', 'screen and (max-width: 425px)');
+	}
+
+	if ( is_post_type_archive('ri-reporte') )
+		wp_enqueue_style( 'components-style', get_stylesheet_directory_uri() . "/css/reporte.css", [], "20210120" );
+
+	if( is_home() )
+		wp_enqueue_style( 'components-style', get_stylesheet_directory_uri() . "/css/home.css", [], "20210120" );
+
+	if( is_single() )
+		wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/css/single.css", [], "20210120" );
+}
+
+add_action( 'wp_enqueue_scripts', 'reporte_indigo_scripts' );
+
+/**
  * Carga todos los scripts que se ejecutan en tu tema
  * (Puede ser de cabecera o pie de página por ejemplo)
  *
