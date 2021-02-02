@@ -31,7 +31,7 @@
 			]);
 
 			if ( ! is_wp_error( $nacional ) && $nacional->have_posts() ) {
-   				set_transient('ri_cache_nacional', $nacional, 30 * MINUTE_IN_SECONDS );
+   				set_transient('ri_cache_nacional', $nacional, 12 * HOUR_IN_SECONDS );
 			}
 
 		}
@@ -41,7 +41,7 @@
 			while ( $nacional->have_posts() ) : $nacional->the_post();
 				if($index == 0){
 					echo '<div class="col-lg-8"><div class="components">';
-					get_template_part( 'template-parts/components/general/ri', 'original' );
+					get_template_part( 'template-parts/components/ri', 'general' );
 					echo '</div></div>';
 				}
 
@@ -49,7 +49,7 @@
 					echo '<div class="col-lg-4"><div class="components">';
 
 				if($index >= 1 && $index <= 4)
-					get_template_part( 'template-parts/components/lista_imagen/ri', 'original' );
+					get_template_part( 'template-parts/components/ri', 'lista_imagen', [ "class" => "vinh" ] );
 
 				if ($index == 4)
 					echo '</div></div><div class="separator"><hr></div>';
@@ -58,7 +58,7 @@
 					echo '<div class="col-lg-8"><div class="components">';
 
 				if($index >= 5 && $index <= 6)
-					get_template_part( 'template-parts/components/general/ri', 'small' );
+					get_template_part( 'template-parts/components/ri', 'general', [ "class" => "vsmall" ] );
 
 				if ($index == 6)
 					echo '</div></div>';
@@ -67,7 +67,7 @@
 					echo '<div class="col-lg-4"><div class="components">';
 
 				if($index >= 7)
-					get_template_part( 'template-parts/components/lista/ri', 'original' );
+					get_template_part( 'template-parts/components/ri', 'lista', [ "class" => "vinh" ] );
 
 				$index++;
 			endwhile;
@@ -82,8 +82,8 @@
 	</div>
 	<div class="container wmc">
 		<a href="<?=get_permalink( get_page_by_path( 'Ciudad' ) ) . '?city=nacional'?>" title="Ir a entradas nacionales" class="btn-general" role="button">
-				Ver más notas <i class="fas fa-caret-right"></i>
-			</a>
+			Ver más notas <i class="fas fa-caret-right"></i>
+		</a>
 	</div>
 	<div class="container wm">
 		<div class="components">
@@ -115,7 +115,7 @@
 			]);
 
 			if ( ! is_wp_error( $cdmx ) && $cdmx->have_posts() ) {
-   				set_transient('ri_cache_cdmx', $cdmx, 30 * MINUTE_IN_SECONDS );
+   				set_transient('ri_cache_cdmx', $cdmx, 12 * HOUR_IN_SECONDS );
 			}
 
 		}
@@ -125,7 +125,7 @@
 			while ( $cdmx->have_posts() ) : $cdmx->the_post();
 				if($index == 0){
 					echo '<div class="col-lg-8"><div class="components">';
-					get_template_part( 'template-parts/components/general/ri', 'original' );
+					get_template_part( 'template-parts/components/ri', 'general' );
 					echo '</div></div>';
 				}
 
@@ -133,7 +133,7 @@
 					echo '<div class="col-lg-4"><div class="components">';
 
 				if($index >= 1 && $index <= 4)
-					get_template_part( 'template-parts/components/lista_imagen/ri', 'original' );
+					get_template_part( 'template-parts/components/ri', 'lista_imagen', [ "class" => "vinh" ] );
 
 				if ($index == 4)
 					echo '</div></div><div class="separator"><hr></div>';
@@ -142,7 +142,7 @@
 					echo '<div class="col-lg-8"><div class="components">';
 
 				if($index >= 5 && $index <= 6)
-					get_template_part( 'template-parts/components/general/ri', 'small' );
+					get_template_part( 'template-parts/components/ri', 'general', [ "class" => "vsmall" ] );
 
 				if ($index == 6)
 					echo '</div></div>';
@@ -151,7 +151,7 @@
 					echo '<div class="col-lg-4"><div class="components">';
 
 				if($index >= 7)
-					get_template_part( 'template-parts/components/lista/ri', 'original' );
+					get_template_part( 'template-parts/components/ri', 'lista', [ "class" => "vinh" ] );
 
 				$index++;
 			endwhile;
@@ -166,8 +166,8 @@
 	</div>
 	<div class="container wmc">
 		<a href="<?=get_permalink( get_page_by_path( 'Ciudad' ) ) . '?city=cdmx'?>" title="Ir a entradas de la Ciudad de México" class="btn-general" role="button">
-				Ver más notas <i class="fas fa-caret-right"></i>
-			</a>
+			Ver más notas <i class="fas fa-caret-right"></i>
+		</a>
 	</div>
 	<div class="container wm">
 		<div class="components">
@@ -198,7 +198,7 @@
 			]);
 
 			if ( ! is_wp_error( $gdl ) && $gdl->have_posts() ) {
-   				set_transient('ri_cache_gdl', $gdl, 30 * MINUTE_IN_SECONDS );
+   				set_transient('ri_cache_gdl', $gdl, 12 * HOUR_IN_SECONDS );
 			}
 
 		}
@@ -209,7 +209,7 @@
 				
 				if($index == 0){
 					echo '<div class="col-lg-8"><div class="components">';
-					get_template_part( 'template-parts/components/general/ri', 'original' );
+					get_template_part( 'template-parts/components/ri', 'general' );
 					echo '</div></div>';
 					echo '<div class="col-lg-4"><div class="components">';
 					/**
@@ -224,7 +224,7 @@
 					echo '<div class="col-lg-8"><div class="components">';
 
 				if($index >= 1 && $index <= 2)
-					get_template_part( 'template-parts/components/general/ri', 'small' );
+					get_template_part( 'template-parts/components/ri', 'general', [ "class" => "vsmall" ] );
 
 				if ($index == 2)
 					echo '</div></div>';
@@ -233,7 +233,7 @@
 					echo '<div class="col-lg-4"><div class="components">';
 
 				if($index >= 3 && $index <= 6)
-					get_template_part( 'template-parts/components/lista/ri', 'original' );
+					get_template_part( 'template-parts/components/ri', 'lista', [ "class" => "vinh" ] );
 
 				if ($index == 6)
 					echo '</div></div>';
@@ -242,7 +242,7 @@
 					echo '<div class="col-lg-12"><div class="components">';
 
 				if($index >= 7)
-					get_template_part( 'template-parts/components/lista_imagen/ri', 'mini' );
+					get_template_part( 'template-parts/components/ri', 'lista_imagen', [ "class" => "vmini" ] );
 
 				$index++;
 			endwhile;
@@ -258,8 +258,8 @@
 	</div>
 	<div class="container wmc">
 		<a href="<?=get_permalink( get_page_by_path( 'Ciudad' ) ) . '?city=gdl'?>" title="Ir a entradas de Guadalajara" class="btn-general" role="button">
-				Ver más notas <i class="fas fa-caret-right"></i>
-			</a>
+			Ver más notas <i class="fas fa-caret-right"></i>
+		</a>
 	</div>
 	<?php 
 	Reporte_indigo_test::comment('Newsletter');
@@ -301,7 +301,7 @@
 			]);
 
 			if ( ! is_wp_error( $mty ) && $mty->have_posts() ) {
-   				set_transient('ri_cache_mty', $mty, 30 * MINUTE_IN_SECONDS );
+   				set_transient('ri_cache_mty', $mty, 12 * HOUR_IN_SECONDS );
 			}
 
 		}
@@ -311,7 +311,7 @@
 			while ( $mty->have_posts() ) : $mty->the_post();
 				if($index == 0){
 					echo '<div class="col-lg-8"><div class="components">';
-					get_template_part( 'template-parts/components/general/ri', 'original' );
+					get_template_part( 'template-parts/components/ri', 'general' );
 					echo '</div></div>';
 				}
 
@@ -319,7 +319,7 @@
 					echo '<div class="col-lg-4"><div class="components">';
 
 				if($index >= 1 && $index <= 4)
-					get_template_part( 'template-parts/components/lista_imagen/ri', 'original' );
+					get_template_part( 'template-parts/components/ri', 'lista_imagen', [ "class" => "vinh" ] );
 
 				if ($index == 4)
 					echo '</div></div><div class="separator"><hr></div>';
@@ -328,7 +328,7 @@
 					echo '<div class="col-lg-8"><div class="components">';
 
 				if($index >= 5 && $index <= 6)
-					get_template_part( 'template-parts/components/general/ri', 'small' );
+					get_template_part( 'template-parts/components/ri', 'general', [ "class" => "vsmall" ] );
 
 				if ($index == 6)
 					echo '</div></div>';
@@ -337,7 +337,7 @@
 					echo '<div class="col-lg-4"><div class="components">';
 
 				if($index >= 7)
-					get_template_part( 'template-parts/components/lista/ri', 'original' );
+					get_template_part( 'template-parts/components/ri', 'lista', [ "class" => "vinh" ] );
 
 				$index++;
 			endwhile;
@@ -352,8 +352,8 @@
 	</div>
 	<div class="container wmc">
 		<a href="/?city=mty" title="Ir a entradas de Monterrey" class="btn-general" role="button">
-				Ver más notas <i class="fas fa-caret-right"></i>
-			</a>
+			Ver más notas <i class="fas fa-caret-right"></i>
+		</a>
 	</div>
 </main>
 <?php get_footer(); ?>
