@@ -12,7 +12,7 @@ $ciudad = get_post_meta( get_the_ID(), '_ciudad_meta', TRUE );
 $jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
 ?>
 
-<div class="component-lista-simple">
+<div class="component-lista-simple vinh">
 	<article class="components" itemtype="http://schema.org/Article">
 		<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
 			<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">

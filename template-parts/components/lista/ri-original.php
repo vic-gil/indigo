@@ -9,7 +9,7 @@
 $tema = get_the_terms( get_the_ID(), 'ri-tema' );
 ?>
 
-<div class="component-list">
+<div class="component-list vinh">
 	<article itemtype="http://schema.org/Article">
 		<header>
 			<?php
