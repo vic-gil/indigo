@@ -50,28 +50,38 @@ add_action( 'after_setup_theme', 'reporte_indigo_setup' );
 function reporte_indigo_scripts(){
 	wp_enqueue_style( 'critical-style', get_stylesheet_directory_uri() . "/css/critical.css", [], "20210120" );
 
-	if( ! is_home() && ! is_single() && ! is_post_type_archive('ri-reporte') && ! is_post_type_archive('ri-latitud') && ! is_post_type_archive('ri-indigonomics') && ! is_post_type_archive('ri-piensa') ){
+	if( ! is_home() && ! is_single() && ! is_post_type_archive('ri-reporte') && ! is_post_type_archive('ri-latitud') && ! is_post_type_archive('ri-indigonomics') && ! is_post_type_archive('ri-piensa') && ! is_tax('ri-categoria') && ! is_tax('ri-tema') && ! is_tax('ri-columna') ){
 		wp_enqueue_style('bootstrap-min-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', array(), '4.4.1', 'all' );
 		wp_enqueue_style('my-stylesheet-css', get_stylesheet_uri(), array(), '0.0.1', 'all' );
 		wp_enqueue_style('my-768-css', get_template_directory_uri()."/assets/css/768.css", array(), '0.0.1', 'screen and (max-width: 768px)');
 		wp_enqueue_style('my-576-css', get_template_directory_uri()."/assets/css/576.css", array(), '0.0.1', 'screen and (max-width: 576px)');
 		wp_enqueue_style('my-425-css', get_template_directory_uri()."/assets/css/425.css", array(), '0.0.1', 'screen and (max-width: 425px)');
 	}
+
+	if( is_tax('ri-categoria') || is_tax('ri-tema') || is_tax('ri-columna') ){
+		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/css/taxonomy.css", [], "20210120" );
+	}
+
 	if ( is_post_type_archive('ri-piensa') ){
-		wp_enqueue_style( 'components-style', get_stylesheet_directory_uri() . "/css/piensa.css", [], "20210120" );
+		wp_enqueue_style( 'piensa-style', get_stylesheet_directory_uri() . "/css/piensa.css", [], "20210120" );
 	}
+
 	if ( is_post_type_archive('ri-indigonomics') ){
-		wp_enqueue_style( 'components-style', get_stylesheet_directory_uri() . "/css/latitud.css", [], "20210120" );
+		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/css/latitud.css", [], "20210120" );
 	}
+
 	if ( is_post_type_archive('ri-latitud') ){
-		wp_enqueue_style( 'components-style', get_stylesheet_directory_uri() . "/css/latitud.css", [], "20210120" );
+		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/css/latitud.css", [], "20210120" );
 	}
+
 	if ( is_post_type_archive('ri-reporte') ){
-		wp_enqueue_style( 'components-style', get_stylesheet_directory_uri() . "/css/reporte.css", [], "20210120" );
+		wp_enqueue_style( 'reporte-style', get_stylesheet_directory_uri() . "/css/reporte.css", [], "20210120" );
 	}
+
 	if( is_home() ){
-		wp_enqueue_style( 'components-style', get_stylesheet_directory_uri() . "/css/home.css", [], "20210120" );
+		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/css/home.css", [], "20210120" );
 	}
+
 	if( is_single() ){
 		wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/css/single.css", [], "20210120" );
 	}
