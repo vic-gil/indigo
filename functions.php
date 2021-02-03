@@ -288,12 +288,15 @@ function reporte_indigo_main_query($query) {
 				]
 			] );
 
-			if ( ! $query->is_paged() ) {
-				$query->set( 'posts_per_page', 18 );
-			} else {
-				$query->set( 'posts_per_page', 18 );
-				$query->set( 'offset', 6 + ( ( $query->query_vars['paged'] - 2 ) * 18 ) );
-			}
+			$offset = 6;
+			$ppp = 18;
+
+			if ( ! $query->is_paged() ) :
+				$query->set( 'posts_per_page', $ppp );
+			else :
+				$query->set( 'posts_per_page', $ppp );
+				$query->set( 'offset', $offset + ( ( $query->query_vars['paged'] - 2 ) * $ppp ) );
+			endif;
 
 		endif;
 
