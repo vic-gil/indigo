@@ -23,11 +23,24 @@
 					if ($index == 1)
 						echo '<div class="col-lg-12"><div class="components">';
 
-					if($index >= 1 && $index <= 3)
-						get_template_part( 'template-parts/components/ri', 'general', [ "class" => "vmini" ] );
+					if( get_query_var('paged') === 0 ) {
+						
+						if($index >= 1 && $index <= 3)
+							get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmini' ] );
 
-					if( $index >= 4 )
-						get_template_part( 'template-parts/components/ri', 'piensa', [ "type" => "__a" ] );
+
+						if( $index >= 4 && $index <= 5 )
+							get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => 'vsmall', 'type' => '__a' ] );
+
+					} else {
+
+						if($index >= 1 && $index <= 3)
+							get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'v1piensa' ] );
+
+						if( $index >= 4 )
+							get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'v2piensa' ] );
+
+					}
 
 					$index++;
 				endwhile;
@@ -40,30 +53,42 @@
 		?>
 		</div>
 		
-		<div class="components">
 		<?php
 		if( get_query_var('paged') === 0 ){
+		?>
+		<div class="components">
+		<?php
 			$terms = Ri_admin_home_db::get_seccion_piensa_front();
 
 			if( $terms['success'] === 1 ) {
 				foreach ( $terms['terms'] as $key => $term ) {
-					$posts = new WP_Query([
-						'post_type' 		=> get_post_type(),
-						'posts_per_page' 	=> 2,
-						'post_status'      	=> 'publish',
-						'suppress_filters' 	=> false,
-						'no_found_rows' 	=> true,
-						'tax_query' 		=> [
-							[
-								'taxonomy' 	=> 'ri-categoria',
-								'field'	   	=> 'slug',
-								'terms'	 	=> $term["name"]
+
+					if( false === $posts = get_transient('ri_cache_piensa_' . $term['slug']) ) {
+
+						$posts = new WP_Query([
+							'post_type' 		=> get_post_type(),
+							'posts_per_page' 	=> 2,
+							'post_status'      	=> 'publish',
+							'suppress_filters' 	=> false,
+							'no_found_rows' 	=> true,
+							'tax_query' 		=> [
+								[
+									'taxonomy' 	=> 'ri-categoria',
+									'field'	   	=> 'slug',
+									'terms'	 	=> $term["name"]
+								]
 							]
-						]
-					]);
+						]);
+
+						if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
+			   				set_transient('ri_cache_piensa_' . $term['slug'], $posts, 12 * HOUR_IN_SECONDS );
+						}
+
+				}
+
 				?>
 
-				<div class="container-piensa col-4">
+				<div class="container-piensa">
 					<div class="entries">
 						<div class="header">
 							<h2>
@@ -85,7 +110,7 @@
 							?>
 						</div>
 						<div class="footer">
-							<a href="" class="btn-general" role="button">
+							<a href="<?=get_term_link($term['slug'], 'ri-categoria');?>" class="btn-general" role="button">
 								Ver más
 							</a>
 						</div>
@@ -96,11 +121,11 @@
 				wp_reset_postdata();
 				}
 			}
-
-		}
+			?>
+			</div>
+		<?php
+		}	
 		?>
-		</div>
-		
 		<div class="component-pagination">
 			<span class="page-dir"><?php previous_posts_link('<span class="fas fa-angle-left"></span>'); ?></span>
 			<div class="page-number">
