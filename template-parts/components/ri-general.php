@@ -11,12 +11,14 @@ $tema = get_the_terms( get_the_ID(), 'ri-tema' );
 $ciudad = get_post_meta( get_the_ID(), '_ciudad_meta', TRUE );
 $jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
 $class = array_key_exists('class', $args) ? $args['class'] : '';
+$contain_category = array_key_exists('category', $args) ? $args['category'] : TRUE;
+$contain_excerpt = array_key_exists('excerpt', $args) ? $args['excerpt'] : TRUE;
 ?>
 
 <div class="component-general <?=$class;?>">
 	<article itemtype="http://schema.org/Article">
 		<?php
-		if( ! empty($categoria) ) : $categoria = $categoria[0]
+		if( ! empty($categoria) && $contain_category ) : $categoria = $categoria[0]
 		?>
 			<div class="entry-local">
 				<h3>
@@ -69,9 +71,15 @@ $class = array_key_exists('class', $args) ? $args['class'] : '';
 					</a>
 				</h3>
 			</div>
+			<?php
+			if($contain_excerpt) {
+			?>
 			<div class="entry-excerpt">
 				<?php the_excerpt(); ?>
 			</div>
+			<?php
+			}
+			?>
 			<address itemprop="author" itemscope="" itemtype="http://schema.org/Person" rel="author">
 				<?php the_author_posts_link();?>
 			</address>

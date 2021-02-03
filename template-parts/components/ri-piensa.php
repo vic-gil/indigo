@@ -68,7 +68,7 @@ $type = array_key_exists('type', $args) ? $args['type'] : '';
 			</div>
 		</div>
 		<footer>
-			<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="fas fa-share-alt" aria-label="comparte">
+			<button type="button" onclick="utilerias.share(this);" data-link="<?php the_permalink(); ?>" data-title="<?=rawurlencode(get_the_title());?>" class="fas fa-share-alt" aria-label="comparte">
 			</button>
 		</footer>
 	</article>
