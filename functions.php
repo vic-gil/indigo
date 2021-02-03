@@ -263,22 +263,26 @@ add_filter('the_content','reporte_indigo_replace_url_image');
 function reporte_indigo_main_query($query) {
 	if( ! is_admin() && $query->is_main_query() ):
 		$query->set( 'no_found_rows', true );
+		$query->set( 'suppress_filters', true );
 
 		if ( is_post_type_archive('ri-latitud') ) :
 			$query->set( 'posts_per_page', 13 );
 			$query->set( 'post_status', 'publish' );
 			$query->set( 'no_found_rows', false );
+			$query->set( 'suppress_filters', true );
 		endif;
 
 		if ( is_post_type_archive('ri-indigonomics') ) :
 			$query->set( 'posts_per_page', 13 );
 			$query->set( 'post_status', 'publish' );
 			$query->set( 'no_found_rows', false );
+			$query->set( 'suppress_filters', true );
 		endif;
 
 		if ( is_post_type_archive('ri-piensa') ) :
 			$query->set( 'post_status', 'publish' );
 			$query->set( 'no_found_rows', false );
+			$query->set( 'suppress_filters', true );
 			$query->set( 'tax_query', [
 				[	
 					'taxonomy' 	=> 'ri-categoria',
@@ -299,13 +303,21 @@ function reporte_indigo_main_query($query) {
 			$offset = 6;
 			$ppp = 18;
 
-			if ( ! $query->is_paged() ) :
+
+
+			if ( ! $query->is_paged() ) {
 				$query->set( 'posts_per_page', $ppp );
-			else :
+			} else {
 				$query->set( 'posts_per_page', $ppp );
 				$query->set( 'offset', $offset + ( ( $query->query_vars['paged'] - 2 ) * $ppp ) );
-			endif;
+			}
 
+		endif;
+
+		if ( is_tax('ri-categoria') || is_tax('ri-columna') || is_tax('ri-tema') ) :
+			$query->set( 'posts_per_page', 19 );
+			$query->set( 'no_found_rows', false );
+			$query->set( 'suppress_filters', true );
 		endif;
 
 	endif;
@@ -316,6 +328,7 @@ function reporte_indigo_main_query($query) {
 add_action( 'pre_get_posts', 'reporte_indigo_main_query' );
 
 function homepage_offset_pagination( $found_posts, $query ) {
+    
     if( ! is_admin() && $query->is_main_query() ) {
     	if ( is_post_type_archive('ri-piensa') ) :
     		$offset = 6;
