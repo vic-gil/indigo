@@ -73,7 +73,7 @@
 						if( utilerias_cm::validate_array($posts) ) {
 							foreach ($posts as $kp => $p) { 
 								$post = utilerias_cm::get_slim_elements($p);
-								Reporte_indigo_templates::componente_lista($post);
+								Reporte_indigo_templates::componente_lista($post, 'vsmall');
 							}
 						} else {
 							Reporte_indigo_test::log('No hay posts');
@@ -302,7 +302,6 @@
 				Reporte_indigo_templates::componente_titulo("", "Lo más visto");
 				$posts_types = unserialize(POST_TYPE);
 				$posts_types = is_array($posts_types) ? implode(",", $posts_types) : "any";
-
 				if ( function_exists('wpp_get_mostpopular') ) {
 					wpp_get_mostpopular([
 						'limit' 		=> 6,
@@ -361,8 +360,8 @@
 						Reporte_indigo_templates::componente_contenedor(
 							function($index, $total, $post){
 								echo ($index == 0) ? '<div class="col-lg-8 col-md-12"><div class="components">' : '';
-								if($index > 0 && $index < 4) Reporte_indigo_templates::componente_piensa($post);
-								if($index >= 4) Reporte_indigo_templates::componente_piensa($post, "vmedium", false);
+								if($index > 0 && $index < 4) Reporte_indigo_templates::componente_piensa($post, '__a');
+								if($index >= 4) Reporte_indigo_templates::componente_piensa($post, '__b vmedium', false);
 								echo ($index == $total - 1) ? '</div></div>' : '';
 							}, [
 								"index" => $kp,
