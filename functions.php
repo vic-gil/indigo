@@ -289,9 +289,10 @@ function reporte_indigo_main_query($query) {
 			] );
 
 			if ( ! $query->is_paged() ) {
-				$query->set( 'posts_per_page', 6 );
+				$query->set( 'posts_per_page', 18 );
 			} else {
-
+				$query->set( 'posts_per_page', 18 );
+				$query->set( 'offset', 6 + ( ( $query->query_vars['paged'] - 2 ) * 18 ) );
 			}
 
 		endif;
@@ -302,5 +303,17 @@ function reporte_indigo_main_query($query) {
 }
 
 add_action( 'pre_get_posts', 'reporte_indigo_main_query' );
+
+function homepage_offset_pagination( $found_posts, $query ) {
+    if( ! is_admin() && $query->is_main_query() ) {
+    	if ( is_post_type_archive('ri-piensa') ) :
+    		$offset = 6;
+    		$found_posts = $found_posts + $offset;
+    	endif;
+    }
+
+    return $found_posts;
+}
+add_filter( 'found_posts', 'homepage_offset_pagination', 10, 2 );
 
 ?>
