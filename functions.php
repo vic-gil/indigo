@@ -262,10 +262,42 @@ function reporte_indigo_replace_url_image($content){
 
 add_filter('the_content','reporte_indigo_replace_url_image');
 
-
 function reporte_indigo_main_query($query) {
 	if( ! is_admin() && $query->is_main_query() ):
 		$query->set( 'no_found_rows', true );
+
+		if ( is_post_type_archive('ri-latitud') ) :
+			$query->set( 'posts_per_page', 13 );
+			$query->set( 'post_status', 'publish' );
+			$query->set( 'no_found_rows', false );
+		endif;
+
+		if ( is_post_type_archive('ri-indigonomics') ) :
+			$query->set( 'posts_per_page', 13 );
+			$query->set( 'post_status', 'publish' );
+			$query->set( 'no_found_rows', false );
+		endif;
+
+		if ( is_post_type_archive('ri-piensa') ) :
+			$query->set( 'post_status', 'publish' );
+			$query->set( 'no_found_rows', false );
+			$query->set( 'tax_query', [
+				[	
+					'taxonomy' 	=> 'ri-categoria',
+					'field' 	=> 'slug',
+					'terms' 	=> 'enfoqueindigo',
+					'operator' 	=> 'NOT IN'
+				]
+			] );
+
+			if ( ! $query->is_paged() ) {
+				$query->set( 'posts_per_page', 6 );
+			} else {
+
+			}
+
+		endif;
+
 	endif;
 
 	return $query;
