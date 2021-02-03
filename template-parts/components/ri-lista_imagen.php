@@ -6,13 +6,12 @@
  * @subpackage Reporte Indigo
  * @since Reporte Indigo 3.0.0
  */
-$categoria = get_the_terms( get_the_ID(), 'ri-categoria' );
 $tema = get_the_terms( get_the_ID(), 'ri-tema' );
-$ciudad = get_post_meta( get_the_ID(), '_ciudad_meta', TRUE );
 $jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
+$class = array_key_exists('class', $args) ? $args['class'] : '';
 ?>
 
-<div class="component-lista-simple <?=$args['class'];?>">
+<div class="component-lista-simple <?=$class;?>">
 	<article class="components" itemtype="http://schema.org/Article">
 		<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
 			<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">

@@ -7,9 +7,10 @@
  * @since Reporte Indigo 3.0.0
  */
 $tema = get_the_terms( get_the_ID(), 'ri-tema' );
+$class = array_key_exists('class', $args) ? $args['class'] : '';
 ?>
 
-<div class="component-list <?=$args['class'];?>">
+<div class="component-list <?=$class;?>">
 	<article itemtype="http://schema.org/Article">
 		<header>
 			<?php

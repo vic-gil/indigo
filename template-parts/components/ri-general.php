@@ -10,9 +10,10 @@ $categoria = get_the_terms( get_the_ID(), 'ri-categoria' );
 $tema = get_the_terms( get_the_ID(), 'ri-tema' );
 $ciudad = get_post_meta( get_the_ID(), '_ciudad_meta', TRUE );
 $jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
+$class = array_key_exists('class', $args) ? $args['class'] : '';
 ?>
 
-<div class="component-general <?=$args['class'];?>">
+<div class="component-general <?=$class;?>">
 	<article itemtype="http://schema.org/Article">
 		<?php
 		if( ! empty($categoria) ) : $categoria = $categoria[0]
