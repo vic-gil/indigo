@@ -1,6 +1,6 @@
 <?php
 /**
- * Clase Templates
+ * Clase Reporte_indigo_templates
  *
  * Plantillas de los componentes web
  * (Esto no sustituye template parts sólo es provisional)
@@ -60,7 +60,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 */
 		public static function componente_boton_jwplayer($json) {
 		?>
-			<button data-json="<?=$json?>" data-title="<?=$json?>" type="button">
+			<button class="jw-play" data-json="<?=$json?>" data-title="<?=$json?>" type="button">
 				<i class="fas fa-play"></i>
 			</button>
 		<?php
@@ -74,10 +74,10 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		public static function componente_boton_deslizamiento() {
 		?>
 			<div class="sw-arrow prev">
-				<button class="fas fa-angle-left"></button>
+				<button class="fas fa-angle-left" aria-label="anterior"></button>
 			</div>
 			<div class="sw-arrow next">
-				<button class="fas fa-angle-right"></button>
+				<button class="fas fa-angle-right" aria-label="siguiente"></button>
 			</div>
 		<?php
 		}
@@ -139,12 +139,11 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				'salud' => 'salud.svg',
 				'sustentabilidad' => 'sustentabilidad.svg'
 			];
-		?>
-		<img src="<?=IMAGESPATH;?>/svgs/<?=$icons[$slug];?>" alt="<?=$slug;?>" title="<?=$slug;?>" class="lazy" loading="lazy">
-		<?php
-		?>
-			
-		<?php
+			if( array_key_exists($slug, $icons) ){
+			?>
+				<img src="<?=IMAGESPATH;?>/svgs/<?=$icons[$slug];?>" alt="<?=$slug;?>" title="<?=$slug;?>" class="lazy" loading="lazy">
+			<?php
+			}
 		}
 
 		/**
@@ -160,28 +159,29 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 			<div class="swiper-slide">
 				<article class="deslizador" itemtype="http://schema.org/Article">
 					<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
-						<a href="<?=$data["format_link"]?>" title="<?=$data["post_title"];?>">
+						<a href="<?=$data['format_link']?>" title="<?=$data['post_title'];?>">
 							<picture>
 								<?php
-									//get_the_post_thumbnail($data["ID"], "large");
 									Reporte_indigo_templates::componente_imagen($data['post_image']);
-									if( ! empty($data['post_jwplayer']) ) {
-										Reporte_indigo_templates::componente_boton_jwplayer($data);
-									}
 								?>
 							</picture>
 						</a>
+						<?php
+						if( ! empty($data['post_jwplayer']) ) {
+							Reporte_indigo_templates::componente_boton_jwplayer($data['post_jwplayer']);
+						}
+						?>
 					</figure>
 					<div class="entry-data">
 						<div class="entry-title">
 							<h3>
-								<a href="<?=$data["format_link"]?>" title="<?=$data["post_title"];?>">
-									<?=$data["post_title"]?>
+								<a href="<?=$data['format_link']?>" title="<?=$data['post_title'];?>">
+									<?=$data['post_title']?>
 								</a>
 							</h3>
 						</div>
 						<div class="entry-excerpt">
-							<p><?=$data["post_excerpt"]?></p>	
+							<p><?=$data['post_excerpt']?></p>	
 						</div>
 						<address itemprop="author" itemscope="" itemtype="http://schema.org/Person" rel="author">
 							<a href="<?=$data['author']['link'];?>" title="<?=$data['author']['name'];?>"><?=$data['author']['name'];?></a>
@@ -191,8 +191,8 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 							if($index == 0){
 								for($j = 0; $j < $total; $j++) {
 								?>
-								<li class="<?=$active = $j == 0 ? 'active' : '';?>">
-								    <a href="javascript:void(0);">
+								<li class="<?=$active = $j == 0 ? 'active' : '';?>" role="group">
+								    <a href="javascript:void(0);" title="<?=($j + 1);?> / <?=$total;?>">
 								    	<i class="fas fa-circle"></i>
 								    </a>
 								</li>
@@ -216,7 +216,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 * @param bool $local 		Boolean show local.
 		 * @return void
 		 */
-		public static function componente_general($data, $variation = "", $image = true, $local = false) {
+		public static function componente_general($data, $variation = "", $image = true, $local = false, $category = false) {
 		?>
 			<div class="component-general <?=$variation?>">
 				<article itemtype="http://schema.org/Article">
@@ -233,22 +233,47 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					</div>
 					<?php
 					}
+					if($category) {
+						if( ! empty($data["post_categoria"]) && property_exists($data["post_categoria"], "name") ) {
+						?>
+						<div class="entry-local">
+							<h3>
+								<a href="<?=$data["post_categoria"]->link;?>" title="<?=$data["post_categoria"]->name;?>">
+									<?=$data["post_categoria"]->name;?>
+								</a>
+							</h3>
+						</div>
+						<?php
+						} else if( ! empty( $data["post_ciudad"] ) ) {
+							$link = get_permalink( get_page_by_path( 'Ciudad' ) ) . '?city=' . $data["post_ciudad"];
+							?>
+							<div class="entry-local">
+								<h3>
+									<a href="<?=$link;?>" title="<?=$data["post_ciudad"];?>">
+										<?=$data["post_ciudad"];?>
+									</a>
+								</h3>
+							</div>
+							<?php
+						}
 					?>
 					<?php
+					}
 					if($image) {
 					?>
 					<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
 						<a href="<?=$data["format_link"]?>" title="<?=$data["post_title"];?>">
 							<picture>
-								<?php
-								//get_the_post_thumbnail($data["ID"], "large");
+							<?php
 								Reporte_indigo_templates::componente_imagen($data['post_image']);
-								if( ! empty($data['post_jwplayer']) ) {
-									Reporte_indigo_templates::componente_boton_jwplayer($data);
-								}
-								?>
+							?>
 							</picture>
 						</a>
+						<?php
+						if( ! empty($data['post_jwplayer']) ) {
+							Reporte_indigo_templates::componente_boton_jwplayer($data['post_jwplayer']);
+						}
+						?>
 					</figure>
 					<?php	
 					}
@@ -284,21 +309,26 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 * Componente web lista
 		 *
 		 * @param array $data    Array post data.
+		 * @param string $variation HTML Class string.
 		 * @return void
 		 */
-		public static function componente_lista($data) {
+		public static function componente_lista($data, $variation = '') {
 		?>
-			<div class="component-list">
+			<div class="component-list <?=$variation;?>">
 				<article itemtype="http://schema.org/Article">
 					<header>
 						<?php if( ! empty( $tema = $data["post_tema"] ) ) { ?>
-							<a href="<?=$tema->link?>" title="<?=$tema->name?>">
-								<h2><?=$tema->name?></h2>
-							</a>
+							<h2>
+								<a href="<?=$tema->link?>" title="<?=$tema->name?>">
+									<?=$tema->name?>
+								</a>
+							</h2>
 						<?php } ?>
-						<a href="<?=$data["format_link"]?>" title="<?=$data["post_title"];?>">
-							<h3><?=$data["post_title"];?></h3>
-						</a>
+						<h3>
+							<a href="<?=$data["format_link"]?>" title="<?=$data["post_title"];?>">
+								<?=$data["post_title"];?>
+							</a>
+						</h3>
 					</header>
 				</article>
 			</div>
@@ -313,22 +343,20 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 */
 		public static function componente_boletin($link) {
 		?>
-			<div class="component-boletin">
-				<div class="container">
-					<img src="<?=IMAGESPATH;?>/svgs/premium.svg" alt="premium" title="premium" width="60px">
-					<div class="suscribete">
-						<p>Suscríbete y recibe diariamente nuestro Newsletter y acceso ilimitado a toda la información de Reporte Indigo</p>
-						<a href="<?=$link;?>" alt="Newsletter" title="Newsletter">
-							<div class="form">
-								<input type="text" name="" />
-								<button type="button" id="button-suscribe">
-									<i class="fas fa-paper-plane"></i>
-								</button>
-							</div>
-						</a>
+		<div class="component-boletin">
+			<img src="<?=IMAGESPATH;?>/svgs/premium.svg" alt="premium" title="premium" width="60px">
+			<div class="suscribete">
+				<p>Suscríbete y recibe diariamente nuestro Newsletter y acceso ilimitado a toda la información de Reporte Indigo</p>
+				<a href="<?=$link;?>" alt="Newsletter" title="Newsletter">
+					<div class="form">
+						<label><input type="text" name="suscribe" /></label>
+						<button type="button" id="button-suscribe" aria-label="Suscríbete">
+							<i class="fas fa-paper-plane"></i>
+						</button>
 					</div>
-				</div>
+				</a>
 			</div>
+		</div>
 		<?php
 		}
 
@@ -405,7 +433,6 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
 						<picture>
 							<?php
-							//get_the_post_thumbnail($data["ID"], "large");
 							Reporte_indigo_templates::componente_imagen($data['author'], true);
 							?>
 						</picture>
@@ -435,7 +462,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					</div>
 				</div>
 				<footer>
-					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="fas fa-share-alt">
+					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="fas fa-share-alt" aria-label="comparte">
 					</button>
 				</footer>
 			</article>
@@ -459,14 +486,15 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 						<a href="<?=$data["format_link"]?>" title="<?=$data["post_title"];?>">
 							<picture>
 								<?php
-									//get_the_post_thumbnail($data["ID"], "large");
 									Reporte_indigo_templates::componente_imagen($data['post_image']);
-									if( ! empty($data['post_jwplayer']) ) {
-										Reporte_indigo_templates::componente_boton_jwplayer($data);
-									}
 								?>
 							</picture>
 						</a>
+						<?php
+						if( ! empty($data['post_jwplayer']) ) {
+							Reporte_indigo_templates::componente_boton_jwplayer($data['post_jwplayer']);
+						}
+						?>
 					</figure>
 					<div class="entry-title">
 						<h2>
@@ -487,7 +515,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					</div>
 				</div>
 				<footer>
-					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="fas fa-share-alt">
+					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="fas fa-share-alt" aria-label="comparte">
 					</button>
 				</footer>
 			</article>
@@ -510,14 +538,15 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					<a href="<?=$data["format_link"]?>" title="<?=$data["post_title"];?>">
 						<picture>
 							<?php
-								//get_the_post_thumbnail($data["ID"], "large");
 								Reporte_indigo_templates::componente_imagen($data['post_image']);
-								if( ! empty($data['post_jwplayer']) ) {
-									Reporte_indigo_templates::componente_boton_jwplayer($data);
-								}
 							?>
 						</picture>
 					</a>
+					<?php
+					if( ! empty($data['post_jwplayer']) ) {
+						Reporte_indigo_templates::componente_boton_jwplayer($data['post_jwplayer']);
+					}
+					?>
 				</figure>
 				<div class="entry-data">
 					<div class="entry-title">
@@ -550,7 +579,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		<div class="component-piensa <?=$variation;?>">
 			<article itemtype="http://schema.org/Article">
 				<?php
-				if( $variation == 'vmedium' && ! empty($data["post_categoria"] && property_exists($data["post_categoria"], "name") ) ) {
+				if(  ! empty( $data["post_categoria"] ) ) {
 				?>
 				<header>
 					<h2>
@@ -559,7 +588,8 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 						</a>
 					</h2>
 					<?php
-					Reporte_indigo_templates::componente_icon($data["post_categoria"]->slug);
+					if( FALSE !== strpos($variation, '__b') )
+						Reporte_indigo_templates::componente_icon($data["post_categoria"]->slug);
 					?>
 				</header>
 				<?php
@@ -570,14 +600,15 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 						<a href="<?=$data["format_link"]?>" title="<?=$data["post_title"];?>">
 							<picture>
 								<?php
-									//get_the_post_thumbnail($data["ID"], "large");
 									Reporte_indigo_templates::componente_imagen($data['post_image']);
-									if( ! empty($data['post_jwplayer']) ) {
-										Reporte_indigo_templates::componente_boton_jwplayer($data);
-									}
 								?>
 							</picture>
 						</a>
+						<?php
+						if( ! empty($data['post_jwplayer']) ) {
+							Reporte_indigo_templates::componente_boton_jwplayer($data['post_jwplayer']);
+						}
+						?>
 					</figure>
 					<div class="entry-title">
 						<?php
@@ -607,7 +638,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				if($share){
 				?>
 				<footer>
-					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="fas fa-share-alt">
+					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="fas fa-share-alt" aria-label="comparte">
 					</button>
 				</footer>
 				<?php
@@ -695,7 +726,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				if($share){
 				?>
 				<footer>
-					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>">
+					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" aria-label="comparte">
 						Compartir
 					</button>
 				</footer>
@@ -728,12 +759,14 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 						<picture>
 							<?php
 								Reporte_indigo_templates::componente_imagen($data['post_image']);
-								if( ! empty($data['post_jwplayer']) ) {
-									Reporte_indigo_templates::componente_boton_jwplayer($data);
-								}
 							?>
 						</picture>
 					</a>
+					<?php
+					if( ! empty($data['post_jwplayer']) ) {
+						Reporte_indigo_templates::componente_boton_jwplayer($data['post_jwplayer']);
+					}
+					?>
 				</figure>
 			</article>
 		</div>
@@ -836,7 +869,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				</ul>
 			</div>
 			<div class="share-videos">
-				<button type="button" onclick="utilerias.share(this);" data-title="IndigoPlay" data-link="<?=site_url('indigo-videos');?>">COMPARTIR</button>
+				<button type="button" onclick="utilerias.share(this);" data-title="IndigoPlay" data-link="<?=site_url('indigo-videos');?>" aria-label="comparte">COMPARTIR</button>
 			</div>
 		</div>
 		<?php
@@ -869,6 +902,89 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					</a>
 				</div>
 			</div>
+		</div>
+		<?php
+		}
+
+		/**
+		 * Componente web play
+		 *
+		 * @param string $variation HTML Class string.
+		 * @return void
+		 */
+		public static function componente_play($data, $variation = "") {
+		?>
+		<div class="component-play <?=$variation;?>">
+			<article itemtype="http://schema.org/Article">
+				<?php
+				if( ! empty($data['post_type'])) {
+				?>
+				<div class="entry-local">
+					<h2>
+						<a href="<?$data['post_type']['link'];?>" title="<?=$data['post_type']['name'];?>">
+							<?=$data['post_type']['name'];?>
+						</a>
+					</h2>
+				</div>
+				<?php
+				}
+				?>
+				<div class="entry-content">
+					<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
+						<a href="<?=$data["format_link"]?>" title="<?=$data["post_title"];?>">
+							<picture>
+								<?php
+									Reporte_indigo_templates::componente_imagen($data['post_image']);
+								?>
+							</picture>
+						</a>
+						<?php
+						if( ! empty($data['post_jwplayer']) ) {
+							Reporte_indigo_templates::componente_boton_jwplayer($data['post_jwplayer']);
+						}
+						?>
+					</figure>
+					<div class="entry-title">
+						<h2>
+							<a href="<?=$data["post_tema"]->link?>" title="<?=$data["post_tema"]->name;?>">
+								<?=$data["post_tema"]->name;?>		
+							</a>
+						</h2>
+						<h3>
+							<a href="<?=$data["format_link"]?>" title="<?=$data["post_title"];?>">
+								<?=$data["post_title"];?>
+							</a>
+						</h3>
+						<?php
+						if($variation == "large") {
+						?>
+						<div class="entry-excerpt">
+							<p><?=$data['post_excerpt']?></p>	
+						</div>
+						<?php
+						}
+						?>
+						<address itemprop="author" itemscope="" itemtype="http://schema.org/Person" rel="author">
+							<a href="<?=$data["author"]['link'];?>" alt="<?=$data["author"]['name'];?>">
+								<?=$data["author"]['name'];?>
+							</a>
+						</address>
+						<div class="share">
+							<?php
+							if($variation == "large") {
+							?>
+							<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" aria-label="comparte">Compartir</button>
+							<?php
+							} else {
+							?>
+							<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="fas fa-share-alt" aria-label="comparte"></button>
+							<?php
+							}
+							?>
+						</div>
+					</div>
+				</div>
+			</article>
 		</div>
 		<?php
 		}
