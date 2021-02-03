@@ -1,5 +1,4 @@
-# indigo
-<h1>Reporte Índigo 2020 2.0</h1>
+# Reporte Índigo 2020 2.0
 <h2>Nombre del tema</h2>
 <p>Reporte Índigo 2021</p>
 <h2>Descripción</h2>
