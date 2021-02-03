@@ -288,6 +288,14 @@ function reporte_indigo_main_query($query) {
 				]
 			] );
 
+			/**
+			 *
+			 * Si cambias el apartado offset procura cambiarlo en 
+			 * la función acoplada al filtro found_posts
+			 * add_filter( 'found_posts', ... );
+			 *
+			**/
+
 			$offset = 6;
 			$ppp = 18;
 
@@ -317,6 +325,6 @@ function homepage_offset_pagination( $found_posts, $query ) {
 
     return $found_posts;
 }
-add_filter( 'found_posts', 'homepage_offset_pagination', 10, 2 );
 
+add_filter( 'found_posts', 'homepage_offset_pagination', 10, 2 );
 ?>
