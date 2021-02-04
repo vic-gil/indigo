@@ -50,7 +50,7 @@ add_action( 'after_setup_theme', 'reporte_indigo_setup' );
 function reporte_indigo_scripts(){
 	wp_enqueue_style( 'critical-style', get_stylesheet_directory_uri() . "/css/critical.css", [], "20210120" );
 
-	if( ! is_home() && ! is_single() && ! is_post_type_archive('ri-reporte') && ! is_post_type_archive('ri-latitud') && ! is_post_type_archive('ri-indigonomics') && ! is_post_type_archive('ri-piensa') && ! is_tax('ri-categoria') && ! is_tax('ri-tema') && ! is_tax('ri-columna') ){
+	if( ! is_home() && ! is_single() && ! is_post_type_archive('ri-reporte') && ! is_post_type_archive('ri-latitud') && ! is_post_type_archive('ri-indigonomics') && ! is_post_type_archive('ri-piensa') && ! is_tax('ri-categoria') && ! is_tax('ri-tema') && ! is_tax('ri-columna') && ! is_post_type_archive('ri-fan') ){
 		wp_enqueue_style('bootstrap-min-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', array(), '4.4.1', 'all' );
 		wp_enqueue_style('my-stylesheet-css', get_stylesheet_uri(), array(), '0.0.1', 'all' );
 		wp_enqueue_style('my-768-css', get_template_directory_uri()."/assets/css/768.css", array(), '0.0.1', 'screen and (max-width: 768px)');
@@ -60,6 +60,10 @@ function reporte_indigo_scripts(){
 
 	if( is_tax('ri-categoria') || is_tax('ri-tema') || is_tax('ri-columna') ){
 		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/css/taxonomy.css", [], "20210120" );
+	}
+
+	if ( is_post_type_archive('ri-fan') ){
+		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/css/fan.css", [], "20210120" );
 	}
 
 	if ( is_post_type_archive('ri-piensa') ){
@@ -96,6 +100,10 @@ add_action( 'wp_enqueue_scripts', 'reporte_indigo_scripts' );
  **/
 function reporte_indigo_default_scripts(){
 	echo '<script type="text/javascript">"use strict";const showMenu=async(e,t,c)=>{document.getElementById(e).addEventListener("click",function(o){for(let t of document.querySelectorAll(".exec"))e!==t.id&&t.classList.remove(c);for(let e of document.querySelectorAll(".listen"))t!==e.id&&e.classList.remove(c);this.classList.toggle(c),document.getElementById(t).classList.toggle(c)})};(async()=>{showMenu("exec-search","listen-search","activo"),showMenu("exec-menu","listen-menu","activo"),document.addEventListener("scroll",function(){(document.documentElement.scrollTop||document.body.scrollTop)<document.querySelector(".navmain").offsetHeight?document.querySelector(".navbar").classList.remove("active"):document.querySelector(".navbar").classList.add("active")},{passive:!0})})();</script>';
+	
+	if( is_post_type_archive('ri-fan') )
+		echo '<script type="text/javascript">const loadScript=(e,t)=>{let l,i,r;(l=document.createElement("script")).type="text/javascript",l.src=e,l.onload=l.onreadystatechange=function(){i||this.readyState&&"complete"!=this.readyState||(i=!0,t())},(r=document.getElementsByTagName("script")[0]).parentNode.insertBefore(l,r)};let swiperInstances=[];const initSlider=()=>{sliders("slider-fan",1,1)},sliders=(e,t,l)=>{let i=document.getElementById(e);if(void 0!==i&&null!=i){let i={slidesPerView:1,spaceBetween:15,autoHeight:!0};1==l&&(i.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},i.on={slideChangeTransitionEnd:()=>{for(let t of document.querySelectorAll(`#${e} li`))t.classList.remove("active");let l=document.querySelectorAll(`#${e} ul`);for(let e of l)e.querySelector(`li:nth-child(${swiperInstances[t].activeIndex+1})`).classList.add("active");document.querySelectorAll(`#${e} ul`)}}),swiperInstances[t]=new Swiper(`#${e}`,i)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
+
 }
 
 add_action( 'wp_footer', 'reporte_indigo_default_scripts' , 5 );
