@@ -331,6 +331,12 @@ function reporte_indigo_main_query($query) {
 			}
 
 		endif;
+	
+		if ( is_post_type_archive('ri-fan') ) :
+			$query->set( 'posts_per_page', 15 );
+			$query->set( 'no_found_rows', false );
+			$query->set( 'suppress_filters', true );
+		endif;
 
 		if ( is_tax('ri-categoria') || is_tax('ri-columna') || is_tax('ri-tema') ) :
 			$query->set( 'posts_per_page', 19 );
