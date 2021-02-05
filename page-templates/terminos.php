@@ -22,7 +22,7 @@ get_header();?>
 					<h1>Términos de uso</h1>
 				</span>
 			</div>
-			<div class="col-lg-8 entry-content">
+			<div class="entry-content">
 				<h2>GRUPO CAPITAL MEDIA</h2>
 				<?php
 				if ( have_posts() ): 
@@ -32,7 +32,7 @@ get_header();?>
 				endif;
 				?>
 			</div>
-			<div class="col-lg-4">
+			<div class="entry-extra">
 				
 			</div>
 		</div>
