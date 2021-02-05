@@ -29,7 +29,7 @@
 						]);
 
 						if ( ! is_wp_error( $opinion ) && $opinion->have_posts() ) {
-			   				set_transient('ri_cache_opinion_' . $term['slug'], $opinion, 12 * HOUR_IN_SECONDS );
+			   				set_transient('ri_cache_opinion_' . $term->slug, $opinion, 12 * HOUR_IN_SECONDS );
 						}
 
 					}
