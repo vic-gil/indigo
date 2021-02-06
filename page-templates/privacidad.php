@@ -13,16 +13,20 @@ get_header();?>
 <main>
 	<div class="container wm">
 		<div class="components">
-			<section id="breadcrumb">
-				<div>
-					<span>
+			<nav aria-label="Breadcrumb" class="breadcrumb">
+				<ol>
+					<li>
 						<a href="<?=home_url()?>" title="Regresar a página de inicio">Inicio</a>
-					</span>
-					<span class="active">
-						<h1><?=get_the_title();?></h1>
-					</span>
-				</div>
-			</section>
+					</li>
+					<li>
+						<h1>
+							<a href="<?=get_permalink();?>" aria-current="page">
+								<?=get_the_title();?>
+							</a>
+						</h1>
+					</li>
+				</ol>
+			</nav>
 			<section class="entry-content">
 				<h2>GRUPO CAPITAL MEDIA</h2>
 				<?php
@@ -66,11 +70,11 @@ get_header();?>
 					if( false === $recientes = get_transient('ri_cache_recientes') ) {
 
 						$recientes = new WP_Query([
-							'post_type' 				=> 'any',
-							'posts_per_page' 			=> 5,
-							'post_status'      			=> 'publish',
-							'suppress_filters' 			=> false,
-							'no_found_rows' 			=> true
+							'post_type' 		=> 'any',
+							'posts_per_page' 	=> 5,
+							'post_status'      	=> 'publish',
+							'suppress_filters' 	=> false,
+							'no_found_rows' 	=> true
 						]);
 
 						if ( ! is_wp_error( $recientes ) && $recientes->have_posts() ) {

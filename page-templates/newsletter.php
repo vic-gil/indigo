@@ -14,16 +14,20 @@ get_header(); ?>
 <main>
 	<div class="container wm">
 		<div class="components">
-			<div id="breadcrumb">
-				<div>
-					<span>
+			<nav aria-label="Breadcrumb" class="breadcrumb">
+				<ol>
+					<li>
 						<a href="<?=home_url()?>" title="Regresar a página de inicio">Inicio</a>
-					</span>
-					<span class="active">
-						<h1><?=get_the_title();?></h1>
-					</span>
-				</div>
-			</div>
+					</li>
+					<li>
+						<h1>
+							<a href="<?=get_permalink();?>" aria-current="page">
+								<?=get_the_title();?>
+							</a>
+						</h1>
+					</li>
+				</ol>
+			</nav>
 			<div class="col-lg-8">
 				<div class="component-newsletter">
 					<div class="ribbon">
