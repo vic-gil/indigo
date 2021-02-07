@@ -270,6 +270,11 @@ function reporte_indigo_popular_posts_html_list($popular_posts, $instance){
 		$output .= ' 					</a>';
 		$output .= '				</h3>';
 		$output .= '			</div>';
+	    	if( is_404() ) {
+			$output .= '<div class="entry-excerpt">';
+			$output .= '<p>' . get_the_excerpt($post_id) . '</p>';
+			$output .= '</div>';
+		}
 		$output .= '		</div>';
 		$output .= '	</article>';
 		$output .= '</div>';
