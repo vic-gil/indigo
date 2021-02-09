@@ -1,17 +1,16 @@
 <?php
 /**
- * Parte de la plantilla para mostrar el componente deslizador de la sección fans
+ * Parte de la plantilla para mostrar el componente deslizador
  *
  * @package Capital Media
  * @subpackage Reporte Indigo
  * @since Reporte Indigo 3.0.0
  */
 $jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
-$class = array_key_exists('class', $args) ? $args['class'] : '';
-$bullets = array_key_exists('total', $args) ? intval($args['total']) : FALSE;
+$total = array_key_exists('total', $args) ? intval($args['total']) : FALSE;
 ?>
-<div class="swiper-slide <?=$class;?>">
-	<article class="deslizador-fan" itemtype="http://schema.org/Article">
+<div class="swiper-slide">
+	<article class="deslizador" itemtype="http://schema.org/Article">
 		<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
 			<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 				<picture>
@@ -38,26 +37,15 @@ $bullets = array_key_exists('total', $args) ? intval($args['total']) : FALSE;
 			<address itemprop="author" itemscope="" itemtype="http://schema.org/Person" rel="author">
 				<?php the_author_posts_link();?>
 			</address>
-			<?php
-			if ( FALSE !== $bullets ) {
-				$max = ($bullets >= 3) ? 3 : $bullets;
-			?>
-			<ul id="sw-nav-top">
-			<?php
-				for($j = 0; $j < $max; $j++) {
-			?>
-				<li class="<?=$active = $j == 0 ? 'active' : '';?>" role="group">
-				    <a href="javascript:void(0);" title="<?=($j + 1);?> / <?=$max;?>">
-				    	<i class="fas fa-circle"></i>
-				    </a>
-				</li>
-			<?php
+			<div class="pagination">
+				<?php
+				for($i = 0; $i < $total; $i++) {
+				?>
+					<span class="fas fa-circle"></span>
+				<?php
 				}
-			?>
-			</ul>
-			<?php
-			}
-			?>
+				?>
+			</div>
 		</div>
 	</article>
 </div>
