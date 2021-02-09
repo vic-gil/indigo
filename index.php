@@ -111,9 +111,7 @@
 							get_template_part( 'template-parts/components/ri', 'lista', [ 'class' => 'vsmall' ] );
 						endwhile;
 					endif;
-
 					wp_reset_postdata();
-
 					?>
 				</div>
 			</div>
