@@ -11,10 +11,31 @@
  * Reporte Indigo trabaja únicamente con Wordpress 4.7 o superior.
  */
 
+define('JSPATH', get_template_directory_uri().'/assets/js');
+define('CSSPATH', get_template_directory_uri().'/assets/css');
+define('IMAGESPATH', get_template_directory_uri().'/assets/images');
+define('PAGESPATH', get_template_directory_uri().'/assets/pages');
+define('THEMEPATH', get_template_directory_uri(). '/');
+define('SITEURL', site_url('/') );
+define('POST_TYPE', serialize ([
+	'ri-reporte',
+	'ri-opinion',
+	'ri-latitud',
+	'ri-indigonomics',
+	'ri-piensa',
+	'ri-fan',
+	'ri-desglose',
+	'ri-documento-indigo',
+	'ri-salida-emergencia',
+	'ri-especial'
+]));
+
 require get_template_directory() . '/classes/class_reporte_indigo_post_types.php';
 require get_template_directory() . '/classes/class_reporte_indigo_lectura_mb.php';
 require get_template_directory() . '/classes/class-reporte-indigo-test.php';
 require get_template_directory() . '/classes/class-reporte-indigo-templates.php';
+require get_template_directory() . '/classes/class_reporte_indigo_scripts.php';
+require get_template_directory() . '/classes/class-reporte-indigo-styles.php';
 require get_template_directory() . '/classes/class-reporte-indigo-script-loader.php';
 require get_template_directory() . '/classes/embed/class-reporte-indigo-oembed.php';
 
