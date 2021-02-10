@@ -11,6 +11,7 @@
  * Reporte Indigo trabaja únicamente con Wordpress 4.7 o superior.
  */
 
+require get_template_directory() . '/classes/class_reporte_indigo_post_types.php';
 require get_template_directory() . '/classes/class_reporte_indigo_lectura_mb.php';
 require get_template_directory() . '/classes/class-reporte-indigo-test.php';
 require get_template_directory() . '/classes/class-reporte-indigo-templates.php';
@@ -42,6 +43,67 @@ function reporte_indigo_setup() {
 }
 
 add_action( 'after_setup_theme', 'reporte_indigo_setup' );
+
+
+/*
+ * El cache del navegador sólo está disponible para
+ * usuarios que no tengan sesión
+**/
+if (!function_exists( 'cloudflare_origin_cache_control')){
+	function cloudflare_origin_cache_control() {
+		if ( is_user_logged_in() ){
+			header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+			header("Cache-Control: post-check=0, pre-check=0", false);
+			header("Pragma: no-cache");
+		}	
+	}
+}
+
+add_action( 'init', 'cloudflare_origin_cache_control' );
+
+if ( class_exists( 'Reporte_Indigo_Post_Types' ) ) :
+
+	function reporte_indigo_create_taxonomies () {
+		$reporte = new Reporte_Indigo_Post_Types('Reporte', 'reporte', 'ri-reporte');
+		$reporte->create_taxonomy();
+
+		$opinion = new Reporte_Indigo_Post_Types('Opinión', 'opinion', 'ri-opinion');
+		$opinion->create_taxonomy();
+
+		$latitud = new Reporte_Indigo_Post_Types('Latitud', 'latitud', 'ri-latitud');
+		$latitud->create_taxonomy();
+
+		$indigonomics = new Reporte_Indigo_Post_Types('Indigonomics', 'indigonomics', 'ri-indigonomics');
+		$indigonomics->create_taxonomy();
+
+		$piensa = new Reporte_Indigo_Post_Types('Piensa', 'piensa', 'ri-piensa', 'dashicons-lightbulb');
+		$piensa->create_taxonomy();
+
+		$fan = new Reporte_Indigo_Post_Types('Fan', 'fan', 'ri-fan');
+		$fan->create_taxonomy();
+
+		$desglose = new Reporte_Indigo_Post_Types('Desglose', 'desglose', 'ri-desglose');
+		$desglose->create_taxonomy();
+
+		$especial = new Reporte_Indigo_Post_Types('Especial', 'especial', 'ri-especial', 'dashicons-admin-post', ['title', 'thumbnail', 'excerpt']);
+		$especial->create_taxonomy();
+
+		$filosofia = new Reporte_Indigo_Post_Types('Filosofía Financiera', 'filosofia-financiera', 'ri-filosofia', 'dashicons-admin-post', ['editor']);
+		$filosofia->create_taxonomy();
+
+		$dato = new Reporte_Indigo_Post_Types('Dato del día', 'dato-dia', 'ri-dato-dia','dashicons-admin-post', ['editor', 'thumbnail']);
+		$dato->create_taxonomy();
+
+		$documento = new Reporte_Indigo_Post_Types('Documento Índigo', 'documento-indigo', 'ri-documento-indigo');
+		$documento->create_taxonomy();
+
+		$emergencia = new Reporte_Indigo_Post_Types('Salida de Emergencia', 'salida-emergencia', 'ri-salida-emergencia');
+		$emergencia->create_taxonomy();
+	}
+
+	add_action( 'init', 'reporte_indigo_create_taxonomies' );
+
+endif;
 
 /**
  * Carga todos los estilos en la sección que corresponde
