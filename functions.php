@@ -110,94 +110,114 @@ endif;
  *
  **/
 
-function reporte_indigo_scripts(){
-	wp_enqueue_style( 'critical-style', get_stylesheet_directory_uri() . "/css/critical.css", [], "20210120" );
+function reporte_indigo_scripts () {
 
-	if( ! is_home() && ! is_single() && ! is_post_type_archive('ri-reporte') && ! is_post_type_archive('ri-latitud') && ! is_post_type_archive('ri-indigonomics') && ! is_post_type_archive('ri-piensa') && ! is_tax('ri-categoria') && ! is_tax('ri-tema') && ! is_tax('ri-columna') && ! is_post_type_archive('ri-fan') && ! is_post_type_archive('ri-desglose')  && ! is_post_type_archive('ri-opinion') && ! is_page_template('page-templates/terminos.php') && ! is_page_template('page-templates/privacidad.php') && ! is_page_template('page-templates/ventas.php') && ! is_page_template('page-templates/newsletter.php') && ! is_page_template('page-templates/edicion-impresa.php') && ! is_404() ) {
-		wp_enqueue_style('bootstrap-min-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', array(), '4.4.1', 'all' );
-		wp_enqueue_style('my-stylesheet-css', get_stylesheet_uri(), array(), '0.0.1', 'all' );
-		wp_enqueue_style('my-768-css', get_template_directory_uri()."/assets/css/768.css", array(), '0.0.1', 'screen and (max-width: 768px)');
-		wp_enqueue_style('my-576-css', get_template_directory_uri()."/assets/css/576.css", array(), '0.0.1', 'screen and (max-width: 576px)');
-		wp_enqueue_style('my-425-css', get_template_directory_uri()."/assets/css/425.css", array(), '0.0.1', 'screen and (max-width: 425px)');
-	}
-	
-	if( is_404() ) {
-		wp_enqueue_style( 'edicion-style', get_stylesheet_directory_uri() . "/css/404.css", [], "20210120" );
-	}
-	
-	if( is_page_template('page-templates/edicion-impresa.php') ) {
-		wp_enqueue_style( 'edicion-style', get_stylesheet_directory_uri() . "/css/edicion.css", [], "20210120" );
-	}
-	
-	if( is_page_template('page-templates/newsletter.php') ) {
-		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "/css/newsletter.css", [], "20210120" );
-	}
-	
-	if( is_page_template('page-templates/ventas.php') ) {
-		wp_enqueue_style( 'ventas-style', get_stylesheet_directory_uri() . "/css/ventas.css", [], "20210120" );
-	}
+	if( ! is_admin() ) {
+		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+		remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
-	if( is_page_template('page-templates/terminos.php') || is_page_template('page-templates/privacidad.php') ){
-		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/css/terminos.css", [], "20210120" );
-	}
+		remove_action('wp_head', 'wlwmanifest_link');
+		remove_action('wp_head', 'wp_generator');
+		remove_action('wp_head', 'wp_print_scripts');
+		remove_action('wp_head', 'wp_print_head_scripts', 9);
+		remove_action('wp_head', 'wp_enqueue_scripts', 1);
 
-	if( is_tax('ri-categoria') || is_tax('ri-tema') || is_tax('ri-columna') ){
-		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/css/taxonomy.css", [], "20210120" );
-	}
+		add_action('wp_footer', 'wp_print_scripts', 5);
+		add_action('wp_footer', 'wp_enqueue_scripts', 5);
+		add_action('wp_footer', 'wp_print_head_scripts', 5);
 
-	if ( is_post_type_archive('ri-opinion') ) {
-		wp_enqueue_style( 'opinion-style', get_stylesheet_directory_uri() . "/css/opinion.css", [], "20210120" );
-	}
+		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+		remove_action( 'wp_print_styles', 'print_emoji_styles' );
+		remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
-	if ( is_post_type_archive('ri-desglose') ) {
-		wp_enqueue_style( 'desglose-style', get_stylesheet_directory_uri() . "/css/desglose.css", [], "20210120" );
-	}
+		wp_deregister_script( 'wp-embed' );
 
-	if ( is_post_type_archive('ri-fan') ){
-		wp_enqueue_style( 'fan-style', get_stylesheet_directory_uri() . "/css/fan.css", [], "20210120" );
-	}
+		wp_dequeue_style('wordpress-popular-posts-css');
+  		wp_deregister_style('wordpress-popular-posts-css');
 
-	if ( is_post_type_archive('ri-piensa') ){
-		wp_enqueue_style( 'piensa-style', get_stylesheet_directory_uri() . "/css/piensa.css", [], "20210120" );
-	}
+  		wp_dequeue_style( 'wp-block-library' );
+	    	wp_dequeue_style( 'wp-block-library-theme' );
+	    	wp_dequeue_style( 'wc-block-style' );
+	    	wp_dequeue_style( 'wp-block-library' );
 
-	if ( is_post_type_archive('ri-indigonomics') ){
-		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/css/latitud.css", [], "20210120" );
+	    	// Remove from RSS feeds also
+		remove_filter( 'the_content_feed', 'wp_staticize_emoji');
+		remove_filter( 'comment_text_rss', 'wp_staticize_emoji');
+
+		// Cargar fuentes
+		wp_enqueue_style('roboto-font', 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,700&display=swap', [], '', 'all' );
+
+		// Cargar scripts
+		wp_deregister_script('jquery');
+
+		wp_enqueue_script('bootstrap-min-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js', '', '5.0.0', true);
+		wp_script_add_data( 'bootstrap-min-js', 'defer', true );
+
+		wp_enqueue_script('jwplayer-js', 'https://cdn.jwplayer.com/libraries/ixhD10k3.js', '', null, true);
+		wp_script_add_data( 'jwplayer-js', 'defer', true );
+
+		wp_enqueue_style('swiper-min-css', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css', [], '4.5.0', 'all' );
+		wp_enqueue_style('fontawesome-min-css', get_template_directory_uri().'/assets/fonts/fontawesome/fontawesome.min.css', array(), '0.0.3', 'all' );
 	}
 
-	if ( is_post_type_archive('ri-latitud') ){
-		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/css/latitud.css", [], "20210120" );
-	}
-
-	if ( is_post_type_archive('ri-reporte') ){
-		wp_enqueue_style( 'reporte-style', get_stylesheet_directory_uri() . "/css/reporte.css", [], "20210120" );
-	}
-
-	if( is_home() ){
-		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/css/home.css", [], "20210120" );
-	}
-
-	if( is_single() ){
-		wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/css/single.css", [], "20210120" );
-	}
 }
 
 add_action( 'wp_enqueue_scripts', 'reporte_indigo_scripts' );
 
 /**
- * Carga todos los scripts que se ejecutan en tu tema
- * (Puede ser de cabecera o pie de página por ejemplo)
+ * Agrega los estilos no criticos del tema
  *
- **/
-function reporte_indigo_default_scripts(){
-	echo '<script type="text/javascript">"use strict";const showMenu=async(e,t,c)=>{document.getElementById(e).addEventListener("click",function(o){for(let t of document.querySelectorAll(".exec"))e!==t.id&&t.classList.remove(c);for(let e of document.querySelectorAll(".listen"))t!==e.id&&e.classList.remove(c);this.classList.toggle(c),document.getElementById(t).classList.toggle(c)})};(async()=>{showMenu("exec-search","listen-search","activo"),showMenu("exec-menu","listen-menu","activo"),document.addEventListener("scroll",function(){(document.documentElement.scrollTop||document.body.scrollTop)<document.querySelector(".navmain").offsetHeight?document.querySelector(".navbar").classList.remove("active"):document.querySelector(".navbar").classList.add("active")},{passive:!0})})();</script>';
-	
-	if( is_post_type_archive('ri-fan') )
-		echo '<script type="text/javascript">const loadScript=(e,t)=>{let l,i,r;(l=document.createElement("script")).type="text/javascript",l.src=e,l.onload=l.onreadystatechange=function(){i||this.readyState&&"complete"!=this.readyState||(i=!0,t())},(r=document.getElementsByTagName("script")[0]).parentNode.insertBefore(l,r)};let swiperInstances=[];const initSlider=()=>{sliders("slider-fan",1,1)},sliders=(e,t,l)=>{let i=document.getElementById(e);if(void 0!==i&&null!=i){let i={slidesPerView:1,spaceBetween:15,autoHeight:!0};1==l&&(i.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},i.on={slideChangeTransitionEnd:()=>{for(let t of document.querySelectorAll(`#${e} li`))t.classList.remove("active");let l=document.querySelectorAll(`#${e} ul`);for(let e of l)e.querySelector(`li:nth-child(${swiperInstances[t].activeIndex+1})`).classList.add("active");document.querySelectorAll(`#${e} ul`)}}),swiperInstances[t]=new Swiper(`#${e}`,i)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
+**/
+function add_non_critical_section_styles() {
+	if( is_home() )
+		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/css/home.css", [], "20210120" );
 
-}
+	if( is_single() )
+		wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/css/single.css", [], "20210120" );
 
-add_action( 'wp_footer', 'reporte_indigo_default_scripts' , 5 );
+	if( is_404() )
+		wp_enqueue_style( 'edicion-style', get_stylesheet_directory_uri() . "/css/404.css", [], "20210120" );
+
+	if( is_page_template('page-templates/edicion-impresa.php') )
+		wp_enqueue_style( 'edicion-style', get_stylesheet_directory_uri() . "/css/edicion.css", [], "20210120" );
+
+	if( is_page_template('page-templates/newsletter.php') )
+		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "/css/newsletter.css", [], "20210120" );
+
+	if( is_page_template('page-templates/ventas.php') )
+		wp_enqueue_style( 'ventas-style', get_stylesheet_directory_uri() . "/css/ventas.css", [], "20210120" );
+
+	if( is_page_template('page-templates/terminos.php') || is_page_template('page-templates/privacidad.php') )
+		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/css/terminos.css", [], "20210120" );
+
+	if( is_tax('ri-categoria') || is_tax('ri-tema') || is_tax('ri-columna') )
+		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/css/taxonomy.css", [], "20210120" );
+
+	if ( is_post_type_archive('ri-opinion') )
+		wp_enqueue_style( 'opinion-style', get_stylesheet_directory_uri() . "/css/opinion.css", [], "20210120" );
+
+	if ( is_post_type_archive('ri-desglose') )
+		wp_enqueue_style( 'desglose-style', get_stylesheet_directory_uri() . "/css/desglose.css", [], "20210120" );
+
+	if ( is_post_type_archive('ri-fan') )
+		wp_enqueue_style( 'fan-style', get_stylesheet_directory_uri() . "/css/fan.css", [], "20210120" );
+
+	if ( is_post_type_archive('ri-piensa') )
+		wp_enqueue_style( 'piensa-style', get_stylesheet_directory_uri() . "/css/piensa.css", [], "20210120" );
+
+	if ( is_post_type_archive('ri-indigonomics') )
+		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/css/latitud.css", [], "20210120" );
+
+	if ( is_post_type_archive('ri-latitud') )
+		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/css/latitud.css", [], "20210120" );
+
+	if ( is_post_type_archive('ri-reporte') )
+		wp_enqueue_style( 'reporte-style', get_stylesheet_directory_uri() . "/css/reporte.css", [], "20210120" );
+
+};
+
+add_action( 'get_footer', 'add_non_critical_section_styles' );
 
 /**
  * Filtra los atributos de una imagen adjunta
