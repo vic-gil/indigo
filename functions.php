@@ -82,6 +82,48 @@ if (!function_exists( 'cloudflare_origin_cache_control')){
 
 add_action( 'init', 'cloudflare_origin_cache_control' );
 
+if ( DISABLE_WP_CRON ):
+	require get_template_directory() . '/classes/class-reporte-indigo-cron.php';
+	
+	if ( class_exists( 'Reporte_Indigo_Cron' ) ) :
+		
+		function cron_update_home() {
+			$home_top = new Reporte_Indigo_Cron( 'ri_cache_home_top', get_option('wp_front_home_top_ri') );
+			$home_top->cache_query_by_selection();
+
+			$home_general = new Reporte_Indigo_Cron( 'ri_cache_home_general', get_option('wp_front_home_general_top_ri') );
+			$home_general->cache_query_by_selection();
+
+			// $home_reporte = new Reporte_Indigo_Cron( 'ri_cache_home_reporte', get_option('wp_front_home_reporte_ri') );
+			// $home_reporte->cache_query_by_selection();
+
+			$home_opinion = new Reporte_Indigo_Cron( 'ri_cache_home_opinion', get_option('wp_front_home_opinion_ri') );
+			$home_opinion->cache_query_by_selection();
+
+			$home_editor = new Reporte_Indigo_Cron( 'ri_cache_home_editor', get_option('wp_front_home_seleccion_editor_ri') );
+			$home_editor->cache_query_by_selection();
+		}
+
+		function cron_update_reporte() {
+			$nacional = new Reporte_Indigo_Cron( 'ri_cache_nacional', null, 'ri-reporte', 'nacional', 11 );
+			$nacional->cache_query_by_config();
+
+			$cdmx = new Reporte_Indigo_Cron( 'ri_cache_cdmx', null, 'ri-reporte', 'cdmx', 11 );
+			$cdmx->cache_query_by_config();
+
+			$gdl = new Reporte_Indigo_Cron( 'ri_cache_gdl', null, 'ri-reporte', 'gdl', 10 );
+			$gdl->cache_query_by_config();
+
+			$nacional = new Reporte_Indigo_Cron( 'ri_cache_mty', null, 'ri-reporte', 'mty', 11 );
+			$nacional->cache_query_by_config();
+		}
+
+		add_action( 'cron_every_five_minutes', 'cron_update_home' );
+		add_action( 'cron_every_five_minutes', 'cron_update_reporte' );
+	endif;
+
+endif;
+
 if ( class_exists( 'Reporte_Indigo_Post_Types' ) ) :
 
 	function reporte_indigo_create_taxonomies () {
