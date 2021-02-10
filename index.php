@@ -8,15 +8,22 @@
 			if( ! empty( $selected_posts = get_option("wp_front_home_top_ri") ) ) {
 				Reporte_indigo_test::comment('Slide 8 notes');
 				$selected_posts = unserialize( $selected_posts );
-				$posts = new WP_Query([
-					'posts_per_page'	=> count($selected_posts),
-					'post_type' 		=> 'any',
-					'post__in' 			=> $selected_posts,
-					'post_status'      	=> 'publish',
-					'suppress_filters' 	=> false,
-					'no_found_rows' 	=> true,
-					'orderby' 			=> 'post__in'
-				]);
+
+				if( false === $posts = get_transient('ri_home_top') ) {
+					$posts = new WP_Query([
+						'posts_per_page'	=> count($selected_posts),
+						'post_type' 		=> 'any',
+						'post__in' 			=> $selected_posts,
+						'post_status'      	=> 'publish',
+						'suppress_filters' 	=> false,
+						'no_found_rows' 	=> true,
+						'orderby' 			=> 'post__in'
+					]);
+
+					if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
+		   				set_transient('ri_home_top', $posts, 12 * HOUR_IN_SECONDS );
+					}
+				}
 
 				$exclude = array_merge( $exclude, $selected_posts );
 			?>
@@ -50,18 +57,25 @@
 					<?php
 					if( ! empty( $selected_posts = get_option("wp_front_home_general_top_ri") ) ) {
 						Reporte_indigo_test::comment('5 Notas administradas');
-
 						$selected_posts = unserialize( $selected_posts );
 
-						$posts = new WP_Query([
-							'posts_per_page'	=> count($selected_posts),
-							'post_type' 		=> 'any',
-							'post__in' 			=> $selected_posts,
-							'post_status'      	=> 'publish',
-							'suppress_filters' 	=> false,
-							'no_found_rows' 	=> true,
-							'orderby' 			=> 'post__in'
-						]);
+						if( false === $posts = get_transient('ri_cache_home_general') ) {
+
+							$posts = new WP_Query([
+								'posts_per_page'	=> count($selected_posts),
+								'post_type' 		=> 'any',
+								'post__in' 			=> $selected_posts,
+								'post_status'      	=> 'publish',
+								'suppress_filters' 	=> false,
+								'no_found_rows' 	=> true,
+								'orderby' 			=> 'post__in'
+							]);
+
+							if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
+				   				set_transient('ri_cache_home_general', $posts, 12 * HOUR_IN_SECONDS );
+							}
+
+						}
 
 						$exclude = array_merge( $exclude, $selected_posts );
 						
@@ -171,18 +185,25 @@
 			<?php
 			if( ! empty( $selected_posts = get_option("wp_front_home_reporte_ri") ) ) {
 				Reporte_indigo_test::comment('Reporte');
-
 				$selected_posts = unserialize( $selected_posts );
 
-				$posts = new WP_Query([
-					'posts_per_page'	=> count($selected_posts["primary"]),
-					'post_type' 		=> 'any',
-					'post__in' 			=> $selected_posts["primary"],
-					'post_status'      	=> 'publish',
-					'suppress_filters' 	=> false,
-					'no_found_rows' 	=> true,
-					'orderby' 			=> 'post__in'
-				]);
+				if( false === $posts = get_transient('ri_cache_home_reporte') ) {
+
+					$posts = new WP_Query([
+						'posts_per_page'	=> count($selected_posts["primary"]),
+						'post_type' 		=> 'any',
+						'post__in' 			=> $selected_posts["primary"],
+						'post_status'      	=> 'publish',
+						'suppress_filters' 	=> false,
+						'no_found_rows' 	=> true,
+						'orderby' 			=> 'post__in'
+					]);
+
+					if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
+		   				set_transient('ri_cache_home_reporte', $posts, 12 * HOUR_IN_SECONDS );
+					}
+
+				}
 
 				$exclude = array_merge( $exclude, $selected_posts );
 				
@@ -552,15 +573,24 @@
 				if( ! empty( $selected_posts = get_option("wp_front_home_opinion_ri") ) ) {
 					Reporte_indigo_test::comment('Opinion 8 notas');
 					$selected_posts = unserialize( $selected_posts );
-					$posts = new WP_Query([
-						'posts_per_page'	=> count($selected_posts),
-						'post_type' 		=> 'any',
-						'post__in' 			=> $selected_posts,
-						'post_status'      	=> 'publish',
-						'suppress_filters' 	=> false,
-						'no_found_rows' 	=> true,
-						'orderby' 			=> 'post__in'
-					]);
+
+					if( false === $posts = get_transient('ri_cache_home_opinion') ) {
+
+						$posts = new WP_Query([
+							'posts_per_page'	=> count($selected_posts),
+							'post_type' 		=> 'any',
+							'post__in' 			=> $selected_posts,
+							'post_status'      	=> 'publish',
+							'suppress_filters' 	=> false,
+							'no_found_rows' 	=> true,
+							'orderby' 			=> 'post__in'
+						]);
+
+						if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
+			   				set_transient('ri_cache_home_opinion', $posts, 12 * HOUR_IN_SECONDS );
+						}
+
+					}
 
 					$exclude = array_merge( $exclude, $selected_posts );
 					$total = $posts->post_count;
@@ -602,15 +632,24 @@
 			if( ! empty( $selected_posts = get_option("wp_front_home_seleccion_editor_ri") ) ) {
 				Reporte_indigo_test::comment('Selección del editor 4 notas');
 				$selected_posts = unserialize( $selected_posts );
-				$posts = new WP_Query([
-					'posts_per_page'	=> count($selected_posts),
-					'post_type' 		=> 'any',
-					'post__in' 			=> $selected_posts,
-					'post_status'      	=> 'publish',
-					'suppress_filters' 	=> false,
-					'no_found_rows' 	=> true,
-					'orderby' 			=> 'post__in'
-				]);
+
+				if( false === $posts = get_transient('ri_cache_home_editor') ) {
+
+					$posts = new WP_Query([
+						'posts_per_page'	=> count($selected_posts),
+						'post_type' 		=> 'any',
+						'post__in' 			=> $selected_posts,
+						'post_status'      	=> 'publish',
+						'suppress_filters' 	=> false,
+						'no_found_rows' 	=> true,
+						'orderby' 			=> 'post__in'
+					]);
+
+					if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
+		   				set_transient('ri_cache_home_editor', $posts, 12 * HOUR_IN_SECONDS );
+					}
+
+				}
 
 				$exclude = array_merge( $exclude, $selected_posts );
 
