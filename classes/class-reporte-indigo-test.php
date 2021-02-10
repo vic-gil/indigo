@@ -1,6 +1,6 @@
 <?php
 /**
- * Clase Templates
+ * Clase Reporte_indigo_test
  *
  * Plantillas para pruebas
  *

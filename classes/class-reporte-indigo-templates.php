@@ -60,7 +60,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 */
 		public static function componente_boton_jwplayer($json) {
 		?>
-			<button class="jw-play" data-json="<?=$json?>" data-title="<?=$json?>" type="button">
+			<button type="button" class="jw-play" data-json="<?=$json?>" data-title="<?=$json?>" aria-label="play" onclick="jwEvent(this); return false;">
 				<i class="fas fa-play"></i>
 			</button>
 		<?php
@@ -99,7 +99,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 			}
 
 		?>
-			<img itemprop="contentUrl" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="<?=$url?>" alt="<?=$title?>" title="<?=$title?>" class="lazy" loading="lazy" />
+			<img itemprop="contentUrl" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="<?=$url?>" alt="<?=$title?>" class="lazyload" loading="lazy" />
 		<?php
 		}
 
@@ -118,7 +118,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				$url = str_replace(get_site_url(), 'https://images.reporteindigo.com', $url);
 			}
 		?>
-			<img itemprop="contentUrl" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="<?=$url?>" alt="<?=$title?>" title="<?=$title?>" class="lazy" loading="lazy" />
+			<img itemprop="contentUrl" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="<?=$url?>" alt="<?=$title?>" class="lazyload" loading="lazy" />
 		<?php
 		}
 
@@ -141,9 +141,21 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 			];
 			if( array_key_exists($slug, $icons) ){
 			?>
-				<img src="<?=IMAGESPATH;?>/svgs/<?=$icons[$slug];?>" alt="<?=$slug;?>" title="<?=$slug;?>" class="lazy" loading="lazy">
+				<img src="<?=IMAGESPATH;?>/svgs/<?=$icons[$slug];?>" alt="<?=$slug;?>" class="lazyload" loading="lazy">
 			<?php
 			}
+		}
+
+		/**
+		 * Componente web separador
+		 *
+		 * @return void
+		 */
+
+		public static function componente_separador() {
+		?>
+		<div class="separator"><hr></div>
+		<?php
 		}
 
 		/**
@@ -186,21 +198,15 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 						<address itemprop="author" itemscope="" itemtype="http://schema.org/Person" rel="author">
 							<a href="<?=$data['author']['link'];?>" title="<?=$data['author']['name'];?>"><?=$data['author']['name'];?></a>
 						</address>
-						<ul id="sw-nav-top">
+						<div class="pagination">
 							<?php
-							if($index == 0){
-								for($j = 0; $j < $total; $j++) {
-								?>
-								<li class="<?=$active = $j == 0 ? 'active' : '';?>" role="group">
-								    <a href="javascript:void(0);" title="<?=($j + 1);?> / <?=$total;?>">
-								    	<i class="fas fa-circle"></i>
-								    </a>
-								</li>
-								<?php
-								}
+							for($j = 0; $j < $total; $j++) {
+							?>
+								<span class="fas fa-circle"></span>
+							<?php
 							}
 							?>
-						</ul>
+						</div>
 					</div>
 				</article>
 			</div>
@@ -349,7 +355,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				<p>Suscríbete y recibe diariamente nuestro Newsletter y acceso ilimitado a toda la información de Reporte Indigo</p>
 				<a href="<?=$link;?>" alt="Newsletter" title="Newsletter">
 					<div class="form">
-						<label><input type="text" name="suscribe" /></label>
+						<label><span class="sr-only">Suscribete</span><input type="text" name="suscribe" /></label>
 						<button type="button" id="button-suscribe" aria-label="Suscríbete">
 							<i class="fas fa-paper-plane"></i>
 						</button>
@@ -371,9 +377,19 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		?>
 		<div class="component-titulo">
 			<h2>
+				<?php
+				if(FALSE !== $slug){
+				?>
 				<a href="<?=site_url($slug);?>" title="<?=$title?>">
 					<?=$title;?><i class="fas fa-angle-double-right"></i>
 				</a>
+				<?php
+				} else {
+				?>
+				<?=$title;?><i class="fas fa-angle-double-right"></i>
+				<?php	
+				}
+				?>
 			</h2>
 		</div>	
 		<?php
@@ -860,7 +876,9 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 						foreach ($data["rss"] as $kr => $r) {
 						?>
 						<li>
-							<a href="javascript:void(0)" data-json="<?=rawurlencode(json_encode($r));?>" alt="<?=$r['title'];?>" title="<?=$r['title'];?>" class="item-playlist-jwp"><?=$r['title'];?></a>
+							<span data-json="<?=rawurlencode(json_encode($r));?>" title="<?=$r['title'];?>" class="item-playlist-jwp" >
+								<?=$r['title'];?>
+							</span>
 						</li>
 						<?php
 						}
