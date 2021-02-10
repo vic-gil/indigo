@@ -1,5 +1,4 @@
 <?php $url = home_url(); ?>
-		
 		<footer class="pie">
 			<div class="footer-sections container">
 				<div class="components">
@@ -61,7 +60,7 @@
 					<div class="footer-legal">
 						<div>
 							<a href="<?=$url;?>" title="<?=get_bloginfo('name');?>">
-								<img src="<?=IMAGESPATH;?>/generales/logo-cs.png" alt="<?=get_bloginfo('name');?>" title="<?=get_bloginfo('name');?>" />
+								<img src="<?=IMAGESPATH;?>/generales/logo-cs.png" width="187" height="30" alt="<?=get_bloginfo('name');?>" />
 							</a>
 						</div>
 						<div>
