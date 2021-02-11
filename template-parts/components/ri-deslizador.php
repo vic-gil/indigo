@@ -25,11 +25,11 @@ $total = array_key_exists('total', $args) ? intval($args['total']) : FALSE;
 		</figure>
 		<div class="entry-data">
 			<div class="entry-title">
-				<h3>
+				<h2>
 					<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 						<?php the_title();?>
 					</a>
-				</h3>
+				</h2>
 			</div>
 			<div class="entry-excerpt">
 				<?php the_excerpt(); ?>
@@ -41,7 +41,7 @@ $total = array_key_exists('total', $args) ? intval($args['total']) : FALSE;
 				<?php
 				for($i = 0; $i < $total; $i++) {
 				?>
-					<span class="fas fa-circle"></span>
+					<span class="fas fa-circle <?= ($i == 0) ? 'active' : ''?>"></span>
 				<?php
 				}
 				?>

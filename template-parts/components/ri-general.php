@@ -11,6 +11,7 @@ $tema = get_the_terms( get_the_ID(), 'ri-tema' );
 $ciudad = get_post_meta( get_the_ID(), '_ciudad_meta', TRUE );
 $jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
 $class = array_key_exists('class', $args) ? $args['class'] : '';
+$contain_author = array_key_exists('author', $args) ? $args['author'] : TRUE;
 $contain_image = array_key_exists('image', $args) ? $args['image'] : TRUE;
 $contain_category = array_key_exists('category', $args) ? $args['category'] : TRUE;
 $contain_local = array_key_exists('local', $args) ? $args['local'] : TRUE;
@@ -87,10 +88,14 @@ $contain_excerpt = array_key_exists('excerpt', $args) ? $args['excerpt'] : TRUE;
 			</div>
 			<?php
 			}
+			if($contain_author) {
 			?>
 			<address itemprop="author" itemscope="" itemtype="http://schema.org/Person" rel="author">
 				<?php the_author_posts_link();?>
 			</address>
+			<?php
+			}
+			?>
 		</div>
 	</article>
 </div>
