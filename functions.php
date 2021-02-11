@@ -30,14 +30,18 @@ define('POST_TYPE', serialize ([
 	'ri-especial'
 ]));
 
-require get_template_directory() . '/classes/class_reporte_indigo_post_types.php';
-require get_template_directory() . '/classes/class_reporte_indigo_lectura_mb.php';
+// Clases necesarias para el funcionamiento del tema
+require get_template_directory() . '/classes/class-reporte-indigo-post-types.php';
 require get_template_directory() . '/classes/class-reporte-indigo-test.php';
 require get_template_directory() . '/classes/class-reporte-indigo-templates.php';
-require get_template_directory() . '/classes/class_reporte_indigo_scripts.php';
+require get_template_directory() . '/classes/class-reporte-indigo-scripts.php';
 require get_template_directory() . '/classes/class-reporte-indigo-styles.php';
 require get_template_directory() . '/classes/class-reporte-indigo-script-loader.php';
 require get_template_directory() . '/classes/embed/class-reporte-indigo-oembed.php';
+
+// Clases para la carga de metaboxes
+require get_template_directory() . '/inc/metaboxes/metabox-reporte-indigo-jwplayer.php';
+require get_template_directory() . '/inc/metaboxes/metabox-reporte-indigo-lectura.php';
 
 function reporte_indigo_setup() {
 
