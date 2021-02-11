@@ -9,7 +9,7 @@
 				Reporte_indigo_test::comment('Slide 8 notes');
 				$selected_posts = unserialize( $selected_posts );
 
-				if( false === $posts = get_transient('ri_home_top') ) {
+				if( false === $posts = get_transient('ri_cache_home_top') ) {
 					$posts = new WP_Query([
 						'posts_per_page'	=> count($selected_posts),
 						'post_type' 		=> 'any',
@@ -21,7 +21,7 @@
 					]);
 
 					if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
-		   				set_transient('ri_home_top', $posts, 12 * HOUR_IN_SECONDS );
+		   				set_transient('ri_cache_home_top', $posts, 12 * HOUR_IN_SECONDS );
 					}
 				}
 
@@ -259,7 +259,7 @@
 			?>
 		</div>
 	</div>
-	<?php Reporte_indigo_test::comment('Indigonomics, Filosofia financiera'); ?>
+	<?php Reporte_indigo_test::comment('Indigonomics, Filosofía financiera'); ?>
 	<div class="container">
 		<div class="components">
 			<?php
@@ -496,7 +496,7 @@
 					]);
 					if ( $one->have_posts() ):
 						while ( $one->have_posts() ): $one->the_post();
-							get_template_part( 'template-parts/components/ri', 'twitter_plus' );
+							get_template_part( 'template-parts/components/ri', 'dato_dia' );
 						endwhile;
 					endif;
 					wp_reset_postdata();
