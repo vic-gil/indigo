@@ -126,6 +126,39 @@ class Reporte_Indigo_Styles {
 	}
 
 	/**
+	 * Estilo del componente filosofía financiera
+	 *
+	 * @return void
+	**/
+
+	static function style_filosofia_indigonomics() {
+		$style = '.component-twitt-plus{margin-top:1rem}@media (min-width:992px){.component-twitt-plus{margin-top:0!important;flex:0 0 auto;width:100%}}.component-twitt-plus .entries{background:#2dc3f6}.component-twitt-plus .header{display:flex;align-items:center;justify-content:center;background:#3474be;padding:.5rem 1rem}.component-twitt-plus .header img{margin-right:.5rem}.component-twitt-plus .header h2{font-family:Roboto,sans-serif;font-size:12pt;font-weight:700!important;font-style:normal!important;color:#fff}@media (min-width:992px){.component-twitt-plus .header h2{font-size:14pt!important}}.component-twitt-plus .body{padding:1rem 1rem 1rem}.component-twitt-plus .body h3{font-family:Roboto,sans-serif;font-size:16pt!important;font-weight:700!important;font-style:normal!important;line-height:22pt!important;text-align:center;color:#182d51}@media (min-width:992px){.component-twitt-plus .body h3{font-size:20pt!important}}.component-twitt-plus .footer{padding:0 1rem 1rem;text-align:center}.component-twitt-plus .ticket-cut{width:100%;height:20px;background-image:linear-gradient(27deg,transparent 30px,#2dc3f6 31px),linear-gradient(155deg,#2dc3f6 16px,transparent 17px);background-size:24px 40px;background-repeat:repeat-x}';
+		return $style;
+	}
+
+	/**
+	 * Estilo del componente enfoque indigo
+	 *
+	 * @return void
+	**/
+
+	static function style_enfoque_piensa() {
+		$style = '.component-enfoque{margin-top:1rem!important;}.component-enfoque article{border-radius:.7em;background:#2dc3f6;padding-top:calc(var(--bs-gutter-x)/ 2);padding-bottom:calc(var(--bs-gutter-x)/ 2);padding-right:calc(var(--bs-gutter-x)/ 2);padding-left:calc(var(--bs-gutter-x)/ 2)}.component-enfoque .enfoque-title{font-family:Roboto;font-size:16pt!important;font-weight:700!important;font-style:normal!important;color:#182d49}.component-enfoque h2{margin-top:1rem!important}.component-enfoque h2 a{font-family:Roboto;font-size:12pt!important;font-weight:500!important;font-style:normal!important;text-transform:uppercase!important;color:#3474be}.component-enfoque h3 a{font-family:Roboto;font-size:16pt!important;line-height:22pt!important;font-weight:700!important;font-style:normal!important;color:#182d49}.component-enfoque .entry-excerpt{margin-top:.5rem}.component-enfoque .entry-excerpt p{font-family:Roboto;font-size:12pt!important;line-height:16pt!important;font-weight:400!important;font-style:normal!important;letter-spacing:.3pt;margin-bottom:.5rem!important}.component-enfoque .swiper-container{margin-bottom:1rem!important}.component-enfoque picture{position:relative;display:block;width:100%;height:0;padding-bottom:56.25%;border-radius:3px;overflow:hidden;margin:0 auto;background:#ddd}.component-enfoque picture img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}.component-enfoque footer{text-align:center}.component-enfoque button{font-family:Roboto;font-size:10pt!important;font-weight:400!important;font-style:normal!important;text-transform:uppercase!important;border:none;border-radius:25rem;color:#fff;background-color:#007bff;padding:.375rem .75rem;text-align:center;vertical-align:middle;line-height:1.5}';
+		return $style;
+	}
+
+	/**
+	 * Estilo del componente dato del día
+	 *
+	 * @return void
+	**/
+
+	static function style_dato_dia_fan() {
+		$style = '.component-dato-dia{margin-top:1rem}.component-dato-dia .entries{background:#77b5f7}.component-dato-dia figure{margin:0!important}.component-dato-dia picture{position:relative;display:block;width:100%;padding-top:56.25%;border-radius:3px;overflow:hidden;margin:0;background:#ddd}.component-dato-dia picture{box-shadow:0 .125rem .25rem rgba(0,0,0,.075)!important}.component-dato-dia picture img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}.component-dato-dia .header{padding:1rem;background:#3474be}.component-dato-dia .header h2{font-family:Roboto,sans-serif;font-size:14pt;font-weight:700!important;font-style:normal!important;color:#eaecee;margin-bottom:1rem;text-align:center}@media (min-width:768px){.component-dato-dia .header h2{font-size:18pt!important}}.component-dato-dia .body{padding:1rem}.component-dato-dia .body h3{font-family:Roboto,sans-serif;font-size:16pt;font-weight:700!important;font-style:normal!important;color:#182d49}@media (min-width:992px){.component-dato-dia .body h3{font-size:18pt!important}}.component-dato-dia .triangle{display:flex;width:0;height:0;border-left:30px solid transparent;border-right:30px solid transparent;border-top:40px solid #3474be;margin:0 auto}.component-dato-dia .footer{padding:0 1rem 1rem;text-align:center}';
+		return $style;
+	}
+
+	/**
 	 * Función que ejecuta la clase
 	 *
 	 * @return void
@@ -143,13 +176,13 @@ class Reporte_Indigo_Styles {
 			echo '<style type="text/css">' . self::style_general() . '</style>';
 
 		if ( is_post_type_archive('ri-indigonomics') )
-			echo '<style type="text/css">' . self::style_general() . '</style>';
+			echo '<style type="text/css">' . self::style_general() . self::style_filosofia_indigonomics() . '</style>';
 
 		if ( is_post_type_archive('ri-piensa') )
-			echo '<style type="text/css">' . self::style_general() . '</style>';
+			echo '<style type="text/css">' . self::style_general() . self::style_enfoque_piensa() . '</style>';
 
 		if ( is_post_type_archive('ri-fan') )
-			echo '<style type="text/css">' . self::style_general() . '</style>';
+			echo '<style type="text/css">' . self::style_general() . self::style_dato_dia_fan() . '</style>';
 
 		if ( is_post_type_archive('ri-opinion') )
 			echo '<style type="text/css">' . self::style_opinion() . '</style>';
@@ -168,4 +201,4 @@ class Reporte_Indigo_Styles {
 }
 
 $styles_plugin = new Reporte_Indigo_Styles();
-add_action('wp_head', array($styles_plugin, 'on_loaded'), 101);
+add_action('wp_head', [$styles_plugin, 'on_loaded'], 101);

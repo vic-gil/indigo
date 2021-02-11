@@ -25,16 +25,21 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 * @param Array $args  			Array configuration [ index => (int), total => (int), posts => [Array] ]
 		 * @return void
 		 */
-		public static function componente_tag_domain($link, $title, $msg) {
-		?>
-		<div class="tag-domain">
-			<h2>
-				<a href="<?=$link;?>" title="<?=$title;?>">
-					<?=$msg?>
-				</a>
-			</h2>
-		</div>
-		<?php
+		public static function componente_tag_domain($link, $title, $args) {
+		if( FALSE !== $args ) :
+			if($args["chk_option_tag"] === 1) :
+			$domain = str_replace($args["input_search_domain"], $args["input_replace_domain"], $link);
+			?>
+			<div class="tag-domain">
+				<h2>
+					<a href="<?=$link;?>" title="<?=$title;?>">
+						<?=$domain;?>
+					</a>
+				</h2>
+			</div>
+			<?php
+			endif;
+		endif;
 		}
 
 		/**
