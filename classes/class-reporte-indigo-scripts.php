@@ -41,7 +41,7 @@ class Reporte_Indigo_Scripts {
 	static function share($echo = TRUE) {
 		$script = '<script type="text/javascript">
 			"use strict";
-
+			
 		</script>';
 
 		if( $echo )

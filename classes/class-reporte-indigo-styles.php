@@ -16,6 +16,17 @@
 class Reporte_Indigo_Styles {
 
 	/**
+	 * Estilo del componente breadcrumb
+	 *
+	 * @return void
+	**/
+
+	static function style_breadcrumb() {
+		$style = '.breadcrumb{margin-bottom:1rem}.breadcrumb>*{display:-ms-flexbox;display:flex;align-items:center;-ms-flex-wrap:wrap;flex-wrap:wrap;padding:.75rem 1rem;background-color:#e9ecef;border-radius:.25rem;align-items:center}.breadcrumb ol{list-style:none}.breadcrumb ol li{display:inline-flex;font-family:Roboto,sans-serif;font-weight:400!important;font-style:normal!important;line-height:1.2;line-height:1.2}.breadcrumb ol li+li:before{content:"/";padding:0 .5rem}.breadcrumb ol h1{font-size:1rem;color:#3e4c59}.breadcrumb ol a{font-size:1rem;color:#3e4c59}.breadcrumb ol a[aria-current=page]{color:#6c757d}';
+		return $style;
+	}
+
+	/**
 	 * Estilo del componente deslizador
 	 *
 	 * @return void
@@ -34,6 +45,17 @@ class Reporte_Indigo_Styles {
 
 	static function style_general() {
 		$style = '.component-general{margin-top:1rem!important}.component-general figure{margin-bottom:1rem!important}.component-general picture{position:relative;display:block;width:100%;padding-top:56.25%;border-radius:3px;overflow:hidden;margin:0;background:#ddd}.component-general picture{box-shadow:0 .125rem .25rem rgba(0,0,0,.075)!important}.component-general picture img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}.component-general .entry-local{margin-bottom:.25rem}.component-general .entry-local h3 a{font-family:Roboto,sans-serif;font-size:12pt!important;font-weight:700!important;font-style:normal!important;color:#3e4c59;text-transform:uppercase}@media (min-width:992px){.component-general .entry-local h3 a{font-size:14pt!important}}.component-general .entry-title h2 a{font-family:Roboto;font-weight:500!important;font-style:normal!important;font-size:12pt!important;color:#3474be;text-transform:uppercase}.component-general .entry-title h2 a{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}.component-general .entry-title h3 a{font-family:Roboto;font-weight:700!important;font-style:normal!important;color:#000}.component-general .entry-title h3 a{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.component-general .entry-excerpt p{font-family:Roboto;font-weight:400!important;font-style:normal!important;font-size:12pt!important;line-height:18pt!important;letter-spacing:.3pt;color:#343a40;padding-top:.5rem!important;margin:0!important}.component-general .entry-excerpt p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}@media (min-width:992px){.component-general .entry-excerpt p{font-size:14pt!important;line-height:18pt!important}}.component-general address{padding-top:.5rem!important;margin-bottom:0!important}.component-general address a{font-family:Roboto;font-weight:500!important;font-style:normal!important;font-size:10pt!important;color:#67737d;margin:0!important}.component-general .entry-title h3 a{font-size:16pt;line-height:22pt}@media (min-width:992px){.component-general .entry-title h3 a{font-size:22pt;line-height:26pt}}.component-general.vlarge{flex:0 0 auto;width:100%}@media (min-width:992px){.component-general.vlarge{flex:0 0 auto;width:66.66667%}}.component-general.vmedium{flex:0 0 auto;width:100%}@media (min-width:768px){.component-general.vmedium{flex:0 0 auto;width:50%}}@media (min-width:992px){.component-general.vmedium{flex:0 0 auto;width:66.66667%}}@media (min-width:768px){.component-general.vsmall{flex:0 0 auto;width:50%}}.component-general.vsmall .entry-title h3 a{font-size:16pt!important;line-height:22pt!important}@media (min-width:992px){.component-general.vsmall .entry-title h3 a{font-size:18pt!important;line-height:22pt!important}}@media (min-width:768px){.component-general.vmini{flex:0 0 auto;width:33.33333%}}.component-general.vmini .entry-local h3 a{font-size:12pt!important;color:#3e4c59;text-transform:uppercase}.component-general.vmini .entry-title h3 a{font-size:16pt!important;line-height:22pt!important}@media (min-width:992px){.component-general.vmini .entry-title h3 a{font-size:18pt!important;line-height:22pt!important}}@media (min-width:768px){.component-general.vmicro{flex:0 0 auto;width:25%}}.component-general.vmicro .entry-title h3 a{font-size:16pt!important;line-height:22pt!important}@media (min-width:992px){.component-general.vmicro .entry-title h3 a{font-size:14pt!important;line-height:18pt!important}}';
+		return $style;
+	}
+
+	/**
+	 * Estilo del componente general para sección autor
+	 *
+	 * @return void
+	**/
+
+	static function style_general_author() {
+		$style = '.component-general{margin-top:1rem!important}.component-general figure{margin-bottom:1rem!important}.component-general picture{position:relative;display:block;width:100%;padding-top:56.25%;border-radius:3px;overflow:hidden;margin:0;background:#ddd}.component-general picture{box-shadow:0 .125rem .25rem rgba(0,0,0,.075)!important}.component-general picture img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}.component-general .entry-local{margin-bottom:.25rem}.component-general .entry-local h3 a{font-family:Roboto,sans-serif;font-size:12pt!important;font-weight:700!important;font-style:normal!important;color:#3e4c59;text-transform:uppercase}@media (min-width:992px){.component-general .entry-local h3 a{font-size:14pt!important}}.component-general .entry-title h2 a{font-family:Roboto;font-weight:500!important;font-style:normal!important;font-size:12pt!important;color:#3474be;text-transform:uppercase}.component-general .entry-title h2 a{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}.component-general .entry-title h3 a{font-family:Roboto;font-weight:700!important;font-style:normal!important;color:#000;line-height:22pt!important}.component-general .entry-title h3 a{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.component-general .entry-excerpt p{font-family:Roboto;font-weight:400!important;font-style:normal!important;font-size:12pt!important;line-height:18pt!important;letter-spacing:.3pt;color:#343a40;padding-top:.5rem!important;margin:0!important}.component-general .entry-excerpt p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}@media (min-width:992px){.component-general .entry-excerpt p{font-size:14pt!important;line-height:18pt!important}}.component-general address{padding-top:.5rem!important;margin-bottom:0!important}.component-general address a{font-family:Roboto;font-weight:500!important;font-style:normal!important;font-size:10pt!important;color:#67737d;margin:0!important}@media (min-width:768px){.component-general.amedium{flex:0 0 auto;width:50%}}@media (min-width:992px){.component-general.amedium{flex:0 0 auto;width:33.33333%}}.component-general.amedium h3 a{font-size:16pt!important}@media (min-width:992px){.component-general.amedium h3 a{font-size:18pt!important}}@media (min-width:768px){.component-general.asmall{flex:0 0 auto;width:50%}}@media (min-width:992px){.component-general.asmall{flex:0 0 auto;width:25%}}.component-general.asmall h3 a{font-size:16pt!important;line-height:22pt!important}@media (min-width:992px){.component-general.asmall h3 a{font-size:14pt!important;line-height:18pt!important}}';
 		return $style;
 	}
 
@@ -93,6 +115,17 @@ class Reporte_Indigo_Styles {
 	}
 
 	/**
+	 * Estilo del componente author
+	 *
+	 * @return void
+	**/
+
+	static function style_author() {
+		$style = '.component-author{position:relative;text-align:center;padding-top:75px;margin-bottom:1rem}@media (min-width:768px){.component-author{flex:0 0 auto;width:50%}}@media (min-width:992px){.component-author{flex:0 0 auto;width:66.66667%}}.component-author figure{position:absolute;top:0;left:0;right:0;margin-bottom:0;z-index:2}.component-author picture{position:relative;display:block;width:150px;padding-top:150px;border-radius:3px;margin:0 auto;background:0 0}.component-author picture img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:50%;border:3px solid #3474be}.component-author picture img{box-shadow:0 .125rem .25rem rgba(0,0,0,.075)!important}.component-author .entries{padding:95px 1rem 1rem;background:#3474be;border-radius:.7em}.component-author .entries{box-shadow:0 .125rem .25rem rgba(0,0,0,.075)!important}.component-author h1{font-family:Roboto,sans-serif;font-size:16pt!important;font-weight:700!important;font-style:normal!important;color:#eaecee}.component-author a,.component-author span{font-family:Roboto,sans-serif;font-style:normal;color:#eaecee}.component-author .description,.component-author .mail,.component-author .role{margin-bottom:1rem}.component-author .description span,.component-author .mail span,.component-author .role span{font-size:12pt;font-weight:400}.component-author ul{display:-ms-flexbox;display:flex;justify-content:center;align-items:center;padding-left:0;margin-bottom:0;list-style:none}.component-author a{margin:0 .5rem}.component-author a.fab{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:none;border-radius:50%;outline:0!important;background:#007bff;font-size:.875rem;color:#fff;transition:opacity .3s ease!important}.component-author a.fab span{display:none}.component-author a.fab:hover{opacity:.86}';
+		return $style;
+	}
+
+	/**
 	 * Función que ejecuta la clase
 	 *
 	 * @return void
@@ -123,6 +156,12 @@ class Reporte_Indigo_Styles {
 
 		if ( is_post_type_archive('ri-desglose') )
 			echo '<style type="text/css">' . self::style_complejo() . '</style>';
+
+		if ( is_author() )
+			echo '<style type="text/css">' . self::style_author() . self::style_general_author() . '</style>';
+
+		if ( is_search() )
+			echo '<style type="text/css">' . self::style_breadcrumb() . self::style_general_author() . '</style>';
 
 	}
 
