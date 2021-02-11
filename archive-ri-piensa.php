@@ -8,15 +8,35 @@
 				while ( have_posts() ) : the_post();
 					
 					if($index == 0){
-						echo '<div class="col-lg-8"><div class="components">';
+						echo '<div class="col-md-7 col-lg-8"><div class="components">';
 						get_template_part( 'template-parts/components/ri', 'general' );
 						echo '</div></div>';
-						echo '<div class="col-lg-4"><div class="components">';
-						/**
-						 *
-						 * Aqui va enfoque indigo
-						 *
-						**/
+						echo '<div class="col-md-5 col-lg-4"><div class="components">';
+						
+						$one = new WP_Query([
+							'post_type' 			=> 'ri-piensa',
+							'posts_per_page' 		=> 1,
+							'post_status'      		=> 'publish',
+							'suppress_filters' 		=> false,
+							'ignore_sticky_posts'	=> true,
+							'no_found_rows' 		=> true,
+							'post__not_in'			=> $exclude,
+							'tax_query' 			=> [
+								[
+									'taxonomy' 		=> 'ri-categoria',
+									'field'	   		=> 'slug',
+									'terms'	 		=> 'enfoqueindigo'
+								]
+							]
+						]);
+
+						if ( $one->have_posts() ):
+							while ( $one->have_posts() ): $one->the_post();
+								get_template_part( 'template-parts/components/ri', 'enfoque' );
+							endwhile;
+						endif;
+						wp_reset_postdata();
+
 						echo '</div></div><div class="separator"><hr></div>';
 					}	
 
@@ -140,3 +160,4 @@
 	</div>
 </main>
 <?php get_footer(); ?>
+

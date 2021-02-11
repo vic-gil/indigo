@@ -12,11 +12,22 @@
 					get_template_part( 'template-parts/components/ri', 'general' );
 					echo '</div></div>';
 					echo '<div class="col-lg-4"><div class="components">';
-					/**
-					 *
-					 * Aquí va el dato del día
-					 *
-					**/
+					
+					$one = new WP_Query([
+						'post_type' 			=> 'ri-dato-dia',
+						'posts_per_page' 		=> 1,
+						'post_status'      		=> 'publish',
+						'suppress_filters' 		=> false,
+						'ignore_sticky_posts'	=> true,
+						'no_found_rows' 		=> true
+					]);
+					if ( $one->have_posts() ):
+						while ( $one->have_posts() ): $one->the_post();
+							get_template_part( 'template-parts/components/ri', 'dato_dia' );
+						endwhile;
+					endif;
+					wp_reset_postdata();
+					
 					echo '</div></div>';
 				}
 
