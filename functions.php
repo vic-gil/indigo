@@ -39,9 +39,13 @@ require get_template_directory() . '/classes/class-reporte-indigo-styles.php';
 require get_template_directory() . '/classes/class-reporte-indigo-script-loader.php';
 require get_template_directory() . '/classes/embed/class-reporte-indigo-oembed.php';
 
+// Clases para la carga de menús
+require get_template_directory() . '/inc/menus/menu-reporte-indigo-general-options.php';
+
 // Clases para la carga de metaboxes
 require get_template_directory() . '/inc/metaboxes/metabox-reporte-indigo-jwplayer.php';
 require get_template_directory() . '/inc/metaboxes/metabox-reporte-indigo-lectura.php';
+require get_template_directory() . '/inc/metaboxes/metabox-reporte-indigo-busqueda.php';
 
 function reporte_indigo_setup() {
 
