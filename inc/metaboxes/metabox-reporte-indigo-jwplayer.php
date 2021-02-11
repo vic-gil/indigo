@@ -61,7 +61,7 @@ class Reporte_Indigo_Jwplayer {
 		if(empty($player_id))
 			$player_id = "ixhD10k3";
 
-		<<<EOL
+		echo <<<EOL
 			<p>
 				<label for="value_mediaid_jwp_meta">Media ID</label><br>
 				<input 	type="text" 

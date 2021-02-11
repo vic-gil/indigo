@@ -60,7 +60,7 @@ class Reporte_Indigo_Lectura {
 		echo <<<EOL
 			<p>
 				<label for="_tiempo_estimado_meta">Tiempo áprox. min.</label><br>
-				<input type="text" name="_tiempo_estimado_meta" id="_tiempo_estimado_meta" value="$tiempo;" readonly>
+				<input type="text" name="_tiempo_estimado_meta" id="_tiempo_estimado_meta" value="{$tiempo}" readonly>
 			</p>
 		EOL;
 	}
