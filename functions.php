@@ -1,23 +1,11 @@
 <?php
-/**
- * Reporte Indigo funciones y definiciones
- *
- * @package Capital Media
- * @subpackage Reporte Indigo
- * @since Reporte Indigo 3.0.0
- */
-
-/**
- * Reporte Indigo trabaja únicamente con Wordpress 4.7 o superior.
- */
-
 define('JSPATH', get_template_directory_uri().'/assets/js');
 define('CSSPATH', get_template_directory_uri().'/assets/css');
 define('IMAGESPATH', get_template_directory_uri().'/assets/images');
 define('PAGESPATH', get_template_directory_uri().'/assets/pages');
 define('THEMEPATH', get_template_directory_uri(). '/');
 define('SITEURL', site_url('/') );
-define('POST_TYPE', serialize ([
+define('POST_TYPE', serialize (array(
 	'ri-reporte',
 	'ri-opinion',
 	'ri-latitud',
@@ -28,7 +16,7 @@ define('POST_TYPE', serialize ([
 	'ri-documento-indigo',
 	'ri-salida-emergencia',
 	'ri-especial'
-]));
+)));
 
 // Clases necesarias para el funcionamiento del tema
 require get_template_directory() . '/classes/class-reporte-indigo-taxonomies.php';
@@ -48,33 +36,9 @@ require get_template_directory() . '/inc/metaboxes/metabox-reporte-indigo-jwplay
 require get_template_directory() . '/inc/metaboxes/metabox-reporte-indigo-lectura.php';
 require get_template_directory() . '/inc/metaboxes/metabox-reporte-indigo-busqueda.php';
 
-function reporte_indigo_setup() {
-
-	/*
-	 * Agrega tres menús dinamicos accesible por 
-	 * medio del personalizador
-	 *
-	 */
-
-	register_nav_menus([
-		'header' => __( 'Cabecera', 'reporte_indigo' ),
-		'help' 	 => __( 'Ayuda', 'reporte_indigo' ),
-		'sites'  => __( 'Sitios del grupo', 'reporte_indigo' )
-	]);
-
-	/*
-	 * Agrega soporte de `async` y `defer` para scripts 
-	 * registrados o en cola por el tema
-	 *
-	 */
-
-	$loader = new Reporte_indigo_script_loader();
-	add_filter( 'script_loader_tag', [ $loader, 'filter_script_loader_tag' ], 10, 2 );
-}
-
-add_action( 'after_setup_theme', 'reporte_indigo_setup' );
-
-
+// Adecuaciones para el perfomance
+require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-images.php';
+require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-single.php';
 /*
  * El cache del navegador sólo está disponible para
  * usuarios que no tengan sesión
@@ -152,6 +116,13 @@ endif;
 
 if ( class_exists( 'Reporte_Indigo_Post_Types' ) ) :
 
+	/**
+	 * Se crean taxonomías por media de la función Reporte_Indigo_Post_Types
+	 * Reporte_Indigo_Post_Types("etiqueta", "slug", "post type id", "icon", "soporte");
+	 *
+	 * @link reporte/classes/class-reporte-indigo-post-types.php
+	**/
+
 	function reporte_indigo_create_taxonomies () {
 		$reporte = new Reporte_Indigo_Post_Types('Reporte', 'reporte', 'ri-reporte');
 		$reporte->create_taxonomy();
@@ -194,10 +165,24 @@ if ( class_exists( 'Reporte_Indigo_Post_Types' ) ) :
 
 endif;
 
-/**
- * Carga todos los estilos en la sección que corresponde
- *
- **/
+if ( ! function_exists( 'add_rel_preload' ) ) :
+
+	function reporte_indigo_add_rel_preload($html, $handle, $href, $media) {
+		if ( is_admin() )
+	    	return $html;
+
+	    $html = "<link rel='preload' href='$href' as='style' onload=\"this.onload=null;this.rel='stylesheet'\" />
+			<noscript><link id='$handle-no-script' type='text/css' rel='stylesheet' href=\"$href\" media=\"$media\" /></noscript>";
+
+		$html .= "<link id='$handle' type='text/css' rel='stylesheet' href=\"$href\" media=\"$media\" />";
+
+		return $html;
+	}
+
+	add_filter( 'style_loader_tag', 'reporte_indigo_add_rel_preload', 10, 4 );
+
+endif;
+
 
 function reporte_indigo_scripts () {
 
@@ -226,11 +211,11 @@ function reporte_indigo_scripts () {
   		wp_deregister_style('wordpress-popular-posts-css');
 
   		wp_dequeue_style( 'wp-block-library' );
-	    	wp_dequeue_style( 'wp-block-library-theme' );
-	    	wp_dequeue_style( 'wc-block-style' );
-	    	wp_dequeue_style( 'wp-block-library' );
+	    wp_dequeue_style( 'wp-block-library-theme' );
+	    wp_dequeue_style( 'wc-block-style' );
+	    wp_dequeue_style( 'wp-block-library' );
 
-	    	// Remove from RSS feeds also
+	    // Remove from RSS feeds also
 		remove_filter( 'the_content_feed', 'wp_staticize_emoji');
 		remove_filter( 'comment_text_rss', 'wp_staticize_emoji');
 
@@ -242,9 +227,6 @@ function reporte_indigo_scripts () {
 
 		wp_enqueue_script('bootstrap-min-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js', '', '5.0.0', true);
 		wp_script_add_data( 'bootstrap-min-js', 'defer', true );
-
-		wp_enqueue_script('jwplayer-js', 'https://cdn.jwplayer.com/libraries/ixhD10k3.js', '', null, true);
-		wp_script_add_data( 'jwplayer-js', 'defer', true );
 
 		wp_enqueue_style('swiper-min-css', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css', [], '4.5.0', 'all' );
 		wp_enqueue_style('fontawesome-min-css', get_template_directory_uri().'/assets/fonts/fontawesome/fontawesome.min.css', array(), '0.0.3', 'all' );
@@ -267,9 +249,6 @@ function add_non_critical_section_styles() {
 
 	if( is_404() )
 		wp_enqueue_style( 'edicion-style', get_stylesheet_directory_uri() . "/css/404.css", [], "20210120" );
-
-	if( is_page_template('page-templates/edicion-impresa.php') )
-		wp_enqueue_style( 'edicion-style', get_stylesheet_directory_uri() . "/css/edicion.css", [], "20210120" );
 
 	if( is_page_template('page-templates/newsletter.php') )
 		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "/css/newsletter.css", [], "20210120" );
@@ -304,120 +283,212 @@ function add_non_critical_section_styles() {
 	if ( is_post_type_archive('ri-reporte') )
 		wp_enqueue_style( 'reporte-style', get_stylesheet_directory_uri() . "/css/reporte.css", [], "20210120" );
 
+	if ( is_author() )
+		wp_enqueue_style( 'author-style', get_stylesheet_directory_uri() . "/css/author.css", [], "20210120" );
+
+	if ( is_search() )
+		wp_enqueue_style( 'author-style', get_stylesheet_directory_uri() . "/css/author.css", [], "20210120" );
+
 };
 
 add_action( 'get_footer', 'add_non_critical_section_styles' );
 
-/**
- * Filtra los atributos de una imagen adjunta
- *
- * @param  string[] $attr 	   Matriz de valores de atributo para el marcado de la imagen.
- * @param  WP_Post $attachment Imagen adjunta a publicación.
- * @param  string|int[] $size  Tamaño de imagen solicitado
- */
-
-function custom_media_responsive_size($attr, $attachment, $size) {
-	if(! is_admin() ) :
-
-		/**
-		 * Agregamos la clase lazyload a todas las imágenes
-		 *
-		 */
-		$attr['class'] = $attr['class'] . " lazyload";
-
-		if( ! empty( $attr['src'] ) ) :
-
-			/**
-			 * Pasamos los valores de src a data-src para el plugin
-			 * Si tus imagenes se encuentran en un CDN (Amazon S3, Cludfront) aquí puedes cambiarlas
-			 * mediante una exprresión regular
-			 *
-			 */
-			$attr['data-src'] = $attr['src'];
-
-			/**
-			 * Pixel 1x1 transparente
-			 *
-			 */
-			$attr['src'] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
-
-		endif;
-
-		if( ! empty( $attr['srcset'] ) ) :
-
-			/**
-			 * Pasamos los valores de srcset a data-srcset para el plugin
-			 * Si tus imagenes se encuentran en un CDN (Amazon S3, Cludfront) aquí puedes cambiarlas
-			 * mediante una exprresión regular
-			 *
-			 */
-			$attr['data-srcset'] = $attr['srcset'];
-
-			/**
-			 * Limpiamos el campo srcset
-			 *
-			 */
-		   	$attr['srcset'] = '';
-
-		endif;
-
-		/**
-		 * ¡LA MAGIA OCURRE AQUÍ!
-		 * Esto requiere de mucho análisis y de requisitos de tu tema
-		 * usa la configuracion que necesites mediante una medida
-		 * ejemplo `medium_large`, `large` y la sección ejemplo
-		 * is_home(), is_category() para mostrar las imagenes en su tamaño 
-		 * ideal mediante diseño responsivo.
-		 *
-		 * Si no estás familiarizado con esto consulta. HTML y AMP
-		 * @link https://developer.mozilla.org/es/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
-		 * @link https://amp.dev/es/documentation/guides-and-tutorials/develop/style_and_layout/art_direction/
-		 *
-		 */
-		$attr['sizes'] = "(min-width: 1024px) 500px, (min-width: 768px) 300px, (min-width: 414px) 200px, 300px";
-
-		if( is_home() ) :
-			
-			if( $size === "medium_large" ) :
-				$attr['sizes'] = "(min-width: 1024px) 500px, (min-width: 768px) 300px, (min-width: 414px) 200px, 300px";
-			endif;
-
-			if( $size === "large" ) :
-				$attr['sizes'] = "(min-width: 1024px) 500px, (min-width: 768px) 300px, (min-width: 414px) 200px, 300px";
-			endif;
-
-		endif;
-
-		if ( is_category() ) :
-
-		endif;
-
-		if ( is_tax() ) :
-
-		endif;
-
-		if ( is_search() ) :
-
-		endif;
-
-		if ( is_author() ) :
-
-		endif;
-
-	endif;
-
-	return $attr;
+/* Se remueve el editor de la admin bar superior */
+function removes_posts_admin_panel_menu(){
+	remove_menu_page( 'edit.php' );
 }
 
-add_filter('wp_get_attachment_image_attributes', 'custom_media_responsive_size', 10 , 3);
+add_action( 'admin_menu', 'removes_posts_admin_panel_menu' );
+
+
+/**
+ * Se agrega la configuración inicial del tema
+ *
+**/
+
+if ( ! function_exists( 'reporte_indigo_setup' ) ){
+
+	function reporte_indigo_setup() {
+
+		/**
+		 * Aquí podemos cargar nuestro archivo de lenguaje de Reporte Índigo
+		 *
+		**/
+		// load_theme_textdomain( 'reporte_indigo', get_template_directory() . '/lang' );
+	
+		function no_gallery($atts) { 
+			return "";
+		}
+		
+		add_shortcode('gallery', 'no_gallery');
+
+		add_theme_support( 'title-tag' );
+		add_theme_support( 'automatic-feed-links' );
+		add_theme_support( 'post-thumbnails' );
+		add_theme_support( 'responsive-embeds' );
+		
+		add_theme_support(
+			'post-formats',
+			[
+				'aside',
+				'image',
+				'video',
+				'quote',
+				'link',
+				'gallery',
+				'status',
+				'audio',
+				'chat',
+			]
+		);
+		
+		add_theme_support(
+			'html5',
+			[
+				'search-form',
+				'comment-form',
+				'comment-list',
+				'gallery',
+				'caption',
+			]
+		);
+
+		add_filter('user_contactmethods', 'perfil_usuario_personalizado' );
+		function perfil_usuario_personalizado( $user_contact ) {
+		    $user_contact['facebook'] 	= __('Facebook profile URL');
+		    $user_contact['instagram'] 	= __('Instagram profile URL'); 
+		    $user_contact['linkedin'] 	= __('LinkedIn profile URL'); 
+		    $user_contact['pinterest'] 	= __('Pinterest profile URL'); 
+		    $user_contact['soundcloud'] = __('SoundCloud profile URL'); 
+		    $user_contact['tumblr'] 	= __('Tumblr profile URL'); 
+		    $user_contact['twitter'] 	= __('Twitter profile URL'); 
+		    $user_contact['youtube'] 	= __('YouTube profile URL'); 
+		    $user_contact['rss'] 		= __('RSS');
+		    return $user_contact;
+		}
+
+		/*
+		 * Agrega tres menús dinamicos accesible por 
+		 * medio del personalizador
+		 *
+		 */
+
+		register_nav_menus([
+			'header' => __( 'Cabecera', 'reporte_indigo' ),
+			'help' 	 => __( 'Ayuda', 'reporte_indigo' ),
+			'sites'  => __( 'Sitios del grupo', 'reporte_indigo' )
+		]);
+
+		// add_filter( 'nav_menu_item_id', '__return_null', 10, 3 );
+		// add_filter( 'nav_menu_css_class', '__return_empty_array', 10, 3 );
+
+		/*
+		 * Agrega soporte de `async` y `defer` para scripts 
+		 * registrados o en cola por el tema
+		 *
+		 */
+
+		$loader = new Reporte_indigo_script_loader();
+		add_filter( 'script_loader_tag', [ $loader, 'filter_script_loader_tag' ], 10, 2 );
+
+	}
+}
+
+add_action( 'after_setup_theme', 'reporte_indigo_setup' );
+
+/* se agrega link pingback */
+function siteweb_pingback_header() {
+
+	if ( is_singular() && pings_open() ) {
+		printf( '<link rel="pingback" href="%s">' . "\n", get_bloginfo( 'pingback_url' ) );
+	}
+
+}
+
+add_action( 'wp_head', 'siteweb_pingback_header' );
+
+function add_comscore_script() {
+	if(! amp_is_request()) {
+		echo <<<EOL
+		<!-- Begin comScore Tag-->
+		<script>
+		var _comscore = _comscore || [];
+		_comscore.push({ c1: "2", c2: "19249540" });
+		(function() {
+			var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.defer = true;
+			s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+			el.parentNode.insertBefore(s, el);
+		})();
+		</script>
+		<noscript>
+		  	<img src="http://b.scorecardresearch.com/p?c1=2&c2=19249540&cv=2.0&cj=1" title="<?=bloginfo('name');?>" alt="<?=bloginfo('name');?>" />
+		</noscript>
+		<!-- End comScore Tag-->
+		EOL;
+	}
+}
+
+add_action( 'wp_head', 'add_comscore_script', 1 );
+
+function add_google_tag_manager_script() {
+	if(! amp_is_request()) {
+		echo <<<EOL
+		<!-- Google Tag Manager -->
+		<script>
+		(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.defer=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-5PFW88Q');
+		</script>
+		<!-- End Google Tag Manager -->
+		EOL;
+	}
+}
+
+add_action( 'wp_head', 'add_google_tag_manager_script', 1 );
+
+function your_prefix_register_meta_boxes( $meta_boxes ) {
+
+	if( is_admin() ){
+		$prefix = 'prefix-';
+
+		$meta_boxes[] = [
+	        'title'      => esc_html__( 'Untitled', 'online-generator' ),
+	        'id'         => 'untitled',
+	        'post_types' => ['ri-especial'],
+	        'context'    => 'normal',
+	        'priority'   => 'high',
+	        'fields'     => [
+	            [
+	                'type' => 'autocomplete',
+	                'id'   => $prefix . 'autocomplete_t6hl34he88c',
+	                'name' => esc_html__( 'Autocomplete', 'online-generator' ),
+	            ],
+	        ],
+	    ];
+
+	    return $meta_boxes;
+	}
+
+}
+
+add_filter( 'rwmb_meta_boxes', 'your_prefix_register_meta_boxes' );
+
+add_filter('jetpack_implode_frontend_css', '__return_false', 99 );
+add_filter('use_block_editor_for_post', '__return_false');
+
+/*
+ * Crea la plantilla para popular post
+ *
+**/
 
 function reporte_indigo_popular_posts_html_list($popular_posts, $instance){
     $output = '';
     
     foreach( $popular_posts as $popular_post ) {
     	$post_id = $popular_post->id;
-    	$url = get_the_post_thumbnail_url($post_id, "thumbnail");
-    	$url = str_replace(get_site_url(), 'https://images.reporteindigo.com', $url);
+    	$image = get_the_post_thumbnail($post_id, "thumbnail");
     	$tema = get_the_terms($post_id, 'ri-tema');
 
     	if( $instance['shorten_title']['active'] == 1)
@@ -428,7 +499,7 @@ function reporte_indigo_popular_posts_html_list($popular_posts, $instance){
 		$output .= '		<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">';
 		$output .= '			<a href="' . get_permalink($post_id) . '" title="' . esc_attr($popular_post->title) . '">';
 		$output .= '				<picture>';
-		$output .= '					<img itemprop="contentUrl" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="' . $url . '" alt="' . esc_attr($popular_post->title) . '" title="' . esc_attr($popular_post->title) . '" class="lazy" loading="lazy" />';
+		$output .= $image;
 		$output .= '				</picture>';
 		$output .= '			</a>';
 		$output .= '		</figure>';
@@ -445,7 +516,7 @@ function reporte_indigo_popular_posts_html_list($popular_posts, $instance){
 		$output .= ' 					</a>';
 		$output .= '				</h3>';
 		$output .= '			</div>';
-	    	if( is_404() ) {
+		if( is_404() ) {
 			$output .= '<div class="entry-excerpt">';
 			$output .= '<p>' . get_the_excerpt($post_id) . '</p>';
 			$output .= '</div>';
@@ -459,29 +530,28 @@ function reporte_indigo_popular_posts_html_list($popular_posts, $instance){
 }
 
 add_filter('wpp_custom_html', 'reporte_indigo_popular_posts_html_list', 10, 2);
-function reporte_indigo_add_image_class($class){
-    $class .= ' lazy';
 
-    return $class;
+/**
+ * Cambio en la imagen de login
+ *
+**/
+
+function reporte_indigo_login_header() {
+
+	if( has_custom_logo() ) :
+		$image = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'full' );
+		?>
+		<style type="text/css">.login h1 a { background-image: url(<?php echo esc_url( $image[0] ); ?>); -webkit-background-size: <?php echo absint( $image[1] )?>px; background-size: <?php echo absint( $image[1] ) ?>px; height: <?php echo absint( $image[2] ) ?>px; width: <?php echo absint( $image[1] ) ?>px;}</style>
+		<?php
+	endif;
 }
+ 
+add_action( 'login_head', 'reporte_indigo_login_header', 100 );
 
-add_filter('get_image_tag_class','reporte_indigo_add_image_class');
-
-function reporte_indigo_add_lazy_image($content){
-	$content = str_replace('<img loading="lazy" class="','<img loading="lazy" class="lazy ', $content);
-
-	return $content;
-}
-
-add_filter('the_content','reporte_indigo_add_lazy_image');
-
-function reporte_indigo_replace_url_image($content){
-	$content = str_replace('src="http://staging.reporteindigo.com','src="https://images.reporteindigo.com', $content);
-
-	return $content;
-}
-
-add_filter('the_content','reporte_indigo_replace_url_image');
+/**
+ * Configuración de las consultas principales
+ *
+**/
 
 function reporte_indigo_main_query($query) {
 	if( ! is_admin() && $query->is_main_query() ):
@@ -516,17 +586,13 @@ function reporte_indigo_main_query($query) {
 			] );
 
 			/**
-			 *
 			 * Si cambias el apartado offset procura cambiarlo en 
 			 * la función acoplada al filtro found_posts
 			 * add_filter( 'found_posts', ... );
 			 *
 			**/
-
 			$offset = 6;
 			$ppp = 18;
-
-
 
 			if ( ! $query->is_paged() ) {
 				$query->set( 'posts_per_page', $ppp );
@@ -536,13 +602,13 @@ function reporte_indigo_main_query($query) {
 			}
 
 		endif;
-	
+
 		if ( is_post_type_archive('ri-fan') ) :
 			$query->set( 'posts_per_page', 15 );
 			$query->set( 'no_found_rows', false );
 			$query->set( 'suppress_filters', true );
 		endif;
-	
+
 		if ( is_post_type_archive('ri-desglose') ) :
 			$query->set( 'posts_per_page', 14 );
 			$query->set( 'no_found_rows', false );
@@ -551,6 +617,20 @@ function reporte_indigo_main_query($query) {
 
 		if ( is_tax('ri-categoria') || is_tax('ri-columna') || is_tax('ri-tema') ) :
 			$query->set( 'posts_per_page', 19 );
+			$query->set( 'no_found_rows', false );
+			$query->set( 'suppress_filters', true );
+		endif;
+
+		if ( is_author() ) :
+			$query->set( 'post_type', ['ri-reporte','ri-opinion','ri-latitud','ri-indigonomics','ri-piensa','ri-fan','ri-desglose','ri-documento-indigo','ri-salida-emergencia','ri-especial'] );
+			$query->set( 'posts_per_page', 52 );
+			$query->set( 'no_found_rows', false );
+			$query->set( 'suppress_filters', true );
+		endif;
+
+		if( is_search() ) :
+			$query->set( 'post_type', ['ri-reporte','ri-opinion','ri-latitud','ri-indigonomics','ri-piensa','ri-fan','ri-desglose','ri-documento-indigo','ri-salida-emergencia','ri-especial'] );
+			$query->set( 'posts_per_page', 25 );
 			$query->set( 'no_found_rows', false );
 			$query->set( 'suppress_filters', true );
 		endif;
