@@ -8,3 +8,7 @@ Description: Reporte Indigo ya está a la altura de sus contenidos ahora en su n
 Version: 1.0
 Text Domain: reporte_indigo
 */
+
+.sr-only {
+	width: 1px;
+}
