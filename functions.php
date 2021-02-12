@@ -31,6 +31,7 @@ define('POST_TYPE', serialize ([
 ]));
 
 // Clases necesarias para el funcionamiento del tema
+require get_template_directory() . '/classes/class-reporte-indigo-taxonomies.php';
 require get_template_directory() . '/classes/class-reporte-indigo-post-types.php';
 require get_template_directory() . '/classes/class-reporte-indigo-test.php';
 require get_template_directory() . '/classes/class-reporte-indigo-templates.php';
