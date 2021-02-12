@@ -92,9 +92,16 @@ add_action( 'init', 'cloudflare_origin_cache_control' );
 
 if ( DISABLE_WP_CRON ):
 	require get_template_directory() . '/classes/class-reporte-indigo-cron.php';
-	
+
 	if ( class_exists( 'Reporte_Indigo_Cron' ) ) :
-		
+
+		/**
+		 * Se crean/actualizan datos transitorios de la sección home.
+		 * Reporte_Indigo_Cron("nombre", "datos seleccionados", "post_type", "icon", "soporte");
+		 *
+		 * @link reporte/classes/class-reporte-indigo-post-types.php
+		**/
+
 		function cron_update_home() {
 			$home_top = new Reporte_Indigo_Cron( 'ri_cache_home_top', get_option('wp_front_home_top_ri') );
 			$home_top->cache_query_by_selection();
@@ -112,7 +119,16 @@ if ( DISABLE_WP_CRON ):
 			$home_editor->cache_query_by_selection();
 		}
 
+		/**
+		 * Se crean/actualizan datos transitorios de la sección reporte.
+		 * Reporte_Indigo_Cron("nombre", "datos seleccionados", "post_type", "icon", "soporte");
+		 *
+		 * @link reporte/classes/class-reporte-indigo-post-types.php
+		**/
 		function cron_update_reporte() {
+			$videos = new Reporte_Indigo_Cron( 'ri_cache_videos', null, null, null, 4 );
+			$videos->cache_query_by_jwplayer();
+
 			$nacional = new Reporte_Indigo_Cron( 'ri_cache_nacional', null, 'ri-reporte', 'nacional', 11 );
 			$nacional->cache_query_by_config();
 
@@ -128,6 +144,7 @@ if ( DISABLE_WP_CRON ):
 
 		add_action( 'cron_every_five_minutes', 'cron_update_home' );
 		add_action( 'cron_every_five_minutes', 'cron_update_reporte' );
+
 	endif;
 
 endif;
