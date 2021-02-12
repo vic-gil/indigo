@@ -88,6 +88,34 @@ class Reporte_Indigo_Cron {
 	}
 
 	/**
+	 * Crea datos transitorios para los videos
+	 *
+	 * @return void
+	**/
+	function cache_query_by_jwplayer() {
+		$posts = new WP_Query([
+			'posts_per_page'	=> $this->perPage,
+			'post_type' 		=> 'any',
+			'post_status'      	=> 'publish',
+			'suppress_filters' 	=> false,
+			'no_found_rows' 	=> true,
+			'meta_query' 		=> [
+				'relation' => 'AND',
+				[
+					'key' 		=> 'value_mediaid_jwp_meta',
+			    	'value' 	=> '',
+			    	'compare' 	=> '!='
+				]
+			]
+		]);
+
+		if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
+			echo '<p>Se crearon datos transitorios con nombre: <strong>' . $this->name . '</strong></p>';
+			set_transient($this->name, $posts, 12 * HOUR_IN_SECONDS );
+		}
+	}
+
+	/**
 	 * Crea intervalos de tiempo. 
 	 *
 	 * @param array  $schedules Un arreglo con intervalos de tiempo
