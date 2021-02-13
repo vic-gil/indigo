@@ -18,13 +18,13 @@
 		<meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
 		<meta http-equiv="cleartype" content="on">
 		<meta name="author" content="<?php if ( is_single() ) { single_post_title('', true); } else { bloginfo('name'); } ?>" />
-        	<meta name="copyright" content="<?php bloginfo('name'); ?>" />
-        	<meta property="fb:app_id" content="349644108939477" />
-    		<meta property="fb:pages" content="92465443899" /> 
-    		<meta name="theme-color" content="#3474be" />
-    		<meta name="google-site-verification" content="NQS76n_mTHZfHmt620zjPbhyWfGC5DComdPe1jNQw00" />
-    		<meta name="google-site-verification" content="4Bt7KHVG0kzwetxi_LnrYR8QUCkKFdSNGA4PU2hpaDs" />
-    		<meta name="msvalidate.01" content="7CFA2C8C16223F10EB60365CBAD65A67" />
+        <meta name="copyright" content="<?php bloginfo('name'); ?>" />
+        <meta property="fb:app_id" content="349644108939477" />
+    	<meta property="fb:pages" content="92465443899" /> 
+    	<meta name="theme-color" content="#3474be" />
+    	<meta name="google-site-verification" content="NQS76n_mTHZfHmt620zjPbhyWfGC5DComdPe1jNQw00" />
+    	<meta name="google-site-verification" content="4Bt7KHVG0kzwetxi_LnrYR8QUCkKFdSNGA4PU2hpaDs" />
+    	<meta name="msvalidate.01" content="7CFA2C8C16223F10EB60365CBAD65A67" />
 		<meta http-equiv="Content-Type" content="text/html; charset=<?php bloginfo( 'charset' ); ?>" />
 		<meta name="robots" content="noindex,follow"/>	
 		<meta name="application-name" content="<?=bloginfo('name');?>"/>
@@ -33,7 +33,6 @@
 		<meta name="msapplication-square70x70logo" content="<?=IMAGESPATH;?>/iconos/icon70x70.png" />
 		<meta name="msapplication-square150x150logo" content="<?=IMAGESPATH;?>/iconos/icon150x150.png" />
 		<meta name="msapplication-square310x310logo" content="<?=IMAGESPATH;?>/iconos/icon310x310.png" />
-		<link rel="manifest" href="<?=PAGESPATH;?>/utilerias/manifest.json">
 		<link rel="shortcut icon" href="<?=IMAGESPATH;?>/iconos/icon16x16.png" />
 		<link rel="apple-touch-icon" href="<?=IMAGESPATH;?>/iconos/icon192x192.png">
 		<link rel="icon" type="image/png" sizes="192x192" href="<?=IMAGESPATH;?>/iconos/icon192x192.png" />
@@ -47,7 +46,7 @@
 				<div class="content">
 					<div>
 						<a href="<?=home_url();?>" title="<?=get_bloginfo('name');?>">
-							<img src="<?=IMAGESPATH;?>/generales/logo-circle-blue.png" title="<?=get_bloginfo('name');?>" width="30" height="28" />
+							<img src="<?=IMAGESPATH;?>/svgs/ri-icono-30.svg" alt="<?=get_bloginfo('name');?>" width="30" height="30" />
 						</a>
 					</div>
 					<div class="newsletter">
@@ -95,7 +94,7 @@
 					</div>
 					<div class="nav-logo">
 						<a href="<?=home_url();?>" title="<?=get_bloginfo('name');?>">
-							<img src="<?=IMAGESPATH;?>/generales/logo-light-original.png" title="<?=get_bloginfo('name');?>" />
+							<img src="<?=IMAGESPATH;?>/svgs/ri-logo-170.svg" alt="<?=get_bloginfo('name');?>" width="150" height="46" />
 						</a>
 					</div>
 					<div class="nav-suscribe">
@@ -108,7 +107,7 @@
 					</div>
 					<div class="nav-logo">
 						<a href="<?=home_url();?>" title="<?=get_bloginfo('name');?>">
-							<img src="<?=IMAGESPATH;?>/generales/logo-light-original.png" title="<?=get_bloginfo('name');?>" />
+							<img src="<?=IMAGESPATH;?>/svgs/ri-logo-250.svg" alt="<?=get_bloginfo('name');?>" width="250" height="76" />
 						</a>
 					</div>
 					<nav class="nav-menu">
