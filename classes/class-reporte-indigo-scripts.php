@@ -39,10 +39,103 @@ class Reporte_Indigo_Scripts {
 	 * @return String|void String si $echo es falso o vacío si echo es verdadero;
 	**/
 	static function share($echo = TRUE) {
-		$script = '<script type="text/javascript">
+		$all = '<script type="text/javascript">
 			"use strict";
 			
+			var shareTitle;
+			var shareLink;
+
+			const getLink = (property) => {
+				let title = shareTitle;
+				let link = shareLink;
+
+				let network = {
+					facebook: {
+						desktop: `https://www.facebook.com/dialog/share?app_id=349644108939477&display=popup&href=${encodeURIComponent(link)}`,
+						mobile: `https://www.facebook.com/dialog/share?app_id=349644108939477&display=popup&href=${encodeURIComponent(link)}`
+					},
+					twitter: {
+						desktop: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(link)}`,
+						mobile: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(link)}`
+					},
+					whatsapp: {
+						desktop: `https://api.whatsapp.com/send?text=${encodeURIComponent(title)}-${encodeURIComponent(link)}`,
+						mobile: `whatsapp://send?text=${encodeURIComponent(title)}-${encodeURIComponent(link)}`,
+					},
+					line: {
+						desktop: `https://lineit.line.me/share/ui?url=${encodeURIComponent(link)}&text=${encodeURIComponent(title)}`,
+						mobile: `line://msg/text/?${encodeURIComponent(title)}-${encodeURIComponent(link)}`,
+					},
+					telegram: {
+						desktop: `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(title)}`,
+						mobile: `tg://msg?text=${encodeURIComponent(title)}-${encodeURIComponent(link)}`,
+					},
+					tumblr: {
+						desktop: `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}&caption=&tags=`,
+						mobile: `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}&caption=&tags=`,
+					},
+					linkedin: {
+						desktop: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}&summary=&source=CapitalMéxico`,
+						mobile: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}&summary=&source=CapitalMéxico`,
+					},
+					flipboard: {
+						desktop: `https://share.flipboard.com/bookmarklet/popout?v=2&title=${encodeURIComponent(title)}&url=${encodeURIComponent(link)}`,
+						mobile: `https://share.flipboard.com/bookmarklet/popout?v=2&title=${encodeURIComponent(title)}&url=${encodeURIComponent(link)}`,
+					},
+					pinterest: {
+						desktop: `http://pinterest.com/pin/create/button/?url=${encodeURIComponent(link)}`,
+						mobile: `http://pinterest.com/pin/create/button/?url=${encodeURIComponent(link)}`,
+					},
+					reddit: {
+						desktop: `https://reddit.com/submit?url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}`,
+						mobile: `https://reddit.com/submit?url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}`,
+					},
+					vk: {
+						desktop: `http://vk.com/share.php?url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}&comment=`,
+						mobile: `http://vk.com/share.php?url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}&comment=`,
+					}
+				}
+
+				return network[property];
+			}
+
+			const shareDialog = (data = false) => {
+				shareTitle = ( false !== data ) ? data.dataset.title : document.title;
+				shareLink = ( false !== data ) ? data.dataset.link : window.location.href;
+
+				if ( navigator.share ) {
+					navigator.share({
+	                    title: shareTitle,
+	                    text: shareLink,
+	                    url: shareLink
+	                })
+	                .then(() => console.log("Compartido exitoso"))
+	                .catch(error => console.log("Error al compartir", error));
+				} else {
+					let modal = document.getElementById("m-share");
+
+					const modalShare = new bootstrap.Modal(modal);
+
+					modal.addEventListener("show.bs.modal", function () {
+						this.querySelector(".title h2").innerHTML = shareTitle;
+					});
+
+					modalShare.show();
+				}
+			}
+
+			const share = (network) => {
+				let link = getLink(network);
+
+				if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+					window.open(link.mobile, "_blank");
+				} else {
+					window.open(link.desktop, "_blank");
+				}
+			}
 		</script>';
+
+		$script = '<script type="text/javascript">"use strict";var shareTitle,shareLink;const getLink=e=>{let t=shareTitle,o=shareLink;return{facebook:{desktop:`https://www.facebook.com/dialog/share?app_id=349644108939477&display=popup&href=${encodeURIComponent(o)}`,mobile:`https://www.facebook.com/dialog/share?app_id=349644108939477&display=popup&href=${encodeURIComponent(o)}`},twitter:{desktop:`https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(o)}`,mobile:`https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(o)}`},whatsapp:{desktop:`https://api.whatsapp.com/send?text=${encodeURIComponent(t)}-${encodeURIComponent(o)}`,mobile:`whatsapp://send?text=${encodeURIComponent(t)}-${encodeURIComponent(o)}`},line:{desktop:`https://lineit.line.me/share/ui?url=${encodeURIComponent(o)}&text=${encodeURIComponent(t)}`,mobile:`line://msg/text/?${encodeURIComponent(t)}-${encodeURIComponent(o)}`},telegram:{desktop:`https://t.me/share/url?url=${encodeURIComponent(o)}&text=${encodeURIComponent(t)}`,mobile:`tg://msg?text=${encodeURIComponent(t)}-${encodeURIComponent(o)}`},tumblr:{desktop:`https://www.tumblr.com/widgets/share/tool?canonicalUrl=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}&caption=&tags=`,mobile:`https://www.tumblr.com/widgets/share/tool?canonicalUrl=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}&caption=&tags=`},linkedin:{desktop:`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}&summary=&source=CapitalMéxico`,mobile:`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}&summary=&source=CapitalMéxico`},flipboard:{desktop:`https://share.flipboard.com/bookmarklet/popout?v=2&title=${encodeURIComponent(t)}&url=${encodeURIComponent(o)}`,mobile:`https://share.flipboard.com/bookmarklet/popout?v=2&title=${encodeURIComponent(t)}&url=${encodeURIComponent(o)}`},pinterest:{desktop:`http://pinterest.com/pin/create/button/?url=${encodeURIComponent(o)}`,mobile:`http://pinterest.com/pin/create/button/?url=${encodeURIComponent(o)}`},reddit:{desktop:`https://reddit.com/submit?url=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}`,mobile:`https://reddit.com/submit?url=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}`},vk:{desktop:`http://vk.com/share.php?url=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}&comment=`,mobile:`http://vk.com/share.php?url=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}&comment=`}}[e]},shareDialog=(e=!1)=>{if(shareTitle=!1!==e?e.dataset.title:document.title,shareLink=!1!==e?e.dataset.link:window.location.href,navigator.share)navigator.share({title:shareTitle,text:shareLink,url:shareLink}).then(()=>console.log("Compartido exitoso")).catch(e=>console.log("Error al compartir",e));else{let e=document.getElementById("m-share");const t=new bootstrap.Modal(e);e.addEventListener("show.bs.modal",function(){this.querySelector(".title h2").innerHTML=shareTitle}),t.show()}},share=e=>{let t=getLink(e);/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)?window.open(t.mobile,"_blank"):window.open(t.desktop,"_blank")};</script>';
 
 		if( $echo )
 			echo $script;
@@ -143,12 +236,10 @@ class Reporte_Indigo_Scripts {
 		self::scroll();
 		self::swiper();
 		self::jwplayer();
+		self::share();
 	}
 
 }
 
 $plugin = new Reporte_Indigo_Scripts();
 add_action('wp_footer', array($plugin, 'on_loaded'), 99);
-
-
-
