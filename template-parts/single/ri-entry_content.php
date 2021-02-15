@@ -13,7 +13,7 @@
 	<div class="components">
 		<div class="entry-info">
 			<span><?php the_time('d \d\e M, Y');?></span>
-			<button type="button" onclick="utilerias.share(this);" data-link="<?=get_the_permalink();?>" data-title="<?=rawurlencode( get_the_title() );?>" class="fas fa-share-alt" aria-label="comparte" ></button>
+			<button type="button" onclick="shareDialog();" class="fas fa-share-alt" aria-label="comparte" ></button>
 		</div>
 		<div class="main-content">
 		<?php

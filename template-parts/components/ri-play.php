@@ -73,11 +73,11 @@ $class = array_key_exists('class', $args) ? $args['class'] : '';
 					<?php
 					if($class == "large") {
 					?>
-					<button type="button" onclick="utilerias.share(this);" data-link="<?php the_permalink(); ?>" data-title="<?=rawurlencode(get_the_title());?>" aria-label="comparte">Compartir</button>
+					<button type="button" onclick="shareDialog(this);" data-link="<?php the_permalink(); ?>" data-title="<?=get_the_title();?>" aria-label="comparte">Compartir</button>
 					<?php
 					} else {
 					?>
-					<button type="button" onclick="utilerias.share(this);" data-link="<?php the_permalink(); ?>" data-title="<?=rawurlencode(get_the_title());?>" class="fas fa-share-alt" aria-label="comparte"></button>
+					<button type="button" onclick="shareDialog(this);" data-link="<?php the_permalink(); ?>" data-title="<?=get_the_title();?>" class="fas fa-share-alt" aria-label="comparte"></button>
 					<?php
 					}
 					?>

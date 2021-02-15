@@ -57,7 +57,7 @@ $author = $post->post_author;;
 			</div>
 		</div>
 		<footer>
-			<button type="button" onclick="utilerias.share(this);" data-link="<?php the_permalink();?>" data-title="<?=rawurlencode(get_the_title());?>" class="fas fa-share-alt" aria-label="comparte">
+			<button type="button" onclick="shareDialog(this);" data-link="<?php the_permalink(); ?>" data-title="<?=get_the_title();?>" class="fas fa-share-alt" aria-label="comparte">
 			</button>
 		</footer>
 	</article>

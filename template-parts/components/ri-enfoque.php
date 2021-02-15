@@ -75,7 +75,7 @@ $class = array_key_exists('class', $args) ? $args['class'] : '';
 		if($share){
 		?>
 		<footer>
-			<button type="button" onclick="utilerias.share(this);" data-link="<?php the_permalink(); ?>" data-title="<?=rawurlencode(get_the_title());?>" aria-label="comparte">
+			<button type="button" onclick="shareDialog(this);" data-link="<?php the_permalink();?>" data-title="<?=get_the_title();?>" aria-label="comparte">
 				Compartir
 			</button>
 		</footer>
