@@ -32,7 +32,34 @@ class Reporte_Indigo_Scripts {
 	}
 
 	/**
-	 * Animación para la barra
+	 * Script para compartir entradas
+	 *
+	 * @param bool  $echo Define el formato de cadena o impresión
+	 *
+	 * @return String|void String si $echo es falso o vacío si echo es verdadero;
+	**/
+	static function twitt($echo = TRUE) {
+		$all = '
+		<script type="text/javascript">
+			"use strict";
+			const copyTwitt = (data) => {
+				let title = ( false !== data ) ? data.dataset.title : "";
+
+				window.open(`http://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&via=Reporte_Indigo&`, "_blank");
+
+			}
+		</script>';
+
+		$script = '<script type="text/javascript">"use strict";const copyTwitt=t=>{let e=!1!==t?t.dataset.title:"";window.open(`http://twitter.com/intent/tweet?text=${encodeURIComponent(e)}&via=Reporte_Indigo&`,"_blank")};</script>';
+
+		if( $echo )
+			echo $script;
+		else
+			return $script;
+	}
+
+	/**
+	 * Script para compartir entradas
 	 *
 	 * @param bool  $echo Define el formato de cadena o impresión
 	 *
@@ -192,7 +219,7 @@ class Reporte_Indigo_Scripts {
 	 * @return String|void JS Script;
 	**/
 	static function jwplayer($echo = TRUE) {
-		$script = '
+		$all = '
 		<script type="text/javascript">
 			"use strict";
 			const jwEvent = ( attr ) => {
@@ -225,6 +252,8 @@ class Reporte_Indigo_Scripts {
 			}
 		</script>';
 
+		$script = '<script type="text/javascript">"use strict";const jwEvent=t=>{let e=t.dataset.json;e=e.split(",");let a=t.parentElement,l=document.createElement("DIV");l.classList.add("inner-player");for(let t of e)l.innerHTML=`<div id="_jwp_${t}"></div>`,a.appendChild(l),jwplayer(`_jwp_${t}`).setup({playlist:`https://cdn.jwplayer.com/v2/media/${t}`,ga:{label:"mediaid"},autostart:!0,mute:!1,tracks:[{file:`https://cdn.jwplayer.com/strips/${t}-120.vtt`,kind:"thumbnails"}]})};</script>';
+
 		if( $echo )
 			echo $script;
 		else
@@ -234,9 +263,13 @@ class Reporte_Indigo_Scripts {
 	function on_loaded() {
 		self::lazyloading(FALSE);
 		self::scroll();
-		self::swiper();
 		self::jwplayer();
 		self::share();
+		self::twitt();
+
+		if( is_home() ) {
+			self::swiper();
+		}
 	}
 
 }
