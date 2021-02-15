@@ -136,47 +136,52 @@
     		<div class="modal-content">
       			<div class="modal-header">
         			<h5 class="modal-title" id="shareModal">Comparte</h5>
-        			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        			<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           				<span aria-hidden="true">&times;</span>
         			</button>
       			</div>
       			<div class="modal-body">
-      				<a href="javascript:void(0);" class="fab fa-facebook-square" title="Comparte está nota en facebook" aria-label="Comparte está nota en facebook" role="button">
-      					<span>Facebook</span>
-      				</a>
-      				<a href="javascript:void(0);" class="fab fa-twitter-square" title="Comparte está nota en twitter" aria-label="Comparte está nota en twitter" role="button">
-      					<span>Twitter</span>
-      				</a>
-      				<a href="javascript:void(0);" class="fab fa-whatsapp-square" title="Comparte está nota en whatsapp" aria-label="Comparte está nota en whatsapp" role="button">
-      					<span>Whatsapp</span>
-      				</a>
-      				<a href="javascript:void(0);" class="fab fa-line" title="Comparte está nota en line" aria-label="Comparte está nota en line" role="button">
-      					<span>Line</span>
-      				</a>
-      				<a href="javascript:void(0);" class="fab fa-telegram" title="Comparte está nota en telegram" aria-label="Comparte está nota en telegram" role="button">
-      					<span>Telegram</span>
-      				</a>
-      				<a href="javascript:void(0);" class="fab fa-tumblr-square" title="Comparte está nota en tumblr" aria-label="Comparte está nota en tumblr" role="button">
-      					<span>Tumblr</span>
-      				</a>
-      				<a href="javascript:void(0);" class="fab fa-linkedin" title="Comparte está nota en linkedin" aria-label="Comparte está nota en linkedin" role="button">
-      					<span>Linkedin</span>
-      				</a>
-      				<a href="javascript:void(0);" class="fab fa-flipboard" title="Comparte está nota en flipboard" aria-label="Comparte está nota en flipboard" role="button">
-      					<span>Flipboard</span>
-      				</a>
-      				<a href="javascript:void(0);" class="fab fa-pinterest-square" title="Comparte está nota en pinterest" aria-label="Comparte está nota en pinterest" role="button">
-      					<span>Pinterest</span>
-      				</a>
-      				<a href="javascript:void(0);" class="fab fa-reddit-square" title="Comparte está nota en reddit" aria-label="Comparte está nota en reddit" role="button">
-      					<span>Reddit</span>
-      				</a>
-      				<a href="javascript:void(0);" class="fab fa-vk" title="Comparte está nota en VK" aria-label="Comparte está nota en VK" role="button">
-      					<span>VK</span>
-      				</a>
+      				<div class="title">
+      					<h2></h2>
+      				</div>
+      				<div class="share-networks">
+      					<a href="javascript:void(0);" class="fab fa-facebook-square" title="Comparte está nota en facebook" aria-label="Comparte está nota en facebook" role="button" onclick="share('facebook');">
+      						<span>Facebook</span>
+	      				</a>
+	      				<a href="javascript:void(0);" class="fab fa-twitter-square" title="Comparte está nota en twitter" aria-label="Comparte está nota en twitter" role="button" onclick="share('twitter');">
+	      					<span>Twitter</span>
+	      				</a>
+	      				<a href="javascript:void(0);" class="fab fa-whatsapp-square" title="Comparte está nota en whatsapp" aria-label="Comparte está nota en whatsapp" role="button" onclick="share('whatsapp');">
+	      					<span>Whatsapp</span>
+	      				</a>
+	      				<a href="javascript:void(0);" class="fab fa-line" title="Comparte está nota en line" aria-label="Comparte está nota en line" role="button" onclick="share('line');">
+	      					<span>Line</span>
+	      				</a>
+	      				<a href="javascript:void(0);" class="fab fa-telegram" title="Comparte está nota en telegram" aria-label="Comparte está nota en telegram" role="button" onclick="share('telegram');">
+	      					<span>Telegram</span>
+	      				</a>
+	      				<a href="javascript:void(0);" class="fab fa-tumblr-square" title="Comparte está nota en tumblr" aria-label="Comparte está nota en tumblr" role="button" onclick="share('tumblr');">
+	      					<span>Tumblr</span>
+	      				</a>
+	      				<a href="javascript:void(0);" class="fab fa-linkedin" title="Comparte está nota en linkedin" aria-label="Comparte está nota en linkedin" role="button" onclick="share('linkedin');">
+	      					<span>Linkedin</span>
+	      				</a>
+	      				<a href="javascript:void(0);" class="fab fa-flipboard" title="Comparte está nota en flipboard" aria-label="Comparte está nota en flipboard" role="button" onclick="share('flipboard');">
+	      					<span>Flipboard</span>
+	      				</a>
+	      				<a href="javascript:void(0);" class="fab fa-pinterest-square" title="Comparte está nota en pinterest" aria-label="Comparte está nota en pinterest" role="button" onclick="share('pinterest');">
+	      					<span>Pinterest</span>
+	      				</a>
+	      				<a href="javascript:void(0);" class="fab fa-reddit-square" title="Comparte está nota en reddit" aria-label="Comparte está nota en reddit" role="button" onclick="share('reddit');">
+	      					<span>Reddit</span>
+	      				</a>
+	      				<a href="javascript:void(0);" class="fab fa-vk" title="Comparte está nota en VK" aria-label="Comparte está nota en VK" role="button" onclick="share('vk');">
+	      					<span>VK</span>
+	      				</a>
+      				</div>
       			</div>
       			<div class="modal-footer">
-        			<button data-dismiss="modal">Cerrar</button>
+        			<button data-bs-dismiss="modal">Cerrar</button>
 				</div>
 			</div>
 		</div>
