@@ -30,6 +30,68 @@ function reporte_indigo_customize_config( $wp_customize ) {
 	);
 
 	/**
+	 * Configuración de cabecera
+	 *
+	 */
+	$wp_customize->add_section( 
+		'reporte_indigo_header_section', 
+		[
+			'title'      	=> __('Cabecera', 'reporte_indigo'),
+			'priority'   	=> 1,
+			'description'	=> __('Configuraciones que estarán en la cabecera', 'reporte_indigo'),
+			'panel'      	=> 'reporte_indigo_config_panel',
+			'capability' 	=> 'edit_theme_options'
+		]
+	);
+
+	/**
+	 * Sanitizador para cabeceras
+	 *
+	 * @param string $input  	Es la entrada que acepta la caja de texto
+	 * @param string $setting 	Son las opciones definidas por el campo
+	 *
+	 * @return string Retorna la entrada con los valores aceptados
+	 */
+	function reporte_indigo_sanitize_header_settings($input, $setting) {
+		$allowed_html = [
+			'link' => [
+				'rel' => [],
+				'href' => [],
+				'as' => [],
+				'crossorigin' => []
+			]
+		];
+		
+		return wp_kses($input, $allowed_html);
+	}
+
+	/**
+	 * Agregar donde se guardara la opción del control
+	 *
+	**/
+	$wp_customize->add_setting( 
+		'ri_custom_scripts',
+		[
+			'type'          	=> 'theme_mod',
+			'capability'		=> 'edit_theme_options',
+			'sanitize_callback' => 'reporte_indigo_sanitize_header_settings',
+			'transport'     	=> 'refresh'
+		]
+	);
+
+	$wp_customize->add_control( 
+		'ri_custom_scripts_control',
+		[
+			'label'   	=> __('Scripts preload para la cabecera', 'reporte_indigo'),
+			'section' 	=> 'reporte_indigo_header_section',
+			'settings'	=> 'ri_custom_scripts',
+			'priority'	=> 1,
+			'type'    	=> 'textarea'
+		]
+	);
+
+
+	/**
 	 * Configuración de imagenes
 	 *
 	 */
@@ -37,7 +99,7 @@ function reporte_indigo_customize_config( $wp_customize ) {
 		'reporte_indigo_images_section', 
 		[
 			'title'      	=> __('Imágenes', 'reporte_indigo'),
-			'priority'   	=> 1,
+			'priority'   	=> 2,
 			'description'	=> __('Configuración para el manejo de imágenes', 'reporte_indigo'),
 			'panel'      	=> 'reporte_indigo_config_panel',
 			'capability' 	=> 'edit_theme_options'
@@ -45,7 +107,7 @@ function reporte_indigo_customize_config( $wp_customize ) {
 	);
 
 	/**
-	 * Agregar la configuración del control
+	 * Agregar donde se guardara la opción del control
 	 *
 	**/
 
@@ -76,7 +138,7 @@ function reporte_indigo_customize_config( $wp_customize ) {
 	);
 
 	/**
-	 * Agregar la configuración del control
+	 * Agregar donde se guardara la opción del control
 	 *
 	**/
 
