@@ -360,13 +360,11 @@
 					<?php
 					Reporte_indigo_test::comment('Lo más visto');
 					Reporte_indigo_templates::componente_titulo(FALSE, "Lo más visto");
-					$posts_types = unserialize(POST_TYPE);
-					$posts_types = is_array($posts_types) ? implode(",", $posts_types) : "any";
 					if ( function_exists('wpp_get_mostpopular') ) {
 						wpp_get_mostpopular([
 							'limit' 		=> 6,
 							'range' 		=> 'last7days',
-							'post_type' 	=> $posts_types,
+							'post_type' 	=> 'ri-reporte,ri-opinion,ri-latitud,ri-indigonomics,ri-piensa,ri-fan,ri-desglose,ri-documento-indigo,ri-salida-emergencia,ri-especial',
 							'cat' 			=> '',
 							'title_length' 	=> 55
 						]);

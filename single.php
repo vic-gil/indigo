@@ -17,9 +17,10 @@
 			Reporte_indigo_templates::componente_titulo("", "Te puede interesar");
 
 			$tema = get_the_terms( get_the_ID(), 'ri-tema');
-			if( ! empty($tema) ) : $tema = $tema[0];
+			
+			if( false !== $tema && ! is_wp_error( $tema ) ) : $tema = $tema[0];
 
-				if( false === $related = get_transient('ri_cache_related_' . get_the_ID() ) ) {
+				if( false === $related = get_transient('ri_cache_related_' . $tema->slug ) ) {
 
 					$related = new WP_Query([
 						'post_type' 		=> get_post_type(),
@@ -38,7 +39,7 @@
 					]);
 
 					if ( ! is_wp_error( $related ) && $related->have_posts() ) {
-		   				set_transient('ri_cache_related_' . get_the_ID(), $related, 12 * HOUR_IN_SECONDS );
+		   				set_transient('ri_cache_related_' . $tema->slug, $related, 1 * HOUR_IN_SECONDS );
 					}
 
 				}
