@@ -17,6 +17,8 @@ function custom_media_responsive_size($attr, $attachment, $size) {
 		$attr['class'] = $attr['class'] . " lazyload";
 
 		if( ! empty( $attr['src'] ) ) :
+			$origin = get_theme_mod( 'ri_images_original', FALSE );
+			$replace = get_theme_mod( 'ri_images_replace', FALSE );
 
 			/**
 			 * Pasamos los valores de src a data-src para el plugin
@@ -24,7 +26,13 @@ function custom_media_responsive_size($attr, $attachment, $size) {
 			 * mediante una exprresión regular
 			 *
 			 */
-			$url = str_replace(get_site_url(), 'https://images.reporteindigo.com', $attr['src']);
+			$url = $attr['src'];
+			
+			if ( FALSE !== $origin && FALSE !== $replace ) {
+				$url = str_replace(get_site_url(), 'https://' . $replace, $url);
+				$url = str_replace($origin, $replace, $url);
+			}
+
 			$attr['data-src'] = $url;
 
 			/**
@@ -43,7 +51,13 @@ function custom_media_responsive_size($attr, $attachment, $size) {
 			 * mediante una exprresión regular
 			 *
 			 */
-			$attr['data-srcset'] = str_replace(get_site_url(), 'https://images.reporteindigo.com', $attr['srcset']);
+			$srcset = $attr['srcset'];
+			if ( FALSE !== $origin && FALSE !== $replace ) {
+				$srcset = str_replace(get_site_url(), 'https://' . $replace, $url);
+				$srcset = str_replace($origin, $replace, $url);
+			}
+
+			$attr['data-srcset'] = $srcset;
 
 			/**
 			 * Limpiamos el campo srcset
