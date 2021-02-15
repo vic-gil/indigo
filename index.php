@@ -2,30 +2,32 @@
 <?php $exclude = [];?>
 <main>
 	<h1 class="hh1"><?=bloginfo('name');?></h1>
+	<?php
+	Reporte_indigo_test::comment('Slide 8 notes');
+	if( ! empty( $selected_posts = get_option("wp_front_home_top_ri") ) ) {
+	?>
 	<div class="container wm">
 		<div class="components">
 			<?php
-			if( ! empty( $selected_posts = get_option("wp_front_home_top_ri") ) ) {
-				Reporte_indigo_test::comment('Slide 8 notes');
-				$selected_posts = unserialize( $selected_posts );
+			$selected_posts = unserialize( $selected_posts );
 
-				if( false === $posts = get_transient('ri_cache_home_top') ) {
-					$posts = new WP_Query([
-						'posts_per_page'	=> count($selected_posts),
-						'post_type' 		=> 'any',
-						'post__in' 			=> $selected_posts,
-						'post_status'      	=> 'publish',
-						'suppress_filters' 	=> false,
-						'no_found_rows' 	=> true,
-						'orderby' 			=> 'post__in'
-					]);
+			if( false === $posts = get_transient('ri_cache_home_top') ) {
+				$posts = new WP_Query([
+					'posts_per_page'	=> count($selected_posts),
+					'post_type' 		=> 'any',
+					'post__in' 			=> $selected_posts,
+					'post_status'      	=> 'publish',
+					'suppress_filters' 	=> false,
+					'no_found_rows' 	=> true,
+					'orderby' 			=> 'post__in'
+				]);
 
-					if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
-		   				set_transient('ri_cache_home_top', $posts, 12 * HOUR_IN_SECONDS );
-					}
+				if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
+		   			set_transient('ri_cache_home_top', $posts, 12 * HOUR_IN_SECONDS );
 				}
+			}
 
-				$exclude = array_merge( $exclude, $selected_posts );
+			$exclude = array_merge( $exclude, $selected_posts );
 			?>
 			<div class="swiper-container" id="sc-home-top">
 				<div class="swiper-wrapper">
@@ -42,14 +44,14 @@
 				Reporte_indigo_templates::componente_boton_deslizamiento();
 				?>
 			</div>
-			<?php
-			} else {
-				Reporte_indigo_test::log('No hay post para el bloque');
-			}
-			?>
 		</div>
 	</div>
-	<?php Reporte_indigo_test::comment('5 Notas administradas, 8 Notas generales, Player, Edicion Digital, Publicidad'); ?>
+	<?php
+	} else {
+		Reporte_indigo_test::log('No hay post para el bloque');
+	} 
+	Reporte_indigo_test::comment('5 Notas administradas, 8 Notas generales, Player, Edicion Digital, Publicidad'); 
+	?>
 	<div class="container wm">
 		<div class="components">
 			<div class="col-lg-8">
@@ -174,7 +176,10 @@
 		?>
 		</div>
 	</div>
-	<?php Reporte_indigo_test::comment('Reporte, Estados'); ?>
+	<?php
+	Reporte_indigo_test::comment('Reporte, Estados');
+	if( ! empty( $selected_posts = get_option("wp_front_home_reporte_ri") ) ) {
+	?>
 	<div class="container">
 		<div class="components">
 			<?php Reporte_indigo_templates::componente_titulo("reporte", "Reporte"); ?>
@@ -182,83 +187,81 @@
 	</div>
 	<div class="container">
 		<div class="components">
-			<?php
-			if( ! empty( $selected_posts = get_option("wp_front_home_reporte_ri") ) ) {
-				Reporte_indigo_test::comment('Reporte');
-				$selected_posts = unserialize( $selected_posts );
+		<?php
+		$selected_posts = unserialize( $selected_posts );
 
-				if( false === $posts = get_transient('ri_cache_home_reporte') ) {
+		if( false === $posts = get_transient('ri_cache_home_reporte') ) {
 
-					$posts = new WP_Query([
-						'posts_per_page'	=> count($selected_posts["primary"]),
-						'post_type' 		=> 'any',
-						'post__in' 			=> $selected_posts["primary"],
-						'post_status'      	=> 'publish',
-						'suppress_filters' 	=> false,
-						'no_found_rows' 	=> true,
-						'orderby' 			=> 'post__in'
-					]);
+			$posts = new WP_Query([
+				'posts_per_page'	=> count($selected_posts["primary"]),
+				'post_type' 		=> 'any',
+				'post__in' 			=> $selected_posts["primary"],
+				'post_status'      	=> 'publish',
+				'suppress_filters' 	=> false,
+				'no_found_rows' 	=> true,
+				'orderby' 			=> 'post__in'
+			]);
 
-					if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
-		   				set_transient('ri_cache_home_reporte', $posts, 12 * HOUR_IN_SECONDS );
-					}
+			if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
+				set_transient('ri_cache_home_reporte', $posts, 12 * HOUR_IN_SECONDS );
+			}
 
+		}
+
+		$exclude = array_merge( $exclude, $selected_posts );
+			
+		if ( $posts->have_posts() ): $index = 0;
+			while ( $posts->have_posts() ): $posts->the_post();	
+				if($index == 0){
+					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vlarge' ] );
+					?>
+					<div class="container-estados">
+						<div class="container-title">
+							<h2>
+								<a href="?city=estados">
+									Estados
+								</a>
+							</h2>
+						</div>
+						<?php
+						$list = new WP_Query([
+							'posts_per_page'	=> count($selected_posts["secondary"]),
+							'post_type' 		=> 'any',
+							'post__in' 			=> $selected_posts["secondary"],
+							'post_status'      	=> 'publish',
+							'suppress_filters' 	=> false,
+							'no_found_rows' 	=> true,
+							'orderby' 			=> 'post__in'
+						]);
+
+						if ( $list->have_posts() ): $index = 0;
+							while ( $list->have_posts() ): $list->the_post();
+								get_template_part( 'template-parts/components/ri', 'estado' );
+							endwhile;
+						endif;
+						wp_reset_postdata();
+						?>
+					</div>
+					<?php
+					Reporte_indigo_templates::componente_separador();
 				}
 
-				$exclude = array_merge( $exclude, $selected_posts );
-				
-				if ( $posts->have_posts() ): $index = 0;
-					while ( $posts->have_posts() ): $posts->the_post();
-						
-						if($index == 0){
-							get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vlarge' ] );
-							?>
-							<div class="container-estados">
-								<div class="container-title">
-									<h2>
-										<a href="?city=estados">
-											Estados
-										</a>
-									</h2>
-								</div>
-								<?php
-								$list = new WP_Query([
-									'posts_per_page'	=> count($selected_posts["secondary"]),
-									'post_type' 		=> 'any',
-									'post__in' 			=> $selected_posts["secondary"],
-									'post_status'      	=> 'publish',
-									'suppress_filters' 	=> false,
-									'no_found_rows' 	=> true,
-									'orderby' 			=> 'post__in'
-								]);
+				if($index > 0){
+					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmini' ] );
+				}
 
-								if ( $list->have_posts() ): $index = 0;
-									while ( $list->have_posts() ): $list->the_post();
-										get_template_part( 'template-parts/components/ri', 'estado' );
-									endwhile;
-								endif;
-								wp_reset_postdata();
-								?>
-							</div>
-							<?php
-							Reporte_indigo_templates::componente_separador();
-						}
-
-						if($index > 0){
-							get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmini' ] );
-						}
-
-						$index++;
-					endwhile;
-				endif;
-
-				wp_reset_postdata();
-			} else {
-				Reporte_indigo_test::log('No hay post para el bloque');
-			}
-			?>
+				$index++;
+			endwhile;
+		endif;
+		wp_reset_postdata();
+		?>
 		</div>
 	</div>
+	<?php
+	} else {
+		Reporte_indigo_test::log('No hay post para el bloque');
+	}
+	?>
 	<?php Reporte_indigo_test::comment('Indigonomics, Filosofía financiera'); ?>
 	<div class="container">
 		<div class="components">
@@ -557,7 +560,10 @@
 			</div>
 		</div>
 	</div>
-	<?php Reporte_indigo_test::comment('Opinión, Publicidad');?>
+	<?php 
+	Reporte_indigo_test::comment('Opinión, Publicidad');
+	if( ! empty( $selected_posts = get_option("wp_front_home_opinion_ri") ) ) {
+	?>
 	<div class="container">
 		<div class="components">
 			<?php Reporte_indigo_templates::componente_titulo("opinion", "Opinión"); ?>
@@ -617,7 +623,13 @@
 			</div>
 		</div>
 	</div>
-	<?php Reporte_indigo_test::comment('Selección del editor'); ?>
+	<?php
+	} else {
+		Reporte_indigo_test::log('No hay post para el bloque');
+	}
+	Reporte_indigo_test::comment('Selección del editor');
+	if( ! empty( $selected_posts = get_option("wp_front_home_seleccion_editor_ri") ) ) {
+	?>
 	<div class="container">
 		<div class="components">
 			<?php Reporte_indigo_templates::componente_titulo(FALSE, "Selección del editor"); ?>
@@ -627,44 +639,44 @@
 		<div class="container">
 			<div class="components">
 			<?php
-			if( ! empty( $selected_posts = get_option("wp_front_home_seleccion_editor_ri") ) ) {
-				Reporte_indigo_test::comment('Selección del editor 4 notas');
-				$selected_posts = unserialize( $selected_posts );
+			Reporte_indigo_test::comment('Selección del editor 4 notas');
+			$selected_posts = unserialize( $selected_posts );
 
-				if( false === $posts = get_transient('ri_cache_home_editor') ) {
+			if( false === $posts = get_transient('ri_cache_home_editor') ) {
 
-					$posts = new WP_Query([
-						'posts_per_page'	=> count($selected_posts),
-						'post_type' 		=> 'any',
-						'post__in' 			=> $selected_posts,
-						'post_status'      	=> 'publish',
-						'suppress_filters' 	=> false,
-						'no_found_rows' 	=> true,
-						'orderby' 			=> 'post__in'
-					]);
+				$posts = new WP_Query([
+					'posts_per_page'	=> count($selected_posts),
+					'post_type' 		=> 'any',
+					'post__in' 			=> $selected_posts,
+					'post_status'      	=> 'publish',
+					'suppress_filters' 	=> false,
+					'no_found_rows' 	=> true,
+					'orderby' 			=> 'post__in'
+				]);
 
-					if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
-		   				set_transient('ri_cache_home_editor', $posts, 12 * HOUR_IN_SECONDS );
-					}
-
+				if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
+		   			set_transient('ri_cache_home_editor', $posts, 12 * HOUR_IN_SECONDS );
 				}
 
-				$exclude = array_merge( $exclude, $selected_posts );
-
-				if ( $posts->have_posts() ): 
-					while ( $posts->have_posts() ): $posts->the_post();
-						get_template_part( 'template-parts/components/ri', 'editor' );
-					endwhile;
-				endif;
-				wp_reset_postdata();
-
-			} else {
-				Reporte_indigo_test::log('No hay post para el bloque');
 			}
+
+			$exclude = array_merge( $exclude, $selected_posts );
+
+			if ( $posts->have_posts() ): 
+				while ( $posts->have_posts() ): $posts->the_post();
+					get_template_part( 'template-parts/components/ri', 'editor' );
+				endwhile;
+			endif;
+			wp_reset_postdata();
 			?>
 			</div>
 		</div>
 	</div>
+	<?php
+	} else {
+		Reporte_indigo_test::log('No hay post para el bloque');
+	}
+	?>
 	<div class="container">
 		<div class="components">
 			<?php Reporte_indigo_templates::componente_titulo("desglose", "Desglose"); ?>
@@ -751,55 +763,6 @@
 					?>
 				</div>
 			</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="container-especial">
-		<div class="container">
-			<div class="components">
-				<?php
-				if( array_key_exists('especial', $response) ){
-					$posts = $response['especial'];
-
-					if( utilerias_cm::validate_array($posts) && array_key_exists(0, $posts) ){
-						$post = $posts[0];
-
-						if( property_exists($post, 'array_posts') && ! empty($post->array_posts) ) {
-							$array_posts = $post->array_posts;
-							$total = count($array_posts);
-							$size = wp_is_mobile() ? "medium" : "medium_large";
-							$args = array("size" => $size);
-							$post = utilerias_cm::get_slim_elements($post, $args);
-							Reporte_indigo_templates::componente_especial($post);
-							
-							foreach ($array_posts as $kap => $ap){
-								$size = wp_is_mobile() ? "medium" : "medium_large";
-								$args = array("size" => $size);
-								$post = utilerias_cm::get_slim_elements($ap, $args);
-
-								Reporte_indigo_templates::componente_contenedor(
-									function($index, $total, $post){
-										echo ($index == 0) ? '<div class="container-lista-especial"><div class="components">' : '';
-										Reporte_indigo_templates::componente_lista_especial($post);
-										echo ($index == $total - 1) ? '</div></div>' : '';
-									}, [
-										"index" => $kap,
-										"total" => $total,
-										"posts" => $post
-									]
-								);
-							}
-						} else {
-							Reporte_indigo_test::log('No hay posts');
-						}
-					} else {
-						Reporte_indigo_test::log('No hay posts');
-					}
-				} else {
-					Reporte_indigo_test::log('No hay post para el bloque');
-				}
-				?>
 			</div>
 		</div>
 	</div>
