@@ -20,7 +20,7 @@ function reporte_indigo_replace_url_image($content){
 	$replace = get_theme_mod( 'ri_images_replace', FALSE );
 
 	if ( FALSE !== $origin && FALSE !== $replace ) {
-		$content = preg_replace("/(http|https):\/\/(?:.*?)\/wp-content\//i", "https:/{$replace}/wp-content/", $content);
+		$content = preg_replace("/(http|https):\/\/(?:.*?)\/wp-content\//i", "https://{$replace}/wp-content/", $content);
 	}
 
 	return $content;
