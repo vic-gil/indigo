@@ -42,19 +42,15 @@ $bullets = array_key_exists('total', $args) ? intval($args['total']) : FALSE;
 			if ( FALSE !== $bullets ) {
 				$max = ($bullets >= 3) ? 3 : $bullets;
 			?>
-			<ul id="sw-nav-top">
-			<?php
+			<div class="pagination">
+				<?php
 				for($j = 0; $j < $max; $j++) {
-			?>
-				<li class="<?=$active = $j == 0 ? 'active' : '';?>" role="group">
-				    <a href="javascript:void(0);" title="<?=($j + 1);?> / <?=$max;?>">
-				    	<i class="fas fa-circle"></i>
-				    </a>
-				</li>
-			<?php
+				?>
+					<span class="fas fa-circle <?= ($i == 0) ? 'active' : ''?>"></span>
+				<?php
 				}
-			?>
-			</ul>
+				?>
+			</div>
 			<?php
 			}
 			?>

@@ -9,10 +9,14 @@
 $post_type = get_post_type_object(get_post_type());
 $tema = get_the_terms( get_the_ID(), 'ri-tema' );
 $jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
+$contain_local = array_key_exists('local', $args) ? $args['local'] : TRUE;
 $class = array_key_exists('class', $args) ? $args['class'] : '';
 ?>
 <div class="component-play <?=$class;?>">
 	<article itemtype="http://schema.org/Article">
+		<?php
+		if($contain_local) :
+		?>
 		<div class="entry-local">
 			<h2>
 				<a href="<?=get_post_type_archive_link( get_post_type() );?>" title="<?=$post_type->label;?>">
@@ -20,6 +24,9 @@ $class = array_key_exists('class', $args) ? $args['class'] : '';
 				</a>
 			</h2>
 		</div>
+		<?php
+		endif;
+		?>
 		<div class="entry-content">
 			<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
 				<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
