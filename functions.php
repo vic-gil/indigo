@@ -39,6 +39,10 @@ require get_template_directory() . '/inc/metaboxes/metabox-reporte-indigo-busque
 // Adecuaciones para el perfomance
 require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-images.php';
 require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-single.php';
+
+// Customizer
+require get_template_directory() . '/inc/reporte-indigo-customizer.php';
+
 /*
  * El cache del navegador sólo está disponible para
  * usuarios que no tengan sesión
@@ -49,7 +53,7 @@ if (!function_exists( 'cloudflare_origin_cache_control')){
 			header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 			header("Cache-Control: post-check=0, pre-check=0", false);
 			header("Pragma: no-cache");
-		}	
+		}
 	}
 }
 
@@ -229,7 +233,7 @@ function reporte_indigo_scripts () {
 		wp_script_add_data( 'bootstrap-min-js', 'defer', true );
 
 		wp_enqueue_style('swiper-min-css', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css', [], '4.5.0', 'all' );
-		wp_enqueue_style('fontawesome-min-css', get_template_directory_uri().'/assets/fonts/fontawesome/fontawesome.min.css', array(), '0.0.3', 'all' );
+		wp_enqueue_style('fontawesome-min-css', get_template_directory_uri().'/assets/fonts/fontawesome/fontawesome.min.css', [], '0.0.3', 'all' );
 	}
 
 }
@@ -242,52 +246,52 @@ add_action( 'wp_enqueue_scripts', 'reporte_indigo_scripts' );
 **/
 function add_non_critical_section_styles() {
 	if( is_home() )
-		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/css/home.css", [], "20210120" );
+		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/assets/css/home.css", [], "20210120" );
 
 	if( is_single() )
-		wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/css/single.css", [], "20210120" );
+		wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single.css", [], "20210120" );
 
 	if( is_404() )
-		wp_enqueue_style( 'edicion-style', get_stylesheet_directory_uri() . "/css/404.css", [], "20210120" );
+		wp_enqueue_style( 'edicion-style', get_stylesheet_directory_uri() . "/assets/css/404.css", [], "20210120" );
 
 	if( is_page_template('page-templates/newsletter.php') )
-		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "/css/newsletter.css", [], "20210120" );
+		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "assets/css/newsletter.css", [], "20210120" );
 
 	if( is_page_template('page-templates/ventas.php') )
-		wp_enqueue_style( 'ventas-style', get_stylesheet_directory_uri() . "/css/ventas.css", [], "20210120" );
+		wp_enqueue_style( 'ventas-style', get_stylesheet_directory_uri() . "/assets/css/ventas.css", [], "20210120" );
 
 	if( is_page_template('page-templates/terminos.php') || is_page_template('page-templates/privacidad.php') )
-		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/css/terminos.css", [], "20210120" );
+		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/assets/css/terminos.css", [], "20210120" );
 
 	if( is_tax('ri-categoria') || is_tax('ri-tema') || is_tax('ri-columna') )
-		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/css/taxonomy.css", [], "20210120" );
+		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/assets/css/taxonomy.css", [], "20210120" );
 
 	if ( is_post_type_archive('ri-opinion') )
-		wp_enqueue_style( 'opinion-style', get_stylesheet_directory_uri() . "/css/opinion.css", [], "20210120" );
+		wp_enqueue_style( 'opinion-style', get_stylesheet_directory_uri() . "/assets/css/opinion.css", [], "20210120" );
 
 	if ( is_post_type_archive('ri-desglose') )
-		wp_enqueue_style( 'desglose-style', get_stylesheet_directory_uri() . "/css/desglose.css", [], "20210120" );
+		wp_enqueue_style( 'desglose-style', get_stylesheet_directory_uri() . "/assets/css/desglose.css", [], "20210120" );
 
 	if ( is_post_type_archive('ri-fan') )
-		wp_enqueue_style( 'fan-style', get_stylesheet_directory_uri() . "/css/fan.css", [], "20210120" );
+		wp_enqueue_style( 'fan-style', get_stylesheet_directory_uri() . "/assets/css/fan.css", [], "20210120" );
 
 	if ( is_post_type_archive('ri-piensa') )
-		wp_enqueue_style( 'piensa-style', get_stylesheet_directory_uri() . "/css/piensa.css", [], "20210120" );
+		wp_enqueue_style( 'piensa-style', get_stylesheet_directory_uri() . "/assets/css/piensa.css", [], "20210120" );
 
 	if ( is_post_type_archive('ri-indigonomics') )
-		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/css/latitud.css", [], "20210120" );
+		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/assets/css/latitud.css", [], "20210120" );
 
 	if ( is_post_type_archive('ri-latitud') )
-		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/css/latitud.css", [], "20210120" );
+		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/assets/css/latitud.css", [], "20210120" );
 
 	if ( is_post_type_archive('ri-reporte') )
-		wp_enqueue_style( 'reporte-style', get_stylesheet_directory_uri() . "/css/reporte.css", [], "20210120" );
+		wp_enqueue_style( 'reporte-style', get_stylesheet_directory_uri() . "/assets/css/reporte.css", [], "20210120" );
 
 	if ( is_author() )
-		wp_enqueue_style( 'author-style', get_stylesheet_directory_uri() . "/css/author.css", [], "20210120" );
+		wp_enqueue_style( 'author-style', get_stylesheet_directory_uri() . "/assets/css/author.css", [], "20210120" );
 
 	if ( is_search() )
-		wp_enqueue_style( 'author-style', get_stylesheet_directory_uri() . "/css/author.css", [], "20210120" );
+		wp_enqueue_style( 'author-style', get_stylesheet_directory_uri() . "/assets/css/author.css", [], "20210120" );
 
 };
 
@@ -448,6 +452,12 @@ function add_google_tag_manager_script() {
 
 add_action( 'wp_head', 'add_google_tag_manager_script', 1 );
 
+function add_custom_scripts() {
+	echo get_theme_mod("ri_custom_scripts");
+}
+
+add_action( 'wp_head', 'add_custom_scripts', 2 );
+
 function your_prefix_register_meta_boxes( $meta_boxes ) {
 
 	if( is_admin() ){
@@ -505,11 +515,13 @@ function reporte_indigo_popular_posts_html_list($popular_posts, $instance){
 		$output .= '		</figure>';
 		$output .= '		<div class="entry-data">';
 		$output .= '			<div class="entry-title">';
-		$output .= '				<h2>';
-		$output .= '					<a href="' . get_term_link($tema[0]->term_id) . '" title="' . $tema[0]->name . '">';
-		$output .= $tema[0]->name;
-		$output .= '					</a>';
-		$output .= '				</h2>';
+		if( FALSE !== $tema && ! is_wp_error( $tema ) ) {
+			$output .= '				<h2>';
+			$output .= '					<a href="' . get_term_link($tema[0]->term_id) . '" title="' . $tema[0]->name . '">';
+			$output .= $tema[0]->name;
+			$output .= '					</a>';
+			$output .= '				</h2>';
+		}
 		$output .= '				<h3>';
 		$output .= '					<a href="' . get_permalink($post_id) . '" title="' . esc_attr($popular_post->title) . '">';
 		$output .= $title;
@@ -655,4 +667,3 @@ function homepage_offset_pagination( $found_posts, $query ) {
 }
 
 add_filter( 'found_posts', 'homepage_offset_pagination', 10, 2 );
-?>
