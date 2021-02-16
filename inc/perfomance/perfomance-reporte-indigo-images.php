@@ -136,7 +136,13 @@ add_filter('wp_get_attachment_image_attributes', 'custom_media_responsive_size',
 **/
 
 function custom_user_avatar($avatar, $id_or_email = NULL, $size = NULL, $align = NULL, $alt = NULL) {
-	$avatar = str_replace( 'src="http://localhost', 'src="https://images.reporteindigo.com', $avatar );
+	$origin = get_theme_mod( 'ri_images_original', FALSE );
+	$replace = get_theme_mod( 'ri_images_replace', FALSE );
+
+	if ( FALSE !== $origin && FALSE !== $replace ) {
+		$avatar = str_replace( $origin, $replace, $avatar );
+	}
+
 	$avatar = str_replace( 'photo"', 'photo lazyload" width="150" height="150" loading="lazy"', $avatar );
 
 	if($size == 'thumbnail')
@@ -148,3 +154,48 @@ function custom_user_avatar($avatar, $id_or_email = NULL, $size = NULL, $align =
 }
 
 add_filter( 'get_wp_user_avatar', 'custom_user_avatar', 1, 5);
+
+
+/**
+ * Cambia el dominio de la imagen de yoast
+ *
+**/
+
+function change_opengraph_image_url( $url ) {
+	$origin = get_theme_mod( 'ri_images_original', FALSE );
+	$replace = get_theme_mod( 'ri_images_replace', FALSE );
+	
+	if ( FALSE !== $origin && FALSE !== $replace ) {
+		return str_replace( $origin, $replace, $url );
+	}
+
+    return $url;
+}
+
+add_filter( 'wpseo_opengraph_image', 'change_opengraph_image_url' );
+
+function wpseo_cdn_filter( $uri ) {
+  	$origin = get_theme_mod( 'ri_images_original', FALSE );
+	$replace = get_theme_mod( 'ri_images_replace', FALSE );
+	
+	if ( FALSE !== $origin && FALSE !== $replace ) {
+		return str_replace( $origin, $replace, $uri );
+	}
+
+	return $uri;
+}
+
+add_filter( 'wpseo_xml_sitemap_img_src', 'wpseo_cdn_filter' );
+
+function example_change_article( $data ) {
+	$origin = get_theme_mod( 'ri_images_original', FALSE );
+	$replace = get_theme_mod( 'ri_images_replace', FALSE );
+
+	if ( FALSE !== $origin && FALSE !== $replace ) {
+		$data['url'] = str_replace( $origin, $replace, $data['url'] );
+	}
+
+	return $data;
+}
+
+add_filter( 'wpseo_schema_imageobject', 'example_change_article' );
