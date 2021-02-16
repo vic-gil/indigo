@@ -15,9 +15,91 @@
 
 class Reporte_Indigo_Taxonomies {
 	static function ri_custom(){
+		self::ri_ciudad();
 		self::ri_tema();
 		self::ri_columna();
 		self::ri_categoria();
+	}
+
+	static function ri_ciudad(){
+		
+		$labels = [
+			'name'              => 'Ciudad',
+			'singular_name'     => 'Ciudad',
+			'search_items'      => 'Buscar',
+			'all_items'         => 'Todos',
+			'edit_item'         => 'Editar ciudad',
+			'update_item'       => 'Actualizar ciudad',
+			'add_new_item'      => 'Nueva ciudad',
+			'menu_name'         => 'Ciudad'
+		];
+
+		$args = [
+			'labels'            => $labels,
+			'hierarchical'      => true,
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'show_in_nav_menus' => true,
+			'query_var'         => true,
+			'show_in_rest'      => true,
+			'rewrite'           => ['slug' => 'ciudad'],
+			'capabilities' 		=> [
+				'edit_terms'   	=> 'god',
+				'manage_terms' 	=> 'god',
+				'delete_terms' 	=> 'god',
+				'assign_terms' 	=> 'edit_posts'
+			]
+		];
+
+		register_taxonomy('ri-ciudad', 'ri-reporte', $args);
+
+		$terms =[
+			"NACIONAL",
+			"CDMX",
+			"MTY",
+			"GDL",
+			"AGS",
+			"BCN",
+			"BCS",
+			"CAM",
+			"CHIS",
+			"CHIH",
+			"COAH",
+			"COL",
+			"DGO",
+			"GTO",
+			"GRO",
+			"HGO",
+			"JAL",
+			"EDOMÉX",
+			"MICH",
+			"MOR",
+			"NAY",
+			"NL",
+			"OAX",
+			"PUE",
+			"QRO",
+			"ROO",
+			"SLP",
+			"SIN",
+			"SON",
+			"TAB",
+			"TAM",
+			"TLX",
+			"VER",
+			"YUC",
+			"ZAC"
+		];
+
+		foreach ( $terms as $kt => $t ) {
+			$term = term_exists($t, 'ri-ciudad');
+
+			if ( FALSE !== $term && NULL !== $term ) 
+				continue;
+
+			wp_insert_term($t, 'ri-ciudad');
+		}
+		
 	}
 
 	static function ri_tema(){
@@ -35,7 +117,7 @@ class Reporte_Indigo_Taxonomies {
 		);
 
 		if(!taxonomy_exists('ri-tema')){
-			$labels 	= array(
+			$labels = array(
 				'name'              => 'Tema',
 				'singular_name'     => 'Tema',
 				'search_items'      => 'Buscar',
@@ -46,7 +128,7 @@ class Reporte_Indigo_Taxonomies {
 				'menu_name'         => 'Tema'
 			);
 
-			$args 		= array(
+			$args = array(
 				'labels'            => $labels,
 				'hierarchical'      => true,
 				'show_ui'           => true,
@@ -62,7 +144,7 @@ class Reporte_Indigo_Taxonomies {
 	}
 
 	static function ri_jerarquia(){
-		$post_types 	= array(
+		$post_types = array(
 			'ri-reporte',
 			'ri-fan',
 			'ri-indigonomics',
@@ -71,7 +153,7 @@ class Reporte_Indigo_Taxonomies {
 		);
 
 		if(!taxonomy_exists('ri-jerarquia')){
-			$labels 	= array(
+			$labels = array(
 				'name'              => 'Jerarquía',
 				'singular_name'     => 'Jerarquía',
 				'search_items'      => 'Buscar',
@@ -81,7 +163,7 @@ class Reporte_Indigo_Taxonomies {
 				'add_new_item'      => 'Nueva jerarquía',
 				'menu_name'         => 'Jerarquía'
 			);
-			$args 		= array(
+			$args = array(
 				'labels'            => $labels,
 				'hierarchical'      => true,
 				'show_ui'           => true,
@@ -94,7 +176,7 @@ class Reporte_Indigo_Taxonomies {
 
 			register_taxonomy('ri-jerarquia', $post_types, $args);
 
-			$jerarquias 	= array(
+			$jerarquias = array(
 				'Primaria',
 				'Secundaria'
 			);
@@ -104,7 +186,7 @@ class Reporte_Indigo_Taxonomies {
 
 	static function ri_columna(){
 		if(!taxonomy_exists('ri-opinion')){
-			$labels 	= array(
+			$labels = array(
 				'name'              => 'Columna',
 				'singular_name'     => 'Columna',
 				'search_items'      => 'Buscar',
@@ -115,7 +197,7 @@ class Reporte_Indigo_Taxonomies {
 				'menu_name'         => 'Columna'
 			);
 
-			$args 		= array(
+			$args 	= array(
 				'labels'            => $labels,
 				'hierarchical'      => true,
 				'show_ui'           => true,
@@ -205,5 +287,6 @@ class Reporte_Indigo_Taxonomies {
 		}
 	}
 }
+
 add_action( 'init', array('Reporte_Indigo_Taxonomies', 'ri_custom'), 0 );
 ?>
