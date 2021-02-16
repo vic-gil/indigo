@@ -32,7 +32,7 @@ class Reporte_Indigo_Scripts {
 	}
 
 	/**
-	 * Script para compartir entradas
+	 * Script para compartir entradas de twitter
 	 *
 	 * @param bool  $echo Define el formato de cadena o impresión
 	 *
@@ -190,6 +190,49 @@ class Reporte_Indigo_Scripts {
 	}
 
 	/**
+	 * Configuraciones para correr swiper
+	 *
+	 * @param bool  $echo Define el formato de cadena o impresión
+	 *
+	 * @return String|void String si $echo es falso o vacío si echo es verdadero;
+	**/
+	static function swiperFan($echo = TRUE) {
+
+		if( is_home() ) {
+			$script = '
+			<script type="text/javascript">
+			"use strict";
+			const isScriptLoad = (src) => {
+				return document.querySelector("script[src=\'" + src + "\']");
+			}
+
+			const loadScript = (src, callback) => {
+				let s, r, t;
+				s = document.createElement("script");
+				s.type = "text/javascript";
+				s.src = src;
+				if(isScriptLoad){
+					s.onload = s.onreadystatechange = function() {
+						if ( !r && (!this.readyState || this.readyState == "complete") ) {
+							r = true;
+							callback();
+						}
+					}
+					t = document.getElementsByTagName("script")[0];
+	  				t.parentNode.insertBefore(s, t);
+				}
+				
+			}
+			</script>';
+		}
+
+		if( $echo )
+			echo $script;
+		else
+			return $script;
+	}
+
+	/**
 	 * El script para habilitar la carga diferida de imagenes
 	 * nativa del navegador o por medio del plugin lazysizes
 	 *
@@ -219,12 +262,21 @@ class Reporte_Indigo_Scripts {
 	 * @return String|void JS Script;
 	**/
 	static function jwplayer($echo = TRUE) {
-		$all = '
+		$script = '
 		<script type="text/javascript">
 			"use strict";
+			
+			const removePrevPlayer = () => {
+				for ( let player of document.querySelectorAll(".inner-player") ) {
+					player.remove();
+				}
+			}
+
 			const jwEvent = ( attr ) => {
 				let media = attr.dataset.json;
 					media = media.split(",");
+
+				removePrevPlayer();
 
 				let parent = attr.parentElement;
 				let innerPlayer = document.createElement("DIV");
@@ -234,25 +286,29 @@ class Reporte_Indigo_Scripts {
 					innerPlayer.innerHTML = `<div id="_jwp_${id}"></div>`
 					parent.appendChild(innerPlayer);
 
-					jwplayer(`_jwp_${id}`).setup({
-						playlist: `https://cdn.jwplayer.com/v2/media/${id}`,
-						ga: {
-							label: "mediaid"
-						},
-						autostart : true,
-			    		mute: false,
-						tracks: [
-							{
-								file: `https://cdn.jwplayer.com/strips/${id}-120.vtt`,
-								kind: "thumbnails"
-							}
-						]
+					loadScript("https://cdn.jwplayer.com/libraries/ixhD10k3.js", function(){
+						jwplayer(`_jwp_${id}`).setup({
+							playlist: `https://cdn.jwplayer.com/v2/media/${id}`,
+							ga: {
+								label: "mediaid"
+							},
+							autostart : true,
+				    		mute: false,
+							tracks: [
+								{
+									file: `https://cdn.jwplayer.com/strips/${id}-120.vtt`,
+									kind: "thumbnails"
+								}
+							]
+						});
 					});
+
+					
 				}
 			}
 		</script>';
 
-		$script = '<script type="text/javascript">"use strict";const jwEvent=t=>{let e=t.dataset.json;e=e.split(",");let a=t.parentElement,l=document.createElement("DIV");l.classList.add("inner-player");for(let t of e)l.innerHTML=`<div id="_jwp_${t}"></div>`,a.appendChild(l),jwplayer(`_jwp_${t}`).setup({playlist:`https://cdn.jwplayer.com/v2/media/${t}`,ga:{label:"mediaid"},autostart:!0,mute:!1,tracks:[{file:`https://cdn.jwplayer.com/strips/${t}-120.vtt`,kind:"thumbnails"}]})};</script>';
+		//$script = '<script type="text/javascript">"use strict";const jwEvent=t=>{let e=t.dataset.json;e=e.split(",");let a=t.parentElement,l=document.createElement("DIV");l.classList.add("inner-player");for(let t of e)l.innerHTML=`<div id="_jwp_${t}"></div>`,a.appendChild(l),jwplayer(`_jwp_${t}`).setup({playlist:`https://cdn.jwplayer.com/v2/media/${t}`,ga:{label:"mediaid"},autostart:!0,mute:!1,tracks:[{file:`https://cdn.jwplayer.com/strips/${t}-120.vtt`,kind:"thumbnails"}]})};</script>';
 
 		if( $echo )
 			echo $script;
