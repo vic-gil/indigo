@@ -34,7 +34,7 @@ class Reporte_Indigo_Post_Types {
 	 *
 	**/
 
-	function create_taxonomy () {
+	function create_post_type () {
 		
 		$labels = [
 			'name' 			=> $this->name,
