@@ -261,10 +261,10 @@ function add_non_critical_section_styles() {
 		wp_enqueue_style( 'ventas-style', get_stylesheet_directory_uri() . "/assets/css/ventas.css", [], "20210120" );
 
 	if( is_page_template('page-templates/terminos.php') || is_page_template('page-templates/privacidad.php') )
-		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/assets/css/terminos.css", [], "20210120" );
+		wp_enqueue_style( 'terminos-style', get_stylesheet_directory_uri() . "/assets/css/terminos.css", [], "20210120" );
 
-	if( is_tax('ri-categoria') || is_tax('ri-tema') || is_tax('ri-columna') )
-		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/assets/css/taxonomy.css", [], "20210120" );
+	if( is_tax('ri-categoria') || is_tax('ri-tema') || is_tax('ri-columna') || is_tax('ri-ciudad') )
+		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/assets/css/taxonomy.css", [], "20210121" );
 
 	if ( is_post_type_archive('ri-opinion') )
 		wp_enqueue_style( 'opinion-style', get_stylesheet_directory_uri() . "/assets/css/opinion.css", [], "20210120" );
@@ -627,7 +627,7 @@ function reporte_indigo_main_query($query) {
 			$query->set( 'suppress_filters', true );
 		endif;
 
-		if ( is_tax('ri-categoria') || is_tax('ri-columna') || is_tax('ri-tema') ) :
+		if ( is_tax('ri-categoria') || is_tax('ri-columna') || is_tax('ri-tema') || is_tax('ri-ciudad') ) :
 			$query->set( 'posts_per_page', 19 );
 			$query->set( 'no_found_rows', false );
 			$query->set( 'suppress_filters', true );
@@ -669,10 +669,9 @@ function homepage_offset_pagination( $found_posts, $query ) {
 add_filter( 'found_posts', 'homepage_offset_pagination', 10, 2 );
 
 function wp_term_chk_radio( $args ) {
- 	if( $args['taxonomy'] === 'ri-ciudad' ) {
- 		
+ 	if( ! empty( $args['taxonomy'] ) && $args['taxonomy'] === 'ri-ciudad' ) {
  		require get_template_directory() . '/classes/walker/class-reporte-indigo-walker.php';
- 		
+
  		if ( empty( $args['walker'] ) || is_a( $args['walker'], 'Walker' ) ) {
  			$args['walker'] = new Reporte_Indigo_Walker;
  		}
@@ -682,3 +681,4 @@ function wp_term_chk_radio( $args ) {
 }
 
 add_filter( 'wp_terms_checklist_args', 'wp_term_chk_radio' );
+
