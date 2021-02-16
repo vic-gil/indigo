@@ -22,10 +22,11 @@
 				'suppress_filters' 			=> false,
 				'no_found_rows' 			=> true,
 				'update_post_term_cache' 	=> false,
-				'meta_query' 				=> [
+				'tax_query' => [
 					[
-						'key' 	=> '_ciudad_meta',
-			            'value' => 'nacional'
+						'taxonomy' => 'ri-ciudad',
+	            		'field'    => 'slug',
+	            		'terms'    => 'nacional',
 					]
 				]
 			]);
@@ -81,7 +82,7 @@
 		</div>
 	</div>
 	<div class="container wmc">
-		<a href="<?=get_permalink( get_page_by_path( 'Ciudad' ) ) . '?city=nacional'?>" title="Ir a entradas nacionales" class="btn-general" role="button">
+		<a href="<?=get_term_link('nacional', 'ri-ciudad');?>" title="Ir a entradas nacionales" class="btn-general" role="button">
 			Ver más notas <i class="fas fa-caret-right"></i>
 		</a>
 	</div>
@@ -146,10 +147,11 @@
 				'post_status'      	=> 'publish',
 				'suppress_filters' 	=> false,
 				'no_found_rows' 	=> true,
-				'meta_query' 		=> [
+				'tax_query' => [
 					[
-						'key' 		=> '_ciudad_meta',
-			            'value' 	=> 'cdmx'
+						'taxonomy' => 'ri-ciudad',
+	            		'field'    => 'slug',
+	            		'terms'    => 'cdmx',
 					]
 				]
 			]);
@@ -205,7 +207,7 @@
 		</div>
 	</div>
 	<div class="container wmc">
-		<a href="<?=get_permalink( get_page_by_path( 'Ciudad' ) ) . '?city=cdmx'?>" title="Ir a entradas de la Ciudad de México" class="btn-general" role="button">
+		<a href="<?=get_term_link('cdmx', 'ri-ciudad');?>" title="Ir a entradas de la Ciudad de México" class="btn-general" role="button">
 			Ver más notas <i class="fas fa-caret-right"></i>
 		</a>
 	</div>
@@ -229,10 +231,11 @@
 				'post_status'      	=> 'publish',
 				'suppress_filters' 	=> false,
 				'no_found_rows' 	=> true,
-				'meta_query' 		=> [
+				'tax_query' => [
 					[
-						'key' 		=> '_ciudad_meta',
-			            'value' 	=> 'gdl'
+						'taxonomy' => 'ri-ciudad',
+	            		'field'    => 'slug',
+	            		'terms'    => 'gdl',
 					]
 				]
 			]);
@@ -297,7 +300,7 @@
 		</div>
 	</div>
 	<div class="container wmc">
-		<a href="<?=get_permalink( get_page_by_path( 'Ciudad' ) ) . '?city=gdl'?>" title="Ir a entradas de Guadalajara" class="btn-general" role="button">
+		<a href="<?=get_term_link('gdl', 'ri-ciudad');?>" title="Ir a entradas de Guadalajara" class="btn-general" role="button">
 			Ver más notas <i class="fas fa-caret-right"></i>
 		</a>
 	</div>
@@ -332,10 +335,11 @@
 				'post_status'      	=> 'publish',
 				'suppress_filters' 	=> false,
 				'no_found_rows' 	=> true,
-				'meta_query' 		=> [
+				'tax_query' => [
 					[
-						'key' 		=> '_ciudad_meta',
-			            'value' 	=> 'mty'
+						'taxonomy' => 'ri-ciudad',
+	            		'field'    => 'slug',
+	            		'terms'    => 'mty',
 					]
 				]
 			]);
@@ -391,7 +395,7 @@
 		</div>
 	</div>
 	<div class="container wmc">
-		<a href="/?city=mty" title="Ir a entradas de Monterrey" class="btn-general" role="button">
+		<a href="<?=get_term_link('mty', 'ri-ciudad');?>" title="Ir a entradas de Monterrey" class="btn-general" role="button">
 			Ver más notas <i class="fas fa-caret-right"></i>
 		</a>
 	</div>
