@@ -14,14 +14,15 @@
 **/
 
 class Reporte_Indigo_Taxonomies {
-	static function ri_custom(){
+	
+	static function ri_custom() {
 		self::ri_ciudad();
 		self::ri_tema();
 		self::ri_columna();
 		self::ri_categoria();
 	}
 
-	static function ri_ciudad(){
+	static function ri_ciudad() {
 		
 		$labels = [
 			'name'              => 'Ciudad',
@@ -35,15 +36,16 @@ class Reporte_Indigo_Taxonomies {
 		];
 
 		$args = [
-			'labels'            => $labels,
-			'hierarchical'      => true,
-			'show_ui'           => true,
-			'show_admin_column' => true,
-			'show_in_nav_menus' => true,
-			'query_var'         => true,
-			'show_in_rest'      => true,
-			'rewrite'           => ['slug' => 'ciudad'],
-			'capabilities' 		=> [
+			'labels'            	=> $labels,
+			'hierarchical'      	=> true,
+			'show_ui'           	=> true,
+			'show_admin_column' 	=> true,
+			'show_in_nav_menus' 	=> true,
+			'query_var'         	=> true,
+			'show_in_rest'      	=> true,
+			'rewrite'           	=> ['slug' => 'ciudad'],
+			'show_in_quick_edit' 	=> false,
+			'capabilities' 			=> [
 				'edit_terms'   	=> 'god',
 				'manage_terms' 	=> 'god',
 				'delete_terms' 	=> 'god',
