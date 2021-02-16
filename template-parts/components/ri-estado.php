@@ -8,8 +8,10 @@
  */
 $jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
 $tema = get_the_terms( get_the_ID(), 'ri-tema' );
-$ciudad = get_post_meta( get_the_ID(), '_ciudad_meta', TRUE );
+$ciudad = get_the_terms( get_the_ID(), 'ri-ciudad' );
 $class = array_key_exists('class', $args) ? $args['class'] : '';
+
+$ciudad = $ciudad[0];
 ?>
 <div class="component-estados <?=$class?>">
 	<article itemtype="http://schema.org/Article">
@@ -40,7 +42,7 @@ $class = array_key_exists('class', $args) ? $args['class'] : '';
 				?>
 				<h3>
 					<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
-						<span><?=$ciudad?></span> / <?php the_title();?>
+						<span><?=$ciudad->name?></span> / <?php the_title();?>
 					</a>
 				</h3>
 			</div>

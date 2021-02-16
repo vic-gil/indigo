@@ -8,7 +8,7 @@
  */
 $categoria = get_the_terms( get_the_ID(), 'ri-categoria' );
 $tema = get_the_terms( get_the_ID(), 'ri-tema' );
-$ciudad = get_post_meta( get_the_ID(), '_ciudad_meta', TRUE );
+$ciudad = get_the_terms( get_the_ID(), 'ri-ciudad' );
 $jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
 $class = array_key_exists('class', $args) ? $args['class'] : '';
 $contain_author = array_key_exists('author', $args) ? $args['author'] : TRUE;
@@ -31,12 +31,12 @@ $contain_excerpt = array_key_exists('excerpt', $args) ? $args['excerpt'] : TRUE;
 				</h3>
 			</div>
 		<?php
-		elseif( ! empty( $ciudad ) && $contain_local ) : $link = get_permalink( get_page_by_path( 'Ciudad' ) ) . '?city=' . $ciudad;	
+		elseif( ! empty( $ciudad ) && $contain_local ) : $ciudad = $ciudad[0];
 		?>
 			<div class="entry-local">
 				<h3>
-					<a href="<?=$link;?>" title="<?=$ciudad;?>">
-						<?=$ciudad;?>
+					<a href="<?=get_term_link($ciudad);?>" title="Ir a entradas de <?=$ciudad->name;?>">
+						<?=$ciudad->name;?>
 					</a>
 				</h3>
 			</div>
