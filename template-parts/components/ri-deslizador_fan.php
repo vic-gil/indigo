@@ -46,7 +46,7 @@ $bullets = array_key_exists('total', $args) ? intval($args['total']) : FALSE;
 				<?php
 				for($j = 0; $j < $max; $j++) {
 				?>
-					<span class="fas fa-circle <?= ($i == 0) ? 'active' : ''?>"></span>
+					<span class="fas fa-circle <?= ($j == 0) ? 'active' : ''?>"></span>
 				<?php
 				}
 				?>

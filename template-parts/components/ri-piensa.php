@@ -12,6 +12,8 @@ $share = array_key_exists('share', $args) ? $args['share'] : TRUE;
 $jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
 $class = array_key_exists('class', $args) ? $args['class'] : '';
 $type = array_key_exists('type', $args) ? $args['type'] : '';
+
+$excerpt = array_key_exists('excerpt', $args) ? $args['excerpt'] : TRUE;
 ?>
 <div class="<?=$class;?> component-piensa <?=$type;?>">
 	<article itemtype="http://schema.org/Article">
@@ -62,6 +64,15 @@ $type = array_key_exists('type', $args) ? $args['type'] : '';
 						<?php the_title();?>
 					</a>
 				</h3>
+				<?php
+				if($excerpt):
+				?>
+				<div class="entry-excerpt">
+					<?php the_excerpt();?>
+				</div>
+				<?php
+				endif;
+				?>
 				<address itemprop="author" itemscope="" itemtype="http://schema.org/Person" rel="author">
 					<?php the_author_posts_link();?>
 				</address>

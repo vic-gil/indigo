@@ -28,7 +28,7 @@ $class = array_key_exists('class', $args) ? $args['class'] : '';
 		endif;
 		?>
 		<div class="entry-content">
-			<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
+			<figure class="interno" itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
 				<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 					<picture>
 						<?php the_post_thumbnail("large"); ?>
