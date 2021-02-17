@@ -32,6 +32,48 @@ class Reporte_Indigo_Scripts {
 	}
 
 	/**
+	 * Script para cargar javascript
+	 *
+	 * @param bool  $echo Define el formato de cadena o impresión
+	 *
+	 * @return String|void String si $echo es falso o vacío si echo es verdadero;
+	**/
+	static function load_script($echo = TRUE) {
+		$all = '<script type="text/javascript">
+			"use strict";
+			const isScriptLoad = (src) => {
+				return document.querySelector(`script[src="${src}"]`) ? true : false;
+			}
+
+			const loadScript = (src, callback) => {
+				let s, r, t;
+				s = document.createElement("script");
+				s.type = "text/javascript";
+				s.src = src;
+				if( ! isScriptLoad(src) ){
+					s.onload = s.onreadystatechange = function() {
+						if ( !r && (!this.readyState || this.readyState == "complete") ) {
+							r = true;
+							callback();
+						}
+					}
+					t = document.getElementsByTagName("script")[0];
+	  				t.parentNode.insertBefore(s, t);
+				} else {
+					callback();
+				}
+			}
+		</script>';
+
+		$script = '<script type="text/javascript">"use strict";const isScriptLoad=t=>!!document.querySelector(`script[src="${t}"]`),loadScript=(t,e)=>{let c,r,a;(c=document.createElement("script")).type="text/javascript",c.src=t,isScriptLoad(t)?e():(c.onload=c.onreadystatechange=function(){r||this.readyState&&"complete"!=this.readyState||(r=!0,e())},(a=document.getElementsByTagName("script")[0]).parentNode.insertBefore(c,a))};</script>';
+
+		if( $echo )
+			echo $script;
+		else
+			return $script;
+	}
+
+	/**
 	 * Script para compartir entradas de twitter
 	 *
 	 * @param bool  $echo Define el formato de cadena o impresión
@@ -50,7 +92,7 @@ class Reporte_Indigo_Scripts {
 			}
 		</script>';
 
-		$script = '<script type="text/javascript">"use strict";const copyTwitt=t=>{let e=!1!==t?t.dataset.title:"";window.open(`http://twitter.com/intent/tweet?text=${encodeURIComponent(e)}&via=Reporte_Indigo&`,"_blank")};</script>';
+		$script = '<script type="text/javascript">"use strict";const copyTwitt=t=>{let e=!1!==t?t.dataset.title:"";window.open(`http://twitter.com/intent/tweet?text=${encodeURIComponent(e)}&via=Reporte_Indigo`,"_blank")};</script>';
 
 		if( $echo )
 			echo $script;
@@ -179,9 +221,68 @@ class Reporte_Indigo_Scripts {
 	**/
 	static function swiper($echo = TRUE) {
 
-		if( is_home() ) {
-			$script = '<script type="text/javascript">const loadScript=(e,t)=>{let s,n,i;(s=document.createElement("script")).type="text/javascript",s.src=e,s.onload=s.onreadystatechange=function(){n||this.readyState&&"complete"!=this.readyState||(n=!0,t())},(i=document.getElementsByTagName("script")[0]).parentNode.insertBefore(s,i)};let swiperInstances=[];const initSlider=()=>{sliders("sc-home-top",1,1),sliders("sc-home-enfoque",2,2),sliders("sc-home-desglose",3,1)},sliders=(e,t,s)=>{let n=document.getElementById(e);if(void 0!==n&&null!=n){let n={slidesPerView:1,spaceBetween:15,autoHeight:!0};1==s&&(n.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},n.on={slideChangeTransitionEnd:()=>{for(let e of document.querySelectorAll(".pagination span"))e.classList.remove("active");let e=document.querySelectorAll(".pagination");for(let s of e)s.querySelector(`span:nth-child(${swiperInstances[t].activeIndex+1})`).classList.add("active")}}),2==s&&(n.pagination={el:"#sp-enfoque",clickable:!0}),swiperInstances[t]=new Swiper(`#${e}`,n)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
-		}
+		$all = '
+			<script type="text/javascript">
+				"use strict";
+				let swiperInstances = [];
+				
+				const initSlider = () => {
+				   	sliders("sc-home-top", 1, 1);
+				    sliders("sc-home-enfoque", 2, 2);
+				    sliders("sc-home-desglose", 3, 1);
+				}
+
+				var sliders = (selector, index, type) => {
+					let slider = document.getElementById(selector);
+					if (void 0 !== slider && null != slider) {
+						let config = {
+							slidesPerView: 1,
+				            spaceBetween: 15,
+				            autoHeight: true
+						};
+
+						if(type == 1) {
+							
+							let element = slider.querySelectorAll(".pagination");
+
+							config.navigation = {
+								nextEl: ".sw-arrow.next",
+								prevEl: ".sw-arrow.prev"
+							};
+
+							config.on = {
+								slideChangeTransitionEnd: () => {
+									for ( let element of slider.querySelectorAll(".pagination span") ) 
+										element.classList.remove("active");
+
+									for (let pagination of element)
+										pagination.querySelector(`span:nth-child(${swiperInstances[index].activeIndex+1})`).classList.add("active");
+								}
+							};
+
+							for (let pagination of element) {
+								pagination.addEventListener("click", function(){
+									let goto = event.target.dataset.index;
+									swiperInstances[index].slideTo((goto), 800);
+								});
+							}
+
+						} else {
+							config.pagination = {
+								el: "#sp-enfoque",
+								clickable: true
+							};
+						}
+
+						swiperInstances[index] = new Swiper(`#${selector}`, config);
+
+					}
+				}
+				
+				loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js", initSlider);
+			</script>';
+
+		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("sc-home-top",1,1),sliders("sc-home-enfoque",2,2),sliders("sc-home-desglose",3,1)};var sliders=(e,s,t)=>{let i=document.getElementById(e);if(void 0!==i&&null!=i){let n={slidesPerView:1,spaceBetween:15,autoHeight:!0};if(1==t){let e=i.querySelectorAll(".pagination");n.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},n.on={slideChangeTransitionEnd:()=>{for(let e of i.querySelectorAll(".pagination span"))e.classList.remove("active");for(let t of e)t.querySelector(`span:nth-child(${swiperInstances[s].activeIndex+1})`).classList.add("active")}};for(let t of e)t.addEventListener("click",function(){let e=event.target.dataset.index;swiperInstances[s].slideTo(e,800)})}else n.pagination={el:"#sp-enfoque",clickable:!0};swiperInstances[s]=new Swiper(`#${e}`,n)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
 
 		if( $echo )
 			echo $script;
@@ -198,33 +299,65 @@ class Reporte_Indigo_Scripts {
 	**/
 	static function swiperFan($echo = TRUE) {
 
-		if( is_home() ) {
-			$script = '
-			<script type="text/javascript">
-			"use strict";
-			const isScriptLoad = (src) => {
-				return document.querySelector("script[src=\'" + src + "\']");
+		$script = '
+		<script type="text/javascript">
+		"use strict";
+			let swiperInstances = [];
+			
+			const initSlider = () => {
+			   	sliders("slider-fan", 1, 1);
 			}
 
-			const loadScript = (src, callback) => {
-				let s, r, t;
-				s = document.createElement("script");
-				s.type = "text/javascript";
-				s.src = src;
-				if(isScriptLoad){
-					s.onload = s.onreadystatechange = function() {
-						if ( !r && (!this.readyState || this.readyState == "complete") ) {
-							r = true;
-							callback();
+			var sliders = (selector, index, type) => {
+				let slider = document.getElementById(selector);
+				if (void 0 !== slider && null != slider) {
+					let config = {
+						slidesPerView: 1,
+			            spaceBetween: 15,
+			            autoHeight: true
+					};
+
+					if(type == 1) {
+						
+						let element = slider.querySelectorAll(".pagination");
+
+						config.navigation = {
+							nextEl: ".sw-arrow.next",
+							prevEl: ".sw-arrow.prev"
+						};
+
+						config.on = {
+							slideChangeTransitionEnd: () => {
+								for ( let element of slider.querySelectorAll(".pagination span") ) 
+									element.classList.remove("active");
+
+								for (let pagination of element)
+									pagination.querySelector(`span:nth-child(${swiperInstances[index].activeIndex+1})`).classList.add("active");
+							}
+						};
+
+						for (let pagination of element) {
+							pagination.addEventListener("click", function(){
+								let goto = event.target.dataset.index;
+								swiperInstances[index].slideTo((goto), 800);
+							});
 						}
+
+					} else {
+						config.pagination = {
+							el: "#sp-enfoque",
+							clickable: true
+						};
 					}
-					t = document.getElementsByTagName("script")[0];
-	  				t.parentNode.insertBefore(s, t);
+
+					swiperInstances[index] = new Swiper(`#${selector}`, config);
+
 				}
-				
 			}
-			</script>';
-		}
+			
+			loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js", initSlider);
+		
+		</script>';
 
 		if( $echo )
 			echo $script;
@@ -245,6 +378,32 @@ class Reporte_Indigo_Scripts {
 	static function lazyloading($native = FALSE, $echo = TRUE) {
 		$lazy = $native ? "true" : "false";
 		$script = '<script type="text/javascript">"use strict";let nativeLazyLoad=' . $lazy . ';(async()=>{if(nativeLazyLoad){if("loading"in HTMLImageElement.prototype){document.querySelectorAll("img.lazyload").forEach(e=>{e.dataset.src&&(e.src=e.dataset.src),e.dataset.srcset&&(e.srcset=e.dataset.srcset)})}else{const e=document.createElement("script");e.src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.0/lazysizes.min.js",document.body.appendChild(e)}if("loading"in HTMLIFrameElement.prototype){document.querySelectorAll(\'iframe[loading="lazy"]\').forEach(e=>{e.src=e.dataset.src})}else{const e=document.createElement("script");e.src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.0/lazysizes.min.js",document.body.appendChild(e)}}else{const e=document.createElement("script");e.src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.0/lazysizes.min.js",document.body.appendChild(e)}})();</script>';
+
+		if( $echo )
+			echo $script;
+		else
+			return $script;
+	}
+
+	/**
+	 * Script para habilitar la visualización de la playlist
+	 * del componente reproductor
+	 *
+	 * @param bool  $native Activa el lazyload
+	 * @param bool  $echo Define el formato de cadena o impresión
+	 *
+	 * @return String|void JS Script;
+	**/
+	static function playlistShow($echo = TRUE) {
+		$all = '
+		<script type="text/javascript">
+			"use strict";
+			document.querySelector(".btn-playlist").addEventListener("click", function(){
+				document.querySelector("#c-video-playlist").classList.toggle("expanded");
+			});
+		</script>';
+		
+		$script = '<script type="text/javascript">"use strict";document.querySelector(".btn-playlist").addEventListener("click",function(){document.querySelector("#c-video-playlist").classList.toggle("expanded")});</script>';
 
 		if( $echo )
 			echo $script;
@@ -279,31 +438,36 @@ class Reporte_Indigo_Scripts {
 				removePrevPlayer();
 
 				let parent = attr.parentElement;
-				let innerPlayer = document.createElement("DIV");
+
+				if( parent.classList.contains("interno") ){
+
+					let innerPlayer = document.createElement("DIV");
 					innerPlayer.classList.add("inner-player");
 
-				for (let id of media) {
-					innerPlayer.innerHTML = `<div id="_jwp_${id}"></div>`
-					parent.appendChild(innerPlayer);
+					for (let id of media) {
+						innerPlayer.innerHTML = `<div id="_jwp_${id}"></div>`
+						parent.appendChild(innerPlayer);
 
-					loadScript("https://cdn.jwplayer.com/libraries/ixhD10k3.js", function(){
-						jwplayer(`_jwp_${id}`).setup({
-							playlist: `https://cdn.jwplayer.com/v2/media/${id}`,
-							ga: {
-								label: "mediaid"
-							},
-							autostart : true,
-				    		mute: false,
-							tracks: [
-								{
-									file: `https://cdn.jwplayer.com/strips/${id}-120.vtt`,
-									kind: "thumbnails"
-								}
-							]
+						loadScript("https://cdn.jwplayer.com/libraries/ixhD10k3.js", function(){
+							jwplayer(`_jwp_${id}`).setup({
+								playlist: `https://cdn.jwplayer.com/v2/media/${id}`,
+								ga: {
+									label: "mediaid"
+								},
+								autostart : true,
+					    		mute: false,
+								tracks: [
+									{
+										file: `https://cdn.jwplayer.com/strips/${id}-120.vtt`,
+										kind: "thumbnails"
+									}
+								]
+							});
 						});
-					});
+					}
 
-					
+				} else {
+					console.log("modal");
 				}
 			}
 		</script>';
@@ -317,6 +481,7 @@ class Reporte_Indigo_Scripts {
 	}
 
 	function on_loaded() {
+		self::load_script();
 		self::lazyloading(FALSE);
 		self::scroll();
 		self::jwplayer();
@@ -325,6 +490,11 @@ class Reporte_Indigo_Scripts {
 
 		if( is_home() ) {
 			self::swiper();
+			self::playlistShow();
+		}
+
+		if ( is_post_type_archive('ri-fan') ){
+			self::swiperFan();
 		}
 	}
 
@@ -332,3 +502,6 @@ class Reporte_Indigo_Scripts {
 
 $plugin = new Reporte_Indigo_Scripts();
 add_action('wp_footer', array($plugin, 'on_loaded'), 99);
+
+
+

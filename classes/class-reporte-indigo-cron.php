@@ -67,16 +67,17 @@ class Reporte_Indigo_Cron {
 	**/
 	function cache_query_by_config() {
 		$posts = new WP_Query([
-			'posts_per_page'	=> $this->perPage,
-			'post_type' 		=> $this->postType,
-			'post_status'      	=> 'publish',
-			'suppress_filters' 	=> false,
-			'no_found_rows' 	=> true,
-			'update_post_term_cache' 	=> false,
-			'meta_query' 				=> [
+			'posts_per_page'		 => $this->perPage,
+			'post_type' 			 => $this->postType,
+			'post_status'      		 => 'publish',
+			'suppress_filters' 		 => false,
+			'no_found_rows' 		 => true,
+			'update_post_term_cache' => false,
+			'tax_query' => [
 				[
-					'key' 	=> '_ciudad_meta',
-		            'value' => $this->city
+					'taxonomy' => 'ri-ciudad',
+            		'field'    => 'slug',
+            		'terms'    => $this->city,
 				]
 			]
 		]);
