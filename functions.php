@@ -255,7 +255,7 @@ function add_non_critical_section_styles() {
 		wp_enqueue_style( 'edicion-style', get_stylesheet_directory_uri() . "/assets/css/404.css", [], "20210120" );
 
 	if( is_page_template('page-templates/newsletter.php') )
-		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "assets/css/newsletter.css", [], "20210120" );
+		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "/assets/css/newsletter.css", [], "20210120" );
 
 	if( is_page_template('page-templates/ventas.php') )
 		wp_enqueue_style( 'ventas-style', get_stylesheet_directory_uri() . "/assets/css/ventas.css", [], "20210120" );
@@ -681,4 +681,3 @@ function wp_term_chk_radio( $args ) {
 }
 
 add_filter( 'wp_terms_checklist_args', 'wp_term_chk_radio' );
-
