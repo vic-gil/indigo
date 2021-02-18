@@ -55,18 +55,48 @@
 					 *
 					**/
 
-					get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => '__a' ] );
-
-					/**
-					 *
-					 * Aqui va la publicidad
-					 *
-					**/
+					get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => '__a', 'share' => false ] );
+					echo '<div class="anuncios mt"><div class="wrap" style="height: 600px;"></div></div>';
 					echo '</div></div>';
+
+					echo '</div></div>'; // Cierra el contenedor principal
+					echo '<div class="content-max"><div class="content"><div class="components wp">'; // Abre contenedor videos
+					
+					if( false === $videos = get_transient('ri_cache_videos') ) {
+						$videos = new WP_Query([
+							'post_type' 		=> 'any',
+							'posts_per_page' 	=> 4,
+							'post_status'      	=> 'publish',
+							'suppress_filters' 	=> false,
+							'no_found_rows' 	=> true,
+							'meta_query' 		=> [
+								'relation' => 'AND',
+								[
+									'key' 		=> 'value_mediaid_jwp_meta',
+					            	'value' 	=> '',
+					            	'compare' 	=> '!='
+								]
+							]
+						]);
+
+						if ( ! is_wp_error( $videos ) && $videos->have_posts() ) {
+			   				set_transient('ri_cache_videos', $videos, 12 * HOUR_IN_SECONDS );
+						}
+					}
+					
+					if ( $videos->have_posts() ):
+						while ( $videos->have_posts() ): $videos->the_post();
+							get_template_part( 'template-parts/components/ri', 'play', [ 'class' => 'mini', 'local' => FALSE ] );
+						endwhile;
+						echo '<div class="tc"><a href="<?=get_permalink( get_page_by_path( \'indigo-videos\' ) ) ?>" title="Ir a entradas nacionales" class="btn-general" role="button">Ver más videos <i class="fas fa-caret-right"></i></a></div>';
+					endif;
+					echo '</div></div></div>'; // Con esto cerramos contenedor de video
+					echo '<div class="container wm"><div class="components">'; // Abrimos un nuevo contenedor
 				}
 
-				if( $index == 9 )
+				if( $index == 9 ){
 					echo '<div class="col-12"><div class="components">';
+				}
 
 				if( $index >= 9 )
 					get_template_part( 'template-parts/components/ri', 'lista_imagen', [ "class" => "fan" ] );

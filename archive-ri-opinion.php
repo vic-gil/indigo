@@ -33,15 +33,13 @@
 						}
 
 					}
-
 					$author = $opinion->posts[0]->post_author;
-
 					?>
 					<div class="container-opinion">
 						<div class="entries">
 							<div class="header">
 								<h2>
-									<a href="" title="Ir a entradas de la columna <?=$term->name;?>">
+									<a href="<?=get_term_link($term,'ri-columna')?>" title="Ir a entradas de la columna <?=$term->name;?>">
 										<?=$term->name;?>
 									</a>
 								</h2>

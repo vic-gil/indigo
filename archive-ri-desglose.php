@@ -19,7 +19,7 @@
 				if ( $index == 4 ){
 					echo '</div></div>';
 					echo '<div class="col-lg-4"><div class="components">';
-					/** Aquí va la publicidad **/
+					echo '<div class="anuncios mt"><div class="wrap"><div style="height: 600px;"></div></div></div>';
 					echo '</div></div>';
 				}
 

@@ -12,11 +12,8 @@
 						get_template_part( 'template-parts/components/ri', 'general' );
 						echo '</div></div>';
 						echo '<div class="col-lg-4"><div class="components">';
-						/**
-						 *
-						 * Aqui va la publicidad
-						 *
-						**/
+						echo '<div class="anuncios mt"><div class="wrap" style="height: 300px;"></div></div>';
+						echo '<div class="anuncios mt"><div class="wrap" style="height: 300px;"></div></div>';
 						echo '</div></div><div class="separator"><hr></div>';
 					}	
 

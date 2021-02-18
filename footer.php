@@ -83,53 +83,25 @@
 		</footer>
 		<?php wp_footer(); ?>
 	</body>
-
 	<!-- Modal jwplayer -->
-	<div class="modal fade" id="m-jwplayer" tabindex="-1" role="dialog" aria-labelledby="m-jwplayer-cente" aria-hidden="true">
-	  	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-	    	<div class="modal-content">
-	      		<div class="modal-header">
-	        		<h5 class="modal-title" id="m-jwplayer-section">IndigoPlay</h5>
-	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          			<span aria-hidden="true">&times;</span>
-	        		</button>
-	      		</div>
-	      		<div class="modal-body text-center">
-	     			<h2 class="roboto-bold fsize-16"></h2>
-	     			<div class="row mt-3">
-	     				<div class="col-12">
-							<div class="swiper-container" id="sc-jwp">
-							    <div class="swiper-wrapper"></div>
-							    <div class="d-flex bd-highlight position-relative align-items-center bgs-108">
-								  	<div class="bd-highlight">
-								  		<div id="swb-jwp-prev">
-								  			<button type="button" class="btn">
-								  				<i class="fas fa-caret-left col-104 fsize-14"></i>
-								  			</button>
-								  		</div>
-								  	</div>
-								  	<div class="flex-grow-1 bd-highlight">
-								  		<div class="swiper-pagination" id="sp-jwp"></div>
-								  	</div>
-								  	<div class="bd-highlight">
-								  		<div id="swb-jwp-next">
-								  			<button type="button" class="btn">
-								  				<i class="fas fa-caret-right col-104 fsize-14"></i>
-								  			</button>
-								  		</div>
-								  	</div>
-								</div>
-							</div>
-	     				</div>
-	     			</div>
-	      		</div>
-	      		<div class="modal-footer">
-	        		<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-	      		</div>
-	    	</div>
-	  	</div>
+	<div class="modal fade" id="m-jwplayer" tabindex="-1" role="dialog" aria-labelledby="jwModal" aria-hidden="true">
+  		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<h5 class="modal-title" id="jwModal">IndigoPlay</h5>
+        			<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          				<span aria-hidden="true">&times;</span>
+        			</button>
+      			</div>
+      			<div class="modal-body">
+      				
+      			</div>
+      			<div class="modal-footer">
+        			<button data-bs-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
 	</div>
-
 	<!-- Modal jwplayer -->
 	<div class="modal fade" id="m-share" tabindex="-1" role="dialog" aria-labelledby="shareModal" aria-hidden="true">
   		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">

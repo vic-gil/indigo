@@ -12,30 +12,37 @@
 						get_template_part( 'template-parts/components/ri', 'general' );
 						echo '</div></div>';
 						echo '<div class="col-md-5 col-lg-4"><div class="components">';
-						
-						$one = new WP_Query([
-							'post_type' 			=> 'ri-piensa',
-							'posts_per_page' 		=> 1,
-							'post_status'      		=> 'publish',
-							'suppress_filters' 		=> false,
-							'ignore_sticky_posts'	=> true,
-							'no_found_rows' 		=> true,
-							'post__not_in'			=> $exclude,
-							'tax_query' 			=> [
-								[
-									'taxonomy' 		=> 'ri-categoria',
-									'field'	   		=> 'slug',
-									'terms'	 		=> 'enfoqueindigo'
-								]
-							]
-						]);
 
-						if ( $one->have_posts() ):
-							while ( $one->have_posts() ): $one->the_post();
-								get_template_part( 'template-parts/components/ri', 'enfoque' );
-							endwhile;
-						endif;
-						wp_reset_postdata();
+						if( get_query_var('paged') === 0 ) {
+							$one = new WP_Query([
+								'post_type' 			=> 'ri-piensa',
+								'posts_per_page' 		=> 1,
+								'post_status'      		=> 'publish',
+								'suppress_filters' 		=> false,
+								'ignore_sticky_posts'	=> true,
+								'no_found_rows' 		=> true,
+								'post__not_in'			=> $exclude,
+								'tax_query' 			=> [
+									[
+										'taxonomy' 		=> 'ri-categoria',
+										'field'	   		=> 'slug',
+										'terms'	 		=> 'enfoqueindigo'
+									]
+								]
+							]);
+
+							if ( $one->have_posts() ):
+								while ( $one->have_posts() ): $one->the_post();
+									get_template_part( 'template-parts/components/ri', 'enfoque' );
+								endwhile;
+							endif;
+							wp_reset_postdata();
+						} else {
+							echo '<div class="anuncios mt"><div class="wrap" style="height: 300px;"></div></div>';
+							echo '<div class="anuncios mt"><div class="wrap" style="height: 300px;"></div></div>';
+						}
+						
+						
 
 						echo '</div></div><div class="separator"><hr></div>';
 					}	
@@ -45,12 +52,11 @@
 
 					if( get_query_var('paged') === 0 ) {
 						
-						if($index >= 1 && $index <= 3)
+						if($index >= 1 && $index <= 5)
 							get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmini' ] );
 
-
-						if( $index >= 4 && $index <= 5 )
-							get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => 'vsmall', 'type' => '__a' ] );
+						if($index == 5)
+							echo '<div class="anuncios vmini mt"><div class="wrap" style="height: 300px;"></div></div>';
 
 					} else {
 
@@ -59,6 +65,9 @@
 
 						if( $index >= 4 )
 							get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'v2piensa' ] );
+
+						if($index == 5)
+							echo '<div class="anuncios vmini mt"><div class="wrap" style="height: 300px;"></div></div>';
 
 					}
 

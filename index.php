@@ -1,5 +1,7 @@
-<?php get_header(); ?>
-<?php $exclude = [];?>
+<?php 
+get_header(); 
+$exclude = [];
+?>
 <main>
 	<h1 class="hh1"><?=bloginfo('name');?></h1>
 	<?php
@@ -154,14 +156,13 @@
 					Reporte_indigo_test::comment('Publicidad');
 					?>
 
-					<div class="col-lg-12 col-md-6 mt-3 text-center">
-						<div class="sponsor" style="height: 300px;"></div>
+					<div class="anuncios vsmall mt">
+						<div class="wrap" style="height: 600px;"></div>
 					</div>
 
-					<div class="col-lg-12 col-md-6 mt-3 text-center">
-						<div class="sponsor" style="height: 600px;"></div>
+					<div class="anuncios vsmall mt">
+						<div class="wrap" style="height: 300px;"></div>
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -443,16 +444,21 @@
 				}
 
 				if($index >= 1 && $index <= 3){
-					get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => 'vsmall', 'type' => '__a' ] );
+					get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => 'vsmall', 'type' => '__a', 'excerpt' => FALSE ] );
 				}
 
 				if($index >= 4 && $index <= 9){
-					get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => 'vmedium', 'type' => '__b', 'share' => FALSE ] );
+					get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => 'vmedium', 'type' => '__b', 'excerpt' => FALSE, 'share' => FALSE ] );
 				}
 
 				if($index == 9) {
 					echo '</div></div>';
 					echo '<div class="col-lg-4 col-md-12"><div class="components">';
+
+					echo '<div class="anuncios mt"><div class="wrap" style="height: 300px;"></div></div>';
+					echo '<div class="anuncios mt"><div class="wrap" style="height: 600px;"></div></div>';
+
+					echo '</div></div>';
 				}
 				$index++;
 			endwhile;
@@ -619,7 +625,12 @@
 				</div>
 			</div>
 			<div class="col-lg-4">
-				
+				<div class="anuncios mt">
+					<div class="wrap" style="height: 300px;"></div>
+				</div>
+				<div class="anuncios mt">
+					<div class="wrap" style="height: 600px;"></div>
+				</div>
 			</div>
 		</div>
 	</div>
