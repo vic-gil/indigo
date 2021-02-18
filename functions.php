@@ -68,7 +68,7 @@ if ( DISABLE_WP_CRON ):
 		 * Se crean/actualizan datos transitorios de la sección home.
 		 * Reporte_Indigo_Cron("nombre", "datos seleccionados", "post_type", "icon", "soporte");
 		 *
-		 * @link reporte/classes/class-reporte-indigo-post-types.php
+		 * @link reporte/classes/class-reporte-indigo-cron.php
 		**/
 
 		function cron_update_home() {
@@ -92,7 +92,7 @@ if ( DISABLE_WP_CRON ):
 		 * Se crean/actualizan datos transitorios de la sección reporte.
 		 * Reporte_Indigo_Cron("nombre", "datos seleccionados", "post_type", "icon", "soporte");
 		 *
-		 * @link reporte/classes/class-reporte-indigo-post-types.php
+		 * @link reporte/classes/class-reporte-indigo-cron.php
 		**/
 		function cron_update_reporte() {
 			$videos = new Reporte_Indigo_Cron( 'ri_cache_videos', null, null, null, 4 );
@@ -111,8 +111,20 @@ if ( DISABLE_WP_CRON ):
 			$nacional->cache_query_by_config();
 		}
 
+		/**
+		 * Se crean/actualizan datos transitorios de la sección reporte.
+		 * Reporte_Indigo_Cron("nombre", "datos seleccionados", "post_type", "icon", "soporte");
+		 *
+		 * @link reporte/classes/class-reporte-indigo-cron.php
+		**/
+		function cron_update_page_videos() {
+			$videos = new Reporte_Indigo_Cron( 'ri_cache_page_videos', null, null, null, 17 );
+			$videos->cache_query_by_jwplayer();
+		}
+
 		add_action( 'cron_every_five_minutes', 'cron_update_home' );
 		add_action( 'cron_every_five_minutes', 'cron_update_reporte' );
+		add_action( 'cron_every_five_minutes', 'cron_update_page_videos' );
 
 	endif;
 
@@ -252,7 +264,7 @@ function add_non_critical_section_styles() {
 		wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single.css", [], "20210120" );
 
 	if( is_404() )
-		wp_enqueue_style( 'edicion-style', get_stylesheet_directory_uri() . "/assets/css/404.css", [], "20210120" );
+		wp_enqueue_style( '404-style', get_stylesheet_directory_uri() . "/assets/css/404.css", [], "20210120" );
 
 	if( is_page_template('page-templates/newsletter.php') )
 		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "/assets/css/newsletter.css", [], "20210120" );
@@ -263,8 +275,11 @@ function add_non_critical_section_styles() {
 	if( is_page_template('page-templates/terminos.php') || is_page_template('page-templates/privacidad.php') )
 		wp_enqueue_style( 'terminos-style', get_stylesheet_directory_uri() . "/assets/css/terminos.css", [], "20210120" );
 
-	if( is_page_template('page-templates/terminos.php') || is_page_template('page-templates/indigo-noticias.php') )
+	if( is_page_template('page-templates/indigo_noticias.php') )
 		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/noticias.css", [], "20210120" );
+
+	if( is_page_template('page-templates/indigo_videos.php') )
+		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/play.css", [], "20210120" );
 
 	if( is_tax('ri-categoria') || is_tax('ri-tema') || is_tax('ri-columna') || is_tax('ri-ciudad') )
 		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/assets/css/taxonomy.css", [], "20210121" );
@@ -577,20 +592,20 @@ function reporte_indigo_main_query($query) {
 			$query->set( 'posts_per_page', 13 );
 			$query->set( 'post_status', 'publish' );
 			$query->set( 'no_found_rows', false );
-			$query->set( 'suppress_filters', true );
+			$query->set( 'suppress_filters', false );
 		endif;
 
 		if ( is_post_type_archive('ri-indigonomics') ) :
 			$query->set( 'posts_per_page', 13 );
 			$query->set( 'post_status', 'publish' );
 			$query->set( 'no_found_rows', false );
-			$query->set( 'suppress_filters', true );
+			$query->set( 'suppress_filters', false );
 		endif;
 
 		if ( is_post_type_archive('ri-piensa') ) :
 			$query->set( 'post_status', 'publish' );
 			$query->set( 'no_found_rows', false );
-			$query->set( 'suppress_filters', true );
+			$query->set( 'suppress_filters', false );
 			$query->set( 'tax_query', [
 				[	
 					'taxonomy' 	=> 'ri-categoria',
@@ -621,33 +636,33 @@ function reporte_indigo_main_query($query) {
 		if ( is_post_type_archive('ri-fan') ) :
 			$query->set( 'posts_per_page', 15 );
 			$query->set( 'no_found_rows', false );
-			$query->set( 'suppress_filters', true );
+			$query->set( 'suppress_filters', false );
 		endif;
 
 		if ( is_post_type_archive('ri-desglose') ) :
 			$query->set( 'posts_per_page', 14 );
 			$query->set( 'no_found_rows', false );
-			$query->set( 'suppress_filters', true );
+			$query->set( 'suppress_filters', false );
 		endif;
 
 		if ( is_tax('ri-categoria') || is_tax('ri-columna') || is_tax('ri-tema') || is_tax('ri-ciudad') ) :
 			$query->set( 'posts_per_page', 19 );
 			$query->set( 'no_found_rows', false );
-			$query->set( 'suppress_filters', true );
+			$query->set( 'suppress_filters', false );
 		endif;
 
 		if ( is_author() ) :
 			$query->set( 'post_type', ['ri-reporte','ri-opinion','ri-latitud','ri-indigonomics','ri-piensa','ri-fan','ri-desglose','ri-documento-indigo','ri-salida-emergencia','ri-especial'] );
 			$query->set( 'posts_per_page', 52 );
 			$query->set( 'no_found_rows', false );
-			$query->set( 'suppress_filters', true );
+			$query->set( 'suppress_filters', false );
 		endif;
 
 		if( is_search() ) :
 			$query->set( 'post_type', ['ri-reporte','ri-opinion','ri-latitud','ri-indigonomics','ri-piensa','ri-fan','ri-desglose','ri-documento-indigo','ri-salida-emergencia','ri-especial'] );
 			$query->set( 'posts_per_page', 25 );
 			$query->set( 'no_found_rows', false );
-			$query->set( 'suppress_filters', true );
+			$query->set( 'suppress_filters', false );
 		endif;
 
 	endif;
