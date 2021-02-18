@@ -263,6 +263,9 @@ function add_non_critical_section_styles() {
 	if( is_page_template('page-templates/terminos.php') || is_page_template('page-templates/privacidad.php') )
 		wp_enqueue_style( 'terminos-style', get_stylesheet_directory_uri() . "/assets/css/terminos.css", [], "20210120" );
 
+	if( is_page_template('page-templates/terminos.php') || is_page_template('page-templates/indigo-noticias.php') )
+		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/noticias.css", [], "20210120" );
+
 	if( is_tax('ri-categoria') || is_tax('ri-tema') || is_tax('ri-columna') || is_tax('ri-ciudad') )
 		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/assets/css/taxonomy.css", [], "20210121" );
 
