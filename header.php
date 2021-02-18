@@ -39,7 +39,7 @@
 		<?php wp_head(); ?>
 		<?php $link_newsletter = get_permalink(get_page_by_path( 'Newsletter' ));?>
 	</head>
-	<body>
+	<body <?php body_class();?>>
 		<header>
 			<?php Reporte_indigo_test::comment('Fixed'); ?>
 			<div class="navbar">
