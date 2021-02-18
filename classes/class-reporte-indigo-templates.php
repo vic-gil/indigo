@@ -97,6 +97,8 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		public static function componente_imagen($data, $author = false) {
 			$title = $author ? $data['name'] : $data['caption'];
 			$url = $author ? $data['photo'] : $data['link'];
+			$width = ( ! empty($data['width']) ) ? $data['width'] : '';
+			$height = ( ! empty($data['height']) ) ? $data['height'] : '';
 
 			$rewrite = true;
 			if($rewrite == true) {
@@ -104,7 +106,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 			}
 
 		?>
-			<img itemprop="contentUrl" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="<?=$url?>" alt="<?=$title?>" class="lazyload" loading="lazy" />
+			<img itemprop="contentUrl" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="<?=$url?>" alt="<?=$title?>" width="<?=$width;?>" height="<?=$height;?>" class="lazyload" loading="lazy" />
 		<?php
 		}
 
@@ -1008,6 +1010,67 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					</div>
 				</div>
 			</article>
+		</div>
+		<?php
+		}
+
+		/**
+		 * Componente web videos
+		 *
+		 * @param array  $data 		Array video data.
+		 * @param string $variation HTML Class string.
+		 *
+		 * @return void
+		 */
+		public static function componente_videos($data, $variation = "", $in_header = false, $share = false) {
+		?>
+		<div class="component-videos <?=$variation;?>">
+			<div class="wrap">
+				<?php
+				if ( $in_header ) {
+				?>
+				<div class="entry-title">
+					<h3>
+						<?=$data['title'];?>
+					</h3>
+				</div>
+				<?php
+				}
+				?>
+				<figure>
+					<picture>
+						<?php 
+							$image = [
+								'caption' => $data['title'],
+								'link' => $data["thumbnails"]["high"]["url"],
+								'width' => $data["thumbnails"]["high"]['width'],
+								'height' => $data["thumbnails"]["high"]['height'],
+							];
+							Reporte_indigo_templates::componente_imagen($image);	
+						?>
+					</picture>
+				</figure>
+				<?php
+				if ( ! $in_header) {
+				?>
+				<div class="entry-title">
+					<h3>
+						<?=$data['title'];?>
+					</h3>
+				</div>
+				<?php
+				}
+				?>
+				<?php
+				if ( $share ) {
+				?>
+				<div class="share">
+					<button type="button" class="btn-general" onclick="shareDialog(this);" data-link="<?php the_permalink(); ?>" data-title="<?=$data['title'];?>" aria-label="comparte">Compartir</button>
+				</div>
+				<?php
+				}
+				?>
+			</div>
 		</div>
 		<?php
 		}
