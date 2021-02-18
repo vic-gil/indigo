@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Términos de uso
+ * Template Name: Terminos de uso
  *
  * Página de Términos de uso
  *

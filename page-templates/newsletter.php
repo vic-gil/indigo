@@ -10,7 +10,6 @@
  */
 
 get_header(); ?>
-
 <main>
 	<div class="container wm">
 		<div class="components">
@@ -143,20 +142,28 @@ get_header(); ?>
 					 * Datos transitorios para noticias recientes
 					 * Use esta función para borrar los datos:
 					 *
-					 * delete_transient('ri_cache_recientes');
+					 * delete_transient('ri_cache_recientes_6');
 					**/
 					if( false === $recientes = get_transient('ri_cache_recientes_6') ) {
 
 						$recientes = new WP_Query([
-							'post_type' 		=> 'any',
+							'post_type' 		=> ['ri-reporte','ri-opinion','ri-latitud','ri-indigonomics','ri-piensa','ri-fan','ri-desglose','ri-documento-indigo','ri-salida-emergencia','ri-especial'],
 							'posts_per_page' 	=> 6,
 							'post_status'      	=> 'publish',
 							'suppress_filters' 	=> false,
-							'no_found_rows' 	=> true
+							'no_found_rows' 	=> true,
+							'tax_query' 		=> [
+						        [
+						            'taxonomy' => 'ri-categoria',
+						            'field'    => 'slug',
+						            'terms'    => 'enfoqueindigo',
+						            'operator' => 'NOT IN'
+						        ]
+						    ]
 						]);
 
 						if ( ! is_wp_error( $recientes ) && $recientes->have_posts() ) {
-			   				set_transient('ri_cache_recientes_6', $recientes, 1 );
+			   				set_transient('ri_cache_recientes_6', $recientes, 1 * HOUR_IN_SECONDS );
 						}
 
 					}
@@ -192,5 +199,4 @@ get_header(); ?>
 		</div>
 	</div>
 </main>
-
 <?php get_footer(); ?>

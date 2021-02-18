@@ -9,7 +9,7 @@
  * @since Reporte Indigo 3.0.0
  */
 
-get_header(); ?>
+get_header();?>
 <main>
 	<div class="container wm">
 		<div class="components">
