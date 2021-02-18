@@ -14,8 +14,10 @@
 				if( $index <= 4 )
 					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmini', 'category' => FALSE ] );
 
-				if( $index == 4)
+				if( $index == 4){
+					echo '<div class="anuncios vmini mt"><div class="wrap"><div style="height: 300px;"></div></div></div>';
 					echo '<div class="col-4"></div><div class="separator"><hr></div>';
+				}
 				
 				if( $index >= 5 && $index <= 12 )
 					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmicro', 'category' => FALSE, 'excerpt' => FALSE ] );
