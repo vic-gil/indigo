@@ -412,8 +412,7 @@ class Reporte_Indigo_Scripts {
 	}
 
 	/**
-	 * El script para habilitar la carga diferida de imagenes
-	 * nativa del navegador o por medio del plugin lazysizes
+	 * El script para habilitar la reproducción de videos en jwplayer
 	 *
 	 * @param bool  $native Activa el lazyload
 	 * @param bool  $echo Define el formato de cadena o impresión
@@ -480,11 +479,57 @@ class Reporte_Indigo_Scripts {
 			return $script;
 	}
 
+	/**
+	 * El script para habilitar la reproducción de videos en youtube
+	 *
+	 * @param bool  $native Activa el lazyload
+	 * @param bool  $echo Define el formato de cadena o impresión
+	 *
+	 * @return String|void JS Script;
+	**/
+	static function youtubePlayer($echo = TRUE) {
+		$all = '
+		<script type="text/javascript">
+			"use strict";
+			
+			const removePrevPlayer = () => {
+				for ( let player of document.querySelectorAll(".inner-player") ) {
+					player.remove();
+				}
+			}
+
+			const ytEvent = ( attr ) => {
+				let id = attr.dataset.id;
+				let title = attr.dataset.title;
+
+				removePrevPlayer();
+
+				let parent = attr.parentElement;
+
+				if( parent.classList.contains("interno") ){
+
+					let innerPlayer = document.createElement("DIV");
+					innerPlayer.classList.add("inner-player");
+					innerPlayer.innerHTML = `<iframe type="text/html" style="max-width: 100%; width: 100%;" src="https://www.youtube.com/embed/?listType=playlist&list=${id}&disablekb=1&autoplay=1&playsinline=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+					parent.appendChild(innerPlayer);
+				} else {
+					console.log("modal");
+				}
+			}
+		</script>';
+
+		$script = '<script type="text/javascript">"use strict";const removePrevPlayer=()=>{for(let e of document.querySelectorAll(".inner-player"))e.remove()},ytEvent=e=>{let t=e.dataset.id;e.dataset.title;removePrevPlayer();let l=e.parentElement;if(l.classList.contains("interno")){let e=document.createElement("DIV");e.classList.add("inner-player"),e.innerHTML=`<iframe type="text/html" style="max-width: 100%; width: 100%;" src="https://www.youtube.com/embed/?listType=playlist&list=${t}&disablekb=1&autoplay=1&playsinline=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,l.appendChild(e)}else console.log("modal")};</script>';
+
+		if( $echo )
+			echo $script;
+		else
+			return $script;
+	}
+
 	function on_loaded() {
 		self::load_script();
 		self::lazyloading(FALSE);
 		self::scroll();
-		self::jwplayer();
 		self::share();
 		self::twitt();
 
@@ -493,9 +538,16 @@ class Reporte_Indigo_Scripts {
 			self::playlistShow();
 		}
 
-		if ( is_post_type_archive('ri-fan') ){
+		if ( is_post_type_archive('ri-fan') ) {
 			self::swiperFan();
 		}
+
+		if( is_page_template('page-templates/indigo-noticias.php') ) {
+			self::youtubePlayer();
+		} else {
+			self::jwplayer();
+		}
+
 	}
 
 }

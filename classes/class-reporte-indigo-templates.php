@@ -72,6 +72,20 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		}
 
 		/**
+		 * Componente web botón JWPlayer
+		 *
+		 * @param JSON $json     JSON player data.
+		 * @return void
+		 */
+		public static function componente_boton_youtube($data) {
+		?>
+			<button type="button" class="jw-play" data-id="<?=$data['id']?>" data-title="<?=$data['title']?>" aria-label="play" onclick="ytEvent(this); return false;">
+				<i class="fas fa-play"></i>
+			</button>
+		<?php
+		}
+
+		/**
 		 * Componente web botón Slider
 		 *
 		 * @return void
@@ -1037,18 +1051,27 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				<?php
 				}
 				?>
-				<figure>
+				<figure class="interno">
 					<picture>
 						<?php 
 							$image = [
-								'caption' => $data['title'],
-								'link' => $data["thumbnails"]["high"]["url"],
-								'width' => $data["thumbnails"]["high"]['width'],
-								'height' => $data["thumbnails"]["high"]['height'],
+								'caption' 	=> $data['title'],
+								'link' 		=> $data["thumbnails"]["high"]["url"],
+								'width' 	=> $data["thumbnails"]["high"]['width'],
+								'height' 	=> $data["thumbnails"]["high"]['height'],
 							];
 							Reporte_indigo_templates::componente_imagen($image);	
 						?>
 					</picture>
+					<?php
+					Reporte_indigo_templates::componente_boton_youtube([
+						'title' => $data['title'],
+						'id' => $data['id']
+					]);
+					?>
+					<div class="inner-player">
+						<iframe type="text/html" class="lazyload" style="width: 100%;" data-src="https://www.youtube.com/embed/?listType=playlist&list=<?=$data['id'];?>&disablekb=1&playsinline=1&origin=<?=get_site_url();?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" load="lazy" allowfullscreen></iframe>
+					</div>
 				</figure>
 				<?php
 				if ( ! $in_header) {

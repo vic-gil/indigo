@@ -196,6 +196,12 @@ class Reporte_Indigo_Styles {
 		return $style;
 	}
 
+	static function style_indigo_noticias() {
+		$style = '.page-template-indigo_noticias{background:#182d49}.component-videos{margin-top:1rem}.component-videos figure{margin-bottom:1rem!important}.component-videos picture{position:relative;display:block;width:100%;padding-top:56.25%;border-radius:3px;overflow:hidden;margin:0;background:#ddd}.component-videos picture{box-shadow:0 .125rem .25rem rgba(0,0,0,.075)!important}.component-videos picture img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}.component-videos .share{text-align:right}.component-videos .entry-title{margin-bottom:.5rem!important}.component-videos .entry-title h3{font-family:Roboto,sans-serif;font-size:16pt!important;font-weight:700!important;font-style:normal!important;line-height:22pt!important;color:#eaecee}.component-videos .entry-title h3{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}@media (min-width:992px){.component-videos .entry-title h3{font-size:12pt!important;line-height:16pt!important}}.component-videos.vmini figure{margin-bottom:.5rem!important}@media (min-width:768px){.component-videos.vmini{flex:0 0 auto;width:50%}}@media (min-width:992px){.component-videos.vmini{flex:0 0 auto;width:33.33333%}}@media (min-width:1200px){.component-videos.vmini{flex:0 0 auto;width:25%}}.component-titulo{margin-top:1rem!important;flex:0 0 auto;width:100%}.component-titulo h2{align-items:center;margin-bottom:0!important;border-bottom:2px solid #eaecee;padding-bottom:.5rem!important;display:flex;align-items:center;font-family:Roboto;font-weight:700!important;font-style:normal!important;font-size:24pt!important;color:#eaecee}.component-titulo h2 i{margin-left:1px;transform:translateY(2.3px)}.component-titulo a{display:inherit;align-items:inherit;font-family:inherit;font-weight:inherit;font-style:inherit;font-size:inherit;color:inherit}';
+
+		return $style;
+	}
+
 	/**
 	 * Función que ejecuta la clase
 	 *
@@ -243,8 +249,11 @@ class Reporte_Indigo_Styles {
 		if( is_404() )
 			echo '<style type="text/css">' . self::style_404() . '</style>';
 
-		if( is_page_template('page-templates/edicion-impresa.php') )
+		if( is_page_template('page-templates/edicion_impresa.php') )
 			echo '<style type="text/css">iframe{width:100%;height:100vh;}' . self::style_breadcrumb() . '</style>';
+
+		if( is_page_template('page-templates/indigo_noticias.php') )
+			echo '<style type="text/css">' . self::style_indigo_noticias() . '</style>';
 
 		if( is_tax('ri-categoria') || is_tax('ri-tema') || is_tax('ri-columna') )
 			echo '<style type="text/css">' . self::style_taxonomias() . '</style>';

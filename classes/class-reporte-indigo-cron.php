@@ -98,7 +98,7 @@ class Reporte_Indigo_Cron {
 			'posts_per_page'	=> $this->perPage,
 			'post_type' 		=> 'any',
 			'post_status'      	=> 'publish',
-			'suppress_filters' 	=> false,
+			'suppress_filters' 	=> true,
 			'no_found_rows' 	=> true,
 			'meta_query' 		=> [
 				'relation' => 'AND',
