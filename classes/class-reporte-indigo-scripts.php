@@ -430,31 +430,44 @@ class Reporte_Indigo_Scripts {
 				}
 			}
 
+			const apiUrl = (mediaid) => `https://cdn.jwplayer.com/v2/media/${mediaid}`;
+
 			const jwEvent = ( attr ) => {
+				let title = attr.dataset.title;
 				let media = attr.dataset.json;
 					media = media.split(",");
 
-				removePrevPlayer();
+				let id = media[0];
+
+				let playlists = [];
+					playlists.push(media);
 
 				let parent = attr.parentElement;
-
-				if( parent.classList.contains("interno") ){
-
-					let innerPlayer = document.createElement("DIV");
+				let innerPlayer = document.createElement("DIV");
 					innerPlayer.classList.add("inner-player");
 
-					for (let id of media) {
-						innerPlayer.innerHTML = `<div id="_jwp_${id}"></div>`
-						parent.appendChild(innerPlayer);
+				playlists = playlists.map(playlist => {
+					if (typeof playlist === "string") {
+						return apiUrl(playlist);
+					}
+					const fetches = playlist.map(item => fetch(apiUrl(item)).then(r => r.json()));
+					return Promise.all(fetches).then(media => media.flatMap(m => m.playlist));
+				});
 
+				if( parent.classList.contains("interno") ){
+					removePrevPlayer();
+					innerPlayer.innerHTML = `<div id="_jwp_${id}"></div>`;
+					parent.appendChild(innerPlayer);
+
+					Promise.all(playlists).then(playlists => {
 						loadScript("https://cdn.jwplayer.com/libraries/ixhD10k3.js", function(){
 							jwplayer(`_jwp_${id}`).setup({
-								playlist: `https://cdn.jwplayer.com/v2/media/${id}`,
+								playlist: playlists[0],
 								ga: {
 									label: "mediaid"
 								},
 								autostart : true,
-					    		mute: false,
+								mute: false,
 								tracks: [
 									{
 										file: `https://cdn.jwplayer.com/strips/${id}-120.vtt`,
@@ -463,15 +476,45 @@ class Reporte_Indigo_Scripts {
 								]
 							});
 						});
-					}
-
+					});
 				} else {
-					console.log("modal");
+					removePrevPlayer();
+
+					let modal = document.getElementById("m-jwplayer");
+
+					const modalShare = new bootstrap.Modal(modal);
+
+					modal.querySelector(".title h2").innerHTML = title;
+					innerPlayer.innerHTML = `<div id="_jwp_${id}"></div>`;
+					document.querySelector("#modal-player figure").appendChild(innerPlayer);
+
+					Promise.all(playlists).then(playlists => {
+						loadScript("https://cdn.jwplayer.com/libraries/ixhD10k3.js", function(){
+							jwplayer(`_jwp_${id}`).setup({
+								playlist: playlists[0],
+								ga: {
+									label: "mediaid"
+								},
+								autostart : true,
+								mute: false,
+								tracks: [
+									{
+										file: `https://cdn.jwplayer.com/strips/${id}-120.vtt`,
+										kind: "thumbnails"
+									}
+								]
+							});
+						});
+					});
+
+					modal.addEventListener("hidden.bs.modal", removePrevPlayer);
+
+					modalShare.show();
 				}
 			}
 		</script>';
 
-		//$script = '<script type="text/javascript">"use strict";const jwEvent=t=>{let e=t.dataset.json;e=e.split(",");let a=t.parentElement,l=document.createElement("DIV");l.classList.add("inner-player");for(let t of e)l.innerHTML=`<div id="_jwp_${t}"></div>`,a.appendChild(l),jwplayer(`_jwp_${t}`).setup({playlist:`https://cdn.jwplayer.com/v2/media/${t}`,ga:{label:"mediaid"},autostart:!0,mute:!1,tracks:[{file:`https://cdn.jwplayer.com/strips/${t}-120.vtt`,kind:"thumbnails"}]})};</script>';
+		$all = '<script type="text/javascript">"use strict";const removePrevPlayer=()=>{for(let e of document.querySelectorAll(".inner-player"))e.remove()},apiUrl=e=>`https://cdn.jwplayer.com/v2/media/${e}`,jwEvent=e=>{let t=e.dataset.title,l=e.dataset.json,r=(l=l.split(","))[0],a=[];a.push(l);let i=e.parentElement,n=document.createElement("DIV");if(n.classList.add("inner-player"),a=a.map(e=>{if("string"==typeof e)return apiUrl(e);const t=e.map(e=>fetch(apiUrl(e)).then(e=>e.json()));return Promise.all(t).then(e=>e.flatMap(e=>e.playlist))}),i.classList.contains("interno"))removePrevPlayer(),n.innerHTML=`<div id="_jwp_${r}"></div>`,i.appendChild(n),Promise.all(a).then(e=>{loadScript("https://cdn.jwplayer.com/libraries/ixhD10k3.js",function(){jwplayer(`_jwp_${r}`).setup({playlist:e[0],ga:{label:"mediaid"},autostart:!0,mute:!1,tracks:[{file:`https://cdn.jwplayer.com/strips/${r}-120.vtt`,kind:"thumbnails"}]})})});else{removePrevPlayer();let e=document.getElementById("m-jwplayer");const l=new bootstrap.Modal(e);e.querySelector(".title h2").innerHTML=t,n.innerHTML=`<div id="_jwp_${r}"></div>`,document.querySelector("#modal-player figure").appendChild(n),Promise.all(a).then(e=>{loadScript("https://cdn.jwplayer.com/libraries/ixhD10k3.js",function(){jwplayer(`_jwp_${r}`).setup({playlist:e[0],ga:{label:"mediaid"},autostart:!0,mute:!1,tracks:[{file:`https://cdn.jwplayer.com/strips/${r}-120.vtt`,kind:"thumbnails"}]})})}),e.addEventListener("hidden.bs.modal",removePrevPlayer),l.show()}};</script>';
 
 		if( $echo )
 			echo $script;
@@ -491,34 +534,34 @@ class Reporte_Indigo_Scripts {
 		$all = '
 		<script type="text/javascript">
 			"use strict";
-			
-			const removePrevPlayer = () => {
-				for ( let player of document.querySelectorAll(".inner-player") ) {
+
+			const removePrevYTPlayer = () => {
+				for ( let player of document.querySelectorAll(".inner-player-yt") ) {
 					player.remove();
 				}
 			}
-
+			
 			const ytEvent = ( attr ) => {
 				let id = attr.dataset.id;
 				let title = attr.dataset.title;
 
-				removePrevPlayer();
+				removePrevYTPlayer();
 
 				let parent = attr.parentElement;
+				let innerPlayer = document.createElement("DIV");
+					innerPlayer.classList.add("inner-player");
+
+				innerPlayer.innerHTML = `<iframe type="text/html" style="max-width: 100%; width: 100%;" src="https://www.youtube.com/embed/?listType=playlist&list=${id}&disablekb=1&autoplay=1&playsinline=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 
 				if( parent.classList.contains("interno") ){
-
-					let innerPlayer = document.createElement("DIV");
-					innerPlayer.classList.add("inner-player");
-					innerPlayer.innerHTML = `<iframe type="text/html" style="max-width: 100%; width: 100%;" src="https://www.youtube.com/embed/?listType=playlist&list=${id}&disablekb=1&autoplay=1&playsinline=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 					parent.appendChild(innerPlayer);
 				} else {
-					console.log("modal");
+					document.querySelector("#indigo-play figure").appendChild(innerPlayer);	
 				}
 			}
 		</script>';
 
-		$script = '<script type="text/javascript">"use strict";const removePrevPlayer=()=>{for(let e of document.querySelectorAll(".inner-player"))e.remove()},ytEvent=e=>{let t=e.dataset.id;e.dataset.title;removePrevPlayer();let l=e.parentElement;if(l.classList.contains("interno")){let e=document.createElement("DIV");e.classList.add("inner-player"),e.innerHTML=`<iframe type="text/html" style="max-width: 100%; width: 100%;" src="https://www.youtube.com/embed/?listType=playlist&list=${t}&disablekb=1&autoplay=1&playsinline=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,l.appendChild(e)}else console.log("modal")};</script>';
+		$script = '<script type="text/javascript">"use strict";const removePrevYTPlayer=()=>{for(let e of document.querySelectorAll(".inner-player-yt"))e.remove()},ytEvent=e=>{let t=e.dataset.id;e.dataset.title;removePrevYTPlayer();let l=e.parentElement,r=document.createElement("DIV");r.classList.add("inner-player"),r.innerHTML=`<iframe type="text/html" style="max-width: 100%; width: 100%;" src="https://www.youtube.com/embed/?listType=playlist&list=${t}&disablekb=1&autoplay=1&playsinline=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,l.classList.contains("interno")?l.appendChild(r):document.querySelector("#indigo-play figure").appendChild(r)};</script>';
 
 		if( $echo )
 			echo $script;
@@ -536,6 +579,7 @@ class Reporte_Indigo_Scripts {
 		if( is_home() ) {
 			self::swiper();
 			self::playlistShow();
+			self::youtubePlayer();
 		}
 
 		if ( is_post_type_archive('ri-fan') ) {
@@ -554,6 +598,3 @@ class Reporte_Indigo_Scripts {
 
 $plugin = new Reporte_Indigo_Scripts();
 add_action('wp_footer', array($plugin, 'on_loaded'), 99);
-
-
-
