@@ -17,6 +17,11 @@
 		Reporte_indigo_templates::componente_edicion();
 		?>	
 		</div>
+		<div class="anuncios mt">
+			<div class="wrap">
+				<div style="height:300px;"></div>
+			</div>
+		</div>
 		<div class="col-md-6 col-lg-12">
 		<?php
 		Reporte_indigo_test::comment('Lo más visto');
@@ -33,6 +38,11 @@
 			Reporte_indigo_test::log('No existe el plugin para popular post');
 		}
 		?>
+		</div>
+		<div class="anuncios mt">
+			<div class="wrap">
+				<div style="height:300px;"></div>
+			</div>
 		</div>
 	</div>
 </section>

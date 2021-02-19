@@ -20,7 +20,7 @@ $class = array_key_exists('class', $args) ? $args['class'] : '';
 			<button 
 				class="btn-general"
 				type="button" 
-				data-title="<?=get_the_content();?>" 
+				data-title="<?=strip_tags( get_the_content() );?>" 
 				onclick="copyTwitt(this);">TWEET</button>
 		</div>
 	</div>

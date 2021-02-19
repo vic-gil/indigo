@@ -10,6 +10,7 @@ $post_type = get_post_type_object(get_post_type());
 $tema = get_the_terms( get_the_ID(), 'ri-tema' );
 $jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
 $contain_local = array_key_exists('local', $args) ? $args['local'] : TRUE;
+$is_share = array_key_exists('share', $args) ? $args['share'] : TRUE;
 $class = array_key_exists('class', $args) ? $args['class'] : '';
 ?>
 <div class="component-play <?=$class;?>">
@@ -69,6 +70,9 @@ $class = array_key_exists('class', $args) ? $args['class'] : '';
 				<address itemprop="author" itemscope="" itemtype="http://schema.org/Person" rel="author">
 					<?php the_author_posts_link();?>
 				</address>
+				<?php
+				if($is_share) {
+				?>
 				<div class="share">
 					<?php
 					if($class == "large") {
@@ -82,6 +86,9 @@ $class = array_key_exists('class', $args) ? $args['class'] : '';
 					}
 					?>
 				</div>
+				<?php	
+				}
+				?>
 			</div>
 		</div>
 	</article>
