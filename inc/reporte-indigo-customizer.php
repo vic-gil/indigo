@@ -128,8 +128,8 @@ function reporte_indigo_customize_config( $wp_customize ) {
 	$wp_customize->add_control( 
 		'ri_images_original_control',
 		[
-			'label'   		=> __('Url del Cubo S3', 'reporte_indigo'),
-			'description'	=> __('NOMBRECUBO.s3.REGION.amazonaws.com', 'reporte_indigo'),
+			'label'   		=> __('URL original de las imágenes', 'reporte_indigo'),
+			'description'	=> __('NOMBRECUBO.s3.REGION.amazonaws.com ó DOMAIN*.SITEURL+.com', 'reporte_indigo'),
 			'section' 		=> 'reporte_indigo_images_section',
 			'settings'		=> 'ri_images_original',
 			'priority'		=> 1,
@@ -160,7 +160,7 @@ function reporte_indigo_customize_config( $wp_customize ) {
 		'ri_images_replace_control',
 		[
 			'label'   		=> __('URL de tu CDN', 'reporte_indigo'),
-			'description'	=> __('SITEURL.com', 'reporte_indigo'),
+			'description'	=> __('DOMAIN*.SITEURL+.com', 'reporte_indigo'),
 			'section' 		=> 'reporte_indigo_images_section',
 			'settings'		=> 'ri_images_replace',
 			'priority'		=> 2,

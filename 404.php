@@ -17,9 +17,7 @@ get_header();?>
 					</li>
 					<li>
 						<h1>
-							<a href="<?=get_permalink();?>" aria-current="page">
-								404
-							</a>
+							404
 						</h1>
 					</li>
 				</ol>

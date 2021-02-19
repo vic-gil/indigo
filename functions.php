@@ -699,3 +699,4 @@ function wp_term_chk_radio( $args ) {
 }
 
 add_filter( 'wp_terms_checklist_args', 'wp_term_chk_radio' );
+

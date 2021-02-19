@@ -138,14 +138,12 @@ $exclude = [];
 					<?php
 					Reporte_indigo_test::comment('Reproductor');
 
-					if( class_exists("Ri_player_db") ) {
-						$data = Ri_player_db::get_front();
+					if( class_exists("Ri_player_db") ){
+						$db = get_option("wp_player_ri");
+						$db = ( ! empty( $db ) ) ? unserialize( base64_decode($db) ) : [];
+						$playlists = ( array_key_exists("youtube", $db) ) ? $db["youtube"]["playlists"] : [];
 
-						if( $data["success"] == 1 ) {
-							Reporte_indigo_templates::componente_reproductor($data["db"]);
-						} else {
-							Reporte_indigo_test::log( $data["message"] );
-						}
+						Reporte_indigo_templates::componente_reproductor($playlists);
 					} else {
 						Reporte_indigo_test::log('Plugin no esta activo');
 					}

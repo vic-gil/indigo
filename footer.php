@@ -94,7 +94,16 @@
         			</button>
       			</div>
       			<div class="modal-body">
-      				
+      				<div class="title">
+      					<h2></h2>
+      				</div>
+      				<div id="modal-player">
+      					<figure>
+      						<picture>
+      							
+      						</picture>
+      					</figure>
+      				</div>
       			</div>
       			<div class="modal-footer">
         			<button data-bs-dismiss="modal">Cerrar</button>
