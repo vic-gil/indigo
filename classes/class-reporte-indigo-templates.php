@@ -63,9 +63,9 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 * @param JSON $json     JSON player data.
 		 * @return void
 		 */
-		public static function componente_boton_jwplayer($json) {
+		public static function componente_boton_jwplayer($json, $title = "") {
 		?>
-			<button type="button" class="jw-play" data-json="<?=$json?>" data-title="<?=$json?>" aria-label="play" onclick="jwEvent(this); return false;">
+			<button type="button" class="jw-play" data-json="<?=$json?>" data-title="<?=$title;?>" aria-label="play" onclick="jwEvent(this); return false;">
 				<i class="fas fa-play"></i>
 			</button>
 		<?php
@@ -846,42 +846,19 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 * @return void
 		 */
 		public static function componente_reproductor($data, $variation = "") {
-			$live = intval( $data["live"] );
-			$title = '-';
-			$description = '-';
 		?>
 		<div class="component-reproductor <?=$variation;?>" id="indigo-play">
 			<figure>
 				<picture>
-					<?php
-					if($live == 1) {
-						$title = $data["item"]["title"];
-						$description = $data["item"]["description"];
-
-						echo $data["item"]["embed"];
-						printf('<img class="live" src="%s" alt="%s" title="%s">',
-							IMAGESPATH . '/svgs/vivo.svg',
-							$data["item"]["title"],
-							$data["item"]["title"]
-						);
-					} else {
-						if( is_array($data["rss"]) && array_key_exists(0, $data["rss"]) ) {
-							$title = $data["rss"][0]["title"];
-							$description = $data["rss"][0]["description"];
-							$rss = $data["rss"][0]["guid"];
-							echo '<div data-json="' . $rss . '" id="_jwp_' . $rss . '"></div>';
-						}
-					}
-					?>
 				</picture>
+				<div class="inner-player-yt">
+					<iframe type="text/html" class="lazyload" style="width: 100%;" data-src="https://www.youtube.com/embed/?listType=playlist&list=<?=$data[0]['id'];?>&disablekb=1&playsinline=1&origin=<?=get_site_url();?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" load="lazy" allowfullscreen></iframe>
+				</div>
 			</figure>
 			<div class="entry-player">
 				<div class="player-title">
 					<div>
-						<h3><?=$title;?></h3>
-					</div>
-					<div>
-						<p><?=$description;?></p>
+						<h3><?=$data[0]['title']?></h3>
 					</div>
 				</div>
 				<div>
@@ -893,16 +870,14 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 			<div class="stream-list" id="c-video-playlist">
 				<ul>
 					<?php
-					if( is_array($data["rss"]) ) {
-						foreach ($data["rss"] as $kr => $r) {
-						?>
-						<li>
-							<span data-json="<?=rawurlencode(json_encode($r));?>" title="<?=$r['title'];?>" class="item-playlist-jwp" >
-								<?=$r['title'];?>
-							</span>
-						</li>
-						<?php
-						}
+					foreach ($data as $playlist) {
+					?>
+					<li data-id="<?=$playlist['id']?>" title="<?=$playlist['title'];?>" onclick="ytEvent(this)">
+						<span class="item-playlist-jwp" >
+							<?=$playlist['title'];?>
+						</span>
+					</li>
+					<?php
 					}
 					?>
 				</ul>

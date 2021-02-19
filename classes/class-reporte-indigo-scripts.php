@@ -598,3 +598,6 @@ class Reporte_Indigo_Scripts {
 
 $plugin = new Reporte_Indigo_Scripts();
 add_action('wp_footer', array($plugin, 'on_loaded'), 99);
+
+
+
