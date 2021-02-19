@@ -573,6 +573,10 @@ function reporte_indigo_login_header() {
 		?>
 		<style type="text/css">.login h1 a { background-image: url(<?php echo esc_url( $image[0] ); ?>); -webkit-background-size: <?php echo absint( $image[1] )?>px; background-size: <?php echo absint( $image[1] ) ?>px; height: <?php echo absint( $image[2] ) ?>px; width: <?php echo absint( $image[1] ) ?>px;}</style>
 		<?php
+	else:
+	?>
+	<style type="text/css">.login h1 a { background-image: url(<?=IMAGESPATH;?>/iconos/icon150x150.png);-webkit-background-size: 96px;background-size: 96px;height: 96px;width: 96px;}</style>
+	<?php
 	endif;
 }
  
@@ -699,4 +703,3 @@ function wp_term_chk_radio( $args ) {
 }
 
 add_filter( 'wp_terms_checklist_args', 'wp_term_chk_radio' );
-
