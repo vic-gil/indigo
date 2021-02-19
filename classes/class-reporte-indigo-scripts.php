@@ -420,7 +420,7 @@ class Reporte_Indigo_Scripts {
 	 * @return String|void JS Script;
 	**/
 	static function jwplayer($echo = TRUE) {
-		$script = '
+		$all = '
 		<script type="text/javascript">
 			"use strict";
 			
@@ -514,7 +514,7 @@ class Reporte_Indigo_Scripts {
 			}
 		</script>';
 
-		$all = '<script type="text/javascript">"use strict";const removePrevPlayer=()=>{for(let e of document.querySelectorAll(".inner-player"))e.remove()},apiUrl=e=>`https://cdn.jwplayer.com/v2/media/${e}`,jwEvent=e=>{let t=e.dataset.title,l=e.dataset.json,r=(l=l.split(","))[0],a=[];a.push(l);let i=e.parentElement,n=document.createElement("DIV");if(n.classList.add("inner-player"),a=a.map(e=>{if("string"==typeof e)return apiUrl(e);const t=e.map(e=>fetch(apiUrl(e)).then(e=>e.json()));return Promise.all(t).then(e=>e.flatMap(e=>e.playlist))}),i.classList.contains("interno"))removePrevPlayer(),n.innerHTML=`<div id="_jwp_${r}"></div>`,i.appendChild(n),Promise.all(a).then(e=>{loadScript("https://cdn.jwplayer.com/libraries/ixhD10k3.js",function(){jwplayer(`_jwp_${r}`).setup({playlist:e[0],ga:{label:"mediaid"},autostart:!0,mute:!1,tracks:[{file:`https://cdn.jwplayer.com/strips/${r}-120.vtt`,kind:"thumbnails"}]})})});else{removePrevPlayer();let e=document.getElementById("m-jwplayer");const l=new bootstrap.Modal(e);e.querySelector(".title h2").innerHTML=t,n.innerHTML=`<div id="_jwp_${r}"></div>`,document.querySelector("#modal-player figure").appendChild(n),Promise.all(a).then(e=>{loadScript("https://cdn.jwplayer.com/libraries/ixhD10k3.js",function(){jwplayer(`_jwp_${r}`).setup({playlist:e[0],ga:{label:"mediaid"},autostart:!0,mute:!1,tracks:[{file:`https://cdn.jwplayer.com/strips/${r}-120.vtt`,kind:"thumbnails"}]})})}),e.addEventListener("hidden.bs.modal",removePrevPlayer),l.show()}};</script>';
+		$script = '<script type="text/javascript">"use strict";const removePrevPlayer=()=>{for(let e of document.querySelectorAll(".inner-player"))e.remove()},apiUrl=e=>`https://cdn.jwplayer.com/v2/media/${e}`,jwEvent=e=>{let t=e.dataset.title,l=e.dataset.json,r=(l=l.split(","))[0],a=[];a.push(l);let i=e.parentElement,n=document.createElement("DIV");if(n.classList.add("inner-player"),a=a.map(e=>{if("string"==typeof e)return apiUrl(e);const t=e.map(e=>fetch(apiUrl(e)).then(e=>e.json()));return Promise.all(t).then(e=>e.flatMap(e=>e.playlist))}),i.classList.contains("interno"))removePrevPlayer(),n.innerHTML=`<div id="_jwp_${r}"></div>`,i.appendChild(n),Promise.all(a).then(e=>{loadScript("https://cdn.jwplayer.com/libraries/ixhD10k3.js",function(){jwplayer(`_jwp_${r}`).setup({playlist:e[0],ga:{label:"mediaid"},autostart:!0,mute:!1,tracks:[{file:`https://cdn.jwplayer.com/strips/${r}-120.vtt`,kind:"thumbnails"}]})})});else{removePrevPlayer();let e=document.getElementById("m-jwplayer");const l=new bootstrap.Modal(e);e.querySelector(".title h2").innerHTML=t,n.innerHTML=`<div id="_jwp_${r}"></div>`,document.querySelector("#modal-player figure").appendChild(n),Promise.all(a).then(e=>{loadScript("https://cdn.jwplayer.com/libraries/ixhD10k3.js",function(){jwplayer(`_jwp_${r}`).setup({playlist:e[0],ga:{label:"mediaid"},autostart:!0,mute:!1,tracks:[{file:`https://cdn.jwplayer.com/strips/${r}-120.vtt`,kind:"thumbnails"}]})})}),e.addEventListener("hidden.bs.modal",removePrevPlayer),l.show()}};</script>';
 
 		if( $echo )
 			echo $script;
