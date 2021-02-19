@@ -23,7 +23,7 @@
 						get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'amedium', 'local' => FALSE, 'category' => FALSE, 'author' => FALSE ]);
 
 					if( $index == 4 ){
-						echo '<div class="col-lg-4"></div>';
+						echo '<div class="anuncios vmini mt"><div class="wrap"><div style="height:300px;"></div></div></div>';
 						Reporte_indigo_templates::componente_separador();
 					}
 
