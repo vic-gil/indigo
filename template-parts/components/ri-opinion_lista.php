@@ -7,6 +7,7 @@
  * @since Reporte Indigo 3.0.0
  */
 $class = array_key_exists('class', $args) ? $args['class'] : '';
+$excerpt = array_key_exists('excerpt', $args) ? $args['excerpt'] : TRUE;
 ?>
 <div class="component-opinion-lista <?=$class;?>">
 	<article itemtype="http://schema.org/Article">
@@ -15,5 +16,14 @@ $class = array_key_exists('class', $args) ? $args['class'] : '';
 				<?php the_title();?>
 			</a>
 		</h3>
+		<?php
+		if($excerpt):
+		?>
+		<div class="entry-excerpt">
+			<?php the_excerpt(); ?>
+		</div>
+		<?php
+		endif;
+		?>
 	</article>
 </div>

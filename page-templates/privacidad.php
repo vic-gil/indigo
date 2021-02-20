@@ -39,6 +39,11 @@ get_header();?>
 			</section>
 			<section class="entry-extras">
 				<div class="components">
+					<div class="anuncios vcontent mt">
+						<div class="wrap">
+							<div style="height: 300px;"></div>
+						</div>
+					</div>
 					<?php
 					Reporte_indigo_test::comment('Lo más visto');
 					Reporte_indigo_templates::componente_titulo("", "Lo más visto");
@@ -70,7 +75,7 @@ get_header();?>
 					if( false === $recientes = get_transient('ri_cache_recientes') ) {
 
 						$recientes = new WP_Query([
-							'post_type' 		=> 'any',
+							'post_type' 		=> ['ri-reporte','ri-opinion','ri-latitud','ri-indigonomics','ri-piensa','ri-fan','ri-desglose','ri-documento-indigo','ri-salida-emergencia','ri-especial'],
 							'posts_per_page' 	=> 5,
 							'post_status'      	=> 'publish',
 							'suppress_filters' 	=> false,
@@ -78,7 +83,7 @@ get_header();?>
 						]);
 
 						if ( ! is_wp_error( $recientes ) && $recientes->have_posts() ) {
-			   				set_transient('ri_cache_recientes', $recientes, 1 );
+			   				set_transient('ri_cache_recientes', $recientes, 1 * HOUR_IN_SECONDS );
 						}
 
 					}
@@ -88,6 +93,11 @@ get_header();?>
 						endwhile;
 					endif;
 					?>
+					<div class="anuncios vcontent mt">
+						<div class="wrap">
+							<div style="height: 300px;"></div>
+						</div>
+					</div>
 				</div>
 			</section>
 		</div>

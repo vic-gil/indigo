@@ -169,6 +169,57 @@ function reporte_indigo_customize_config( $wp_customize ) {
 	);
 
 
+	/**
+	 * Configuración de videos de youtube
+	 *
+	 */
+	$wp_customize->add_section( 
+		'reporte_indigo_yt_section', 
+		[
+			'title'      	=> __('Videos de youtube', 'reporte_indigo'),
+			'priority'   	=> 3,
+			'description'	=> __('Configuración para el manejo de los videos de youtube', 'reporte_indigo'),
+			'panel'      	=> 'reporte_indigo_config_panel',
+			'capability' 	=> 'edit_theme_options'
+		]
+	);
+
+	/**
+	 * Agregar donde se guardara la opción del control
+	 *
+	**/
+
+	$wp_customize->add_setting( 
+		'ri_yt_video',
+		[
+			'type'          => 'theme_mod',
+			'capability'    => 'edit_theme_options',
+			'transport'     => 'refresh'
+		]
+	);
+
+	/**
+	 * Agregar el control
+	 *
+	**/
+
+	$wp_customize->add_control( 
+		'ri_yt_video_control',
+		[
+			'label'   		=> __('Comportamiento de los videos', 'reporte_indigo'),
+			'description'	=> __('El video se carga...', 'reporte_indigo'),
+			'section' 		=> 'reporte_indigo_yt_section',
+			'settings'		=> 'ri_yt_video',
+			'priority'		=> 1,
+			'type' 			=> 'radio',
+			'default' 		=> 0,
+			'choices' 		=> [
+				0 => "Con un botón personalizado que carga el iframe",
+				1 => "Con el iframe por defecto de youtube"
+			]
+		]
+	);
+
 }
 
 add_action( 'customize_register', 'reporte_indigo_customize_config' );

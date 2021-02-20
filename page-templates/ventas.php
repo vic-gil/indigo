@@ -54,7 +54,7 @@ get_header();?>
 							</a>
 						</div>
 					</div>
-					<div class="social-content">
+					<div class="wm">
 						<div>
 							<h3>Síguenos</h3>
 						</div>
