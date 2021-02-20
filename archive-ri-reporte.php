@@ -256,8 +256,8 @@
 					echo '</div></div>';
 					echo '<div class="col-lg-4"><div class="components">';
 					
-					echo '<div class="anuncios mt"><div class="wrap" style="height: 300px;"></div></div>';
-					echo '<div class="anuncios mt"><div class="wrap" style="height: 300px;"></div></div>';
+					echo '<div class="anuncios vcontent mt"><div class="wrap" style="height: 300px;"></div></div>';
+					echo '<div class="anuncios vcontent mt"><div class="wrap" style="height: 300px;"></div></div>';
 
 					echo '</div></div><div class="separator"><hr></div>';
 				}	

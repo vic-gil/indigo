@@ -70,7 +70,7 @@
 									if( $index == 0 )
 										get_template_part( 'template-parts/components/ri', 'opinion_lista', [ 'class' => '__a' ] );
 									else
-										get_template_part( 'template-parts/components/ri', 'opinion_lista' );
+										get_template_part( 'template-parts/components/ri', 'opinion_lista', [ 'excerpt' => false ] );
 									$index++;
 								endwhile;
 							endif;
@@ -78,7 +78,7 @@
 							</div>
 							<div class="footer">
 								<a href="<?=get_term_link($term, 'ri-opinion');?>" title="Ir a entradas de la columna <?=$term->name;?>" class="btn-general" role="button">
-									Ver más <i class="fas fa-caret-right"></i>
+									Ver más</i>
 								</a>
 							</div>		
 						</div>

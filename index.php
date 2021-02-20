@@ -154,12 +154,15 @@ $exclude = [];
 					Reporte_indigo_test::comment('Publicidad');
 					?>
 
-					<div class="anuncios vsmall mt">
-						<div class="wrap" style="height: 600px;"></div>
+					<div class="anuncios vcontent mt">
+						<div class="wrap">
+							<div style="height: 600px;"></div>
+						</div>
 					</div>
-
-					<div class="anuncios vsmall mt">
-						<div class="wrap" style="height: 300px;"></div>
+					<div class="anuncios vcontent mt">
+						<div class="wrap">
+							<div style="height: 300px;"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -453,8 +456,8 @@ $exclude = [];
 					echo '</div></div>';
 					echo '<div class="col-lg-4 col-md-12"><div class="components">';
 
-					echo '<div class="anuncios mt"><div class="wrap" style="height: 300px;"></div></div>';
-					echo '<div class="anuncios mt"><div class="wrap" style="height: 600px;"></div></div>';
+					echo '<div class="anuncios vcontent mt"><div class="wrap" style="height: 300px;"></div></div>';
+					echo '<div class="anuncios vcontent mt"><div class="wrap" style="height: 600px;"></div></div>';
 
 					echo '</div></div>';
 				}
@@ -623,11 +626,13 @@ $exclude = [];
 				</div>
 			</div>
 			<div class="col-lg-4">
-				<div class="anuncios mt">
-					<div class="wrap" style="height: 300px;"></div>
-				</div>
-				<div class="anuncios mt">
-					<div class="wrap" style="height: 600px;"></div>
+				<div class="components">
+					<div class="anuncios vcontent mt">
+						<div class="wrap" style="height: 300px;"></div>
+					</div>
+					<div class="anuncios vcontent mt">
+						<div class="wrap" style="height: 600px;"></div>
+					</div>
 				</div>
 			</div>
 		</div>

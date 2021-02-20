@@ -8,10 +8,10 @@
 				while ( have_posts() ) : the_post();
 					
 					if($index == 0){
-						echo '<div class="col-md-7 col-lg-8"><div class="components">';
+						echo '<div class="col-md-12 col-lg-8"><div class="components">';
 						get_template_part( 'template-parts/components/ri', 'general' );
 						echo '</div></div>';
-						echo '<div class="col-md-5 col-lg-4"><div class="components">';
+						echo '<div class="col-md-12 col-lg-4"><div class="components">';
 
 						if( get_query_var('paged') === 0 ) {
 							$one = new WP_Query([
@@ -38,8 +38,8 @@
 							endif;
 							wp_reset_postdata();
 						} else {
-							echo '<div class="anuncios mt"><div class="wrap" style="height: 300px;"></div></div>';
-							echo '<div class="anuncios mt"><div class="wrap" style="height: 300px;"></div></div>';
+							echo '<div class="anuncios vcontent mt"><div class="wrap"><div style="height:300px;"></div></div></div>';
+							echo '<div class="anuncios vcontent mt"><div class="wrap"><div style="height:300px;"></div></div></div>';
 						}
 						
 						
@@ -56,7 +56,7 @@
 							get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmini' ] );
 
 						if($index == 5)
-							echo '<div class="anuncios vmini mt"><div class="wrap" style="height: 300px;"></div></div>';
+							echo '<div class="anuncios vmini mt"><div class="wrap"><div style="height:300px;"></div></div></div>';
 
 					} else {
 
@@ -67,7 +67,7 @@
 							get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'v2piensa' ] );
 
 						if($index == 5)
-							echo '<div class="anuncios vmini mt"><div class="wrap" style="height: 300px;"></div></div>';
+							echo '<div class="anuncios vmini mt"><div class="wrap"><div style="height:300px;"></div></div></div>';
 
 					}
 

@@ -56,7 +56,7 @@
 					**/
 
 					get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => '__a', 'share' => false ] );
-					echo '<div class="anuncios mt"><div class="wrap" style="height: 600px;"></div></div>';
+					echo '<div class="anuncios mt"><div class="wrap"><div style="height: 600px;"></div></div></div>';
 					echo '</div></div>';
 
 					echo '</div></div>'; // Cierra el contenedor principal
