@@ -850,10 +850,29 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		<div class="component-reproductor <?=$variation;?>" id="indigo-play">
 			<figure>
 				<picture>
+					<?php 
+						$image = [
+							'caption' 	=> $data[0]['title'],
+							'link' 		=> $data[0]["thumbnails"]["high"]["url"],
+							'width' 	=> $data[0]["thumbnails"]["high"]['width'],
+							'height' 	=> $data[0]["thumbnails"]["high"]['height'],
+						];
+						Reporte_indigo_templates::componente_imagen($image);	
+					?>
 				</picture>
+				<?php
+				Reporte_indigo_templates::componente_boton_youtube([
+					'title' => $data[0]['title'],
+					'id' => $data[0]['id']
+				]);
+				if( get_theme_mod('ri_yt_video', false) ):
+				?>
 				<div class="inner-player-yt">
 					<iframe type="text/html" class="lazyload" style="width: 100%;" data-src="https://www.youtube.com/embed/?listType=playlist&list=<?=$data[0]['id'];?>&disablekb=1&playsinline=1&origin=<?=get_site_url();?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" load="lazy" allowfullscreen></iframe>
 				</div>
+				<?php
+				endif;
+				?>
 			</figure>
 			<div class="entry-player">
 				<div class="player-title">
@@ -883,7 +902,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				</ul>
 			</div>
 			<div class="share-videos">
-				<button type="button" onclick="utilerias.share(this);" data-title="IndigoPlay" data-link="<?=site_url('indigo-videos');?>" aria-label="comparte">COMPARTIR</button>
+				<button type="button" onclick="shareDialog(this);" data-title="IndigoPlay" data-link="<?=site_url('indigo-videos');?>" aria-label="comparte">COMPARTIR</button>
 			</div>
 		</div>
 		<?php
@@ -1043,10 +1062,14 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 						'title' => $data['title'],
 						'id' => $data['id']
 					]);
+					if( get_theme_mod('ri_yt_video', false) ):
 					?>
 					<div class="inner-player">
 						<iframe type="text/html" class="lazyload" style="width: 100%;" data-src="https://www.youtube.com/embed/?listType=playlist&list=<?=$data['id'];?>&disablekb=1&playsinline=1&origin=<?=get_site_url();?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" load="lazy" allowfullscreen></iframe>
 					</div>
+					<?php
+					endif;
+					?>
 				</figure>
 				<?php
 				if ( ! $in_header) {
