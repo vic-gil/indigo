@@ -26,7 +26,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 * @return void
 		 */
 		public static function componente_tag_domain($link, $title, $args) {
-		if( FALSE !== $args ) :
+		if( FALSE !== $args && array_key_exists('chk_option_tag', $args) ) :
 			if($args["chk_option_tag"] === 1) :
 			$domain = str_replace($args["input_search_domain"], $args["input_replace_domain"], $link);
 			?>
@@ -883,7 +883,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					?>
 						<ri-youtube params="listType=playlist&list=<?=$data[0]['id'];?>&disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
 							<button type="button" class="riyt-playbtn">
-								<span class="riyt-visually-hidden"><?=$data['title'];?></span>
+								<span class="riyt-visually-hidden"><?=$data[0]['title'];?></span>
 							</button>
 						</ri-youtube>
 					<?php

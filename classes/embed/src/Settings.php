@@ -72,7 +72,7 @@ class Settings {
 
 	public function fieldAppIdCallback(): void {
         if ($this->wpConfigSettings) {
-            echo '<em> - Set in configuration file - </em>';
+            echo '<em> - Se encuentra en el archivo de configuraciones - </em>';
             return;
         }
 		echo '<input name="oembed_facebook_app_id" title="Facebook App ID" class="regular-text" min="10000000000" max="9999999999999999" title="Numeric App ID" inputmode="numeric" id="oembed_facebook_app_id" type="number" value="'.esc_attr(get_option('oembed_facebook_app_id')).'" />';
@@ -80,7 +80,7 @@ class Settings {
 
 	public function fieldAppSecretCallback(): void {
         if ($this->wpConfigSettings) {
-            echo '<em> - Set in configuration file - </em>';
+            echo '<em> - Se encuentra en el archivo de configuraciones - </em>';
             return;
         }
 		echo '<input name="oembed_facebook_app_secret" pattern="[A-z0-9]{32}" class="regular-text" title="32 characters of a-z and 0-9 app secret" autocomplete="off" id="oembed_facebook_app_secret" type="text" value="'.esc_attr(get_option('oembed_facebook_app_secret')).'" />';

@@ -668,6 +668,114 @@ class Reporte_Indigo_Scripts {
 			return $script;
 	}
 
+	/**
+	 * El script para habilitar la fachada para reproducción de videos en youtube
+	 *
+	 * @param bool  $native Activa el lazyload
+	 * @param bool  $echo Define el formato de cadena o impresión
+	 *
+	 * @return String|void JS Script;
+	**/
+	static function singleLazyEmbeds($echo = TRUE) {
+		$all = '
+		<script type="text/javascript">
+		"use strict";
+
+		const ratio = "0px 0px 200px 0px"; // Radio de deteccion arr-der-aba-izq.
+
+		const twitter = (entries, observer) =>
+		    entries.forEach(entry => {
+		        if (entry.isIntersecting) {
+		            window.twttr = (function(d, s, id) {
+		                var js, fjs = d.getElementsByTagName(s)[0],
+		                    t = window.twttr || {};
+		                if (d.getElementById(id)) return t;
+		                js = d.createElement(s);
+		                js.id = id;
+		                js.src = "https://platform.twitter.com/widgets.js";
+		                fjs.parentNode.insertBefore(js, fjs);
+
+		                t._e = [];
+		                t.ready = function(f) {
+		                    t._e.push(f);
+		                };
+
+		                return t;
+		            }(document, "script", "twitter-wjs"));
+		            observer.unobserve(entry.target);
+		        }
+		    });
+
+		const facebook = (entries, observer) =>
+		    entries.forEach(entry => {
+		        if (entry.isIntersecting) {
+		            window.fbAsyncInit = function() {
+		                FB.init({
+		                    xfbml: true,
+		                    version: "v3.2"
+		                });
+		            };
+		            (function(d, s, id) {
+		                var js, fjs = d.getElementsByTagName(s)[0];
+		                if (d.getElementById(id)) { return; }
+		                js = d.createElement(s);
+		                js.id = id;
+		                js.src = "https://connect.facebook.net/en_US/sdk.js";
+		                fjs.parentNode.insertBefore(js, fjs);
+		            }(document, "script", "facebook-jssdk"));
+		            observer.unobserve(entry.target);
+		        }
+		    });
+
+		const instagram = (entries, observer) =>
+		    entries.forEach(entry => {
+		        if (entry.isIntersecting) {
+		            window.twttr = (function(d, s, id) {
+		                var js, fjs = d.getElementsByTagName(s)[0],
+		                    t = window.twttr || {};
+		                if (d.getElementById(id)) return t;
+		                js = d.createElement(s);
+		                js.id = id;
+		                js.src = "https://www.instagram.com/static/bundles/metro/EmbedSDK.js/33cd2c5d5d59.js";
+		                fjs.parentNode.insertBefore(js, fjs);
+
+		                t._e = [];
+		                t.ready = function(f) {
+		                    t._e.push(f);
+		                };
+
+		                return t;
+		            }(document, "script", "instagram-jssdk"));
+		            observer.unobserve(entry.target);
+		        }
+		    });
+
+		const observerTwitter = new IntersectionObserver(twitter, {
+		    rootMargin: ratio
+		});
+
+		const observerFacebook = new IntersectionObserver(facebook, {
+		    rootMargin: ratio
+		});
+
+		const observerInstagram = new IntersectionObserver(instagram, {
+		    rootMargin: ratio
+		});
+
+		document.querySelectorAll(".twitter-tweet").forEach(block => observerTwitter.observe(block));
+		document.querySelectorAll(".facebook-media").forEach(block => observerFacebook.observe(block));
+		document.querySelectorAll(".instagram-media").forEach(block => observerInstagram.observe(block));
+		</script>';
+
+		$script = '<script type="text/javascript">"use strict";const ratio="0px 0px 200px 0px",twitter=(e,t)=>e.forEach(e=>{e.isIntersecting&&(window.twttr=function(e,t,r){var n,o=e.getElementsByTagName(t)[0],s=window.twttr||{};return e.getElementById(r)?s:((n=e.createElement(t)).id=r,n.src="https://platform.twitter.com/widgets.js",o.parentNode.insertBefore(n,o),s._e=[],s.ready=function(e){s._e.push(e)},s)}(document,"script","twitter-wjs"),t.unobserve(e.target))}),facebook=(e,t)=>e.forEach(e=>{e.isIntersecting&&(window.fbAsyncInit=function(){FB.init({xfbml:!0,version:"v3.2"})},function(e,t,r){var n,o=e.getElementsByTagName(t)[0];e.getElementById(r)||((n=e.createElement(t)).id=r,n.src="https://connect.facebook.net/en_US/sdk.js",o.parentNode.insertBefore(n,o))}(document,"script","facebook-jssdk"),t.unobserve(e.target))}),instagram=(e,t)=>e.forEach(e=>{e.isIntersecting&&(window.twttr=function(e,t,r){var n,o=e.getElementsByTagName(t)[0],s=window.twttr||{};return e.getElementById(r)?s:((n=e.createElement(t)).id=r,n.src="https://www.instagram.com/static/bundles/metro/EmbedSDK.js/33cd2c5d5d59.js",o.parentNode.insertBefore(n,o),s._e=[],s.ready=function(e){s._e.push(e)},s)}(document,"script","instagram-jssdk"),t.unobserve(e.target))}),observerTwitter=new IntersectionObserver(twitter,{rootMargin:ratio}),observerFacebook=new IntersectionObserver(facebook,{rootMargin:ratio}),observerInstagram=new IntersectionObserver(instagram,{rootMargin:ratio});document.querySelectorAll(".twitter-tweet").forEach(e=>observerTwitter.observe(e)),document.querySelectorAll(".facebook-media").forEach(e=>observerFacebook.observe(e)),document.querySelectorAll(".instagram-media").forEach(e=>observerInstagram.observe(e));</script>';
+
+		if( $echo )
+			echo $script;
+		else
+			return $script;
+	}
+
+
 	function on_loaded() {
 		self::load_script();
 		self::lazyloading(FALSE);
@@ -680,6 +788,11 @@ class Reporte_Indigo_Scripts {
 			self::playlistShow();
 			self::youtubePlayer();
 			self::youtubeFachadePlayer();
+		}
+
+		if( is_single() ) {
+			if( get_theme_mod('ri_embed', false) == 1 )
+				self::singleLazyEmbeds();
 		}
 
 		if ( is_post_type_archive('ri-piensa') ) {

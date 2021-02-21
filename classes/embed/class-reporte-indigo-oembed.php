@@ -18,7 +18,7 @@ add_filter('oembed_providers', static function (array $providers): array {
 });
 
 add_filter('oembed_fetch_url', static function ($provider_url): string {
-	if (strpos($provider_url, 'https://graph.facebook.com/v8.0/') !== 0) {
+	if (strpos($provider_url, 'https://graph.facebook.com/v9.0/') !== 0) {
 		return $provider_url;
 	}
 
@@ -33,7 +33,7 @@ add_filter('oembed_fetch_url', static function ($provider_url): string {
 	}
 
 	return $embed->processProviderUrls($provider_url);
-});
+}, 9999);
 
 add_filter('oembed_fetch_url', static function ($provider_url): string {
 	if (strpos($provider_url, 'https://publish.twitter.com/') !== 0) {
@@ -41,7 +41,7 @@ add_filter('oembed_fetch_url', static function ($provider_url): string {
 	}
 
 	return $provider_url . '&hide_media=true&omit_script=true&dnt=true';
-});
+}, 9999);
 
 add_action('admin_init', static function (): void {
 	if (defined('OEMBED_HIDE_ADMIN_UI') && !empty(OEMBED_HIDE_ADMIN_UI)) {
