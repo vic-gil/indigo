@@ -881,7 +881,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					<?php
 					else:
 					?>
-						<ri-youtube videoid="<?=$data[0]['id'];?>" params="listType=playlist&list=<?=$data[0]['id'];?>&disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
+						<ri-youtube params="listType=playlist&list=<?=$data[0]['id'];?>&disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
 							<button type="button" class="riyt-playbtn">
 								<span class="riyt-visually-hidden"><?=$data['title'];?></span>
 							</button>
@@ -1087,7 +1087,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					<?php
 					else:
 					?>
-						<ri-youtube videoid="<?=$data['id'];?>" params="listType=playlist&list=<?=$data['id'];?>&disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
+						<ri-youtube params="listType=playlist&list=<?=$data['id'];?>&disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
 							<button type="button" class="riyt-playbtn">
 								<span class="riyt-visually-hidden"><?=$data['title'];?></span>
 							</button>
