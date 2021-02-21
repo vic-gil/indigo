@@ -1,6 +1,6 @@
 <?php 
 get_header(); 
-$exclude = [];
+$exclude = reporte_indigo_exclude_posts('home');
 ?>
 <main>
 	<h1 class="hh1"><?=bloginfo('name');?></h1>
@@ -12,7 +12,6 @@ $exclude = [];
 		<div class="components">
 			<?php
 			$selected_posts = unserialize( $selected_posts );
-
 			if( false === $posts = get_transient('ri_cache_home_top') ) {
 				$posts = new WP_Query([
 					'posts_per_page'	=> count($selected_posts),
@@ -28,8 +27,6 @@ $exclude = [];
 		   			set_transient('ri_cache_home_top', $posts, 12 * HOUR_IN_SECONDS );
 				}
 			}
-
-			$exclude = array_merge( $exclude, $selected_posts );
 			?>
 			<div class="swiper-container" id="sc-home-top">
 				<div class="swiper-wrapper">
@@ -80,8 +77,6 @@ $exclude = [];
 							}
 
 						}
-
-						$exclude = array_merge( $exclude, $selected_posts );
 						
 						if ( $posts->have_posts() ): $index = 0;
 							while ( $posts->have_posts() ): $posts->the_post();
@@ -127,6 +122,8 @@ $exclude = [];
 					if ( $posts->have_posts() ):
 						while ( $posts->have_posts() ): $posts->the_post();
 							get_template_part( 'template-parts/components/ri', 'lista', [ 'class' => 'vsmall' ] );
+							$exclude[] = get_the_ID();
+							$exclude_video = $exclude;
 						endwhile;
 					endif;
 					wp_reset_postdata();
@@ -209,8 +206,6 @@ $exclude = [];
 			}
 
 		}
-
-		$exclude = array_merge( $exclude, $selected_posts );
 			
 		if ( $posts->have_posts() ): $index = 0;
 			while ( $posts->have_posts() ): $posts->the_post();	
@@ -252,6 +247,7 @@ $exclude = [];
 					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmini' ] );
 				}
 
+				$exclude_video[] = get_the_ID();
 				$index++;
 			endwhile;
 		endif;
@@ -285,8 +281,6 @@ $exclude = [];
 			'post__not_in'			=> $exclude
 		]);
 
-		$exclude = array_merge( $exclude, $selected_posts );
-
 		if ( $posts->have_posts() ): $index = 0;
 			while ( $posts->have_posts() ): $posts->the_post();
 				
@@ -315,6 +309,7 @@ $exclude = [];
 					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmini' ] );
 				}
 
+				$exclude_video[] = get_the_ID();
 				$index++;
 			endwhile;
 		endif;
@@ -353,6 +348,7 @@ $exclude = [];
 							get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vsmall', 'image' => false ] );
 						}
 
+						$exclude_video[] = get_the_ID();
 						$index++;
 					endwhile;
 				endif;
@@ -461,6 +457,8 @@ $exclude = [];
 
 					echo '</div></div>';
 				}
+
+				$exclude_video[] = get_the_ID();
 				$index++;
 			endwhile;
 			echo '</div></div>'; // Esto cierra cualquier componente
@@ -516,6 +514,7 @@ $exclude = [];
 					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmini' ] );
 				}
 
+				$exclude_video[] = get_the_ID();
 				$index++;
 			endwhile;
 		endif;
@@ -540,7 +539,7 @@ $exclude = [];
 					'suppress_filters' 		=> false,
 					'ignore_sticky_posts'	=> true,
 					'no_found_rows' 		=> true,
-					'post__not_in'			=> $exclude,
+					'post__not_in'			=> $exclude_video,
 					'meta_query' 			=> [
 						'relation' => 'AND',
 						[
@@ -581,7 +580,6 @@ $exclude = [];
 			<div class="col-lg-8">
 				<div class="components">
 				<?php
-				if( ! empty( $selected_posts = get_option("wp_front_home_opinion_ri") ) ) {
 					Reporte_indigo_test::comment('Opinion 8 notas');
 					$selected_posts = unserialize( $selected_posts );
 
@@ -602,8 +600,6 @@ $exclude = [];
 						}
 
 					}
-
-					$exclude = array_merge( $exclude, $selected_posts );
 					$total = $posts->post_count;
 					if ( $posts->have_posts() ): $index = 0;
 						while ( $posts->have_posts() ): $posts->the_post();
@@ -618,10 +614,6 @@ $exclude = [];
 							$index++;
 						endwhile;
 					endif;
-
-				} else {
-					Reporte_indigo_test::log('No hay post para el bloque');
-				}
 				?>
 				</div>
 			</div>
@@ -673,9 +665,6 @@ $exclude = [];
 				}
 
 			}
-
-			$exclude = array_merge( $exclude, $selected_posts );
-
 			if ( $posts->have_posts() ): 
 				while ( $posts->have_posts() ): $posts->the_post();
 					get_template_part( 'template-parts/components/ri', 'editor' );
@@ -707,6 +696,7 @@ $exclude = [];
 				'suppress_filters' 		=> false,
 				'no_found_rows' 		=> true,
 				'ignore_sticky_posts'	=> true,
+				'post__not_in'			=> $exclude
 			]);
 			?>
 			<div class="swiper-container" id="sc-home-desglose">

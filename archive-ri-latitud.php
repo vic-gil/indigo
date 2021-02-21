@@ -69,14 +69,13 @@
 						endif;
 						echo '</div></div></div>'; // Con esto cerramos contenedor de video
 						echo '<div class="container wm"><div class="components">'; // Abrimos un nuevo contenedor
-						echo '<div class="col-lg-12"><div class="components">';
 					}
 
 					if($index >= 7)
 						get_template_part( 'template-parts/components/ri', 'lista_imagen', [ "class" => "vmini" ] );
 					$index++;
 				endwhile;
-				echo '</div></div></div></div>'; // En caso de que no se completen las notas esto cierra cualquier componente
+				echo '</div></div>'; // En caso de que no se completen las notas esto cierra cualquier componente
 			else:
 				Reporte_indigo_test::log('No hay post para el bloque');
 			endif;
@@ -84,16 +83,21 @@
 			wp_reset_postdata();
 		?>
 		</div>
-		<div class="component-pagination">
-			<span class="page-dir"><?php previous_posts_link('<span class="fas fa-angle-left"></span>'); ?></span>
-			<div class="page-number">
-				<?=paginate_links([
-					'mid_size' => 1,
-					'prev_next' => false
-				]);
-				?>
+	</div>
+	<div class="container">
+		<div class="components">
+			<div class="component-pagination">
+				<div class="wrap">
+					<span class="page-dir"><?php previous_posts_link('<span class="fas fa-angle-left"></span>'); ?></span>
+					<div class="page-number">
+						<?=paginate_links([
+							'mid_size' => 1,
+							'prev_next' => false
+						]);?>
+					</div>
+					<span class="page-dir"><?php next_posts_link('<span class="fas fa-angle-right"></span>'); ?></span>
+				</div>
 			</div>
-			<span class="page-dir"><?php next_posts_link('<span class="fas fa-angle-right"></span>'); ?></span>
 		</div>
 	</div>
 </main>
