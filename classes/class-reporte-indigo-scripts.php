@@ -290,6 +290,75 @@ class Reporte_Indigo_Scripts {
 			return $script;
 	}
 
+	static function swiperPiensa($echo = TRUE) {
+		$all = '
+		<script type="text/javascript">
+		"use strict";
+			let swiperInstances = [];
+			
+			const initSlider = () => {
+			   	sliders("sc-home-enfoque", 2, 2);
+			}
+
+			var sliders = (selector, index, type) => {
+				let slider = document.getElementById(selector);
+				if (void 0 !== slider && null != slider) {
+					let config = {
+						slidesPerView: 1,
+			            spaceBetween: 15,
+			            autoHeight: true
+					};
+
+					if(type == 1) {
+						
+						let element = slider.querySelectorAll(".pagination");
+
+						config.navigation = {
+							nextEl: ".sw-arrow.next",
+							prevEl: ".sw-arrow.prev"
+						};
+
+						config.on = {
+							slideChangeTransitionEnd: () => {
+								for ( let element of slider.querySelectorAll(".pagination span") ) 
+									element.classList.remove("active");
+
+								for (let pagination of element)
+									pagination.querySelector(`span:nth-child(${swiperInstances[index].activeIndex+1})`).classList.add("active");
+							}
+						};
+
+						for (let pagination of element) {
+							pagination.addEventListener("click", function(){
+								let goto = event.target.dataset.index;
+								swiperInstances[index].slideTo((goto), 800);
+							});
+						}
+
+					} else {
+						config.pagination = {
+							el: "#sp-enfoque",
+							clickable: true
+						};
+					}
+
+					swiperInstances[index] = new Swiper(`#${selector}`, config);
+
+				}
+			}
+			
+			loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js", initSlider);
+		
+		</script>';
+
+		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("sc-home-enfoque",2,2)};var sliders=(e,t,i)=>{let s=document.getElementById(e);if(void 0!==s&&null!=s){let n={slidesPerView:1,spaceBetween:15,autoHeight:!0};if(1==i){let e=s.querySelectorAll(".pagination");n.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},n.on={slideChangeTransitionEnd:()=>{for(let e of s.querySelectorAll(".pagination span"))e.classList.remove("active");for(let i of e)i.querySelector(`span:nth-child(${swiperInstances[t].activeIndex+1})`).classList.add("active")}};for(let i of e)i.addEventListener("click",function(){let e=event.target.dataset.index;swiperInstances[t].slideTo(e,800)})}else n.pagination={el:"#sp-enfoque",clickable:!0};swiperInstances[t]=new Swiper(`#${e}`,n)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
+
+		if( $echo )
+			echo $script;
+		else
+			return $script;
+	}
+
 	/**
 	 * Configuraciones para correr swiper
 	 *
@@ -582,6 +651,10 @@ class Reporte_Indigo_Scripts {
 			self::youtubePlayer();
 		}
 
+		if ( is_post_type_archive('ri-piensa') ) {
+			self::swiperPiensa();
+		}
+
 		if ( is_post_type_archive('ri-fan') ) {
 			self::swiperFan();
 		}
@@ -598,6 +671,3 @@ class Reporte_Indigo_Scripts {
 
 $plugin = new Reporte_Indigo_Scripts();
 add_action('wp_footer', array($plugin, 'on_loaded'), 99);
-
-
-

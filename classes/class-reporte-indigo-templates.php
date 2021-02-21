@@ -151,18 +151,25 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 */
 		public static function componente_icon($slug) {
 			$icons = [
-				'arte' => 'arte-diseno.svg',
-				'ciencia-y-tecnologia' => 'ciencia-tecnologia.svg',
-				'entretenimiento' => 'entretenimiento.svg',
-				'innovacion' => 'innovacion.svg',
-				'libros' => 'libros.svg',
-				'musica' => 'musica.svg',
-				'salud' => 'salud.svg',
-				'sustentabilidad' => 'sustentabilidad.svg'
+				'arte' 					=> 'arte-diseno.svg',
+				'ciencia' 				=> 'ciencia.svg',
+				'ciencia-y-tecnologia' 	=> 'tecnologia.svg',
+				'entretenimiento' 		=> 'entretenimiento.svg',
+				'innovacion' 			=> 'innovacion.svg',
+				'libros' 				=> 'libros.svg',
+				'literatura' 			=> 'literatura.svg',
+				'musica' 				=> 'musica.svg',
+				'salud' 				=> 'salud.svg',
+				'sustentabilidad' 		=> 'sustentabilidad.svg'
 			];
+			
 			if( array_key_exists($slug, $icons) ){
 			?>
 				<img src="<?=IMAGESPATH;?>/svgs/<?=$icons[$slug];?>" alt="<?=$slug;?>" class="lazyload" loading="lazy">
+			<?php
+			} else {
+			?>
+				<img src="<?=IMAGESPATH;?>/svgs/warning.svg" alt="<?=$slug;?>" class="lazyload" loading="lazy">
 			<?php
 			}
 		}
