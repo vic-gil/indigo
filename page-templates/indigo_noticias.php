@@ -28,7 +28,7 @@ get_header();
 				}
 
 				if( $key >= 1 )
-					Reporte_indigo_templates::componente_videos($playlist, 'vmini');
+					Reporte_indigo_templates::componente_videos($playlist, 'vmini', false, false, 'high');
 
 				//if( $key == 3 )
 					//echo '<div class="anuncios vmicro mt"><div class="wrap"><div style="height:300px;"></div></div></div>';

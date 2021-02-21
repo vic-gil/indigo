@@ -11,6 +11,7 @@ $imagenes = explode(',', $galeria['ids']);
 $categoria = get_the_terms( get_the_ID(), 'ri-categoria' );
 $tema = get_the_terms( get_the_ID(), 'ri-tema' );
 $class = array_key_exists('class', $args) ? $args['class'] : '';
+$share = array_key_exists('share', $args) ? $args['share'] : true;
 ?>
 <div class="component-enfoque <?=$class;?>">
 	<article itemtype="http://schema.org/Article">

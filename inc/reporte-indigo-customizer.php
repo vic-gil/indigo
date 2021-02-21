@@ -221,6 +221,57 @@ function reporte_indigo_customize_config( $wp_customize ) {
 		]
 	);
 
+	/**
+	 * Configuración de videos de youtube
+	 *
+	 */
+	$wp_customize->add_section( 
+		'reporte_indigo_embed_section', 
+		[
+			'title'      	=> __('Incrustados de redes sociales', 'reporte_indigo'),
+			'priority'   	=> 4,
+			'description'	=> __('Configuración para el manejo de los incrustados', 'reporte_indigo'),
+			'panel'      	=> 'reporte_indigo_config_panel',
+			'capability' 	=> 'edit_theme_options'
+		]
+	);
+
+	/**
+	 * Agregar donde se guardara la opción del control
+	 *
+	**/
+
+	$wp_customize->add_setting( 
+		'ri_embed',
+		[
+			'type'          => 'theme_mod',
+			'capability'    => 'edit_theme_options',
+			'transport'     => 'refresh'
+		]
+	);
+
+	/**
+	 * Agregar el control
+	 *
+	**/
+
+	$wp_customize->add_control( 
+		'ri_embed_control',
+		[
+			'label'   		=> __('Comportamiento de los incrustados', 'reporte_indigo'),
+			'description'	=> __('Los proveedores se cargan', 'reporte_indigo'),
+			'section' 		=> 'reporte_indigo_embed_section',
+			'settings'		=> 'ri_embed',
+			'priority'		=> 1,
+			'type' 			=> 'radio',
+			'default' 		=> 0,
+			'choices' 		=> [
+				0 => "Mediante un plugin",
+				1 => "Nativo del tema"
+			]
+		]
+	);
+
 }
 
 add_action( 'customize_register', 'reporte_indigo_customize_config' );
