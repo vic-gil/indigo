@@ -215,7 +215,8 @@ function reporte_indigo_customize_config( $wp_customize ) {
 			'default' 		=> 0,
 			'choices' 		=> [
 				0 => "Con un botón personalizado que carga el iframe",
-				1 => "Con el iframe por defecto de youtube"
+				1 => "Con el iframe por defecto de youtube ( Malo para métricas )",
+				2 => "Con un elemento HTML de fachada"
 			]
 		]
 	);
