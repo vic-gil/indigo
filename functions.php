@@ -26,7 +26,10 @@ require get_template_directory() . '/classes/class-reporte-indigo-templates.php'
 require get_template_directory() . '/classes/class-reporte-indigo-scripts.php';
 require get_template_directory() . '/classes/class-reporte-indigo-styles.php';
 require get_template_directory() . '/classes/class-reporte-indigo-script-loader.php';
-require get_template_directory() . '/classes/embed/class-reporte-indigo-oembed.php';
+
+
+if( get_theme_mod( "ri_embed", false ) == 1 )
+	require get_template_directory() . '/classes/embed/class-reporte-indigo-oembed.php';
 
 // Clases para la carga de menús
 require get_template_directory() . '/inc/menus/menu-reporte-indigo-general-options.php';
@@ -39,6 +42,7 @@ require get_template_directory() . '/inc/metaboxes/metabox-reporte-indigo-busque
 // Adecuaciones para el perfomance
 require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-images.php';
 require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-single.php';
+require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-posts.php';
 
 // Customizer
 require get_template_directory() . '/inc/reporte-indigo-customizer.php';
@@ -703,4 +707,3 @@ function wp_term_chk_radio( $args ) {
 }
 
 add_filter( 'wp_terms_checklist_args', 'wp_term_chk_radio' );
-
