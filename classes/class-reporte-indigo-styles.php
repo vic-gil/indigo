@@ -66,7 +66,7 @@ class Reporte_Indigo_Styles {
 	**/
 
 	static function style_reproductor() {
-		$style = '.component-reproductor{margin-top:1rem!important;flex:0 0 auto;width:100%}@media (min-width:768px){.component-reproductor{flex:0 0 auto;width:50%}}@media (min-width:992px){.component-reproductor{flex:0 0 auto;width:100%}}.component-reproductor figure{margin-bottom:0!important}.component-reproductor picture{position:relative;display:block;width:100%;padding-top:56.25%;overflow:hidden;margin:0;background:#ddd}.component-reproductor picture img,.component-reproductor picture>div{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}.component-reproductor .entry-player,.component-reproductor .share-videos,.component-reproductor .stream-list{background:#182d49;padding-left:1rem;padding-right:1rem}.component-reproductor h3{font-family:Roboto,sans-serif;font-size:16pt!important;font-weight:700!important;font-style:normal!important;color:#eaecee}.component-reproductor p{margin-bottom:0;font-family:Roboto,sans-serif;font-size:10pt!important;font-weight:400!important;font-style:normal!important;color:#eaecee}.component-reproductor p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.component-reproductor .entry-player,.component-reproductor .share-videos{padding-top:1rem;padding-bottom:1rem}.component-reproductor .entry-player{display:flex;flex:1 0 100%;flex-wrap:wrap}.component-reproductor .entry-player button{display:block}@media (min-width:768px){.component-reproductor .entry-player button{display:none!important}}.component-reproductor .stream-list{height:0;overflow:scroll}.component-reproductor .stream-list.expanded{height:auto!important}@media (min-width:768px){.component-reproductor .stream-list{height:auto!important;max-height:200px}}.component-reproductor .share-videos{text-align:center;border-bottom-left-radius:.7em;border-bottom-right-radius:.7em}.component-reproductor .player-title{flex:1}.component-reproductor ul{background:#1e395c;padding-left:0;margin-bottom:0;list-style:none}.component-reproductor ul li{padding:.75rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.1)}.component-reproductor ul li span{display:inline-block;font-family:Roboto,sans-serif;font-size:10pt!important;font-weight:400!important;font-style:normal!important;line-height:20px;color:#fff;cursor:pointer}.component-reproductor button{font-family:Roboto;font-size:10pt!important;font-weight:400!important;font-style:normal!important;text-transform:uppercase!important;border:none;border-radius:25rem;color:#fff;background-color:#007bff;padding:.375rem .75rem;text-align:center;vertical-align:middle;line-height:1.5}';
+		$style = '.component-reproductor{margin-top:1rem!important;flex:0 0 auto;width:100%}@media (min-width:768px){.component-reproductor{flex:0 0 auto;width:50%}}@media (min-width:992px){.component-reproductor{flex:0 0 auto;width:100%}}.component-reproductor figure{margin-bottom:0!important}.component-reproductor picture{position:relative;display:block;width:100%;padding-top:56.25%;overflow:hidden;margin:0;background:#ddd}.component-reproductor picture img,.component-reproductor picture>div{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}.component-reproductor .entry-player,.component-reproductor .share-videos,.component-reproductor .stream-list{background:#182d49;padding-left:1rem;padding-right:1rem}.component-reproductor h3{font-family:Roboto,sans-serif;font-size:16pt!important;font-weight:700!important;font-style:normal!important;color:#eaecee}.component-reproductor p{margin-bottom:0;font-family:Roboto,sans-serif;font-size:10pt!important;font-weight:400!important;font-style:normal!important;color:#eaecee}.component-reproductor p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.component-reproductor .entry-player,.component-reproductor .share-videos{padding-top:1rem;padding-bottom:1rem}.component-reproductor .entry-player{display:flex;flex:1 0 100%;flex-wrap:wrap}.component-reproductor .entry-player button{display:block}@media (min-width:768px){.component-reproductor .entry-player button{display:none!important}}.component-reproductor .stream-list{height:0;overflow:scroll}.component-reproductor .stream-list.expanded{height:auto!important}@media (min-width:768px){.component-reproductor .stream-list{height:auto!important;max-height:200px}}.component-reproductor .share-videos{text-align:center;border-bottom-left-radius:.7em;border-bottom-right-radius:.7em}.component-reproductor .player-title{flex:1}.component-reproductor ul{background:#1e395c;padding-left:0;margin-bottom:0;list-style:none}.component-reproductor ul li{padding:.75rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.1)}.component-reproductor ul li span{display:inline-block;font-family:Roboto,sans-serif;font-size:10pt!important;font-weight:400!important;font-style:normal!important;line-height:20px;color:#fff;cursor:pointer}';
 		return $style;
 	}
 
@@ -251,6 +251,18 @@ class Reporte_Indigo_Styles {
 	}
 
 	/**
+	 * Estilo de la seccion terminos
+	 *
+	 * @return void
+	**/
+
+	static function style_ri_youtube() {
+		$style = 'ri-youtube{display:flex;position:absolute;top:0;left:0;width:100%;height:100%;background:#000;z-index:5;background-color:transparent;contain:content;background-position:center center;background-size:cover;cursor:pointer}ri-youtube::before{content:\'\';display:block;position:absolute;top:0;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAADGCAYAAAAT+OqFAAAAdklEQVQoz42QQQ7AIAgEF/T/D+kbq/RWAlnQyyazA4aoAB4FsBSA/bFjuF1EOL7VbrIrBuusmrt4ZZORfb6ehbWdnRHEIiITaEUKa5EJqUakRSaEYBJSCY2dEstQY7AuxahwXFrvZmWl2rh4JZ07z9dLtesfNj5q0FU3A5ObbwAAAABJRU5ErkJggg==);background-position:top;background-repeat:repeat-x;height:60px;padding-bottom:50px;width:100%;transition:all .2s cubic-bezier(0,0,.2,1)}ri-youtube::after{content:"";display:block;padding-bottom:calc(100% / (16 / 9))}ri-youtube>iframe{width:100%;height:100%;position:absolute;top:0;left:0;border:0}ri-youtube>.riyt-playbtn{width:68px;height:48px;position:absolute;cursor:pointer;transform:translate3d(-50%,-50%,0);top:50%;left:50%;z-index:1;background-color:transparent;background-image:url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 68 48"><path fill="%23f00" fill-opacity="0.8" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z"></path><path d="M 45,24 27,14 27,34" fill="%23fff"></path></svg>\');filter:grayscale(100%);transition:filter .1s cubic-bezier(0,0,.2,1);border:none}ri-youtube .riyt-playbtn:focus,ri-youtube:hover>.riyt-playbtn{filter:none}ri-youtube.riyt-activated{cursor:unset}ri-youtube.riyt-activated::before,ri-youtube.riyt-activated>.riyt-playbtn{width:.00001px;height:.00001px;opacity:0;pointer-events:none}.riyt-visually-hidden{clip:rect(0 0 0 0);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px}';
+
+		return $style;
+	}
+
+	/**
 	 * Función que ejecuta la clase
 	 *
 	 * @return void
@@ -259,7 +271,7 @@ class Reporte_Indigo_Styles {
 	function on_loaded() {
 		
 		if( is_home() )
-			echo '<style type="text/css">' . self::style_deslizador() . self::style_general() . self::style_reproductor() . '</style>';
+			echo '<style type="text/css">' . self::style_deslizador() . self::style_general() . self::style_reproductor() . self::style_ri_youtube() . '</style>';
 
 		if( is_single() )
 			echo '<style type="text/css">' . self::style_single() . '</style>';
@@ -301,7 +313,7 @@ class Reporte_Indigo_Styles {
 			echo '<style type="text/css">iframe{width:100%;height:100vh;}' . self::style_breadcrumb() . '</style>';
 
 		if( is_page_template('page-templates/indigo_noticias.php') )
-			echo '<style type="text/css">' . self::style_indigo_noticias() . '</style>';
+			echo '<style type="text/css">' . self::style_indigo_noticias() . self::style_ri_youtube() . '</style>';
 
 		if( is_page_template('page-templates/indigo_videos.php') )
 			echo '<style type="text/css">' . self::style_indigo_videos() . '</style>';

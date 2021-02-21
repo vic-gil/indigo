@@ -608,6 +608,9 @@ class Reporte_Indigo_Scripts {
 				for ( let player of document.querySelectorAll(".inner-player-yt") ) {
 					player.remove();
 				}
+				for ( let player of document.querySelectorAll("ri-youtube") ) {
+					player.remove();
+				}
 			}
 			
 			const ytEvent = ( attr ) => {
@@ -630,7 +633,34 @@ class Reporte_Indigo_Scripts {
 			}
 		</script>';
 
-		$script = '<script type="text/javascript">"use strict";const removePrevYTPlayer=()=>{for(let e of document.querySelectorAll(".inner-player-yt"))e.remove()},ytEvent=e=>{let t=e.dataset.id;e.dataset.title;removePrevYTPlayer();let l=e.parentElement,r=document.createElement("DIV");r.classList.add("inner-player-yt"),r.innerHTML=`<iframe type="text/html" style="max-width: 100%; width: 100%;" src="https://www.youtube.com/embed/?listType=playlist&list=${t}&disablekb=1&autoplay=1&playsinline=1&origin=' . get_site_url() . '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,l.classList.contains("interno")?l.appendChild(r):document.querySelector("#indigo-play figure").appendChild(r)};</script>';
+		$script = '<script type="text/javascript">"use strict";const removePrevYTPlayer=()=>{for(let e of document.querySelectorAll(".inner-player-yt"))e.remove();for(let e of document.querySelectorAll("ri-youtube"))e.remove()},ytEvent=e=>{let t=e.dataset.id;e.dataset.title;removePrevYTPlayer();let l=e.parentElement,r=document.createElement("DIV");r.classList.add("inner-player-yt"),r.innerHTML=`<iframe type="text/html" style="max-width: 100%; width: 100%;" src="https://www.youtube.com/embed/?listType=playlist&list=${t}&disablekb=1&autoplay=1&playsinline=1&origin=' . get_site_url() . '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,l.classList.contains("interno")?l.appendChild(r):document.querySelector("#indigo-play figure").appendChild(r)};</script>';
+
+		if( $echo )
+			echo $script;
+		else
+			return $script;
+	}
+
+	/**
+	 * El script para habilitar la fachada para reproducción de videos en youtube
+	 *
+	 * @param bool  $native Activa el lazyload
+	 * @param bool  $echo Define el formato de cadena o impresión
+	 *
+	 * @return String|void JS Script;
+	**/
+	static function youtubeFachadePlayer($echo = TRUE) {
+		$all = '
+		<script type="text/javascript">
+			"use strict";
+			setTimeout( () => {
+				const elem = document.createElement("script");
+				elem.src = "' . get_template_directory_uri() . '/assets/js/ri-youtube.js";
+				document.head.append(elem);
+			}, 3000);
+		</script>';
+
+		$script = '<script type="text/javascript">"use strict";setTimeout(()=>{const e=document.createElement("script");e.src="' . get_template_directory_uri() . '/assets/js/ri-youtube.js",document.head.append(e)},3e3);</script>';
 
 		if( $echo )
 			echo $script;
@@ -649,6 +679,7 @@ class Reporte_Indigo_Scripts {
 			self::swiper();
 			self::playlistShow();
 			self::youtubePlayer();
+			self::youtubeFachadePlayer();
 		}
 
 		if ( is_post_type_archive('ri-piensa') ) {
@@ -660,7 +691,13 @@ class Reporte_Indigo_Scripts {
 		}
 
 		if( is_page_template('page-templates/indigo_noticias.php') ) {
-			self::youtubePlayer();
+			
+			if( get_theme_mod('ri_yt_video', false) == 0 )
+				self::youtubePlayer();
+			
+			if( get_theme_mod('ri_yt_video', false) == 2 )
+				self::youtubeFachadePlayer();
+
 		} else {
 			self::jwplayer();
 		}

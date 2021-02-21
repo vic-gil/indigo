@@ -868,18 +868,27 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					?>
 				</picture>
 				<?php
-				Reporte_indigo_templates::componente_boton_youtube([
-					'title' => $data[0]['title'],
-					'id' => $data[0]['id']
-				]);
-				if( get_theme_mod('ri_yt_video', false) ):
-				?>
-				<div class="inner-player-yt">
-					<iframe type="text/html" class="lazyload" style="width: 100%;" data-src="https://www.youtube.com/embed/?listType=playlist&list=<?=$data[0]['id'];?>&disablekb=1&playsinline=1&origin=<?=get_site_url();?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" load="lazy" allowfullscreen></iframe>
-				</div>
-				<?php
-				endif;
-				?>
+					if( get_theme_mod('ri_yt_video', false) == 0 ):
+						Reporte_indigo_templates::componente_boton_youtube([
+							'title' => $data[0]['title'],
+							'id' => $data[0]['id']
+						]);
+					elseif( get_theme_mod('ri_yt_video', false) == 1 ):
+					?>
+						<div class="inner-player">
+							<iframe type="text/html" class="lazyload" style="width: 100%;" data-src="https://www.youtube.com/embed/?listType=playlist&list=<?=$data[0]['id'];?>&disablekb=1&playsinline=1&origin=<?=get_site_url();?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" load="lazy" allowfullscreen></iframe>
+						</div>
+					<?php
+					else:
+					?>
+						<ri-youtube videoid="<?=$data[0]['id'];?>" params="listType=playlist&list=<?=$data[0]['id'];?>&disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
+							<button type="button" class="riyt-playbtn">
+								<span class="riyt-visually-hidden"><?=$data['title'];?></span>
+							</button>
+						</ri-youtube>
+					<?php
+					endif;
+					?>
 			</figure>
 			<div class="entry-player">
 				<div class="player-title">
@@ -909,7 +918,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				</ul>
 			</div>
 			<div class="share-videos">
-				<button type="button" onclick="shareDialog(this);" data-title="IndigoPlay" data-link="<?=site_url('indigo-videos');?>" aria-label="comparte">COMPARTIR</button>
+				<button class="btn-general" type="button" onclick="shareDialog(this);" data-title="IndigoPlay" data-link="<?=site_url('indigo-videos');?>" aria-label="comparte">COMPARTIR</button>
 			</div>
 		</div>
 		<?php
@@ -1037,7 +1046,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 *
 		 * @return void
 		 */
-		public static function componente_videos($data, $variation = "", $in_header = false, $share = false) {
+		public static function componente_videos($data, $variation = "", $in_header = false, $share = false, $res = 'maxres') {
 		?>
 		<div class="component-videos <?=$variation;?>">
 			<div class="wrap">
@@ -1054,26 +1063,35 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				?>
 				<figure class="interno">
 					<picture>
-						<?php 
+						<?php
 							$image = [
 								'caption' 	=> $data['title'],
-								'link' 		=> $data["thumbnails"]["high"]["url"],
-								'width' 	=> $data["thumbnails"]["high"]['width'],
-								'height' 	=> $data["thumbnails"]["high"]['height'],
+								'link' 		=> $data["thumbnails"][$res]["url"],
+								'width' 	=> $data["thumbnails"][$res]['width'],
+								'height' 	=> $data["thumbnails"][$res]['height'],
 							];
 							Reporte_indigo_templates::componente_imagen($image);	
 						?>
 					</picture>
 					<?php
-					Reporte_indigo_templates::componente_boton_youtube([
-						'title' => $data['title'],
-						'id' => $data['id']
-					]);
-					if( get_theme_mod('ri_yt_video', false) ):
+					if( get_theme_mod('ri_yt_video', false) == 0 ):
+						Reporte_indigo_templates::componente_boton_youtube([
+							'title' => $data['title'],
+							'id' => $data['id']
+						]);
+					elseif( get_theme_mod('ri_yt_video', false) == 1 ):
 					?>
-					<div class="inner-player">
-						<iframe type="text/html" class="lazyload" style="width: 100%;" data-src="https://www.youtube.com/embed/?listType=playlist&list=<?=$data['id'];?>&disablekb=1&playsinline=1&origin=<?=get_site_url();?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" load="lazy" allowfullscreen></iframe>
-					</div>
+						<div class="inner-player">
+							<iframe type="text/html" class="lazyload" style="width: 100%;" data-src="https://www.youtube.com/embed/?listType=playlist&list=<?=$data['id'];?>&disablekb=1&playsinline=1&origin=<?=get_site_url();?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" load="lazy" allowfullscreen></iframe>
+						</div>
+					<?php
+					else:
+					?>
+						<ri-youtube videoid="<?=$data['id'];?>" params="listType=playlist&list=<?=$data['id'];?>&disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
+							<button type="button" class="riyt-playbtn">
+								<span class="riyt-visually-hidden"><?=$data['title'];?></span>
+							</button>
+						</ri-youtube>
 					<?php
 					endif;
 					?>
