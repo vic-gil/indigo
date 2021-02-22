@@ -30,7 +30,7 @@ get_header(); ?>
 			<div class="col-lg-8">
 				<div class="component-newsletter">
 					<div class="ribbon">
-						<img src="<?=IMAGESPATH;?>/svgs/premium.svg" alt="premium" title="premium" width="45px">
+						<img src="<?=IMAGESPATH;?>/svgs/premium.svg" alt="premium" title="premium" width="45" height="78">
 					</div>
 					<div class="form">
 						<span>Suscríbete y recibe diariamente nuestro Newsletter y acceso ilimitado a toda la información de Reporte Indigo</span>
