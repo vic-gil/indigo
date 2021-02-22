@@ -17,13 +17,13 @@ $total = array_key_exists('total', $args) ? intval($args['total']) : FALSE;
 					<?php the_post_thumbnail("large"); ?>
 				</picture>
 			</a>
-			<?php
-			if( ! empty( $jwplayer ) ) {
-				Reporte_indigo_templates::componente_boton_jwplayer( $jwplayer );
-			}
-			?>
 		</figure>
 		<div class="entry-data">
+			<?php
+			if( ! empty( $jwplayer ) ) {
+				Reporte_indigo_templates::componente_boton_jwplayer( $jwplayer, '', 'jw-play-lg' );
+			}
+			?>
 			<div class="entry-title">
 				<h2>
 					<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
