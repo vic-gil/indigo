@@ -249,7 +249,7 @@ function reporte_indigo_scripts () {
 		wp_script_add_data( 'bootstrap-min-js', 'defer', true );
 
 		wp_enqueue_style('swiper-min-css', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css', [], '4.5.0', 'all' );
-		wp_enqueue_style('fontawesome-min-css', get_template_directory_uri().'/assets/fonts/fontawesome/fontawesome.min.css', [], '0.0.3', 'all' );
+		wp_enqueue_style('fontawesome-min-css', get_template_directory_uri() . '/assets/fonts/fontawesome/fontawesome.min.css', [], '1.0.0', 'all' );
 	}
 
 }
@@ -707,3 +707,4 @@ function wp_term_chk_radio( $args ) {
 }
 
 add_filter( 'wp_terms_checklist_args', 'wp_term_chk_radio' );
+
