@@ -83,7 +83,7 @@
 	</div>
 	<div class="container wmc">
 		<a href="<?=get_term_link('nacional', 'ri-ciudad');?>" title="Ir a entradas nacionales" class="btn-general" role="button">
-			Ver más notas <i class="fas fa-caret-right"></i>
+			Ver más notas
 		</a>
 	</div>
 
@@ -119,8 +119,8 @@
 				endwhile;
 			endif;
 			?>
-			<div class="tc">
-				<a href="<?=get_permalink( get_page_by_path( 'indigo-videos' ) ) ?>" title="Ir a entradas nacionales" class="btn-general" role="button">Ver más videos <i class="fas fa-caret-right"></i></a>
+			<div class="tc wm">
+				<a href="<?=get_permalink( get_page_by_path( 'indigo-videos' ) ) ?>" title="Ir a entradas nacionales" class="btn-general" role="button">Ver más videos</a>
 			</div>
 			</div>
 		</div>
@@ -208,7 +208,7 @@
 	</div>
 	<div class="container wmc">
 		<a href="<?=get_term_link('cdmx', 'ri-ciudad');?>" title="Ir a entradas de la Ciudad de México" class="btn-general" role="button">
-			Ver más notas <i class="fas fa-caret-right"></i>
+			Ver más notas
 		</a>
 	</div>
 	<div class="container wm">
@@ -300,7 +300,7 @@
 	</div>
 	<div class="container wmc">
 		<a href="<?=get_term_link('gdl', 'ri-ciudad');?>" title="Ir a entradas de Guadalajara" class="btn-general" role="button">
-			Ver más notas <i class="fas fa-caret-right"></i>
+			Ver más notas
 		</a>
 	</div>
 	<?php 
@@ -395,7 +395,7 @@
 	</div>
 	<div class="container wmc">
 		<a href="<?=get_term_link('mty', 'ri-ciudad');?>" title="Ir a entradas de Monterrey" class="btn-general" role="button">
-			Ver más notas <i class="fas fa-caret-right"></i>
+			Ver más notas
 		</a>
 	</div>
 </main>

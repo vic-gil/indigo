@@ -78,7 +78,7 @@
 							while ( $videos->have_posts() ): $videos->the_post();
 								get_template_part( 'template-parts/components/ri', 'play', [ 'class' => 'mini', 'local' => FALSE ] );
 							endwhile;
-							echo '<div class="tc"><a href="<?=get_permalink( get_page_by_path( \'indigo-videos\' ) ) ?>" title="Ir a entradas nacionales" class="btn-general" role="button">Ver más videos <i class="fas fa-caret-right"></i></a></div>';
+							echo '<div class="tc"><a href="' . get_permalink( get_page_by_path( 'indigo-videos' ) )  . '" title="Ir a entradas Indigo Play" class="btn-general" role="button">Ver más videos</a></div>';
 						endif;
 						echo '</div></div></div>'; // Con esto cerramos contenedor de video
 						echo '<div class="container wm"><div class="components">'; // Abrimos un nuevo contenedor
