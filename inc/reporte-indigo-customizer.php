@@ -1,6 +1,6 @@
 <?php
 /**
- * Lokura: Customizer
+ * Reporte Indigo: Customizer
  *
  * @package Capital Media
  * @subpackage Reporte Indigo
@@ -275,3 +275,4 @@ function reporte_indigo_customize_config( $wp_customize ) {
 }
 
 add_action( 'customize_register', 'reporte_indigo_customize_config' );
+?>
