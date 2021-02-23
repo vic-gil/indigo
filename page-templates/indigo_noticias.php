@@ -30,21 +30,9 @@ get_header();
 				if( $key >= 1 )
 					Reporte_indigo_templates::componente_videos($playlist, 'vmini', false, false, 'high');
 
-				if( $key == 3 ){
-				?>
-				<div class="component-spotify">
-					<div class="wrap">
-						<div class="msg">
-							<span class="txt">Escucha el playlist de Indigo Noticias desde tu Spotify</span>
-							<span class="icon fab fa-spotify"></span>
-						</div>
-						<div>
-							<a href="https://open.spotify.com/show/1RWrVBm0irB3PP5AripRRC?si=bV88dX_cQmOKxGPrppK6lg" class="btn-general" title="spotify" target="_blank">Ir a playlist</a>
-						</div>
-					</div>
-				</div>
-				<?php
-				}
+				if( $key == 3 )
+					Reporte_indigo_templates::componente_spotify('Escucha el playlist de Indigo Noticias desde tu Spotify','https://open.spotify.com/show/1RWrVBm0irB3PP5AripRRC?si=bV88dX_cQmOKxGPrppK6lg');
+
 
 				if( $key == 7 ){
 					echo '<div class="anuncios mt"><div class="wrap"><div style="height:90px;"></div></div></div>';
