@@ -65,7 +65,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 */
 		public static function componente_boton_jwplayer($json, $title = "", $class = "jw-play") {
 		?>
-			<button type="button" class="<?=$class;?>" data-json="<?=$json?>" data-title="<?=$title;?>" aria-label="play" onclick="jwEvent(this); return false;">
+			<button type="button" class="<?=$class;?>" data-json="<?=$json?>" data-title="<?=$title;?>" aria-label="play" title="<?=$title;?>" onclick="jwEvent(this); return false;">
 				<i class="fas fa-play"></i>
 			</button>
 		<?php

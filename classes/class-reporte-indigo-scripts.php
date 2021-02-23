@@ -579,8 +579,6 @@ class Reporte_Indigo_Scripts {
 						});
 					});
 
-					modalPlayer.addEventListener("hidden.bs.modal", removePrevPlayer);
-
 					modalShare.show();
 				}
 			}
