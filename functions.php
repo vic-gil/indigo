@@ -269,58 +269,58 @@ add_action( 'wp_enqueue_scripts', 'reporte_indigo_scripts' );
 **/
 function add_non_critical_section_styles() {
 	if( is_home() )
-		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/assets/css/home.css", [], "20210120" );
+		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/assets/css/home.css", [], "20210122" );
 
 	if( is_single() )
-		wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single.css", [], "20210120" );
+		wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single.css", [], "20210122" );
 
 	if( is_404() )
-		wp_enqueue_style( '404-style', get_stylesheet_directory_uri() . "/assets/css/404.css", [], "20210120" );
+		wp_enqueue_style( '404-style', get_stylesheet_directory_uri() . "/assets/css/404.css", [], "20210122" );
 
 	if( is_page_template('page-templates/newsletter.php') )
-		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "/assets/css/newsletter.css", [], "20210120" );
+		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "/assets/css/newsletter.css", [], "20210122" );
 
 	if( is_page_template('page-templates/ventas.php') )
-		wp_enqueue_style( 'ventas-style', get_stylesheet_directory_uri() . "/assets/css/ventas.css", [], "20210120" );
+		wp_enqueue_style( 'ventas-style', get_stylesheet_directory_uri() . "/assets/css/ventas.css", [], "20210122" );
 
 	if( is_page_template('page-templates/terminos.php') || is_page_template('page-templates/privacidad.php') )
-		wp_enqueue_style( 'terminos-style', get_stylesheet_directory_uri() . "/assets/css/terminos.css", [], "20210120" );
+		wp_enqueue_style( 'terminos-style', get_stylesheet_directory_uri() . "/assets/css/terminos.css", [], "20210122" );
 
 	if( is_page_template('page-templates/indigo_noticias.php') )
-		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/noticias.css", [], "20210120" );
+		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/noticias.css", [], "20210122" );
 
 	if( is_page_template('page-templates/indigo_videos.php') )
-		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/play.css", [], "20210120" );
+		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/play.css", [], "20210122" );
 
 	if( is_tax('ri-categoria') || is_tax('ri-tema') || is_tax('ri-columna') || is_tax('ri-ciudad') )
-		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/assets/css/taxonomy.css", [], "20210121" );
+		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/assets/css/taxonomy.css", [], "20210122" );
 
 	if ( is_post_type_archive('ri-opinion') )
-		wp_enqueue_style( 'opinion-style', get_stylesheet_directory_uri() . "/assets/css/opinion.css", [], "20210120" );
+		wp_enqueue_style( 'opinion-style', get_stylesheet_directory_uri() . "/assets/css/opinion.css", [], "20210122" );
 
 	if ( is_post_type_archive('ri-desglose') )
-		wp_enqueue_style( 'desglose-style', get_stylesheet_directory_uri() . "/assets/css/desglose.css", [], "20210120" );
+		wp_enqueue_style( 'desglose-style', get_stylesheet_directory_uri() . "/assets/css/desglose.css", [], "20210122" );
 
 	if ( is_post_type_archive('ri-fan') )
-		wp_enqueue_style( 'fan-style', get_stylesheet_directory_uri() . "/assets/css/fan.css", [], "20210120" );
+		wp_enqueue_style( 'fan-style', get_stylesheet_directory_uri() . "/assets/css/fan.css", [], "20210122" );
 
 	if ( is_post_type_archive('ri-piensa') )
-		wp_enqueue_style( 'piensa-style', get_stylesheet_directory_uri() . "/assets/css/piensa.css", [], "20210120" );
+		wp_enqueue_style( 'piensa-style', get_stylesheet_directory_uri() . "/assets/css/piensa.css", [], "20210122" );
 
 	if ( is_post_type_archive('ri-indigonomics') )
-		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/assets/css/latitud.css", [], "20210120" );
+		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/assets/css/latitud.css", [], "20210122" );
 
 	if ( is_post_type_archive('ri-latitud') )
-		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/assets/css/latitud.css", [], "20210120" );
+		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/assets/css/latitud.css", [], "20210122" );
 
 	if ( is_post_type_archive('ri-reporte') )
-		wp_enqueue_style( 'reporte-style', get_stylesheet_directory_uri() . "/assets/css/reporte.css", [], "20210120" );
+		wp_enqueue_style( 'reporte-style', get_stylesheet_directory_uri() . "/assets/css/reporte.css", [], "20210122" );
 
 	if ( is_author() )
-		wp_enqueue_style( 'author-style', get_stylesheet_directory_uri() . "/assets/css/author.css", [], "20210120" );
+		wp_enqueue_style( 'author-style', get_stylesheet_directory_uri() . "/assets/css/author.css", [], "20210122" );
 
 	if ( is_search() )
-		wp_enqueue_style( 'author-style', get_stylesheet_directory_uri() . "/assets/css/author.css", [], "20210120" );
+		wp_enqueue_style( 'author-style', get_stylesheet_directory_uri() . "/assets/css/author.css", [], "20210122" );
 
 };
 
@@ -714,4 +714,3 @@ function wp_term_chk_radio( $args ) {
 }
 
 add_filter( 'wp_terms_checklist_args', 'wp_term_chk_radio' );
-
