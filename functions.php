@@ -47,6 +47,9 @@ require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-po
 // Customizer
 require get_template_directory() . '/inc/reporte-indigo-customizer.php';
 
+// Feed
+require get_template_directory() . '/inc/reporte-indigo-feed.php';
+
 /*
  * El cache del navegador sólo está disponible para
  * usuarios que no tengan sesión
@@ -680,6 +683,12 @@ function reporte_indigo_main_query($query) {
 			$query->set( 'suppress_filters', false );
 		endif;
 
+		if ( $query->is_feed() ):
+			$query->set( 'post_type', ['ri-reporte','ri-opinion','ri-latitud','ri-indigonomics','ri-piensa','ri-fan','ri-desglose','ri-documento-indigo','ri-salida-emergencia','ri-especial'] );
+			$query->set( 'posts_per_rss', 50 );
+			$query->set( 'suppress_filters', false );
+		endif;
+
 	endif;
 
 	return $query;
@@ -714,3 +723,4 @@ function wp_term_chk_radio( $args ) {
 }
 
 add_filter( 'wp_terms_checklist_args', 'wp_term_chk_radio' );
+?>
