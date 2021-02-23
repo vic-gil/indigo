@@ -199,5 +199,3 @@ function example_change_article( $data ) {
 }
 
 add_filter( 'wpseo_schema_imageobject', 'example_change_article' );
-
-

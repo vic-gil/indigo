@@ -56,9 +56,9 @@ class Reporte_Indigo_Jwplayer {
 		wp_nonce_field( '_jwplayer_nonce', 'jwplayer_nonce' ); 
 
 		$player_id = self::ri_get('value_playerid_video_jwp_meta');
-		$media_id = self::ri_get('value_mediaid_jwp_meta');
+		$media_id = self::ri_get('_mediaid_jwp_meta');
 
-		if(empty($player_id))
+		if( empty($player_id) )
 			$player_id = "ixhD10k3";
 
 		echo <<<EOL
@@ -117,7 +117,7 @@ class Reporte_Indigo_Jwplayer {
 			return;
 
 		if (isset( $_POST['value_mediaid_jwp_meta'] ))
-			update_post_meta($post_id, 'value_mediaid_jwp_meta', esc_attr( $_POST['value_mediaid_jwp_meta'] ) );
+			update_post_meta($post_id, '_mediaid_jwp_meta', esc_attr( $_POST['value_mediaid_jwp_meta'] ) );
 	}
 
 }
