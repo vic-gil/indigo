@@ -1,6 +1,6 @@
 <?php
 /**
- * Lokura: Feed
+ * Reporte Indigo: Feed
  *
  * @package Capital Media
  * @subpackage Reporte Indigo
