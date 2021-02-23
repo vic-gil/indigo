@@ -65,13 +65,13 @@
 
 					if ( $one->have_posts() ):
 						while ( $one->have_posts() ): $one->the_post();
-							get_template_part( 'template-parts/components/ri', 'dato_dia' );
+							get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => 'vmedium', 'excerpt' => false, 'share' => false, 'type' => '__c' ] );
 						endwhile;
 					endif;
 
 					wp_reset_postdata();
 
-					get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => '__a', 'share' => false ] );
+					get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => 'vmedium', 'share' => false, 'type' => '__a' ] );
 					echo '<div class="anuncios mt"><div class="wrap"><div style="height: 600px;"></div></div></div>';
 					echo '</div></div>';
 
