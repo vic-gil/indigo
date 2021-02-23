@@ -155,6 +155,23 @@ function custom_user_avatar($avatar, $id_or_email = NULL, $size = NULL, $align =
 
 add_filter( 'get_wp_user_avatar', 'custom_user_avatar', 1, 5);
 
+/**
+ * Añadir attributos a la url imagen
+ *
+**/
+
+function images_cdn_filter( $image, $attachment_id, $size, $icon ) {
+	$origin = get_theme_mod( 'ri_images_original', FALSE );
+	$replace = get_theme_mod( 'ri_images_replace', FALSE );
+
+	if ( FALSE !== $origin && FALSE !== $replace ) {
+		$image[0] = str_replace( $origin, $replace, $image[0] );
+	}
+
+    return $image;
+}
+add_filter('wp_get_attachment_image_src', 'images_cdn_filter', 10, 4);
+
 
 /**
  * Cambia el dominio de la imagen de yoast
@@ -187,7 +204,7 @@ function wpseo_cdn_filter( $uri ) {
 
 add_filter( 'wpseo_xml_sitemap_img_src', 'wpseo_cdn_filter' );
 
-function example_change_article( $data ) {
+function wpseo_schema_image_object( $data ) {
 	$origin = get_theme_mod( 'ri_images_original', FALSE );
 	$replace = get_theme_mod( 'ri_images_replace', FALSE );
 
@@ -198,4 +215,5 @@ function example_change_article( $data ) {
 	return $data;
 }
 
-add_filter( 'wpseo_schema_imageobject', 'example_change_article' );
+add_filter( 'wpseo_schema_imageobject', 'wpseo_schema_image_object' );
+?>
