@@ -20,7 +20,7 @@ $tema = get_the_terms( get_the_ID(), 'ri-tema');
 		<div class="entry-data">
 			<?php
 			if( ! empty( $jwplayer ) ) {
-				Reporte_indigo_templates::componente_boton_jwplayer( $jwplayer, '', 'jw-play-lg' );
+				Reporte_indigo_templates::componente_boton_jwplayer( $jwplayer, get_the_title(), 'jw-play-lg' );
 			}
 			?>
 			<div class="entry-title">
