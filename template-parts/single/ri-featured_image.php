@@ -6,7 +6,7 @@
  * @subpackage Reporte Indigo
  * @since Reporte Indigo 3.0.0
  */
-
+$jwplayer = get_post_meta( get_the_ID(), '_mediaid_jwp_meta', TRUE );
 $tema = get_the_terms( get_the_ID(), 'ri-tema');
 ?>
 
@@ -18,6 +18,11 @@ $tema = get_the_terms( get_the_ID(), 'ri-tema');
 			</picture>
 		</figure>
 		<div class="entry-data">
+			<?php
+			if( ! empty( $jwplayer ) ) {
+				Reporte_indigo_templates::componente_boton_jwplayer( $jwplayer, '', 'jw-play-lg' );
+			}
+			?>
 			<div class="entry-title">
 				<?php
 				if( ! empty($tema) ) : $tema = $tema[0];
