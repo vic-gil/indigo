@@ -7,7 +7,7 @@
  * @since Reporte Indigo 3.0.0
  */
 $tema = get_the_terms( get_the_ID(), 'ri-tema' );
-$jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
+$jwplayer = get_post_meta( get_the_ID(), '_mediaid_jwp_meta', TRUE );
 $class = array_key_exists('class', $args) ? $args['class'] : '';
 ?>
 

@@ -9,7 +9,7 @@
 $categoria = get_the_terms( get_the_ID(), 'ri-categoria' );
 $tema = get_the_terms( get_the_ID(), 'ri-tema' );
 $share = array_key_exists('share', $args) ? $args['share'] : TRUE;
-$jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
+$jwplayer = get_post_meta( get_the_ID(), '_mediaid_jwp_meta', TRUE );
 $class = array_key_exists('class', $args) ? $args['class'] : '';
 $type = array_key_exists('type', $args) ? $args['type'] : '';
 

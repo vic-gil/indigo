@@ -6,7 +6,7 @@
  * @subpackage Reporte Indigo
  * @since Reporte Indigo 3.0.0
  */
-$jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
+$jwplayer = get_post_meta( get_the_ID(), '_mediaid_jwp_meta', TRUE );
 $class = array_key_exists('class', $args) ? $args['class'] : '';
 $bullets = array_key_exists('total', $args) ? intval($args['total']) : FALSE;
 ?>

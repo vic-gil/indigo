@@ -8,7 +8,7 @@
  */
 $post_type = get_post_type_object(get_post_type());
 $tema = get_the_terms( get_the_ID(), 'ri-tema' );
-$jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
+$jwplayer = get_post_meta( get_the_ID(), '_mediaid_jwp_meta', TRUE );
 $contain_local = array_key_exists('local', $args) ? $args['local'] : TRUE;
 $is_share = array_key_exists('share', $args) ? $args['share'] : TRUE;
 $class = array_key_exists('class', $args) ? $args['class'] : '';

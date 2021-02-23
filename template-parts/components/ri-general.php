@@ -9,7 +9,7 @@
 $categoria = get_the_terms( get_the_ID(), 'ri-categoria' );
 $tema = get_the_terms( get_the_ID(), 'ri-tema' );
 $ciudad = get_the_terms( get_the_ID(), 'ri-ciudad' );
-$jwplayer = get_post_meta( get_the_ID(), 'value_mediaid_jwp_meta', TRUE );
+$jwplayer = get_post_meta( get_the_ID(), '_mediaid_jwp_meta', TRUE );
 $class = array_key_exists('class', $args) ? $args['class'] : '';
 $contain_author = array_key_exists('author', $args) ? $args['author'] : TRUE;
 $contain_image = array_key_exists('image', $args) ? $args['image'] : TRUE;
