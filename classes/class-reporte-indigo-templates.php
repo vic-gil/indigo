@@ -63,9 +63,9 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 * @param JSON $json     JSON player data.
 		 * @return void
 		 */
-		public static function componente_boton_jwplayer($json, $title = "") {
+		public static function componente_boton_jwplayer($json, $title = "", $class = "jw-play") {
 		?>
-			<button type="button" class="jw-play" data-json="<?=$json?>" data-title="<?=$title;?>" aria-label="play" onclick="jwEvent(this); return false;">
+			<button type="button" class="<?=$class;?>" data-json="<?=$json?>" data-title="<?=$title;?>" aria-label="play" onclick="jwEvent(this); return false;">
 				<i class="fas fa-play"></i>
 			</button>
 		<?php
@@ -378,7 +378,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		public static function componente_boletin($link) {
 		?>
 		<div class="component-boletin">
-			<img src="<?=IMAGESPATH;?>/svgs/premium.svg" alt="premium" title="premium" width="60px">
+			<img src="<?=IMAGESPATH;?>/svgs/premium.svg" alt="premium" title="premium" width="87" height="150">
 			<div class="suscribete">
 				<p>Suscríbete y recibe diariamente nuestro Newsletter y acceso ilimitado a toda la información de Reporte Indigo</p>
 				<a href="<?=$link;?>" alt="Newsletter" title="Newsletter">
@@ -897,7 +897,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					</div>
 				</div>
 				<div>
-					<button type="button" class="btn-playlist">
+					<button type="button" class="btn-playlist btn-general">
 						<i class="fas fa-stream"></i>
 					</button>
 				</div>
@@ -939,14 +939,16 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 						<?php 
 							$image = [
 								'caption' => 'REPORTE INDIGO MÉXICO',
-								'link' => 'https://services.publish88.com/app/newspaper/publicacion-1158/cover'
+								'link' => 'https://services.publish88.com/app/newspaper/publicacion-1158/cover',
+								'width' => 1346,
+								'height' => 1677
 							];
 							Reporte_indigo_templates::componente_imagen($image);	
 						?>
 					</picture>
 				</figure>
 				<div class="share-edicion">
-					<a href="<?=home_url("edicion-impresa")."?edition_id=1158";?>" title="EDICIÓN DIGITAL" role="button">
+					<a href="<?=home_url("edicion-impresa");?>" title="EDICIÓN DIGITAL" role="button">
 						VER EDICIÓN DIGITAL
 					</a>
 				</div>
