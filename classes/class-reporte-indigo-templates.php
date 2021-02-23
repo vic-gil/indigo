@@ -1123,6 +1123,30 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		<?php
 		}
 
+		/**
+		 * Componente web spotify
+		 *
+		 * @param string  $title 	El titulo del componente.
+		 * @param string  $url 		La URL del componente.
+		 *
+		 * @return void
+		 */
+		public static function componente_spotify($title = "", $url = "") {
+		?>
+		<div class="component-spotify">
+			<div class="wrap">
+				<div class="msg">
+					<span class="txt"><?=$title;?></span>
+					<span class="icon fab fa-spotify"></span>
+				</div>
+				<div>
+					<a href="<?=$url;?>" class="btn-general" title="spotify" target="_blank">Ir a playlist</a>
+				</div>
+			</div>
+		</div>
+		<?php
+		}
+
 	}
 
 }
