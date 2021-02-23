@@ -1140,7 +1140,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					<span class="icon fab fa-spotify"></span>
 				</div>
 				<div>
-					<a href="<?=$url;?>" class="btn-general" title="spotify" target="_blank">Ir a playlist</a>
+					<a href="<?=esc_url($url);?>" class="btn-general" title="spotify" target="_blank">Ir a playlist</a>
 				</div>
 			</div>
 		</div>
