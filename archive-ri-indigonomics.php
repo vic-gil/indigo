@@ -62,7 +62,7 @@
 								'meta_query' 		=> [
 									'relation' => 'AND',
 									[
-										'key' 		=> 'value_mediaid_jwp_meta',
+										'key' 		=> '_mediaid_jwp_meta',
 						            	'value' 	=> '',
 						            	'compare' 	=> '!='
 									]

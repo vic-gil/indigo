@@ -49,11 +49,27 @@
 				if ( $index == 8 ){
 					echo '<div class="col-lg-4"><div class="components">';
 
-					/**
-					 *
-					 * Aqui va opinión
-					 *
-					**/
+					$one = new WP_Query([
+						'post_type' 			=> 'ri-opinion',
+						'posts_per_page' 		=> 1,
+						'post_status'      		=> 'publish',
+						'suppress_filters' 		=> false,
+						'ignore_sticky_posts'	=> true,
+						'no_found_rows' 		=> true,
+						'tax_query' 			=> [
+							'taxonomy' 	=> 'ri-columna',
+							'field'	   	=> 'slug',
+							'terms'	 	=> 'desde-mi-palco'
+						]
+					]);
+
+					if ( $one->have_posts() ):
+						while ( $one->have_posts() ): $one->the_post();
+							get_template_part( 'template-parts/components/ri', 'dato_dia' );
+						endwhile;
+					endif;
+
+					wp_reset_postdata();
 
 					get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => '__a', 'share' => false ] );
 					echo '<div class="anuncios mt"><div class="wrap"><div style="height: 600px;"></div></div></div>';
@@ -72,7 +88,7 @@
 							'meta_query' 		=> [
 								'relation' => 'AND',
 								[
-									'key' 		=> 'value_mediaid_jwp_meta',
+									'key' 		=> '_mediaid_jwp_meta',
 					            	'value' 	=> '',
 					            	'compare' 	=> '!='
 								]

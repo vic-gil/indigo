@@ -209,13 +209,12 @@ function reporte_indigo_scripts () {
 	if( ! is_admin() ) {
 		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 		remove_action( 'admin_print_styles', 'print_emoji_styles' );
-
 		remove_action('wp_head', 'wlwmanifest_link');
 		remove_action('wp_head', 'wp_generator');
 		remove_action('wp_head', 'wp_print_scripts');
 		remove_action('wp_head', 'wp_print_head_scripts', 9);
 		remove_action('wp_head', 'wp_enqueue_scripts', 1);
-
+		
 		add_action('wp_footer', 'wp_print_scripts', 5);
 		add_action('wp_footer', 'wp_enqueue_scripts', 5);
 		add_action('wp_footer', 'wp_print_head_scripts', 5);
@@ -234,6 +233,14 @@ function reporte_indigo_scripts () {
 	    wp_dequeue_style( 'wp-block-library-theme' );
 	    wp_dequeue_style( 'wc-block-style' );
 	    wp_dequeue_style( 'wp-block-library' );
+
+	    if( ! is_single() ){
+	    	wp_dequeue_style('embedpress');
+		    wp_deregister_style('embedpress');
+
+		    wp_dequeue_style('embedpress_blocks-cgb-style-css');
+		  	wp_deregister_style('embedpress_blocks-cgb-style-css');
+	    }
 
 	    // Remove from RSS feeds also
 		remove_filter( 'the_content_feed', 'wp_staticize_emoji');

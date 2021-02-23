@@ -55,7 +55,7 @@
 			</div>
 			<?php 
 			Reporte_indigo_test::comment('Etiqueta de dominio');
-			Reporte_indigo_templates::componente_tag_domain( home_url(), get_bloginfo('name'), get_option( 'general_options_ri' ));
+			Reporte_indigo_templates::componente_tag_domain( home_url(), get_bloginfo('name'), get_option( 'general_options_ri', false ));
 			?>
 			<?php
 			Reporte_indigo_test::comment('Encabezado desktop');
