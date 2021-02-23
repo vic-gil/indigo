@@ -10,14 +10,14 @@
 ?>
 
 <section class="entry-extras">
-	<div class="components">
+	<div class="components order">
 		<div class="col-md-6 col-lg-12">
 		<?php
 		Reporte_indigo_test::comment('Edición Digital');
 		Reporte_indigo_templates::componente_edicion();
 		?>	
 		</div>
-		<div class="anuncios mt">
+		<div class="anuncios vcontent mt">
 			<div class="wrap">
 				<div style="height:300px;"></div>
 			</div>
@@ -39,9 +39,35 @@
 		}
 		?>
 		</div>
-		<div class="anuncios mt">
+		<div class="anuncios vcontent mt">
 			<div class="wrap">
 				<div style="height:300px;"></div>
+			</div>
+		</div>
+		<div class="col-md-6 col-lg-12">
+			<div class="components">
+				<div class="container-estados">
+				<div class="container-title">
+					<h2>
+						Estados
+					</h2>
+				</div>
+				<?php
+				$estados = new WP_Query([
+					'post_type' 			=> 'ri-reporte',
+					'posts_per_page' 		=> 5,
+					'post_status'      		=> 'publish',
+					'suppress_filters' 		=> false,
+					'ignore_sticky_posts'	=> true,
+					'no_found_rows' 		=> true
+				]);
+				if ( $estados->have_posts() ):
+					while ( $estados->have_posts() ): $estados->the_post();
+						get_template_part( 'template-parts/components/ri', 'estado' );
+					endwhile;
+				endif;
+				wp_reset_postdata();
+				?>
 			</div>
 		</div>
 	</div>
