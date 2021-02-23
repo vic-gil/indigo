@@ -12,11 +12,11 @@
  *
  */
 function rewrite_feed_content($content) {
-	if(!is_feed())
+	if( ! is_feed() )
 		return $content;
 
 	$format_rss 			= '';
-	if(is_feed()) {
+	if( is_feed() ) {
 		global $post;
 		$ID  				= $post->ID;
 		$post_author 		= $post->post_author;
@@ -171,8 +171,8 @@ function rewrite_feed_content($content) {
 								  </body>
 								</html>';*/
 
-		$post_content  		= str_replace(array("<h3>", "<h4>", "<h5>"), "<h2>", $post_content);						
-		$post_content  		= str_replace(array("</h3>", "</h4>", "</h5>"), "</h2>", $post_content);						
+		$post_content  		= str_replace(["<h3>", "<h4>", "<h5>"], "<h2>", $post_content);						
+		$post_content  		= str_replace(["</h3>", "</h4>", "</h5>"], "</h2>", $post_content);						
 
 		$html 				= 	'<!doctype html><html lang="es" prefix="op: http://media.facebook.com/op#"><head><meta charset="utf-8"><link rel="canonical" href="'.$link_canonical.'"><meta property="op:markup_version" content="v1.0"><meta property="fb:use_automatic_ad_placement" content="enable=true ad_density=default"></head><body><article><header><h1>'.$post_title.'</h1><time class="op-published" datetime="'.$format_date2.'">'.$format_date1.'</time><time class="op-modified" dateTime="'.$format_modified1.'">'.$format_modified1.'</time><address><a>'.$author_name.'</a></address>'.$thumbnail.'</header>'.$post_content.$jwplayer.$analytics.$ad.'<footer></footer> </article></body></html>';
 
@@ -186,12 +186,11 @@ function rewrite_feed_content($content) {
 
 	return $content;
 }
-//add_filter('the_excerpt_rss', 'add_feed_content');
 add_filter('the_content', 'rewrite_feed_content');
 
 
 function add_media_img_rss() {
-	if(is_feed()){
+	if( is_feed() ){
 		global $post;
 		if( has_post_thumbnail( $post->ID )) {
 			$thumb_ID 			= get_post_thumbnail_id( $post->ID );
@@ -230,7 +229,7 @@ add_action('rss2_item', 'add_media_img_rss');
 
 
 function add_thumbnail_rss() {
-	if(is_feed()){
+	if( is_feed() ){
 		global $post;
 		if( has_post_thumbnail( $post->ID )) {
 			$thumb_ID 			= get_post_thumbnail_id( $post->ID );
