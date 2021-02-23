@@ -451,7 +451,6 @@ $exclude = reporte_indigo_exclude_posts('home');
 				if($index == 9) {
 					echo '</div></div>';
 					echo '<div class="col-lg-4 col-md-12"><div class="components">';
-
 					echo '<div class="anuncios vcontent mt"><div class="wrap" style="height: 300px;"></div></div>';
 					echo '<div class="anuncios vcontent mt"><div class="wrap" style="height: 600px;"></div></div>';
 
