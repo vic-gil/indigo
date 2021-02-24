@@ -189,23 +189,15 @@ $exclude = reporte_indigo_exclude_posts('home');
 		<?php
 		$selected_posts = unserialize( $selected_posts );
 
-		if( false === $posts = get_transient('ri_cache_home_reporte') ) {
-
-			$posts = new WP_Query([
-				'posts_per_page'	=> count($selected_posts["primary"]),
-				'post_type' 		=> 'any',
-				'post__in' 			=> $selected_posts["primary"],
-				'post_status'      	=> 'publish',
-				'suppress_filters' 	=> false,
-				'no_found_rows' 	=> true,
-				'orderby' 			=> 'post__in'
-			]);
-
-			if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
-				set_transient('ri_cache_home_reporte', $posts, 12 * HOUR_IN_SECONDS );
-			}
-
-		}
+		$posts = new WP_Query([
+			'posts_per_page'	=> count($selected_posts["primary"]),
+			'post_type' 		=> 'any',
+			'post__in' 			=> $selected_posts["primary"],
+			'post_status'      	=> 'publish',
+			'suppress_filters' 	=> false,
+			'no_found_rows' 	=> true,
+			'orderby' 			=> 'post__in'
+		]);
 			
 		if ( $posts->have_posts() ): $index = 0;
 			while ( $posts->have_posts() ): $posts->the_post();	
