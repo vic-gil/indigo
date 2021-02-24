@@ -57,9 +57,11 @@
 						'suppress_filters' 		=> false,
 						'no_found_rows' 		=> true,
 						'tax_query' 			=> [
-							'taxonomy' 	=> 'ri-columna',
-							'field'	   	=> 'slug',
-							'terms'	 	=> 'desde-mi-palco'
+							[
+								'taxonomy' 	=> 'ri-columna',
+								'field'	   	=> 'slug',
+								'terms'	 	=> 'desde-mi-palco'
+							]
 						]
 					]);
 
