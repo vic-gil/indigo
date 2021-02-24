@@ -21,6 +21,7 @@
 						'ignore_sticky_posts'	=> true,
 						'no_found_rows' 		=> true
 					]);
+
 					if ( $one->have_posts() ):
 						while ( $one->have_posts() ): $one->the_post();
 							get_template_part( 'template-parts/components/ri', 'dato_dia' );
@@ -54,7 +55,6 @@
 						'posts_per_page' 		=> 1,
 						'post_status'      		=> 'publish',
 						'suppress_filters' 		=> false,
-						'ignore_sticky_posts'	=> true,
 						'no_found_rows' 		=> true,
 						'tax_query' 			=> [
 							'taxonomy' 	=> 'ri-columna',
