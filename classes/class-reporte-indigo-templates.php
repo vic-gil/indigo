@@ -165,11 +165,11 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 			
 			if( array_key_exists($slug, $icons) ){
 			?>
-				<img src="<?=IMAGESPATH;?>/svgs/<?=$icons[$slug];?>" alt="<?=$slug;?>" class="lazyload" loading="lazy">
+				<img src="<?=IMAGESPATH;?>/svgs/<?=$icons[$slug];?>" alt="<?=$slug;?>" width="50" height="50" class="lazyload" loading="lazy">
 			<?php
 			} else {
 			?>
-				<img src="<?=IMAGESPATH;?>/svgs/warning.svg" alt="<?=$slug;?>" class="lazyload" loading="lazy">
+				<img src="<?=IMAGESPATH;?>/svgs/warning.svg" alt="<?=$slug;?>" width="50" height="50" class="lazyload" loading="lazy">
 			<?php
 			}
 		}
