@@ -512,18 +512,14 @@ function add_clickio_script() {
 
 	if( is_single() || is_singular () ):
 		echo <<<EOL
-		<script type="text/javascript">
-
 		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
 		<script class='__lxGc__' type='text/javascript'>
 			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629920']={'i':__lxGc__.b++};
-		</script>
-		
+		</script> 
 		
 		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
 		<script class='__lxGc__' type='text/javascript'>
 			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629927']={'i':__lxGc__.b++};
-		</script>
 		</script>
 		EOL;
 	endif;
