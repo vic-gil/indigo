@@ -18,13 +18,14 @@
 		<meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
 		<meta http-equiv="cleartype" content="on">
 		<meta name="author" content="<?php if ( is_single() ) { single_post_title('', true); } else { bloginfo('name'); } ?>" />
-        <meta name="copyright" content="<?php bloginfo('name'); ?>" />
-        <meta property="fb:app_id" content="349644108939477" />
-    	<meta property="fb:pages" content="92465443899" /> 
-    	<meta name="theme-color" content="#3474be" />
-    	<meta name="google-site-verification" content="NQS76n_mTHZfHmt620zjPbhyWfGC5DComdPe1jNQw00" />
-    	<meta name="google-site-verification" content="4Bt7KHVG0kzwetxi_LnrYR8QUCkKFdSNGA4PU2hpaDs" />
-    	<meta name="msvalidate.01" content="7CFA2C8C16223F10EB60365CBAD65A67" />
+		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+        	<meta name="copyright" content="<?php bloginfo('name'); ?>" />
+        	<meta property="fb:app_id" content="349644108939477" />
+    		<meta property="fb:pages" content="92465443899" /> 
+    		<meta name="theme-color" content="#3474be" />
+    		<meta name="google-site-verification" content="NQS76n_mTHZfHmt620zjPbhyWfGC5DComdPe1jNQw00" />
+    		<meta name="google-site-verification" content="4Bt7KHVG0kzwetxi_LnrYR8QUCkKFdSNGA4PU2hpaDs" />
+    		<meta name="msvalidate.01" content="7CFA2C8C16223F10EB60365CBAD65A67" />
 		<meta http-equiv="Content-Type" content="text/html; charset=<?php bloginfo( 'charset' ); ?>" />
 		<meta name="robots" content="noindex,follow"/>	
 		<meta name="application-name" content="<?=bloginfo('name');?>"/>
