@@ -14,8 +14,20 @@
 				if( $index <= 4 )
 					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmini', 'category' => FALSE ] );
 
-				if( $index == 4){
-					echo '<div class="anuncios vmini mt"><div class="wrap"><div style="height: 300px;"></div></div></div>';
+				if( $index == 4){?>
+					<div class="anuncios vmini mt">
+						<div class="wrap">
+							<?php
+							get_template_part('template-parts/sponsors/ri', 'anuncio', [
+								'format' => '70853',
+								'site' => '70494',
+								'page' => '535121',
+								'delay' => 3500,
+							]);
+							?>
+						</div>
+					</div>
+					<?php
 					echo '<div class="col-4"></div><div class="separator"><hr></div>';
 				}
 				
