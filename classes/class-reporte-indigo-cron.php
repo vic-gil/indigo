@@ -50,9 +50,13 @@ class Reporte_Indigo_Cron {
 					'orderby' 			=> 'post__in'
 				]);
 
-				if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
-					echo '<p>Se crearon datos transitorios con nombre: <strong>' . $this->name . '</strong></p>';
-			   		set_transient($this->name, $posts, 12 * HOUR_IN_SECONDS );
+				if ( ! is_wp_error( $posts ) ) {
+					if ( $posts->have_posts() ) {
+						echo '<p>Se crearon datos transitorios con nombre: <strong>' . $this->name . '</strong></p>';
+						set_transient($this->name, $posts, 12 * HOUR_IN_SECONDS );
+					} else {
+						delete_transient($this->name);
+					}
 				}
 			
 			}
@@ -82,9 +86,13 @@ class Reporte_Indigo_Cron {
 			]
 		]);
 
-		if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
-			echo '<p>Se crearon datos transitorios con nombre: <strong>' . $this->name . '</strong></p>';
-			set_transient($this->name, $posts, 12 * HOUR_IN_SECONDS );
+		if ( ! is_wp_error( $posts ) ) {
+			if ( $posts->have_posts() ) {
+				echo '<p>Se crearon datos transitorios con nombre: <strong>' . $this->name . '</strong></p>';
+				set_transient($this->name, $posts, 12 * HOUR_IN_SECONDS );
+			} else {
+				delete_transient($this->name);
+			}
 		}
 	}
 
@@ -110,9 +118,13 @@ class Reporte_Indigo_Cron {
 			]
 		]);
 
-		if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
-			echo '<p>Se crearon datos transitorios con nombre: <strong>' . $this->name . '</strong></p>';
-			set_transient($this->name, $posts, 12 * HOUR_IN_SECONDS );
+		if ( ! is_wp_error( $posts ) ) {
+			if ( $posts->have_posts() ) {
+				echo '<p>Se crearon datos transitorios con nombre: <strong>' . $this->name . '</strong></p>';
+				set_transient($this->name, $posts, 12 * HOUR_IN_SECONDS );
+			} else {
+				delete_transient($this->name);
+			}
 		}
 	}
 
