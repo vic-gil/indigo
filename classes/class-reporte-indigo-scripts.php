@@ -844,6 +844,37 @@ class Reporte_Indigo_Scripts {
 			return $script;
 	}
 
+	/**
+	 * El script para redireccionar imagenes con error
+	 *
+	 * @param bool  $echo Define el formato de cadena o impresión
+	 *
+	 * @return String|void JS Script;
+	**/
+	static function onhoverEspecial($echo = TRUE) {
+		$all = '<script type="text/javascript">
+			"use strict";
+			const ri_especial_con = document.querySelector(".component-especial figure img");
+			const ri_especial_img = ri_especial_con.dataset.src;
+			
+			const hoverSpecial = (data) => {
+				let url = data.dataset.link;
+				ri_especial_con.src = url;
+			}
+
+			const originalSpecial = () => {
+				ri_especial_con.src = ri_especial_img;
+			}
+		</script>';
+
+		$script = '<script type="text/javascript">"use strict";const ri_especial_con=document.querySelector(".component-especial figure img"),ri_especial_img=ri_especial_con.dataset.src,hoverSpecial=e=>{let i=e.dataset.link;ri_especial_con.src=i},originalSpecial=()=>{ri_especial_con.src=ri_especial_img};</script>';
+
+		if( $echo )
+			echo $script;
+		else
+			return $script;
+	}
+
 
 	function on_loaded() {
 		self::load_script();
@@ -860,6 +891,7 @@ class Reporte_Indigo_Scripts {
 			self::playlistShow();
 			self::youtubePlayer();
 			self::youtubeFachadePlayer();
+			self::onhoverEspecial();
 		}
 
 		if( is_single() || is_singular() ) {
