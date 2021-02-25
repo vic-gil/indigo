@@ -216,4 +216,18 @@ function wpseo_schema_image_object( $data ) {
 }
 
 add_filter( 'wpseo_schema_imageobject', 'wpseo_schema_image_object' );
+
+
+function filter_canonical( $canonical ) {
+	return str_replace('pre.reporteindigo.com', 'www.reporteindigo.com', $canonical);
+}
+
+add_filter( 'wpseo_canonical', 'filter_canonical' );
+
+function opengraph_url( $url ) {
+        return str_replace('pre.reporteindigo.com', 'www.reporteindigo.com', $canonical);
+}
+
+add_filter( 'wpseo_opengraph_url', 'opengraph_url' );
+
 ?>
