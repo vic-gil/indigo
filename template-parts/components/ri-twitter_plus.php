@@ -10,7 +10,7 @@ $class = array_key_exists('class', $args) ? $args['class'] : '';
 <div class="component-twitt-plus <?=$class;?>">
 	<div class="entries">
 		<div class="header">
-			<img src="<?=IMAGESPATH;?>/svgs/filosofia-financiera.svg" alt="Filosofía financiera" width="35">
+			<img src="<?=IMAGESPATH;?>/svgs/filosofia-financiera.svg" alt="Filosofía financiera" width="35" height="35">
 			<h2>Filosofía financiera</h2>	
 		</div>
 		<div class="body">
