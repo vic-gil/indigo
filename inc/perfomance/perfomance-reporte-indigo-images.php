@@ -228,4 +228,5 @@ function opengraph_url( $url ) {
 }
 
 add_filter( 'wpseo_opengraph_url', 'opengraph_url' );
+
 ?>
