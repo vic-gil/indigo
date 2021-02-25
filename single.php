@@ -12,6 +12,20 @@
 			?>
 		</div>
 		<div class="components">
+			<div class="anuncios mt">
+				<div class="wrap">
+				<?php
+				get_template_part('template-parts/sponsors/ri', 'anuncio', [
+					'format' => '70741',
+					'site' => '70494',
+					'page' => '535121',
+					'delay' => 5000
+				]);
+				?>
+				</div>
+			</div>
+		</div>
+		<div class="components">
 			<?php
 			Reporte_indigo_test::comment('Relacionados');
 			Reporte_indigo_templates::componente_titulo("", "Te puede interesar");

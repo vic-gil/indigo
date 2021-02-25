@@ -19,7 +19,20 @@
 				if ( $index == 4 ){
 					echo '</div></div>';
 					echo '<div class="col-lg-4"><div class="components">';
-					echo '<div class="anuncios mt"><div class="wrap"><div style="height: 600px;"></div></div></div>';
+				?>
+				<div class="anuncios mt">
+					<div class="wrap">
+						<?php
+						get_template_part('template-parts/sponsors/ri', 'anuncio', [
+							'format' => '70856',
+							'site' => '70494',
+							'page' => '535121',
+							'delay' => 3500
+						]);
+						?>
+					</div>
+				</div>
+				<?php
 					echo '</div></div>';
 				}
 

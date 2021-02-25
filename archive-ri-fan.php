@@ -74,7 +74,20 @@
 					wp_reset_postdata();
 
 					get_template_part( 'template-parts/components/ri', 'piensa', [ 'class' => 'vmedium', 'share' => false, 'type' => '__a' ] );
-					echo '<div class="anuncios mt"><div class="wrap"><div style="height: 600px;"></div></div></div>';
+					?>
+					<div class="anuncios mt">
+						<div class="wrap">
+							<?php
+							get_template_part('template-parts/sponsors/ri', 'anuncio', [
+								'format' => '70856',
+								'site' => '70494',
+								'page' => '535121',
+								'delay' => 5000
+							]);
+							?>
+						</div>
+					</div>
+					<?php
 					echo '</div></div>';
 
 					echo '</div></div>'; // Cierra el contenedor principal

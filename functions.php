@@ -252,11 +252,20 @@ function reporte_indigo_scripts () {
 		// Cargar fuentes
 		wp_enqueue_style('roboto-font', 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,700&display=swap', [], '', 'all' );
 
-		// Cargar scripts
+		// Desactivar script
 		wp_deregister_script('jquery');
 
-		wp_enqueue_script( 'smart-ads', "https://ced.sascdn.com/tag/1056/smart.js", [], '', true );
+		// Cargar scripts
+		wp_enqueue_script( 'smart-ads', "https://ced.sascdn.com/tag/1056/smart.js", [], '', false );
 		wp_script_add_data( 'smart-ads', 'async', true );
+
+		if( is_single() || is_singular () ):
+			wp_enqueue_script( 'clickio-init', "//clickio.mgr.consensu.org/t/consent_213972.js", [], '', false );
+			wp_script_add_data( 'clickio-init', 'async', true );
+
+			wp_enqueue_script( 'clickio-ads', "//s.clickiocdn.com/t/pb213972.js", [], '', false );
+			wp_script_add_data( 'clickio-ads', 'async', true );
+		endif;
 
 		wp_enqueue_script('bootstrap-min-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js', '', '5.0.0', true);
 		wp_script_add_data( 'bootstrap-min-js', 'defer', true );
@@ -498,6 +507,28 @@ function add_smart_script() {
 }
 
 add_action( 'wp_head', 'add_smart_script', 1 );
+
+function add_clickio_script() {
+
+	if( is_single() || is_singular () ):
+		echo <<<EOL
+		<script type="text/javascript">
+		<!-- Clickio Desktop -->
+		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
+		<script class='__lxGc__' type='text/javascript'>
+			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629920']={'i':__lxGc__.b++};
+		</script>
+		<!-- Clickio Mobile -->
+		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
+		<script class='__lxGc__' type='text/javascript'>
+			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629927']={'i':__lxGc__.b++};
+		</script>
+		</script>
+		EOL;
+	endif;
+}
+
+add_action( 'wp_footer', 'add_clickio_script', 1 );
 
 function add_custom_scripts() {
 	echo get_theme_mod("ri_custom_scripts");

@@ -153,7 +153,14 @@ $exclude = reporte_indigo_exclude_posts('home');
 
 					<div class="anuncios vcontent mt">
 						<div class="wrap">
-							<div style="height: 600px;"></div>
+							<?php
+								get_template_part('template-parts/sponsors/ri', 'anuncio', [
+									'format' => '70856',
+									'site' => '70494',
+									'page' => '535121',
+									'delay' => 3500,
+								]);
+							?>
 						</div>
 					</div>
 					<div class="anuncios vcontent mt">
@@ -168,6 +175,22 @@ $exclude = reporte_indigo_exclude_posts('home');
 							?>
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container wm">
+		<div class="components">
+			<div class="anuncios mt">
+				<div class="wrap">
+				<?php
+				get_template_part('template-parts/sponsors/ri', 'anuncio', [
+					'format' => '70741',
+					'site' => '70494',
+					'page' => '535121',
+					'delay' => 3500
+				]);
+				?>
 				</div>
 			</div>
 		</div>
@@ -642,10 +665,14 @@ $exclude = reporte_indigo_exclude_posts('home');
 			<div class="col-lg-4">
 				<div class="components">
 					<div class="anuncios vcontent mt">
-						<div class="wrap" style="height: 300px;"></div>
-					</div>
-					<div class="anuncios vcontent mt">
-						<div class="wrap" style="height: 600px;"></div>
+						<?php
+							get_template_part('template-parts/sponsors/ri', 'anuncio', [
+								'format' 	=> '88164',
+								'site' 		=> '70494',
+								'page' 		=> '535121',
+								'delay' 	=> 3500,
+							]);
+						?>
 					</div>
 				</div>
 			</div>
