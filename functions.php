@@ -79,6 +79,7 @@ if ( DISABLE_WP_CRON ):
 		**/
 
 		function cron_update_home() {
+			error_log('El IP del visitante es:' . $_SERVER['REMOTE_ADDR'] );
 			$home_top = new Reporte_Indigo_Cron( 'ri_cache_home_top', get_option('wp_front_home_top_ri') );
 			$home_top->cache_query_by_selection();
 
@@ -514,12 +515,12 @@ function add_clickio_script() {
 		echo <<<EOL
 		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
 		<script class='__lxGc__' type='text/javascript'>
-			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629920']={'i':__lxGc__.b++};
+		((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629920']={'i':__lxGc__.b++};
 		</script> 
 		
 		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
 		<script class='__lxGc__' type='text/javascript'>
-			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629927']={'i':__lxGc__.b++};
+		((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629927']={'i':__lxGc__.b++};
 		</script>
 		EOL;
 	endif;
@@ -766,4 +767,4 @@ function wp_term_chk_radio( $args ) {
 }
 
 add_filter( 'wp_terms_checklist_args', 'wp_term_chk_radio' );
-?>
+
