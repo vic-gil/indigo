@@ -290,6 +290,43 @@ class Reporte_Indigo_Scripts {
 			return $script;
 	}
 
+	static function singleContainGallery($echo = TRUE) {
+		$all = '<script type="text/javascript">"use strict";
+				let swiperInstances = [];
+				
+				const initSlider = () => {
+				   	sliders("deslizador-single", 1, 2);
+				}
+
+				var sliders = (selector, index, type) => {
+					let slider = document.getElementById(selector);
+					if (void 0 !== slider && null != slider) {
+						let config = {
+							slidesPerView: 1,
+				            spaceBetween: 15,
+				            autoHeight: true,
+				            navigation: {
+				            	nextEl: ".sw-arrow.next",
+								prevEl: ".sw-arrow.prev"
+				            }
+						};
+
+						swiperInstances[index] = new Swiper(`#${selector}`, config);
+
+					}
+				}
+				
+				loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js", initSlider);
+			</script>';
+
+		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("deslizador-single",1,2)};var sliders=(e,i,s)=>{let t=document.getElementById(e);if(void 0!==t&&null!=t){let s={slidesPerView:1,spaceBetween:15,autoHeight:!0,navigation:{nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"}};swiperInstances[i]=new Swiper(`#${e}`,s)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
+
+		if( $echo )
+			echo $script;
+		else
+			return $script;
+	}
+
 	static function swiperPiensa($echo = TRUE) {
 		$all = '
 		<script type="text/javascript">
@@ -825,9 +862,11 @@ class Reporte_Indigo_Scripts {
 			self::youtubeFachadePlayer();
 		}
 
-		if( is_single() ) {
+		if( is_single() || is_singular() ) {
+			self::singleContainGallery();
+
 			if( get_theme_mod('ri_embed', false) == 1 )
-				self::singleLazyEmbeds();
+				self::singleLazyEmbeds();				
 		}
 
 		if ( is_post_type_archive('ri-piensa') ) {
