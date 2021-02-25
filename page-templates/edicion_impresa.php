@@ -28,7 +28,11 @@ get_header(); ?>
 				</ol>
 			</nav>
 			<section class="digital">
-				<iframe class="lazyload" load="lazy" src="https://services.publish88.com/app/newspaper/publicacion-1158" frameborder="0" allowfullscreen></iframe>
+				<div class="wrap">
+					<div class="embed-container">
+						<iframe class="lazyload" load="lazy" src="https://services.publish88.com/app/newspaper/publicacion-1158" frameborder="0" allowfullscreen></iframe>
+					</div>
+				</div>
 			</section>
 		</div>
 	</div>
