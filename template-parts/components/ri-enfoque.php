@@ -61,7 +61,7 @@ $share = array_key_exists('share', $args) ? $args['share'] : true;
 					<figure class="swiper-slide" itemprop="associatedMedia" itemscope="" itemtype="http://schema.org/ImageObject">
 						<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 							<picture>
-								<?=wp_get_attachment_image($imagen, 'thumbnail');?>
+								<?=wp_get_attachment_image($imagen, 'medium');?>
 							</picture>
 						</a>
 					</figure>
