@@ -255,10 +255,32 @@
 					get_template_part( 'template-parts/components/ri', 'general' );
 					echo '</div></div>';
 					echo '<div class="col-lg-4"><div class="components">';
-					
-					echo '<div class="anuncios vcontent mt"><div class="wrap" style="height: 300px;"></div></div>';
-					echo '<div class="anuncios vcontent mt"><div class="wrap" style="height: 300px;"></div></div>';
-
+				?>
+				<div class="anuncios vcontent mt">
+					<div class="wrap">
+						<?php
+							get_template_part('template-parts/sponsors/ri', 'anuncio', [
+								'format' 	=> '70740',
+								'site' 		=> '70494',
+								'page' 		=> '535121',
+								'delay' 	=> 3500,
+							]);
+						?>
+					</div>
+				</div>
+				<div class="anuncios vcontent mt">
+					<div class="wrap">
+						<?php
+							get_template_part('template-parts/sponsors/ri', 'anuncio', [
+								'format' 	=> '70853',
+								'site' 		=> '70494',
+								'page' 		=> '535121',
+								'delay' 	=> 3500,
+							]);
+						?>
+					</div>
+				</div>
+				<?php
 					echo '</div></div><div class="separator"><hr></div>';
 				}	
 
