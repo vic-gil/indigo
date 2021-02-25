@@ -14,7 +14,7 @@ function custom_media_responsive_size($attr, $attachment, $size) {
 		 * Agregamos la clase lazyload a todas las imágenes
 		 *
 		 */
-		$attr['class'] = $attr['class'] . " lazyload";
+		$attr['class'] = $attr['class'] . ' lazyload';
 
 		if( ! empty( $attr['src'] ) ) :
 			$origin = get_theme_mod( 'ri_images_original', FALSE );
@@ -225,7 +225,7 @@ function filter_canonical( $canonical ) {
 add_filter( 'wpseo_canonical', 'filter_canonical' );
 
 function opengraph_url( $url ) {
-        return str_replace('pre.reporteindigo.com', 'www.reporteindigo.com', $canonical);
+        return str_replace('pre.reporteindigo.com', 'www.reporteindigo.com', $url);
 }
 
 add_filter( 'wpseo_opengraph_url', 'opengraph_url' );
