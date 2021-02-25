@@ -310,7 +310,7 @@ class Reporte_Indigo_Styles {
 			echo '<style type="text/css">' . self::style_404() . '</style>';
 
 		if( is_page_template('page-templates/edicion_impresa.php') )
-			echo '<style type="text/css">iframe{width:100%;height:100vh;}' . self::style_breadcrumb() . '</style>';
+			echo '<style type="text/css">.digital .embed-container{position:relative;display:block;width:100%;padding-top:125%;overflow:hidden;margin:0}.digital .wrap{max-width:750px;margin:0 auto}.digital .wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%}' . self::style_breadcrumb() . '</style>';
 
 		if( is_page_template('page-templates/indigo_noticias.php') )
 			echo '<style type="text/css">' . self::style_indigo_noticias() . self::style_ri_youtube() . '</style>';
@@ -333,3 +333,4 @@ class Reporte_Indigo_Styles {
 
 $styles_plugin = new Reporte_Indigo_Styles();
 add_action('wp_head', [$styles_plugin, 'on_loaded'], 101);
+?>
