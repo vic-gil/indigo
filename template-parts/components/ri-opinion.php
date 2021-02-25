@@ -8,7 +8,7 @@
  */
 $class = array_key_exists('class', $args) ? $args['class'] : '';
 $columna = get_the_terms( get_the_ID(), 'ri-columna' );
-$author = $post->post_author;;
+$author = $post->post_author;
 ?>
 <div class="component-opinion <?=$class;?>">
 	<article itemtype="http://schema.org/Article">
