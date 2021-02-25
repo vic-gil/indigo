@@ -15,7 +15,6 @@
  */
 
 function reporte_indigo_customize_config( $wp_customize ) {
-
 	/**
 	 * Configuraciones del tema
 	 */
@@ -116,6 +115,7 @@ function reporte_indigo_customize_config( $wp_customize ) {
 		[
 			'type'          => 'theme_mod',
 			'capability'    => 'edit_theme_options',
+			'default' 		=> '',
 			'transport'     => 'refresh'
 		]
 	);
@@ -147,6 +147,7 @@ function reporte_indigo_customize_config( $wp_customize ) {
 		[
 			'type'          => 'theme_mod',
 			'capability'    => 'edit_theme_options',
+			'default' 		=> '',
 			'transport'     => 'refresh'
 		]
 	);
@@ -165,6 +166,90 @@ function reporte_indigo_customize_config( $wp_customize ) {
 			'settings'		=> 'ri_images_replace',
 			'priority'		=> 2,
 			'type'    		=> 'text'
+		]
+	);
+
+	/**
+	 * Agregar la dirección del bucket
+	 *
+	**/
+
+	$wp_customize->add_setting( 
+		'ri_images_bucket',
+		[
+			'type'          => 'theme_mod',
+			'capability'    => 'edit_theme_options',
+			'default' 		=> '',
+			'transport'     => 'refresh'
+		]
+	);
+
+	/**
+	 * Agregar el control
+	 *
+	**/
+
+	$wp_customize->add_control( 
+		'ri_images_bucket_control',
+		[
+			'label'   		=> __('URL del bucket', 'reporte_indigo'),
+			'description'	=> __('SITE+-com-BUCKET+-assets.s3.amazonaws.com', 'reporte_indigo'),
+			'section' 		=> 'reporte_indigo_images_section',
+			'settings'		=> 'ri_images_bucket',
+			'priority'		=> 3,
+			'type'    		=> 'text'
+		]
+	);
+
+	/**
+	 * Configuración avanzada de imágenes
+	 *
+	 */
+	$wp_customize->add_section( 
+		'reporte_indigo_advance_image_section', 
+		[
+			'title'      	=> __('Configuración avanzada de imágenes', 'reporte_indigo'),
+			'priority'   	=> 3,
+			'description'	=> __('Configuraciones especiales de imagenes', 'reporte_indigo'),
+			'panel'      	=> 'reporte_indigo_config_panel',
+			'capability' 	=> 'edit_theme_options'
+		]
+	);
+
+	/**
+	 * Agregar donde se guardara la opción del control
+	 *
+	**/
+
+	$wp_customize->add_setting( 
+		'ri_img_error_delay',
+		[
+			'type'          => 'theme_mod',
+			'capability'    => 'edit_theme_options',
+			'default' 		=> 0,
+			'transport'     => 'refresh'
+		]
+	);
+
+	/**
+	 * Agregar el control
+	 *
+	**/
+
+	$wp_customize->add_control( 
+		'ri_img_error_delay_control',
+		[
+			'label'   		=> __('La imagen tarda en aparecer', 'reporte_indigo'),
+			'description'	=> __('Si ocupa una replicación de bucket en S3 u otro servicio que demore bastante tiempo marque si', 'reporte_indigo'),
+			'section' 		=> 'reporte_indigo_advance_image_section',
+			'settings'		=> 'ri_img_error_delay',
+			'priority'		=> 1,
+			'type' 			=> 'radio',
+			'default' 		=> 0,
+			'choices' 		=> [
+				0 => "No",
+				1 => "Si"
+			]
 		]
 	);
 
