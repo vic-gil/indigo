@@ -255,6 +255,9 @@ function reporte_indigo_scripts () {
 		// Cargar scripts
 		wp_deregister_script('jquery');
 
+		wp_enqueue_script( 'smart-ads', "https://ced.sascdn.com/tag/1056/smart.js", [], '', true );
+		wp_script_add_data( 'smart-ads', 'async', true );
+
 		wp_enqueue_script('bootstrap-min-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js', '', '5.0.0', true);
 		wp_script_add_data( 'bootstrap-min-js', 'defer', true );
 
@@ -483,6 +486,18 @@ function add_google_tag_manager_script() {
 }
 
 add_action( 'wp_head', 'add_google_tag_manager_script', 1 );
+
+function add_smart_script() {
+	echo <<<EOL
+	<script type="text/javascript">
+	<!-- Google Tag Manager -->
+	var sas = sas || {};sas.cmd = sas.cmd || [];sas.cmd.push(function() {sas.setup({ networkid: 1056, domain: "", async: true });});
+	<!-- Google Tag Manager -->
+	</script>
+	EOL;
+}
+
+add_action( 'wp_head', 'add_smart_script', 1 );
 
 function add_custom_scripts() {
 	echo get_theme_mod("ri_custom_scripts");
@@ -723,4 +738,4 @@ function wp_term_chk_radio( $args ) {
 }
 
 add_filter( 'wp_terms_checklist_args', 'wp_term_chk_radio' );
-?>
+

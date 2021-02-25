@@ -11,10 +11,37 @@
 						echo '<div class="col-lg-8"><div class="components">';
 						get_template_part( 'template-parts/components/ri', 'general' );
 						echo '</div></div>';
-						echo '<div class="col-lg-4"><div class="components">';
-						echo '<div class="anuncios vcontent mt"><div class="wrap" style="height: 300px;"></div></div>';
-						echo '<div class="anuncios vcontent mt"><div class="wrap" style="height: 300px;"></div></div>';
-						echo '</div></div><div class="separator"><hr></div>';
+						?>
+						<div class="col-lg-4">
+							<div class="components">
+								<div class="anuncios vcontent mt">
+									<div class="wrap">
+										<?php
+										get_template_part('template-parts/sponsors/ri', 'anuncio', [
+											'format' => '70854',
+											'site' => '70494',
+											'page' => '535121',
+											'delay' => 2000
+										]);
+										?>
+									</div>
+								</div>
+								<div class="anuncios vcontent mt">
+									<div class="wrap">
+										<?php
+										get_template_part('template-parts/sponsors/ri', 'anuncio', [
+											'format' => '70869',
+											'site' => '70494',
+											'page' => '535121',
+											'delay' => 2000
+										]);
+										?>
+									</div>
+								</div>
+							</div>
+						</div>
+						<?php
+						echo '<div class="separator"><hr></div>';
 					}	
 
 					if ($index == 1)

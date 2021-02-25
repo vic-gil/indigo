@@ -38,8 +38,32 @@
 							endif;
 							wp_reset_postdata();
 						} else {
-							echo '<div class="anuncios vcontent mt"><div class="wrap"><div style="height:300px;"></div></div></div>';
-							echo '<div class="anuncios vcontent mt"><div class="wrap"><div style="height:300px;"></div></div></div>';
+						?>
+						<div class="anuncios vcontent mt">
+							<div class="wrap">
+								<?php
+								get_template_part('template-parts/sponsors/ri', 'anuncio', [
+									'format' => '70853',
+									'site' => '70494',
+									'page' => '535121',
+									'delay' => 3500,
+								]);
+								?>
+							</div>
+						</div>
+						<div class="anuncios vcontent mt">
+							<div class="wrap">
+								<?php
+								get_template_part('template-parts/sponsors/ri', 'anuncio', [
+									'format' => '70854',
+									'site' => '70494',
+									'page' => '535121',
+									'delay' => 2000
+								]);
+								?>
+							</div>
+						</div>
+						<?php
 						}
 						
 						
@@ -55,8 +79,22 @@
 						if($index >= 1 && $index <= 5)
 							get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmini' ] );
 
-						if($index == 5)
-							echo '<div class="anuncios vmini mt"><div class="wrap"><div style="height:300px;"></div></div></div>';
+						if($index == 5){
+						?>
+						<div class="anuncios vmini mt">
+							<div class="wrap">
+								<?php
+								get_template_part('template-parts/sponsors/ri', 'anuncio', [
+									'format' => '70853',
+									'site' => '70494',
+									'page' => '535121',
+									'delay' => 3500,
+								]);
+								?>
+							</div>
+						</div>
+						<?php
+						}
 
 					} else {
 
@@ -66,8 +104,22 @@
 						if( $index >= 4 )
 							get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'v2piensa' ] );
 
-						if($index == 5)
-							echo '<div class="anuncios vmini mt"><div class="wrap"><div style="height:300px;"></div></div></div>';
+						if($index == 5){
+						?>
+						<div class="anuncios vmini mt">
+							<div class="wrap">
+								<?php
+								get_template_part('template-parts/sponsors/ri', 'anuncio', [
+									'format' => '70869',
+									'site' => '70494',
+									'page' => '535121',
+									'delay' => 2000
+								]);
+								?>
+							</div>
+						</div>
+						<?php
+						}
 
 					}
 

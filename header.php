@@ -53,6 +53,22 @@
 					</div>
 				</div>
 			</div>
+			<div class="container">
+				<div class="components">
+					<div class="anuncio">
+						<div class="wrap wm">
+							<?php
+								get_template_part('template-parts/sponsors/ri', 'anuncio', [
+									'format' => '70740',
+									'site' => '70494',
+									'page' => '535121',
+									'delay' => 2200,
+								]);
+							?>
+						</div>
+					</div>
+				</div>
+			</div>
 			<?php 
 			Reporte_indigo_test::comment('Etiqueta de dominio');
 			Reporte_indigo_templates::componente_tag_domain( home_url(), get_bloginfo('name'), get_option( 'general_options_ri', false ));
@@ -150,5 +166,12 @@
 					</form>
 				</div>
 			</div>
-
+			<?php
+			get_template_part('template-parts/sponsors/ri', 'anuncio', [
+				'format' => '70857',
+				'site' => '70494',
+				'page' => '535121',
+				'delay' => 5000
+			]);
+			?>
 		</header>
