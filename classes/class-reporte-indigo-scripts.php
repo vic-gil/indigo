@@ -368,7 +368,7 @@ class Reporte_Indigo_Scripts {
 	**/
 	static function swiperFan($echo = TRUE) {
 
-		$script = '
+		$all = '
 		<script type="text/javascript">
 		"use strict";
 			let swiperInstances = [];
@@ -427,6 +427,8 @@ class Reporte_Indigo_Scripts {
 			loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js", initSlider);
 		
 		</script>';
+
+		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("slider-fan",1,1)};var sliders=(e,t,i)=>{let s=document.getElementById(e);if(void 0!==s&&null!=s){let n={slidesPerView:1,spaceBetween:15,autoHeight:!0};if(1==i){let e=s.querySelectorAll(".pagination");n.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},n.on={slideChangeTransitionEnd:()=>{for(let e of s.querySelectorAll(".pagination span"))e.classList.remove("active");for(let i of e)i.querySelector(`span:nth-child(${swiperInstances[t].activeIndex+1})`).classList.add("active")}};for(let i of e)i.addEventListener("click",function(){let e=event.target.dataset.index;swiperInstances[t].slideTo(e,800)})}else n.pagination={el:"#sp-enfoque",clickable:!0};swiperInstances[t]=new Swiper(`#${e}`,n)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
 
 		if( $echo )
 			echo $script;
@@ -776,6 +778,35 @@ class Reporte_Indigo_Scripts {
 			return $script;
 	}
 
+	/**
+	 * El script para redireccionar imagenes con error
+	 *
+	 * @param bool  $echo Define el formato de cadena o impresión
+	 *
+	 * @return String|void JS Script;
+	**/
+	static function onImgError($echo = TRUE) {
+		$replace = get_theme_mod( 'ri_images_replace', FALSE );
+		$optional = get_theme_mod( 'ri_images_bucket', FALSE );
+
+		$all = '
+		<script type="text/javascript">
+		"use strict";
+		document.addEventListener("error", function(e){
+		    if(e.target.nodeName == "IMG"){e.target.src = e.target.src.replace("' . $replace . '", "' . $optional . '")}
+		}, true);
+		</script>';
+
+		if ( ! empty($replace) && ! empty($optional) ) {
+			$script = '<script type="text/javascript">"use strict";document.addEventListener("error",function(e){"IMG"==e.target.nodeName&&(e.target.src=e.target.src.replace("' . $replace . '","' . $optional . '"))},!0);</script>';
+		}
+
+		if( $echo )
+			echo $script;
+		else
+			return $script;
+	}
+
 
 	function on_loaded() {
 		self::load_script();
@@ -783,6 +814,9 @@ class Reporte_Indigo_Scripts {
 		self::scroll();
 		self::share();
 		self::twitt();
+
+		if( get_theme_mod('ri_img_error_delay', false) == 1 )
+			self::onImgError();
 
 		if( is_home() ) {
 			self::swiper();
@@ -822,3 +856,4 @@ class Reporte_Indigo_Scripts {
 
 $plugin = new Reporte_Indigo_Scripts();
 add_action('wp_footer', array($plugin, 'on_loaded'), 99);
+?>
