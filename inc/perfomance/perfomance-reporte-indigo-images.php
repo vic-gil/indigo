@@ -179,11 +179,11 @@ add_filter('wp_get_attachment_image_src', 'images_cdn_filter', 10, 4);
 **/
 
 function change_opengraph_image_url( $url ) {
-	$origin = get_theme_mod( 'ri_images_original', FALSE );
 	$replace = get_theme_mod( 'ri_images_replace', FALSE );
-	
-	if ( FALSE !== $origin && FALSE !== $replace ) {
-		return str_replace( $origin, $replace, $url );
+	$optional = get_theme_mod( 'ri_images_bucket', FALSE );
+
+	if ( ! empty($replace) && ! empty($optional) ) {
+		return str_replace( $replace, $optional, $url );
 	}
 
     return $url;
@@ -205,18 +205,17 @@ function wpseo_cdn_filter( $uri ) {
 add_filter( 'wpseo_xml_sitemap_img_src', 'wpseo_cdn_filter' );
 
 function wpseo_schema_image_object( $data ) {
-	$origin = get_theme_mod( 'ri_images_original', FALSE );
 	$replace = get_theme_mod( 'ri_images_replace', FALSE );
+	$optional = get_theme_mod( 'ri_images_bucket', FALSE );
 
-	if ( FALSE !== $origin && FALSE !== $replace ) {
-		$data['url'] = str_replace( $origin, $replace, $data['url'] );
+	if ( ! empty($replace) && ! empty($optional) ) {
+		$data['url'] = str_replace( $replace, $optional, $data['url'] );
 	}
 
 	return $data;
 }
 
 add_filter( 'wpseo_schema_imageobject', 'wpseo_schema_image_object' );
-
 
 function filter_canonical( $canonical ) {
 	return str_replace('pre.reporteindigo.com', 'www.reporteindigo.com', $canonical);
@@ -225,9 +224,8 @@ function filter_canonical( $canonical ) {
 add_filter( 'wpseo_canonical', 'filter_canonical' );
 
 function opengraph_url( $url ) {
-        return str_replace('pre.reporteindigo.com', 'www.reporteindigo.com', $url);
+	return str_replace('pre.reporteindigo.com', 'www.reporteindigo.com', $url);
 }
 
 add_filter( 'wpseo_opengraph_url', 'opengraph_url' );
-
 ?>
