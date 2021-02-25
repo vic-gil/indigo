@@ -499,9 +499,9 @@ add_action( 'wp_head', 'add_google_tag_manager_script', 1 );
 function add_smart_script() {
 	echo <<<EOL
 	<script type="text/javascript">
-	<!-- Google Tag Manager -->
+	<!-- Smart Script -->
 	var sas = sas || {};sas.cmd = sas.cmd || [];sas.cmd.push(function() {sas.setup({ networkid: 1056, domain: "", async: true });});
-	<!-- Google Tag Manager -->
+	<!-- End Smart Script -->
 	</script>
 	EOL;
 }
@@ -513,12 +513,13 @@ function add_clickio_script() {
 	if( is_single() || is_singular () ):
 		echo <<<EOL
 		<script type="text/javascript">
-		<!-- Clickio Desktop -->
+
 		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
 		<script class='__lxGc__' type='text/javascript'>
 			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629920']={'i':__lxGc__.b++};
 		</script>
-		<!-- Clickio Mobile -->
+		
+		
 		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
 		<script class='__lxGc__' type='text/javascript'>
 			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629927']={'i':__lxGc__.b++};
@@ -769,4 +770,4 @@ function wp_term_chk_radio( $args ) {
 }
 
 add_filter( 'wp_terms_checklist_args', 'wp_term_chk_radio' );
-
+?>
