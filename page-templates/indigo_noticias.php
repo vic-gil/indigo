@@ -33,7 +33,6 @@ get_header();
 				if( $key == 3 )
 					Reporte_indigo_templates::componente_spotify('Escucha el playlist de Indigo Noticias desde tu Spotify','https://open.spotify.com/show/1RWrVBm0irB3PP5AripRRC?si=bV88dX_cQmOKxGPrppK6lg');
 
-
 				if( $key == 7 ){
 					echo '<div class="anuncios mt"><div class="wrap"><div style="height:90px;"></div></div></div>';
 				}

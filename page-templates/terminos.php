@@ -41,7 +41,14 @@ get_header();?>
 				<div class="components">
 					<div class="anuncios vcontent mt">
 						<div class="wrap">
-							<div style="height: 300px;"></div>
+							<?php
+							get_template_part('template-parts/sponsors/ri', 'anuncio', [
+								'format' => '70853',
+								'site' => '70494',
+								'page' => '535121',
+								'delay' => 3500,
+							]);
+							?>
 						</div>
 					</div>
 					<?php
@@ -95,7 +102,14 @@ get_header();?>
 					?>
 					<div class="anuncios vcontent mt">
 						<div class="wrap">
-							<div style="height: 300px;"></div>
+							<?php
+							get_template_part('template-parts/sponsors/ri', 'anuncio', [
+								'format' => '70854',
+								'site' => '70494',
+								'page' => '535121',
+								'delay' => 2000
+							]);
+							?>
 						</div>
 					</div>
 				</div>
