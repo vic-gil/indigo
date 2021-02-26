@@ -502,8 +502,7 @@ function add_smart_script() {
 add_action( 'wp_head', 'add_smart_script', 1 );
 
 function add_clickio_header_binding() {
-
-	if( is_single() || is_singular () ):
+	if( is_home() || is_single() || is_singular () ):
 		echo <<<EOL
 		<script async type="text/javascript" src="//s.clickiocdn.com/t/pb213972.js"></script>
 		<script async type="text/javascript" src="//s.clickiocdn.com/t/common_258.js"></script> 
@@ -514,19 +513,38 @@ function add_clickio_header_binding() {
 add_action( 'wp_head', 'add_clickio_header_binding', 1 );
 
 function add_clickio_script() {
-	echo <<<EOL
-	<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
-	<script class="__lxGc__" type='text/javascript'>
-		if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629920']={'i':__lxGc__.b++};
-		}else{
+	if( wp_is_mobile() ):
+		echo <<<EOL
+		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
+		<script class='__lxGc__' type='text/javascript'>
 			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629927']={'i':__lxGc__.b++};
-		}
-	</script>
-	EOL;
+		</script>
+		EOL;
+	else:
+		echo <<<EOL
+		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
+		<script class='__lxGc__' type='text/javascript'>
+		((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629920']={'i':__lxGc__.b++};
+		</script> 
+		EOL;
+	endif;
 }
 
-add_action( 'ri_clickio_single_page', 'add_clickio_script' );
+add_action( 'ri_body_init', 'add_clickio_script' );
+
+function add_clickio_sticky() {
+	if( is_home() || is_single() || is_singular () ):
+		if( wp_is_mobile() ):
+			echo <<<EOL
+			<script async type='text/javascript' src='s.clickiocdn.com/t/common_258.js'></script>
+			<script class='__lxGc__' type='text/javascript'>
+				((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_652887']={'i':__lxGc__.b++};
+			</script>
+			EOL;
+		endif;
+	endif;
+}
+add_action( 'wp_head', 'add_clickio_sticky', 150 );
 
 function add_custom_scripts() {
 	echo get_theme_mod("ri_custom_scripts");
@@ -793,3 +811,5 @@ add_action('rest_api_init', function() {
 	    ]
 	);
 });
+
+
