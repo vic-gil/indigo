@@ -50,6 +50,9 @@ require get_template_directory() . '/inc/reporte-indigo-customizer.php';
 // Feed
 require get_template_directory() . '/inc/reporte-indigo-feed.php';
 
+// Custom
+require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.php';
+
 /*
  * El cache del navegador sólo está disponible para
  * usuarios que no tengan sesión
@@ -260,14 +263,6 @@ function reporte_indigo_scripts () {
 		wp_enqueue_script( 'smart-ads', "https://ced.sascdn.com/tag/1056/smart.js", [], '', false );
 		wp_script_add_data( 'smart-ads', 'async', true );
 
-		if( is_single() || is_singular () ):
-			wp_enqueue_script( 'clickio-init', "//clickio.mgr.consensu.org/t/consent_213972.js", [], '', false );
-			wp_script_add_data( 'clickio-init', 'async', true );
-
-			wp_enqueue_script( 'clickio-ads', "//s.clickiocdn.com/t/pb213972.js", [], '', false );
-			wp_script_add_data( 'clickio-ads', 'async', true );
-		endif;
-
 		wp_enqueue_script('bootstrap-min-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js', '', '5.0.0', true);
 		wp_script_add_data( 'bootstrap-min-js', 'defer', true );
 
@@ -457,7 +452,7 @@ function siteweb_pingback_header() {
 add_action( 'wp_head', 'siteweb_pingback_header' );
 
 function add_comscore_script() {
-	if(! amp_is_request()) {
+	if( ! amp_is_request() ) {
 		echo <<<EOL
 		<!-- Begin comScore Tag-->
 		<script>
@@ -509,24 +504,32 @@ function add_smart_script() {
 
 add_action( 'wp_head', 'add_smart_script', 1 );
 
-function add_clickio_script() {
+function add_clickio_header_binding() {
 
 	if( is_single() || is_singular () ):
 		echo <<<EOL
-		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
-		<script class='__lxGc__' type='text/javascript'>
-		((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629920']={'i':__lxGc__.b++};
-		</script> 
-		
-		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
-		<script class='__lxGc__' type='text/javascript'>
-		((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629927']={'i':__lxGc__.b++};
-		</script>
+		<script async type="text/javascript" src="//s.clickiocdn.com/t/pb213972.js"></script>
+		<script async type="text/javascript" src="//s.clickiocdn.com/t/common_258.js"></script> 
 		EOL;
 	endif;
 }
 
-add_action( 'wp_footer', 'add_clickio_script', 1 );
+add_action( 'wp_head', 'add_clickio_header_binding', 1 );
+
+function add_clickio_script() {
+	echo <<<EOL
+	<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
+	<script class="__lxGc__" type='text/javascript'>
+		if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629920']={'i':__lxGc__.b++};
+		}else{
+			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629927']={'i':__lxGc__.b++};
+		}
+	</script>
+	EOL;
+}
+
+add_action( 'ri_clickio_single_page', 'add_clickio_script' );
 
 function add_custom_scripts() {
 	echo get_theme_mod("ri_custom_scripts");
