@@ -40,6 +40,9 @@
 		<?php wp_head(); ?>
 	</head>
 	<body <?php body_class();?>>
+		<?php
+		do_action("ri_body_init");
+		?>
 		<header>
 			<?php Reporte_indigo_test::comment('Fixed'); ?>
 			<div class="navbar">
