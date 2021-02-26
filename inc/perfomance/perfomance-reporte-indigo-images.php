@@ -8,7 +8,7 @@
  */
 
 function custom_media_responsive_size($attr, $attachment, $size) {
-	if(! is_admin() ) :
+	if( ! is_admin() && ! amp_is_request() ) :
 
 		/**
 		 * Agregamos la clase lazyload a todas las imágenes
