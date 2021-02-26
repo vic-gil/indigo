@@ -50,9 +50,6 @@ require get_template_directory() . '/inc/reporte-indigo-customizer.php';
 // Feed
 require get_template_directory() . '/inc/reporte-indigo-feed.php';
 
-// Custom
-require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.php';
-
 /*
  * El cache del navegador sólo está disponible para
  * usuarios que no tengan sesión
