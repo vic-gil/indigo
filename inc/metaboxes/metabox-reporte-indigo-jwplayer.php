@@ -38,7 +38,7 @@ class Reporte_Indigo_Jwplayer {
 			'ri-jwplayer-id',
 			'Videos JWPlayer',
 			['Reporte_Indigo_Jwplayer', 'ri_html'],
-			$post_types,
+			apply_filters( 'ri_add_jwplayer_in_post_type', $post_types ),
 			'side',
 			'default'
 		);

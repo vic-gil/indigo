@@ -333,3 +333,4 @@ class Reporte_Indigo_Styles {
 
 $styles_plugin = new Reporte_Indigo_Styles();
 add_action('wp_head', [$styles_plugin, 'on_loaded'], 101);
+?>

@@ -141,7 +141,7 @@ class Reporte_Indigo_Taxonomies {
 				'rewrite'           => array( 'slug' => 'tema' ),
 			);
 
-			register_taxonomy('ri-tema', $post_types, $args);
+			register_taxonomy('ri-tema', apply_filters( 'ri_add_taxonomy_tema_in_post_type', $post_types ), $args);
 		}
 	}
 
@@ -155,6 +155,7 @@ class Reporte_Indigo_Taxonomies {
 		);
 
 		if(!taxonomy_exists('ri-jerarquia')){
+			
 			$labels = array(
 				'name'              => 'Jerarquía',
 				'singular_name'     => 'Jerarquía',
@@ -165,6 +166,7 @@ class Reporte_Indigo_Taxonomies {
 				'add_new_item'      => 'Nueva jerarquía',
 				'menu_name'         => 'Jerarquía'
 			);
+
 			$args = array(
 				'labels'            => $labels,
 				'hierarchical'      => true,

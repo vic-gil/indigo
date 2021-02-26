@@ -32,14 +32,15 @@ class Reporte_Indigo_Lectura {
 			'ri-fan',
 			'ri-desglose',
 			'ri-documento-indigo',
-			'ri-salida-emergencia'
+			'ri-salida-emergencia',
+			'ri-voto'
 		];
 
 		add_meta_box(
 			'ri-tiempo-lectura-id',
 			'Tiempo de lectura',
 			['Reporte_Indigo_Lectura', 'ri_html'],
-			$post_types,
+			apply_filters( 'ri_add_read_time_in_post_type', $post_types ),
 			'side',
 			'default'
 		);
