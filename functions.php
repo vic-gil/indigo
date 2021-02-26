@@ -50,9 +50,6 @@ require get_template_directory() . '/inc/reporte-indigo-customizer.php';
 // Feed
 require get_template_directory() . '/inc/reporte-indigo-feed.php';
 
-// Custom
-require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.php';
-
 /*
  * El cache del navegador sólo está disponible para
  * usuarios que no tengan sesión
@@ -150,7 +147,7 @@ if ( class_exists( 'Reporte_Indigo_Post_Types' ) ) :
 	 * @link reporte/classes/class-reporte-indigo-post-types.php
 	**/
 
-	function reporte_indigo_create_taxonomies () {
+	function reporte_indigo_create_post_type () {
 		$reporte = new Reporte_Indigo_Post_Types('Reporte', 'reporte', 'ri-reporte');
 		$reporte->create_post_type();
 
@@ -188,7 +185,7 @@ if ( class_exists( 'Reporte_Indigo_Post_Types' ) ) :
 		$emergencia->create_post_type();
 	}
 
-	add_action( 'init', 'reporte_indigo_create_taxonomies' );
+	add_action( 'init', 'reporte_indigo_create_post_type' );
 
 endif;
 
