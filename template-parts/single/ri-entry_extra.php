@@ -84,5 +84,8 @@
 				?>
 			</div>
 		</div>
+		<?php
+		do_action('ri_clickio_single_page');
+		?>
 	</div>
 </section>
