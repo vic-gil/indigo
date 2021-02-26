@@ -50,6 +50,9 @@ require get_template_directory() . '/inc/reporte-indigo-customizer.php';
 // Feed
 require get_template_directory() . '/inc/reporte-indigo-feed.php';
 
+// Custom
+require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.php';
+
 /*
  * El cache del navegador sólo está disponible para
  * usuarios que no tengan sesión
@@ -768,3 +771,28 @@ function wp_term_chk_radio( $args ) {
 
 add_filter( 'wp_terms_checklist_args', 'wp_term_chk_radio' );
 
+// Extiende un campo en REST API
+add_action('rest_api_init', function() {
+	register_rest_field(
+		'post',
+	    'image_media',
+	    [
+	        'get_callback'    => function($object){
+	        	$new_image = null;
+	        	$image = get_the_post_thumbnail_url($object['id'], 'medium_large');
+
+	        	if( false !== $image ){
+	        		$caption = get_the_post_thumbnail_caption($object['id']);
+	        		$new_image = [
+	        			'link' 	  => $image,
+	        			'caption' => ( ! empty($caption) ) ? $caption : $object['title']['rendered']
+	        		];
+	        	}
+
+	        	return $new_image;
+	        },
+	        'update_callback' => null,
+	        'schema'          => null
+	    ]
+	);
+});
