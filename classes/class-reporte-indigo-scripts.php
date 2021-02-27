@@ -838,7 +838,7 @@ class Reporte_Indigo_Scripts {
 		</script>';
 
 		if ( ! empty($replace) && ! empty($optional) ) {
-			$script = '<script type="text/javascript">"use strict";document.addEventListener("error",function(e){"IMG"==e.target.nodeName&&(e.target.src=e.target.src.replace("' . $replace . '",""),e.target.srcset="' . $optional . '")},!0);</script>';
+			$script = '<script type="text/javascript">"use strict";document.addEventListener("error",function(e){"IMG"==e.target.nodeName&&(e.target.src=e.target.src.replace("' . $replace . '","' . $optional . '"),e.target.srcset="")},!0);</script>';
 		}
 
 		if( $echo )
