@@ -341,7 +341,6 @@ function removes_posts_admin_panel_menu(){
 
 add_action( 'admin_menu', 'removes_posts_admin_panel_menu' );
 
-
 /**
  * Se agrega la configuración inicial del tema
  *
@@ -513,20 +512,22 @@ function add_clickio_header_binding() {
 add_action( 'wp_head', 'add_clickio_header_binding', 1 );
 
 function add_clickio_script() {
-	if( wp_is_mobile() ):
-		echo <<<EOL
-		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
-		<script class='__lxGc__' type='text/javascript'>
-			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629927']={'i':__lxGc__.b++};
-		</script>
-		EOL;
-	else:
-		echo <<<EOL
-		<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
-		<script class='__lxGc__' type='text/javascript'>
-		((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629920']={'i':__lxGc__.b++};
-		</script> 
-		EOL;
+	if( is_single() || is_singular () ):
+		if( wp_is_mobile() ):
+			echo <<<EOL
+			<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
+			<script class='__lxGc__' type='text/javascript'>
+				((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629927']={'i':__lxGc__.b++};
+			</script>
+			EOL;
+		else:
+			echo <<<EOL
+			<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
+			<script class='__lxGc__' type='text/javascript'>
+			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629920']={'i':__lxGc__.b++};
+			</script> 
+			EOL;
+		endif;
 	endif;
 }
 
