@@ -65,7 +65,7 @@ $tema = get_the_terms( get_the_ID(), 'ri-tema');
 				<?php
 				endif;
 				?>
-				<?php the_title('<h1>', '</h1>');?>
+				<?php the_title('<h1 itemprop="headline">', '</h1>');?>
 			</div>
 			<div class="entry-excerpt">
 				<?php the_excerpt(); ?>
