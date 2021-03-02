@@ -1,79 +1,66 @@
 <?php
+function ri_amp_set_jwplayer( $data ) {
+	$jwplayer = get_post_meta( get_the_id(), '_mediaid_jwp_meta', TRUE );
 
-function amp_author_date() {
-	$author = get_the_author_meta('ID');
+	if( ! empty($jwplayer) ){
+		$jwplayer = explode(',', $jwplayer);
+		
+		if( count($jwplayer) > 0 ) {
+			$data[ 'jwplayer' ] = $jwplayer;
+		}
 
-	$image = '';
+	} else {
+		$data[ 'jwplayer' ] = false;
+	}
+	
+	return $data;
+}
 
-	if( FALSE !== ( $src = get_wp_user_avatar_src( $author, 'medium_large', '' ) ) ):
-		$name = get_the_author_meta('display_name');
-		$image = '<amp-img src="' . esc_url( $src ) . '" alt="' . esc_attr( $name ) . '" width="48" height="48" layout="fixed"></amp-img>';
+add_filter( 'amp_post_template_data', 'ri_amp_set_jwplayer' );
+
+function ri_amp_set_taxonomy_tema( $data ) {
+	$tema = get_the_terms( get_the_ID(), 'ri-tema');
+
+	if( ! empty($tema) ) : $tema = $tema[0];
+		$data[ 'tema' ]['amp_html'] = '<a href="' . get_term_link($tema) . '" title="' . $tema->name . '">' . $tema->name . '</a>';
+	endif;
+	
+	return $data;
+}
+
+add_filter( 'amp_post_template_data', 'ri_amp_set_taxonomy_tema' );
+
+function ri_amp_related_posts( $data ) {
+	$tema = get_the_terms( get_the_ID(), 'ri-tema');
+
+	$data[ 'recomendados' ] = false;
+
+	if( false !== $tema && ! is_wp_error( $tema ) ) : $tema = $tema[0];
+
+		$related = new WP_Query([
+			'post_type' 		=> get_post_type(),
+			'posts_per_page' 	=> 6,
+			'post_status'      	=> 'publish',
+			'suppress_filters' 	=> false,
+			'post__not_in'		=> [ get_the_ID() ],
+			'no_found_rows' 	=> true,
+			'tax_query' 		=> [
+				[
+					'taxonomy' 	=> $tema->taxonomy,
+					'field'	   	=> 'slug',
+					'terms'	 	=> $tema->slug
+				]
+			]
+		]);
+
 	endif;
 
-	$content = '<div class="amp-wp-meta amp-wp-byline">
-		' . $image . '
-		<div class="amp-wp-author author vcard">
-			' . get_the_author_posts_link() . '
-			<div>
-			 	<span>' . get_the_time('d \d\e M, Y') . '</span>
-			</div>
-		</div>
-	</div>';
-
-	return $content;
+	$data[ 'recomendados' ] = $related;
+	
+	return $data;
 }
 
-function amp_add_share_control() {
-	$networks = [
-		'facebook' => [
-			'aria-label' => 'Compartir en facebook'
-		],
-		'twitter' => [
-			'aria-label' => 'Compartir en twitter'
-		],
-		'whatsapp' => [
-			'aria-label' => 'Compartir en whatsapp'
-		],
-		'system' => [
-			'aria-label' => 'Comparte está nota'
-		]
-	];
-
-	$network = "";
-	foreach ($networks as $type => $configs) {
-		$args = "";
-		foreach ($configs as $arg => $value) {
-			$args .= $arg . '="' . $value . '" ';
-		}
-		$network .= '<amp-social-share type="' . $type . '" ' .$args .'></amp-social-share>';
-	}
-
-	$content = '<div class="ri-amp-share">' . $network . '</div>';
-
-	return $content;
-}
-
-function amp_add_jwplayer($post_id) {
-	$jwplayer = get_post_meta( $post_id, '_mediaid_jwp_meta', TRUE );
-	$videos = explode(',', $jwplayer);
-
-	$content = '';
-
-	if( ! empty($videos) ) {
-		if( count($videos) > 1 ){
-			$content .= '<amp-carousel id="carousel-with-preview" width="450" height="300" layout="responsive" type="slides" role="region" aria-label="Carrúsel de videos">';
-			foreach ($videos as $id) {
-				$content .= '<amp-jwplayer data-player-id="ixhD10k3" data-media-id="' . $id . '" layout="responsive" width="16" height="10"></amp-jwplayer>';
-			}
-			$content .= '</amp-carousel>';
-		} else {
-			$content .= '<amp-jwplayer data-player-id="ixhD10k3" data-media-id="' . $videos[0] . '" layout="responsive" width="16" height="10"></amp-jwplayer>';
-		}
-	}
-
-	return $content;
-}
-
+add_filter( 'amp_post_template_data', 'ri_amp_related_posts' );
 
 function ri_amp_add_clickio_banners( $embed_handler_classes, $post ) {
 	require_once( get_template_directory() . '/classes/amp/amp-clickio-post-embed.php' );
@@ -83,28 +70,15 @@ function ri_amp_add_clickio_banners( $embed_handler_classes, $post ) {
 
 add_filter( 'amp_content_embed_handlers', 'ri_amp_add_clickio_banners', 10, 2 );
 
-add_filter( 'amp_post_template_data', function ( $data ) {
-	$data['post_amp_content'] = amp_add_jwplayer( get_the_ID() ) . $data['post_amp_content'];
-	$data['post_amp_content'] = amp_add_share_control() . $data['post_amp_content'];
-	$data['post_amp_content'] = amp_author_date() . $data['post_amp_content'];
-	return $data;
-} );
-
-add_filter( 'amp_post_article_header_meta', function ( $data ) {
-	return [];
-});
-
-add_action( 'amp_post_template_footer', function ( $amp_template ) {
-	$post_id = $amp_template->get( 'post_id' );
-	?>
-	<amp-pixel src="https://example.com/hi.gif?x=RANDOM"></amp-pixel>
-	<?php
-} );
-
 add_action( 'amp_post_template_css', function() {
 ?>
 * {
 	font-family: "Roboto", sans-serif !important;
+}
+.amp-wp-header {
+	position: sticky;
+	top: 0;
+	z-index: 10;
 }
 amp-jwplayer {
 	margin-bottom: 1rem;
@@ -115,7 +89,9 @@ amp-jwplayer {
 header.amp-wp-header {
 	background: #3474be;
 }
-header.amp-wp-header a {
+header.amp-wp-header a,
+footer .amp-ri-logo a,
+amp-sidebar .amp-ri-logo a {
 	background-image: url( '<?=get_template_directory_uri() . '/assets/images/generales/logo-light.png';?>' );
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -124,8 +100,12 @@ header.amp-wp-header a {
 	width: 135px;
 	text-indent: -9999px;
 }
+.amp-wp-extra {
+	margin: 0 16px;
+	margin-bottom: 1rem;
+}
 .amp-wp-article-featured-image.wp-caption,
-.ri-amp-sponsor {
+.amp-ad-container {
 	text-align:center;
 }
 .amp-wp-article-content h3 {
@@ -136,7 +116,7 @@ header.amp-wp-header a {
 	font-size: 18pt;
 	line-height: 22pt	
 }
-.ri-amp-share {
+.amp-ri-share {
 	text-align: right;
 }
 .amp-wp-article-content p {
@@ -156,6 +136,112 @@ header.amp-wp-header a {
 	font-size: 12pt;
 	font-weight: 700;
 }
+.amp-wp-title {
+	font-size: 24pt;
+	line-height: 27pt;
+}
+.amp-wp-tema {
+	margin: 0;
+	margin-bottom: 1rem;
+}
+.amp-wp-tema a{
+	font-size: 18pt;
+	line-height: 22pt;
+	text-decoration: none;
+}
+amp-social-share {
+	border-radius: 3px;
+}
+.amp-wp-header > div {
+	display: flex;
+    justify-content: space-between;
+}
+button.hamburger {
+	width: 30px;
+	height: 30px;
+	border: none;
+	background-color: transparent;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' id='Menu' fill='%23FFF' x='0px' y='0px' viewBox='0 0 384 384' style='enable-background:new 0 0 384 384;' xml:space='preserve'%3E%3Cg%3E%3Cg%3E%3Cg%3E%3Crect x='0' y='277.333' width='384' height='42.667'/%3E%3Crect x='0' y='170.667' width='384' height='42.667'/%3E%3Crect x='0' y='64' width='384' height='42.667'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3C/svg%3E");
+}
+amp-sidebar {
+	background: #3e4c59;
+	padding: 1rem 2rem;
+}
+amp-sidebar ul {
+	padding: 0;
+	margin-bottom: 0;
+    list-style: none;
+}
+amp-sidebar ul li a {
+	display: inline-block;
+	font-size: 14pt;
+	font-weight: 500;
+	line-height: 14pt;
+	padding: .75rem 0rem;
+	color: #fff !important;
+	text-decoration: none;
+}
+.amp-carousel-button {
+	border-radius: 50%;
+}
+.amp-wp-footer {
+	background: #000;
+}
+.amp-wp-footer p {
+	font-size: 10pt;
+	color: #FFF;
+}
+.amp-wp-footer .addr {
+	margin-bottom: 1rem;
+}
+.amp-ri-featured {
+	padding: 16px;
+}
+.amp-ri-featured ul {
+	display: grid;
+    grid-template-columns: auto;
+    grid-gap: 15px 0;
+    justify-content: center;
+    padding: 0;
+	margin-bottom: 0;
+    list-style: none;
+}
+.amp-ri-featured ul li img{
+	border-radius: .3rem;
+	overflow: hidden;
+}
+.amp-ri-featured .amp-ri-tema{
+	font-weight: 500 !important;
+    font-style: normal !important;
+    font-size: 12pt !important;
+    color: #3474be;
+}
+.amp-ri-featured h3 {
+	margin: 0;
+	color: #000;
+}
+.amp-ri-featured a {
+	text-decoration: none;
+}
+.amp-ri-featured address {
+    margin: 0;
+}
+.amp-ri-featured address a {
+    font-weight: 500;
+	font-style: normal;
+    font-size: 10pt;
+    color: #67737d;
+}
+@media screen and (min-width: 576px) {
+	.amp-ri-featured ul {
+		grid-template-columns: auto auto;
+	    grid-gap: 30px 20px !important;
+	    padding: 0;
+		margin-bottom: 0;
+	    list-style: none;
+	}
+}
+
 <?php
 });
 ?>

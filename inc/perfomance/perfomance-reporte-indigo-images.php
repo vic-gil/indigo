@@ -39,7 +39,9 @@ function custom_media_responsive_size($attr, $attachment, $size) {
 			 * Pixel 1x1 transparente
 			 *
 			 */
-			$attr['src'] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+			if( ! amp_is_request() ) :
+				$attr['src'] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+			endif;
 
 		endif;
 
@@ -52,6 +54,7 @@ function custom_media_responsive_size($attr, $attachment, $size) {
 			 *
 			 */
 			$srcset = $attr['srcset'];
+
 			if ( FALSE !== $origin && FALSE !== $replace ) {
 				$srcset = str_replace(get_site_url(), 'https://' . $replace, $url);
 				$srcset = str_replace($origin, $replace, $url);
@@ -66,7 +69,7 @@ function custom_media_responsive_size($attr, $attachment, $size) {
 		   	$attr['srcset'] = '';
 
 		endif;
-
+		
 		/**
 		 * ¡LA MAGIA OCURRE AQUÍ!
 		 * Esto requiere de mucho análisis y de requisitos de tu tema
