@@ -298,11 +298,14 @@ class Reporte_Indigo_Styles {
 			echo '<style type="text/css">' . self::style_deslizador() . self::style_general() . self::style_reproductor() . self::style_ri_youtube() . '</style>';
 
 		if( is_single() ) :
+			$terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
+
 			if ( has_term($terms, 'ri-voto') ) :
 				echo '<style type="text/css">' . self::style_voto_single() . '</style>';
 			else :
 				echo '<style type="text/css">' . self::style_single() . '</style>';
 			endif;
+			
 		endif;
 
 		if ( is_post_type_archive('ri-reporte') )
