@@ -8,6 +8,7 @@
  * @subpackage Reporte Indigo
  * @since Reporte Indigo 3.0.0
  */
+$exclude = [];
 $terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 get_header(); ?>
 <main>
@@ -52,9 +53,11 @@ get_header(); ?>
 						else
 							get_template_part( 'template-parts/components/ri', 'general', ['class' => 'vsmall'] );
 
+						$exclude[] = get_the_ID();
 						$index++;
 					endwhile;
 				endif;
+				$exclude_video = $exclude;
 				wp_reset_postdata();
 				?>
 				</div>
@@ -62,38 +65,61 @@ get_header(); ?>
 			<div class="col-lg-4">
 				<div class="components">
 					<div class="anuncios vcontent mt">
-						<?php
-							get_template_part('template-parts/sponsors/ri', 'anuncio', [
-								'format' 	=> '88164',
-								'site' 		=> '70494',
-								'page' 		=> '535121',
-								'delay' 	=> 2500,
-							]);
-						?>
+						<div class="wrap">
+							<?php
+								get_template_part('template-parts/sponsors/ri', 'anuncio', [
+									'format' 	=> '88164',
+									'site' 		=> '70494',
+									'page' 		=> '535121',
+									'delay' 	=> 2500,
+								]);
+							?>
+						</div>
 					</div>
-				<?php
-				$posts = new WP_Query([
-					'post_type' 				=> 'any',
-					'posts_per_page' 			=> 2,
-					'post_status'      			=> 'publish',
-					'suppress_filters' 			=> false,
-					'no_found_rows' 			=> true,
-					'update_post_term_cache' 	=> false,
-					'tax_query' => [
-						[
-							'taxonomy' => 'ri-voto',
-		            		'field'    => 'id',
-		            		'terms'    => $terms,
+					<?php
+					$posts = new WP_Query([
+						'post_type' 				=> ['ri-opinion'],
+						'posts_per_page' 			=> 2,
+						'post_status'      			=> 'publish',
+						'suppress_filters' 			=> false,
+						'no_found_rows' 			=> true,
+						'update_post_term_cache' 	=> false,
+						'post__not_in'				=> $exclude,
+						'tax_query' => [
+							[
+								'taxonomy' => 'ri-voto',
+			            		'field'    => 'id',
+			            		'terms'    => $terms,
+							]
 						]
-					]
-				]);
-				if( $posts->have_posts() ) : $index = 0;
-					while ( $posts->have_posts() ) : $posts->the_post();
-						get_template_part( 'template-parts/components/ri', 'opinion', [ 'class' => 'vmedium' ]);
-					endwhile;
-				endif;
-				wp_reset_postdata();
-				?>
+					]);
+					if( $posts->have_posts() ) : $index = 0;
+						while ( $posts->have_posts() ) : $posts->the_post();
+							get_template_part( 'template-parts/components/ri', 'opinion', [ 'class' => 'vmedium' ]);
+
+							$exclude_video[] = get_the_ID();
+						endwhile;
+					endif;
+					wp_reset_postdata();
+
+					$posts = new WP_Query([
+						'post_type' 				=> ['ri-reporte'],
+						'posts_per_page' 			=> 4,
+						'post_status'      			=> 'publish',
+						'suppress_filters' 			=> false,
+						'no_found_rows' 			=> true,
+						'update_post_term_cache' 	=> false,
+						'post__not_in'				=> $exclude,
+						'tax_query' => [
+							[
+								'taxonomy' => 'ri-voto',
+					    		'field'    => 'id',
+					    		'terms'    => $terms,
+							]
+						]
+					]);
+					if( $posts->have_posts() ) : $index = 0;
+					?>
 					<div class="container-estados">
 						<div class="header">
 							ESTADOS #ElValorDelVoto
@@ -104,31 +130,46 @@ get_header(); ?>
 							</h2>
 						</div>
 						<?php
-						$posts = new WP_Query([
-							'post_type' 				=> 'any',
-							'posts_per_page' 			=> 4,
-							'post_status'      			=> 'publish',
-							'suppress_filters' 			=> false,
-							'no_found_rows' 			=> true,
-							'update_post_term_cache' 	=> false,
-							'tax_query' => [
-								[
-									'taxonomy' => 'ri-voto',
-				            		'field'    => 'id',
-				            		'terms'    => $terms,
-								]
-							]
-						]);
-						if( $posts->have_posts() ) : $index = 0;
-							while ( $posts->have_posts() ) : $posts->the_post();
-								get_template_part( 'template-parts/components/ri', 'estado' );
-							endwhile;
-						endif;
-						wp_reset_postdata();
+						while ( $posts->have_posts() ) : $posts->the_post();
+							get_template_part( 'template-parts/components/ri', 'estado' );
+
+							$exclude_video[] = get_the_ID();
+						endwhile;
 						?>
 					</div>
+					<?php
+					endif;
+					wp_reset_postdata();
+					?>
 				</div>
 			</div>
+			<?php
+			$posts = new WP_Query([
+				'post_type' 				=> 'any',
+				'posts_per_page' 			=> 4,
+				'post_status'      			=> 'publish',
+				'suppress_filters' 			=> false,
+				'no_found_rows' 			=> true,
+				'update_post_term_cache' 	=> false,
+				'post__not_in'				=> $exclude_video,
+				'meta_query' 			=> [
+					'relation' => 'AND',
+					[
+						'key' 		=> '_mediaid_jwp_meta',
+		             	'value' 	=> '',
+		             	'compare' 	=> '!='
+					]
+				],
+				'tax_query' => [
+					[
+						'taxonomy' => 'ri-voto',
+			    		'field'    => 'id',
+			    		'terms'    => $terms,
+					]
+				]
+			]);
+			if( $posts->have_posts() ) : $index = 0;
+			?>
 			<div class="container-videos">
 				<div class="header">
 					<?=get_the_title();?>
@@ -147,33 +188,17 @@ get_header(); ?>
 						</div>
 					</div>
 					<div class="components">
-					<?php
-					$posts = new WP_Query([
-						'post_type' 				=> 'any',
-						'posts_per_page' 			=> 2,
-						'post_status'      			=> 'publish',
-						'suppress_filters' 			=> false,
-						'no_found_rows' 			=> true,
-						'update_post_term_cache' 	=> false,
-						'tax_query' => [
-							[
-								'taxonomy' => 'ri-voto',
-			            		'field'    => 'id',
-			            		'terms'    => $terms,
-							]
-						]
-					]);
-					if( $posts->have_posts() ) : $index = 0;
+						<?php
 						while ( $posts->have_posts() ) : $posts->the_post();
 							get_template_part( 'template-parts/components/ri', 'play', [ 'class' => 'mini' ] );
 						endwhile;
-					endif;
-					wp_reset_postdata();
-					?>
+						?>
 					</div>
 				</div>
 			</div>
 			<?php
+			endif;
+			wp_reset_postdata();
 			$GLOBALS['wp_query'] = $main;
 			?>
 			<div class="component-pagination">

@@ -1,3 +1,13 @@
+<?php
+/**
+ * Plantilla para el single en general
+ *
+ *
+ * @package Capital Media
+ * @subpackage Reporte Indigo
+ * @since Reporte Indigo 3.0.0
+ */
+?>
 <article class="container wm">
 	<div class="components">
 		<?php 
