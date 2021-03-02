@@ -26,7 +26,7 @@ class RI_AMP_Clickio_Banner_Embed extends AMP_Base_Embed_Handler {
 			'<amp-ad width="300" height="250" type="doubleclick" data-slot="/45470634/clickio_area_642194_300x250" data-multi-size-validation="false"></amp-ad>'
 		];
 
-		$content = '<div class="ri-amp-sponsor">' . $banner[0]. '</div>' . $content . '<div class="ri-amp-sponsor">' . $banner[1]. '</div>';
+		$content = '<div class="amp-ad-container">' . $banner[0]. '</div>' . $content . '<div class="amp-ad-container">' . $banner[1]. '</div>';
 
 		return $content;
 	}
