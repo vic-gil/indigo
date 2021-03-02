@@ -53,6 +53,9 @@ require get_template_directory() . '/inc/reporte-indigo-feed.php';
 // Custom
 require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.php';
 
+// AMP
+require get_template_directory() . '/inc/reporte-indigo-amp.php';
+
 /*
  * El cache del navegador sólo está disponible para
  * usuarios que no tengan sesión
@@ -283,11 +286,14 @@ function add_non_critical_section_styles() {
 		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/assets/css/home.css", [], "20210125" );
 
 	if( is_single() ) :
+		$terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
+
 		if ( has_term($terms, 'ri-voto') ) :
 			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single-voto.css", [], "20210125" );
 		else :
 			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single.css", [], "20210125" );
 		endif;
+		
 	endif;
 
 	if( is_404() )
