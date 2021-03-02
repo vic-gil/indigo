@@ -18,3 +18,4 @@
 	]);
   	?>
 </amp-sidebar>
+<div id="target-element"></div>
