@@ -548,7 +548,7 @@ function add_clickio_script() {
 add_action( 'ri_body_init', 'add_clickio_script' );
 
 function add_clickio_sticky() {
-	if( is_home() || is_single() || is_singular () ):
+	if( is_single() || is_singular () ):
 		if( wp_is_mobile() ):
 			echo <<<EOL
 			<script async type='text/javascript' src='s.clickiocdn.com/t/common_258.js'></script>
@@ -559,7 +559,7 @@ function add_clickio_sticky() {
 		endif;
 	endif;
 }
-add_action( 'wp_head', 'add_clickio_sticky', 150 );
+add_action( 'ri_body_init', 'add_clickio_sticky', 1 );
 
 function add_custom_scripts() {
 	echo get_theme_mod("ri_custom_scripts");
