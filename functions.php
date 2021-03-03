@@ -545,7 +545,7 @@ function add_clickio_script() {
 	endif;
 }
 
-add_action( 'ri_body_init', 'add_clickio_script' );
+add_action( 'ri_body_init', 'add_clickio_script', 1 );
 
 function add_clickio_sticky() {
 	if( is_single() || is_singular () ):
@@ -826,4 +826,3 @@ add_action('rest_api_init', function() {
 	    ]
 	);
 });
-
