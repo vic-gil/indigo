@@ -23,10 +23,12 @@ class RI_AMP_Clickio_Banner_Embed extends AMP_Base_Embed_Handler {
 	public function add_clickio_banners( $content ) {
 		$banner = [
 			'<amp-ad width="300" height="250" type="doubleclick" data-slot="/45470634/clickio_area_642195_300x250" data-multi-size-validation="false"></amp-ad>',
-			'<amp-ad width="300" height="250" type="doubleclick" data-slot="/45470634/clickio_area_642194_300x250" data-multi-size-validation="false"></amp-ad>'
+			'<amp-ad width="300" height="250" type="doubleclick" data-slot="/45470634/clickio_area_642194_300x250" data-multi-size-validation="false"></amp-ad>',
+			'<amp-ad width="1" height="1" type="smartadserver" data-site="70494" data-page="535121" data-format="47944" data-target="" data-domain="https://www5.smartadserver.com/config.js?nwid=1056"></amp-ad>',
+			'<amp-sticky-ad layout="nodisplay"><amp-ad width="320" height="100"	type="doubleclick" data-enable-refresh="30" json=\'{"targeting":{"autorefresh":"30_sec"}}\' data-slot="/45470634/clickio_area_652880_320x100" data-multi-size-validation="false"></amp-ad></amp-sticky-ad>'
 		];
 
-		$content = '<div class="amp-ad-container">' . $banner[0]. '</div>' . $content . '<div class="amp-ad-container">' . $banner[1]. '</div>';
+		$content = '<div class="amp-ad-container">' . $banner[0]. '</div>' . $content . '<div class="amp-ad-container">' . $banner[1]. '</div>' . $banner[2] . $banner[3];
 
 		return $content;
 	}
