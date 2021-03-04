@@ -30,6 +30,8 @@
 				<?php echo esc_html( wptexturize( $this->get( 'blog_name' ) ) ); ?>
 			</span>
 		</a>
-		<button class="hamburger" on='tap:sidebar1.toggle'></button>
+		<span class="btn-container">
+			<button class="hamburger" on='tap:sidebar1.toggle'></button>
+		</span>
 	</div>
 </header>
