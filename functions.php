@@ -264,8 +264,11 @@ function reporte_indigo_scripts () {
 		wp_deregister_script('jquery');
 
 		// Cargar scripts
-		wp_enqueue_script( 'smart-ads', "https://ced.sascdn.com/tag/1056/smart.js", [], '', false );
+		wp_enqueue_script( 'smart-ads', 'https://ced.sascdn.com/tag/1056/smart.js', [], '', false );
 		wp_script_add_data( 'smart-ads', 'async', true );
+
+		wp_enqueue_script( 'indigo', get_template_directory_uri() . '/assets/js/indigo.min.js', [], '', true );
+		wp_script_add_data( 'indigo', 'async', true );
 
 		wp_enqueue_script('bootstrap-min-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js', '', '5.0.0', true);
 		wp_script_add_data( 'bootstrap-min-js', 'defer', true );
