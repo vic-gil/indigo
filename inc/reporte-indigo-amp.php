@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Añade indices de JWPlayer
+ *
+ * @param array  $data Datos de la plantilla
+ *
+ * @return array Datos de la plantilla modificados
+ *
+**/
+
 function ri_amp_set_jwplayer( $data ) {
 	$jwplayer = get_post_meta( get_the_id(), '_mediaid_jwp_meta', TRUE );
 
@@ -18,6 +28,15 @@ function ri_amp_set_jwplayer( $data ) {
 
 add_filter( 'amp_post_template_data', 'ri_amp_set_jwplayer' );
 
+/**
+ * Añade un enlace HTML a la taxonomía de tema si existe
+ *
+ * @param array  $data Datos de la plantilla
+ *
+ * @return array Datos de la plantilla modificados
+ *
+**/
+
 function ri_amp_set_taxonomy_tema( $data ) {
 	$tema = get_the_terms( get_the_ID(), 'ri-tema');
 
@@ -29,6 +48,15 @@ function ri_amp_set_taxonomy_tema( $data ) {
 }
 
 add_filter( 'amp_post_template_data', 'ri_amp_set_taxonomy_tema' );
+
+/**
+ * Añade un arrreglo con las entradas relacionadas por tema
+ *
+ * @param array  $data Datos de la plantilla
+ *
+ * @return array Datos de la plantilla modificados
+ *
+**/
 
 function ri_amp_related_posts( $data ) {
 	$tema = get_the_terms( get_the_ID(), 'ri-tema');
@@ -62,15 +90,32 @@ function ri_amp_related_posts( $data ) {
 
 add_filter( 'amp_post_template_data', 'ri_amp_related_posts' );
 
-function ri_amp_add_clickio_banners( $embed_handler_classes, $post ) {
+/**
+ * Añade un arrreglo con las entradas relacionadas por tema
+ *
+ * @param array  $embed_handler_classes Manejadores
+ *
+ * @return array Manejadores modificados
+ *
+**/
+
+function ri_amp_add_clickio_banners( $embed_handler_classes ) {
 	require_once( get_template_directory() . '/classes/amp/amp-clickio-post-embed.php' );
-	$embed_handler_classes[ 'RI_AMP_Clickio_Banner_Embed' ] = array();
+	$embed_handler_classes[ 'RI_AMP_Clickio_Banner_Embed' ] = [];
 	return $embed_handler_classes;
 }
 
 add_filter( 'amp_content_embed_handlers', 'ri_amp_add_clickio_banners', 10, 2 );
 
-add_action( 'amp_post_template_css', function() {
+
+/**
+ * Añade estilos a la entrada
+ *
+ * @return void
+ *
+**/
+
+function ri_amp_custom_css() {
 ?>
 * {
 	font-family: "Roboto", sans-serif !important;
@@ -249,5 +294,7 @@ amp-sidebar ul li a {
 	}
 }
 <?php
-});
+}
+
+add_action( 'amp_post_template_css', 'ri_amp_custom_css');
 ?>

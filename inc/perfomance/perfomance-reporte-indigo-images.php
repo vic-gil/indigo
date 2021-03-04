@@ -136,6 +136,13 @@ add_filter('wp_get_attachment_image_attributes', 'custom_media_responsive_size',
 /**
  * Añadir attributos a la imagen del author
  *
+ * @uses object $avatar 		El componente de imagen
+ * @param int|string $id_or_email	El id o email del autor
+ * @param int|string $size 			Tamaño de la imagen
+ * @param string $align				El alineado de la imagen
+ * @param string $alt 				El texto alternativo
+ *
+ * @return object get_wp_user_avatar()
 **/
 
 function custom_user_avatar($avatar, $id_or_email = NULL, $size = NULL, $align = NULL, $alt = NULL) {
@@ -161,6 +168,12 @@ add_filter( 'get_wp_user_avatar', 'custom_user_avatar', 1, 5);
 /**
  * Añadir attributos a la url imagen
  *
+ * @param array|false 	$image 			Array con la imagen seleccionada o false si no existe
+ * @param int 			$attachment_id  ID de la Imagen Adjunta
+ * @param string|int[]  $size 			Tamaño de la imagen o arreglo con el ancho y alto
+ * @param bool 			$icon 			La imagen será tratado como icono
+ *
+ * @return object wp_get_attachment_image_src()
 **/
 
 function images_cdn_filter( $image, $attachment_id, $size, $icon ) {
@@ -174,62 +187,5 @@ function images_cdn_filter( $image, $attachment_id, $size, $icon ) {
     return $image;
 }
 add_filter('wp_get_attachment_image_src', 'images_cdn_filter', 10, 4);
-
-
-/**
- * Cambia el dominio de la imagen de yoast
- *
-**/
-
-function change_opengraph_image_url( $url ) {
-	$replace = get_theme_mod( 'ri_images_replace', FALSE );
-	$optional = get_theme_mod( 'ri_images_bucket', FALSE );
-
-	if ( ! empty($replace) && ! empty($optional) ) {
-		return str_replace( $replace, $optional, $url );
-	}
-
-    return $url;
-}
-
-add_filter( 'wpseo_opengraph_image', 'change_opengraph_image_url' );
-
-function wpseo_cdn_filter( $uri ) {
-  	$origin = get_theme_mod( 'ri_images_original', FALSE );
-	$replace = get_theme_mod( 'ri_images_replace', FALSE );
-	
-	if ( FALSE !== $origin && FALSE !== $replace ) {
-		return str_replace( $origin, $replace, $uri );
-	}
-
-	return $uri;
-}
-
-add_filter( 'wpseo_xml_sitemap_img_src', 'wpseo_cdn_filter' );
-
-function wpseo_schema_image_object( $data ) {
-	$replace = get_theme_mod( 'ri_images_replace', FALSE );
-	$optional = get_theme_mod( 'ri_images_bucket', FALSE );
-
-	if ( ! empty($replace) && ! empty($optional) ) {
-		$data['url'] = str_replace( $replace, $optional, $data['url'] );
-	}
-
-	return $data;
-}
-
-add_filter( 'wpseo_schema_imageobject', 'wpseo_schema_image_object' );
-
-function filter_canonical( $canonical ) {
-	return str_replace('pre.reporteindigo.com', 'www.reporteindigo.com', $canonical);
-}
-
-add_filter( 'wpseo_canonical', 'filter_canonical' );
-
-function opengraph_url( $url ) {
-	return str_replace('pre.reporteindigo.com', 'www.reporteindigo.com', $url);
-}
-
-add_filter( 'wpseo_opengraph_url', 'opengraph_url' );
 
 ?>

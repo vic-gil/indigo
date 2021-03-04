@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Valida que post han sido seleccionados por el plugin
+ *
+ * @param string  $section Sección donde se ejecuta la acción
+ * @param bool    $unique  El arreglo tendrá elementos únicos
+ * @param bool    $sort    El arreglo tendrá un order ascendente
+ *
+ * @return array El arreglo con todas las entradas seleccionadas por el plugin
+ *
+**/
+
 function reporte_indigo_exclude_posts( $section, $unique = true, $sort = true ) {
 
 	$exclude = [];
