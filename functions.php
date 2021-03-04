@@ -43,6 +43,7 @@ require get_template_directory() . '/inc/metaboxes/metabox-reporte-indigo-busque
 require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-images.php';
 require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-single.php';
 require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-posts.php';
+require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-yoast.php';
 
 // Customizer
 require get_template_directory() . '/inc/reporte-indigo-customizer.php';
