@@ -52,7 +52,7 @@ require get_template_directory() . '/inc/reporte-indigo-customizer.php';
 require get_template_directory() . '/inc/reporte-indigo-feed.php';
 
 // Custom
-// require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.php';
+require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.php';
 
 // AMP
 require get_template_directory() . '/inc/reporte-indigo-amp.php';
