@@ -78,16 +78,34 @@ add_action( 'amp_post_template_css', function() {
 .amp-wp-header {
 	position: sticky;
 	top: 0;
+	background: #3474be;
 	z-index: 10;
+}
+.amp-wp-header > div {
+	display: flex;
+    justify-content: space-between;
+    padding: 0rem;
+}
+.amp-wp-header a {
+	margin: .875em;
+}
+.amp-wp-header .btn-container{
+	display: inline-flex;
+	padding: .875em;
+	background: #3e4c59;
+}
+button.hamburger {
+	width: 32px;
+	height: 32px;
+	border: none;
+	background-color: transparent;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' id='Menu' fill='%23FFF' x='0px' y='0px' viewBox='0 0 384 384' style='enable-background:new 0 0 384 384;' xml:space='preserve'%3E%3Cg%3E%3Cg%3E%3Cg%3E%3Crect x='0' y='277.333' width='384' height='42.667'/%3E%3Crect x='0' y='170.667' width='384' height='42.667'/%3E%3Crect x='0' y='64' width='384' height='42.667'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3C/svg%3E");
 }
 amp-jwplayer {
 	margin-bottom: 1rem;
 }
 .amp-wp-article-featured-image.wp-caption .wp-caption-text {
 	margin: 0;
-}
-header.amp-wp-header {
-	background: #3474be;
 }
 header.amp-wp-header a,
 footer .amp-ri-logo a,
@@ -151,17 +169,6 @@ amp-sidebar .amp-ri-logo a {
 }
 amp-social-share {
 	border-radius: 3px;
-}
-.amp-wp-header > div {
-	display: flex;
-    justify-content: space-between;
-}
-button.hamburger {
-	width: 30px;
-	height: 30px;
-	border: none;
-	background-color: transparent;
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' id='Menu' fill='%23FFF' x='0px' y='0px' viewBox='0 0 384 384' style='enable-background:new 0 0 384 384;' xml:space='preserve'%3E%3Cg%3E%3Cg%3E%3Cg%3E%3Crect x='0' y='277.333' width='384' height='42.667'/%3E%3Crect x='0' y='170.667' width='384' height='42.667'/%3E%3Crect x='0' y='64' width='384' height='42.667'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3C/svg%3E");
 }
 amp-sidebar {
 	background: #3e4c59;
@@ -241,7 +248,6 @@ amp-sidebar ul li a {
 	    list-style: none;
 	}
 }
-
 <?php
 });
 ?>
