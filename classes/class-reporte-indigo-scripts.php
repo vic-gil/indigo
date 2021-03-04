@@ -16,22 +16,6 @@
 class Reporte_Indigo_Scripts {
 
 	/**
-	 * Animación para la barra
-	 *
-	 * @param bool  $echo Define el formato de cadena o impresión
-	 *
-	 * @return String|void String si $echo es falso o vacío si echo es verdadero;
-	**/
-	static function scroll($echo = TRUE) {
-		$script = '<script type="text/javascript">"use strict";const showMenu=async(e,t,c)=>{document.getElementById(e).addEventListener("click",function(o){for(let t of document.querySelectorAll(".exec"))e!==t.id&&t.classList.remove(c);for(let e of document.querySelectorAll(".listen"))t!==e.id&&e.classList.remove(c);this.classList.toggle(c),document.getElementById(t).classList.toggle(c)})};(async()=>{showMenu("exec-search","listen-search","activo"),showMenu("exec-menu","listen-menu","activo"),document.addEventListener("scroll",function(){(document.documentElement.scrollTop||document.body.scrollTop)<document.querySelector(".navmain").offsetHeight?document.querySelector(".navbar").classList.remove("active"):document.querySelector(".navbar").classList.add("active")},{passive:!0})})();document.querySelector(".ri-privacy-config a").addEventListener("click",function(){return void 0!==window.__lxG__consent__?window.__lxG__consent__.showConsent():alert("This function only for users from European Economic Area (EEA)"),!1});</script>';
-
-		if( $echo )
-			echo $script;
-		else
-			return $script;
-	}
-
-	/**
 	 * Script para cargar javascript
 	 *
 	 * @param bool  $echo Define el formato de cadena o impresión
@@ -66,145 +50,6 @@ class Reporte_Indigo_Scripts {
 		</script>';
 
 		$script = '<script type="text/javascript">"use strict";const isScriptLoad=t=>!!document.querySelector(`script[src="${t}"]`),loadScript=(t,e)=>{let c,r,a;(c=document.createElement("script")).type="text/javascript",c.src=t,isScriptLoad(t)?e():(c.onload=c.onreadystatechange=function(){r||this.readyState&&"complete"!=this.readyState||(r=!0,e())},(a=document.getElementsByTagName("script")[0]).parentNode.insertBefore(c,a))};</script>';
-
-		if( $echo )
-			echo $script;
-		else
-			return $script;
-	}
-
-	/**
-	 * Script para compartir entradas de twitter
-	 *
-	 * @param bool  $echo Define el formato de cadena o impresión
-	 *
-	 * @return String|void String si $echo es falso o vacío si echo es verdadero;
-	**/
-	static function twitt($echo = TRUE) {
-		$all = '
-		<script type="text/javascript">
-			"use strict";
-			const copyTwitt = (data) => {
-				let title = ( false !== data ) ? data.dataset.title : "";
-
-				window.open(`http://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&via=Reporte_Indigo&`, "_blank");
-
-			}
-		</script>';
-
-		$script = '<script type="text/javascript">"use strict";const copyTwitt=t=>{let e=!1!==t?t.dataset.title:"";window.open(`http://twitter.com/intent/tweet?text=${encodeURIComponent(e)}&via=Reporte_Indigo`,"_blank")};</script>';
-
-		if( $echo )
-			echo $script;
-		else
-			return $script;
-	}
-
-	/**
-	 * Script para compartir entradas
-	 *
-	 * @param bool  $echo Define el formato de cadena o impresión
-	 *
-	 * @return String|void String si $echo es falso o vacío si echo es verdadero;
-	**/
-	static function share($echo = TRUE) {
-		$all = '<script type="text/javascript">
-			"use strict";
-			
-			var shareTitle;
-			var shareLink;
-
-			const getLink = (property) => {
-				let title = shareTitle;
-				let link = shareLink;
-
-				let network = {
-					facebook: {
-						desktop: `https://www.facebook.com/dialog/share?app_id=349644108939477&display=popup&href=${encodeURIComponent(link)}`,
-						mobile: `https://www.facebook.com/dialog/share?app_id=349644108939477&display=popup&href=${encodeURIComponent(link)}`
-					},
-					twitter: {
-						desktop: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(link)}`,
-						mobile: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(link)}`
-					},
-					whatsapp: {
-						desktop: `https://api.whatsapp.com/send?text=${encodeURIComponent(title)}-${encodeURIComponent(link)}`,
-						mobile: `whatsapp://send?text=${encodeURIComponent(title)}-${encodeURIComponent(link)}`,
-					},
-					line: {
-						desktop: `https://lineit.line.me/share/ui?url=${encodeURIComponent(link)}&text=${encodeURIComponent(title)}`,
-						mobile: `line://msg/text/?${encodeURIComponent(title)}-${encodeURIComponent(link)}`,
-					},
-					telegram: {
-						desktop: `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(title)}`,
-						mobile: `tg://msg?text=${encodeURIComponent(title)}-${encodeURIComponent(link)}`,
-					},
-					tumblr: {
-						desktop: `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}&caption=&tags=`,
-						mobile: `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}&caption=&tags=`,
-					},
-					linkedin: {
-						desktop: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}&summary=&source=CapitalMéxico`,
-						mobile: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}&summary=&source=CapitalMéxico`,
-					},
-					flipboard: {
-						desktop: `https://share.flipboard.com/bookmarklet/popout?v=2&title=${encodeURIComponent(title)}&url=${encodeURIComponent(link)}`,
-						mobile: `https://share.flipboard.com/bookmarklet/popout?v=2&title=${encodeURIComponent(title)}&url=${encodeURIComponent(link)}`,
-					},
-					pinterest: {
-						desktop: `http://pinterest.com/pin/create/button/?url=${encodeURIComponent(link)}`,
-						mobile: `http://pinterest.com/pin/create/button/?url=${encodeURIComponent(link)}`,
-					},
-					reddit: {
-						desktop: `https://reddit.com/submit?url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}`,
-						mobile: `https://reddit.com/submit?url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}`,
-					},
-					vk: {
-						desktop: `http://vk.com/share.php?url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}&comment=`,
-						mobile: `http://vk.com/share.php?url=${encodeURIComponent(link)}&title=${encodeURIComponent(title)}&comment=`,
-					}
-				}
-
-				return network[property];
-			}
-
-			const shareDialog = (data = false) => {
-				shareTitle = ( false !== data ) ? data.dataset.title : document.title;
-				shareLink = ( false !== data ) ? data.dataset.link : window.location.href;
-
-				if ( navigator.share ) {
-					navigator.share({
-	                    title: shareTitle,
-	                    text: shareTitle,
-	                    url: shareLink
-	                })
-	                .then(() => console.log("Compartido exitoso"))
-	                .catch(error => console.log("Error al compartir", error));
-				} else {
-					let modal = document.getElementById("m-share");
-
-					const modalShare = new bootstrap.Modal(modal);
-
-					modal.addEventListener("show.bs.modal", function () {
-						this.querySelector(".title h2").innerHTML = shareTitle;
-					});
-
-					modalShare.show();
-				}
-			}
-
-			const share = (network) => {
-				let link = getLink(network);
-
-				if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-					window.open(link.mobile, "_blank");
-				} else {
-					window.open(link.desktop, "_blank");
-				}
-			}
-		</script>';
-
-		$script = '<script type="text/javascript">"use strict";var shareTitle,shareLink;const getLink=e=>{let t=shareTitle,o=shareLink;return{facebook:{desktop:`https://www.facebook.com/dialog/share?app_id=349644108939477&display=popup&href=${encodeURIComponent(o)}`,mobile:`https://www.facebook.com/dialog/share?app_id=349644108939477&display=popup&href=${encodeURIComponent(o)}`},twitter:{desktop:`https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(o)}`,mobile:`https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(o)}`},whatsapp:{desktop:`https://api.whatsapp.com/send?text=${encodeURIComponent(t)}-${encodeURIComponent(o)}`,mobile:`whatsapp://send?text=${encodeURIComponent(t)}-${encodeURIComponent(o)}`},line:{desktop:`https://lineit.line.me/share/ui?url=${encodeURIComponent(o)}&text=${encodeURIComponent(t)}`,mobile:`line://msg/text/?${encodeURIComponent(t)}-${encodeURIComponent(o)}`},telegram:{desktop:`https://t.me/share/url?url=${encodeURIComponent(o)}&text=${encodeURIComponent(t)}`,mobile:`tg://msg?text=${encodeURIComponent(t)}-${encodeURIComponent(o)}`},tumblr:{desktop:`https://www.tumblr.com/widgets/share/tool?canonicalUrl=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}&caption=&tags=`,mobile:`https://www.tumblr.com/widgets/share/tool?canonicalUrl=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}&caption=&tags=`},linkedin:{desktop:`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}&summary=&source=CapitalMéxico`,mobile:`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}&summary=&source=CapitalMéxico`},flipboard:{desktop:`https://share.flipboard.com/bookmarklet/popout?v=2&title=${encodeURIComponent(t)}&url=${encodeURIComponent(o)}`,mobile:`https://share.flipboard.com/bookmarklet/popout?v=2&title=${encodeURIComponent(t)}&url=${encodeURIComponent(o)}`},pinterest:{desktop:`http://pinterest.com/pin/create/button/?url=${encodeURIComponent(o)}`,mobile:`http://pinterest.com/pin/create/button/?url=${encodeURIComponent(o)}`},reddit:{desktop:`https://reddit.com/submit?url=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}`,mobile:`https://reddit.com/submit?url=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}`},vk:{desktop:`http://vk.com/share.php?url=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}&comment=`,mobile:`http://vk.com/share.php?url=${encodeURIComponent(o)}&title=${encodeURIComponent(t)}&comment=`}}[e]},shareDialog=(e=!1)=>{if(shareTitle=!1!==e?e.dataset.title:document.title,shareLink=!1!==e?e.dataset.link:window.location.href,navigator.share)navigator.share({title:shareTitle,text:shareTitle,url:shareLink}).then(()=>console.log("Compartido exitoso")).catch(e=>console.log("Error al compartir",e));else{let e=document.getElementById("m-share");const t=new bootstrap.Modal(e);e.addEventListener("show.bs.modal",function(){this.querySelector(".title h2").innerHTML=shareTitle}),t.show()}},share=e=>{let t=getLink(e);/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)?window.open(t.mobile,"_blank"):window.open(t.desktop,"_blank")};</script>';
 
 		if( $echo )
 			echo $script;
@@ -697,10 +542,10 @@ class Reporte_Indigo_Scripts {
 				const elem = document.createElement("script");
 				elem.src = "' . get_template_directory_uri() . '/assets/js/ri-youtube.js";
 				document.head.append(elem);
-			}, 3000);
+			}, 1000);
 		</script>';
 
-		$script = '<script type="text/javascript">"use strict";setTimeout(()=>{const e=document.createElement("script");e.src="' . get_template_directory_uri() . '/assets/js/ri-youtube.js",document.head.append(e)},3e3);</script>';
+		$script = '<script type="text/javascript">"use strict";setTimeout(()=>{const e=document.createElement("script");e.src="' . get_template_directory_uri() . '/assets/js/ri-youtube.js",document.head.append(e)},1e3);</script>';
 
 		if( $echo )
 			echo $script;
@@ -826,11 +671,14 @@ class Reporte_Indigo_Scripts {
 		$replace = get_theme_mod( 'ri_images_replace', FALSE );
 		$optional = get_theme_mod( 'ri_images_bucket', FALSE );
 
+		$script = '';
+
 		$all = '
 		<script type="text/javascript">
 		"use strict";
 		document.addEventListener("error", function(e){
-		    if(e.target.nodeName == "IMG"){
+		    if( e.target.nodeName == "IMG" && ! e.target.classList.contains("ri-image-updated") ){
+		    	e.target.classList.add("ri-image-updated");
 		    	e.target.src = e.target.src.replace("' . $replace . '", "' . $optional . '");
 		    	e.target.srcset = "";
 		    }
@@ -838,7 +686,7 @@ class Reporte_Indigo_Scripts {
 		</script>';
 
 		if ( ! empty($replace) && ! empty($optional) ) {
-			$script = '<script type="text/javascript">"use strict";document.addEventListener("error",function(e){"IMG"==e.target.nodeName&&(e.target.src=e.target.src.replace("' . $replace . '","' . $optional . '"),e.target.srcset="")},!0);</script>';
+			$script = '<script type="text/javascript">"use strict";document.addEventListener("error",function(t){"IMG"!=t.target.nodeName||t.target.classList.contains("ri-image-updated")||(t.target.classList.add("ri-image-updated"),t.target.src=t.target.src.replace("' . $replace . '","' . $optional . '"),t.target.srcset="")},!0);</script>';
 		}
 
 		if( $echo )
@@ -878,13 +726,35 @@ class Reporte_Indigo_Scripts {
 			return $script;
 	}
 
+	/**
+	 * El script para direccionar a la página de términos de la unión europea
+	 *
+	 * @param bool  $echo Define el formato de cadena o impresión
+	 *
+	 * @return String|void JS Script;
+	**/
+
+	static function clickio_europe($echo = TRUE) {
+		$all = '<script type="text/javascript">
+			"use strict"
+			document.querySelector(".ri-privacy-config a").addEventListener("click", function() {
+		    	return void 0 !== window.__lxG__consent__ ? window.__lxG__consent__.showConsent() : alert("This function only for users from European Economic Area (EEA)"), !1;
+		    });
+		</script>';
+
+		$script = '<script type="text/javascript">"use strict";document.querySelector(".ri-privacy-config a").addEventListener("click",function(){return void 0!==window.__lxG__consent__?window.__lxG__consent__.showConsent():alert("This function only for users from European Economic Area (EEA)"),!1});</script>';
+
+		if( $echo )
+			echo $script;
+		else
+			return $script;
+	}
+
 
 	function on_loaded() {
 		self::load_script();
 		self::lazyloading(FALSE);
-		self::scroll();
-		self::share();
-		self::twitt();
+		self::clickio_europe();
 
 		if( get_theme_mod('ri_img_error_delay', false) == 1 )
 			self::onImgError();
@@ -892,9 +762,14 @@ class Reporte_Indigo_Scripts {
 		if( is_home() ) {
 			self::swiper();
 			self::playlistShow();
-			self::youtubePlayer();
-			self::youtubeFachadePlayer();
 			self::onhoverEspecial();
+
+			if( get_theme_mod('ri_yt_video', false) == 0 )
+				self::youtubePlayer();
+
+			if( get_theme_mod('ri_yt_video', false) == 2 )
+				self::youtubeFachadePlayer();
+
 		}
 
 		if( is_single() || is_singular() ) {
