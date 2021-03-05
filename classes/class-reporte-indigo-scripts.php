@@ -750,7 +750,6 @@ class Reporte_Indigo_Scripts {
 			return $script;
 	}
 
-
 	function on_loaded() {
 		self::load_script();
 		self::lazyloading(FALSE);
@@ -763,9 +762,7 @@ class Reporte_Indigo_Scripts {
 			self::swiper();
 			self::playlistShow();
 			self::onhoverEspecial();
-
-			if( get_theme_mod('ri_yt_video', false) == 0 )
-				self::youtubePlayer();
+			self::youtubePlayer();
 
 			if( get_theme_mod('ri_yt_video', false) == 2 )
 				self::youtubeFachadePlayer();
