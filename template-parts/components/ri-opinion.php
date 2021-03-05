@@ -8,22 +8,12 @@
  */
 $class = array_key_exists('class', $args) ? $args['class'] : '';
 $columna = get_the_terms( get_the_ID(), 'ri-columna' );
-$voto = get_the_terms( get_the_ID(), 'ri-voto' );
 $author = $post->post_author;
 ?>
 <div class="component-opinion <?=$class;?>">
 	<article itemtype="http://schema.org/Article">
 		<header>
 			<?php
-			if( ! empty($voto) ) : $voto = $voto[0];
-			?>
-			<h2>
-				<a href="<?=get_term_link($voto);?>" title="<?=$voto->name;?>">
-					<?=$voto->name;?>
-				</a>
-			</h2>
-			<?php
-			endif;
 			if( ! empty($columna) ) : $columna = $columna[0];
 			?>
 			<h2>
