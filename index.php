@@ -12,8 +12,8 @@ $exclude = reporte_indigo_exclude_posts('home');
 		<div class="components">
 			<?php
 			$selected_posts = unserialize( $selected_posts );
-			if( false === $posts = get_transient('ri_cache_home_top') ) {
-				$posts = new WP_Query([
+			if( false === $entradas = get_transient('ri_cache_home_top') ) {
+				$entradas = new WP_Query([
 					'posts_per_page'	=> count($selected_posts),
 					'post_type' 		=> 'any',
 					'post__in' 			=> $selected_posts,
@@ -23,17 +23,17 @@ $exclude = reporte_indigo_exclude_posts('home');
 					'orderby' 			=> 'post__in'
 				]);
 
-				if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
-		   			set_transient('ri_cache_home_top', $posts, 12 * HOUR_IN_SECONDS );
+				if ( ! is_wp_error( $entradas ) && $entradas->have_posts() ) {
+		   			set_transient('ri_cache_home_top', $entradas, 12 * HOUR_IN_SECONDS );
 				}
 			}
 			?>
 			<div class="swiper-container" id="sc-home-top">
 				<div class="swiper-wrapper">
 				<?php
-				if ( $posts->have_posts() ): 
-					while ( $posts->have_posts() ): $posts->the_post();
-						get_template_part( 'template-parts/components/ri', 'deslizador', [ 'total' => $posts->post_count ] );
+				if ( $entradas->have_posts() ): 
+					while ( $entradas->have_posts() ): $entradas->the_post();
+						get_template_part( 'template-parts/components/ri', 'deslizador', [ 'total' => $entradas->post_count ] );
 					endwhile;
 				endif;
 				wp_reset_postdata();
@@ -60,9 +60,9 @@ $exclude = reporte_indigo_exclude_posts('home');
 						Reporte_indigo_test::comment('5 Notas administradas');
 						$selected_posts = unserialize( $selected_posts );
 
-						if( false === $posts = get_transient('ri_cache_home_general') ) {
+						if( false === $entradas = get_transient('ri_cache_home_general') ) {
 
-							$posts = new WP_Query([
+							$entradas = new WP_Query([
 								'posts_per_page'	=> count($selected_posts),
 								'post_type' 		=> 'any',
 								'post__in' 			=> $selected_posts,
@@ -72,14 +72,14 @@ $exclude = reporte_indigo_exclude_posts('home');
 								'orderby' 			=> 'post__in'
 							]);
 
-							if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
-				   				set_transient('ri_cache_home_general', $posts, 12 * HOUR_IN_SECONDS );
+							if ( ! is_wp_error( $entradas ) && $entradas->have_posts() ) {
+				   				set_transient('ri_cache_home_general', $entradas, 12 * HOUR_IN_SECONDS );
 							}
 
 						}
 						
-						if ( $posts->have_posts() ): $index = 0;
-							while ( $posts->have_posts() ): $posts->the_post();
+						if ( $entradas->have_posts() ): $index = 0;
+							while ( $entradas->have_posts() ): $entradas->the_post();
 								
 								if($index == 0){
 									get_template_part( 'template-parts/components/ri', 'general', [ 'local' => FALSE ] );
@@ -101,7 +101,7 @@ $exclude = reporte_indigo_exclude_posts('home');
 
 					Reporte_indigo_test::comment('8 Notas administradas');
 
-					$posts = new WP_Query([
+					$entradas = new WP_Query([
 						'post_type' 			=> [ 'ri-reporte', 'ri-latitud', 'ri-indigonomics', 'ri-piensa', 'ri-fan', 'ri-desglose' ],
 						'posts_per_page'		=> 8,
 						'post_status'      		=> 'publish',
@@ -119,8 +119,8 @@ $exclude = reporte_indigo_exclude_posts('home');
 						]
 					]);
 
-					if ( $posts->have_posts() ):
-						while ( $posts->have_posts() ): $posts->the_post();
+					if ( $entradas->have_posts() ):
+						while ( $entradas->have_posts() ): $entradas->the_post();
 							get_template_part( 'template-parts/components/ri', 'lista', [ 'class' => 'vsmall' ] );
 							$exclude[] = get_the_ID();
 							$exclude_video = $exclude;
@@ -219,7 +219,7 @@ $exclude = reporte_indigo_exclude_posts('home');
 		<?php
 		$selected_posts = unserialize( $selected_posts );
 
-		$posts = new WP_Query([
+		$entradas = new WP_Query([
 			'posts_per_page'	=> count($selected_posts["primary"]),
 			'post_type' 		=> 'any',
 			'post__in' 			=> $selected_posts["primary"],
@@ -229,8 +229,8 @@ $exclude = reporte_indigo_exclude_posts('home');
 			'orderby' 			=> 'post__in'
 		]);
 			
-		if ( $posts->have_posts() ): $index = 0;
-			while ( $posts->have_posts() ): $posts->the_post();	
+		if ( $entradas->have_posts() ): $index = 0;
+			while ( $entradas->have_posts() ): $entradas->the_post();	
 				if($index == 0){
 					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vlarge' ] );
 					?>
@@ -293,7 +293,7 @@ $exclude = reporte_indigo_exclude_posts('home');
 	<div class="container">
 		<div class="components">
 		<?php
-		$posts = new WP_Query([
+		$entradas = new WP_Query([
 			'post_type' 			=> 'ri-indigonomics',
 			'posts_per_page' 		=> 4,
 			'post_status'      		=> 'publish',
@@ -303,8 +303,8 @@ $exclude = reporte_indigo_exclude_posts('home');
 			'post__not_in'			=> $exclude
 		]);
 
-		if ( $posts->have_posts() ): $index = 0;
-			while ( $posts->have_posts() ): $posts->the_post();
+		if ( $entradas->have_posts() ): $index = 0;
+			while ( $entradas->have_posts() ): $entradas->the_post();
 				
 				if($index == 0){
 					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vlarge' ] );
@@ -348,7 +348,7 @@ $exclude = reporte_indigo_exclude_posts('home');
 				Reporte_indigo_test::comment('Latitud');
 				Reporte_indigo_templates::componente_titulo("latitud", "Latitud");
 
-				$posts = new WP_Query([
+				$entradas = new WP_Query([
 					'post_type' 			=> 'ri-latitud',
 					'posts_per_page' 		=> 3,
 					'post_status'      		=> 'publish',
@@ -358,8 +358,8 @@ $exclude = reporte_indigo_exclude_posts('home');
 					'post__not_in'			=> $exclude
 				]);
 
-				if ( $posts->have_posts() ): $index = 0;
-					while ( $posts->have_posts() ): $posts->the_post();
+				if ( $entradas->have_posts() ): $index = 0;
+					while ( $entradas->have_posts() ): $entradas->the_post();
 
 						if($index == 0){
 							get_template_part( 'template-parts/components/ri', 'general');
@@ -410,7 +410,7 @@ $exclude = reporte_indigo_exclude_posts('home');
 		<div class="components">
 		<?php
 		Reporte_indigo_test::comment('Piensa');
-		$posts = new WP_Query([
+		$entradas = new WP_Query([
 			'post_type' 			=> 'ri-piensa',
 			'posts_per_page' 		=> 10,
 			'post_status'      		=> 'publish',
@@ -427,8 +427,8 @@ $exclude = reporte_indigo_exclude_posts('home');
 				]
 			]
 		]);
-		if ( $posts->have_posts() ): $index = 0;
-			while ( $posts->have_posts() ): $posts->the_post();
+		if ( $entradas->have_posts() ): $index = 0;
+			while ( $entradas->have_posts() ): $entradas->the_post();
 				
 				if($index == 0) {
 					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmedium' ]);
@@ -522,7 +522,7 @@ $exclude = reporte_indigo_exclude_posts('home');
 		<div class="components">
 		<?php
 		Reporte_indigo_test::comment('Fan 4 Notas');
-		$posts = new WP_Query([
+		$entradas = new WP_Query([
 			'post_type' 			=> 'ri-fan',
 			'posts_per_page' 		=> 4,
 			'post_status'      		=> 'publish',
@@ -532,8 +532,8 @@ $exclude = reporte_indigo_exclude_posts('home');
 			'post__not_in'			=> $exclude
 		]);
 
-		if ( $posts->have_posts() ): $index = 0;
-			while ( $posts->have_posts() ): $posts->the_post();
+		if ( $entradas->have_posts() ): $index = 0;
+			while ( $entradas->have_posts() ): $entradas->the_post();
 				if($index == 0){
 					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vlarge' ]);
 
@@ -577,7 +577,7 @@ $exclude = reporte_indigo_exclude_posts('home');
 			<div class="components">
 				<?php
 				Reporte_indigo_test::comment('IndigoPlay');
-				$posts = new WP_Query([
+				$entradas = new WP_Query([
 					'post_type' 			=> 'any',
 					'posts_per_page' 		=> 5,
 					'post_status'      		=> 'publish',
@@ -594,8 +594,8 @@ $exclude = reporte_indigo_exclude_posts('home');
 						]
 					]
 				]);
-				if ( $posts->have_posts() ): $index = 0;
-					while ( $posts->have_posts() ): $posts->the_post();
+				if ( $entradas->have_posts() ): $index = 0;
+					while ( $entradas->have_posts() ): $entradas->the_post();
 						if( $index == 0 )
 							get_template_part( 'template-parts/components/ri', 'play', [ 'class' => 'large' ] );
 
@@ -628,9 +628,9 @@ $exclude = reporte_indigo_exclude_posts('home');
 					Reporte_indigo_test::comment('Opinion 8 notas');
 					$selected_posts = unserialize( $selected_posts );
 
-					if( false === $posts = get_transient('ri_cache_home_opinion') ) {
+					if( false === $entradas = get_transient('ri_cache_home_opinion') ) {
 
-						$posts = new WP_Query([
+						$entradas = new WP_Query([
 							'posts_per_page'	=> count($selected_posts),
 							'post_type' 		=> 'any',
 							'post__in' 			=> $selected_posts,
@@ -640,14 +640,14 @@ $exclude = reporte_indigo_exclude_posts('home');
 							'orderby' 			=> 'post__in'
 						]);
 
-						if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
+						if ( ! is_wp_error( $entradas ) && $entradas->have_posts() ) {
 			   				set_transient('ri_cache_home_opinion', $posts, 12 * HOUR_IN_SECONDS );
 						}
 
 					}
-					$total = $posts->post_count;
-					if ( $posts->have_posts() ): $index = 0;
-						while ( $posts->have_posts() ): $posts->the_post();
+					$total = $entradas->post_count;
+					if ( $entradas->have_posts() ): $index = 0;
+						while ( $entradas->have_posts() ): $entradas->the_post();
 							
 							if($total == 5)
 								get_template_part( 'template-parts/components/ri', 'opinion', [ 'class' => ($index > 2) ? 'vmedium' : '' ]);
@@ -697,9 +697,9 @@ $exclude = reporte_indigo_exclude_posts('home');
 			Reporte_indigo_test::comment('Selección del editor 4 notas');
 			$selected_posts = unserialize( $selected_posts );
 
-			if( false === $posts = get_transient('ri_cache_home_editor') ) {
+			if( false === $entradas = get_transient('ri_cache_home_editor') ) {
 
-				$posts = new WP_Query([
+				$entradas = new WP_Query([
 					'posts_per_page'	=> count($selected_posts),
 					'post_type' 		=> 'any',
 					'post__in' 			=> $selected_posts,
@@ -709,13 +709,13 @@ $exclude = reporte_indigo_exclude_posts('home');
 					'orderby' 			=> 'post__in'
 				]);
 
-				if ( ! is_wp_error( $posts ) && $posts->have_posts() ) {
-		   			set_transient('ri_cache_home_editor', $posts, 12 * HOUR_IN_SECONDS );
+				if ( ! is_wp_error( $entradas ) && $entradas->have_posts() ) {
+		   			set_transient('ri_cache_home_editor', $entradas, 12 * HOUR_IN_SECONDS );
 				}
 
 			}
-			if ( $posts->have_posts() ): 
-				while ( $posts->have_posts() ): $posts->the_post();
+			if ( $entradas->have_posts() ): 
+				while ( $entradas->have_posts() ): $entradas->the_post();
 					get_template_part( 'template-parts/components/ri', 'editor' );
 				endwhile;
 			endif;
@@ -738,7 +738,7 @@ $exclude = reporte_indigo_exclude_posts('home');
 		<div class="components">
 			<?php
 			Reporte_indigo_test::comment('Desglose 5 notas');
-			$posts = new WP_Query([
+			$entradas = new WP_Query([
 				'post_type' 			=> 'ri-desglose',
 				'posts_per_page'		=> 5,
 				'post_status'      		=> 'publish',
@@ -751,9 +751,9 @@ $exclude = reporte_indigo_exclude_posts('home');
 			<div class="swiper-container" id="sc-home-desglose">
 				<div class="swiper-wrapper">
 				<?php
-				if ( $posts->have_posts() ): 
-					while ( $posts->have_posts() ): $posts->the_post();
-						get_template_part( 'template-parts/components/ri', 'deslizador', [ 'total' => $posts->post_count ] );
+				if ( $entradas->have_posts() ): 
+					while ( $entradas->have_posts() ): $entradas->the_post();
+						get_template_part( 'template-parts/components/ri', 'deslizador', [ 'total' => $entradas->post_count ] );
 					endwhile;
 				endif;
 				wp_reset_postdata();
@@ -775,7 +775,7 @@ $exclude = reporte_indigo_exclude_posts('home');
 			<div class="components">
 			<?php
 			Reporte_indigo_test::comment('Especial 1 nota');
-			$posts = new WP_Query([
+			$entradas = new WP_Query([
 				'post_type' 			=> 'ri-especial',
 				'posts_per_page'		=> 1,
 				'post_status'      		=> 'publish',
@@ -784,8 +784,8 @@ $exclude = reporte_indigo_exclude_posts('home');
 				'ignore_sticky_posts'	=> true,
 			]);
 			
-			if ( $posts->have_posts() ): 
-				while ( $posts->have_posts() ): $posts->the_post();
+			if ( $entradas->have_posts() ): 
+				while ( $entradas->have_posts() ): $entradas->the_post();
 					get_template_part( 'template-parts/components/ri', 'especial' );
 					$asocc_posts = get_post_meta(get_the_ID(), 'array_posts_especial', TRUE);
 				endwhile;
@@ -797,7 +797,7 @@ $exclude = reporte_indigo_exclude_posts('home');
 				<div class="components">
 					<?php
 					$selected_posts = unserialize( $asocc_posts );
-					$posts = new WP_Query([
+					$entradas = new WP_Query([
 						'posts_per_page'	=> count($selected_posts),
 						'post_type' 		=> 'any',
 						'post__in' 			=> $selected_posts,
@@ -807,8 +807,8 @@ $exclude = reporte_indigo_exclude_posts('home');
 						'orderby' 			=> 'post__in'
 					]);
 
-					if ( $posts->have_posts() ): 
-						while ( $posts->have_posts() ): $posts->the_post();
+					if ( $entradas->have_posts() ): 
+						while ( $entradas->have_posts() ): $entradas->the_post();
 							get_template_part( 'template-parts/components/ri', 'lista_especial' );
 						endwhile;
 					endif;
