@@ -641,7 +641,7 @@ $exclude = reporte_indigo_exclude_posts('home');
 						]);
 
 						if ( ! is_wp_error( $entradas ) && $entradas->have_posts() ) {
-			   				set_transient('ri_cache_home_opinion', $posts, 12 * HOUR_IN_SECONDS );
+			   				set_transient('ri_cache_home_opinion', $entradas, 12 * HOUR_IN_SECONDS );
 						}
 
 					}
