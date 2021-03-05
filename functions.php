@@ -48,11 +48,15 @@ require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-yo
 // Customizer
 require get_template_directory() . '/inc/reporte-indigo-customizer.php';
 
+// Controls
+// require get_template_directory() . '/inc/customizer/controls/control-reporte-indigo-sortable.php';
+// require get_template_directory() . '/inc/customizer/customizer-reporte-indigo-home.php';
+
 // Feed
 require get_template_directory() . '/inc/reporte-indigo-feed.php';
 
 // Custom
-// require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.php';
+require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.php';
 
 // AMP
 require get_template_directory() . '/inc/reporte-indigo-amp.php';
@@ -467,7 +471,8 @@ add_action( 'wp_head', 'siteweb_pingback_header' );
 
 function add_comscore_script() {
 	if( ! amp_is_request() ) {
-		echo <<<EOL
+		$name = get_bloginfo('name');
+		echo <<<HTML
 		<!-- Begin comScore Tag-->
 		<script>
 		var _comscore = _comscore || [];
@@ -479,10 +484,10 @@ function add_comscore_script() {
 		})();
 		</script>
 		<noscript>
-		  	<img src="http://b.scorecardresearch.com/p?c1=2&c2=19249540&cv=2.0&cj=1" title="<?=bloginfo('name');?>" alt="<?=bloginfo('name');?>" />
+		  	<img src="http://b.scorecardresearch.com/p?c1=2&c2=19249540&cv=2.0&cj=1" title="{$name}" alt="{$name}" />
 		</noscript>
 		<!-- End comScore Tag-->
-		EOL;
+		HTML;
 	}
 }
 
@@ -490,40 +495,39 @@ add_action( 'wp_head', 'add_comscore_script', 1 );
 
 function add_google_tag_manager_script() {
 	if(! amp_is_request()) {
-		echo <<<EOL
-		<!-- Google Tag Manager -->
+		echo <<<HTML
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-5285176-1"></script>
 		<script>
-		(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.defer=true;j.src=
-		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		})(window,document,'script','dataLayer','GTM-5PFW88Q');
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-5285176-1');
 		</script>
-		<!-- End Google Tag Manager -->
-		EOL;
+		HTML;
 	}
 }
 
 add_action( 'wp_head', 'add_google_tag_manager_script', 1 );
 
 function add_smart_script() {
-	echo <<<EOL
+	echo <<<HTML
 	<script type="text/javascript">
 	<!-- Smart Script -->
 	var sas = sas || {};sas.cmd = sas.cmd || [];sas.cmd.push(function() {sas.setup({ networkid: 1056, domain: "", async: true });});
 	<!-- End Smart Script -->
 	</script>
-	EOL;
+	HTML;
 }
 
 add_action( 'wp_head', 'add_smart_script', 1 );
 
 function add_clickio_header_binding() {
 	if( is_home() || is_single() || is_singular () ):
-		echo <<<EOL
+		echo <<<HTML
 		<script async type="text/javascript" src="//s.clickiocdn.com/t/pb213972.js"></script>
 		<script async type="text/javascript" src="//s.clickiocdn.com/t/common_258.js"></script> 
-		EOL;
+		HTML;
 	endif;
 }
 
@@ -532,19 +536,19 @@ add_action( 'wp_head', 'add_clickio_header_binding', 1 );
 function add_clickio_script() {
 	if( is_single() || is_singular () ):
 		if( wp_is_mobile() ):
-			echo <<<EOL
+			echo <<<HTML
 			<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
 			<script class='__lxGc__' type='text/javascript'>
 				((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629927']={'i':__lxGc__.b++};
 			</script>
-			EOL;
+			HTML;
 		else:
-			echo <<<EOL
+			echo <<<HTML
 			<script async type='text/javascript' src='//s.clickiocdn.com/t/common_258.js'></script>
 			<script class='__lxGc__' type='text/javascript'>
 			((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_629920']={'i':__lxGc__.b++};
 			</script> 
-			EOL;
+			HTML;
 		endif;
 	endif;
 }
@@ -554,12 +558,12 @@ add_action( 'ri_body_init', 'add_clickio_script', 1 );
 function add_clickio_sticky() {
 	if( is_single() || is_singular () ):
 		if( wp_is_mobile() ):
-			echo <<<EOL
+			echo <<<HTML
 			<script async type='text/javascript' src='s.clickiocdn.com/t/common_258.js'></script>
 			<script class='__lxGc__' type='text/javascript'>
 				((__lxGc__=window.__lxGc__||{'s':{},'b':0})['s']['_213972']=__lxGc__['s']['_213972']||{'b':{}})['b']['_652887']={'i':__lxGc__.b++};
 			</script>
-			EOL;
+			HTML;
 		endif;
 	endif;
 }
