@@ -161,7 +161,7 @@ $terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 					<div class="logo">
 						<figure>
 							<picture>
-								<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" width="230" height="230">
+								<img src="<?=get_template_directory_uri()?>/assets/images/custom/valor-del-voto@3x.png" width="230" height="230">
 							</picture>
 						</figure>
 					</div>
