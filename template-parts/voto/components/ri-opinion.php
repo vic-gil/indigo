@@ -7,23 +7,15 @@
  * @since Reporte Indigo 3.0.0
  */
 $class = array_key_exists('class', $args) ? $args['class'] : '';
-$columna = get_the_terms( get_the_ID(), 'ri-columna' );
+$voto = get_the_terms( get_the_ID(), 'ri-voto' );
 $author = $post->post_author;
 ?>
 <div class="component-opinion <?=$class;?>">
 	<article itemtype="http://schema.org/Article">
 		<header>
-			<?php
-			if( ! empty($columna) ) : $columna = $columna[0];
-			?>
-			<h2>
-				<a href="<?=get_term_link($columna);?>" title="<?=$columna->name;?>">
-					<?=$columna->name;?>
-				</a>
-			</h2>
-			<?php
-			endif;
-			?>
+			<address itemprop="author" itemscope="" itemtype="http://schema.org/Person" rel="author">
+				<?php the_author_posts_link();?>
+			</address>
 		</header>
 		<div class="entry-content">
 			<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
@@ -36,11 +28,11 @@ $author = $post->post_author;
 			</figure>
 			<div class="entry-title">
 				<?php
-				if( ! empty($tema) ) : $tema = $tema[0];
+				if( ! empty($voto) ) : $voto = $voto[0];
 				?>
 				<h2>
-					<a href="<?=get_term_link($tema);?>" title="<?=$tema->name;?>">
-						<?=$tema->name;?>
+					<a href="<?=get_term_link($voto);?>" title="<?=$voto->name;?>">
+						<?=$voto->name;?>
 					</a>
 				</h2>
 				<?php
@@ -51,9 +43,6 @@ $author = $post->post_author;
 						<?php the_title();?>
 					</a>
 				</h3>
-				<address itemprop="author" itemscope="" itemtype="http://schema.org/Person" rel="author">
-					<?php the_author_posts_link();?>
-				</address>
 			</div>
 		</div>
 		<footer>

@@ -49,9 +49,9 @@ get_header(); ?>
 					while ( $main->have_posts() ) : $main->the_post();
 
 						if($index == 0) 
-							get_template_part( 'template-parts/components/ri', 'general' );
+							get_template_part( 'template-parts/voto/components/ri', 'general' );
 						else
-							get_template_part( 'template-parts/components/ri', 'general', ['class' => 'vsmall'] );
+							get_template_part( 'template-parts/voto/components/ri', 'general', ['class' => 'vsmall'] );
 
 						$exclude[] = get_the_ID();
 						$index++;
@@ -77,7 +77,7 @@ get_header(); ?>
 						</div>
 					</div>
 					<?php
-					$posts = new WP_Query([
+					$opinion = new WP_Query([
 						'post_type' 				=> ['ri-opinion'],
 						'posts_per_page' 			=> 2,
 						'post_status'      			=> 'publish',
@@ -88,21 +88,32 @@ get_header(); ?>
 						'tax_query' => [
 							[
 								'taxonomy' => 'ri-voto',
-			            		'field'    => 'id',
-			            		'terms'    => $terms,
+					    		'field'    => 'id',
+					    		'terms'    => $terms,
 							]
 						]
 					]);
-					if( $posts->have_posts() ) : $index = 0;
-						while ( $posts->have_posts() ) : $posts->the_post();
-							get_template_part( 'template-parts/components/ri', 'opinion', [ 'class' => 'vmedium' ]);
+					if( $opinion->have_posts() ) : $index = 0;
+					?>
+					<div class="container-opinion">
+						<div class="header">
+							Opinión #ElValorDelVoto
+						</div>
+						<div class="wrap">
+						<?php
+						while ( $opinion->have_posts() ) : $opinion->the_post();
+							get_template_part( 'template-parts/voto/components/ri', 'opinion', [ 'class' => 'vmedium' ]);
 
-							$exclude_video[] = get_the_ID();
+							$exclude[] = get_the_ID();
 						endwhile;
+						?>
+						</div>
+					</div>
+					<?php
 					endif;
 					wp_reset_postdata();
 
-					$posts = new WP_Query([
+					$reporte = new WP_Query([
 						'post_type' 				=> ['ri-reporte'],
 						'posts_per_page' 			=> 4,
 						'post_status'      			=> 'publish',
@@ -118,7 +129,7 @@ get_header(); ?>
 							]
 						]
 					]);
-					if( $posts->have_posts() ) : $index = 0;
+					if( $reporte->have_posts() ) : $index = 0;
 					?>
 					<div class="container-estados">
 						<div class="header">
@@ -130,8 +141,8 @@ get_header(); ?>
 							</h2>
 						</div>
 						<?php
-						while ( $posts->have_posts() ) : $posts->the_post();
-							get_template_part( 'template-parts/components/ri', 'estado' );
+						while ( $reporte->have_posts() ) : $reporte->the_post();
+							get_template_part( 'template-parts/voto/components/ri', 'estado' );
 
 							$exclude_video[] = get_the_ID();
 						endwhile;
@@ -141,10 +152,17 @@ get_header(); ?>
 					endif;
 					wp_reset_postdata();
 					?>
+					<div class="anuncios vcontent mt">
+						<div class="wrap">
+							<div style="width:100%;height:300px;display:flex;justify-content:center;">
+								Promo de encuestas
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<?php
-			$posts = new WP_Query([
+			$videos = new WP_Query([
 				'post_type' 				=> 'any',
 				'posts_per_page' 			=> 4,
 				'post_status'      			=> 'publish',
@@ -168,7 +186,7 @@ get_header(); ?>
 					]
 				]
 			]);
-			if( $posts->have_posts() ) : $index = 0;
+			if( $videos->have_posts() ) : $index = 0;
 			?>
 			<div class="container-videos">
 				<div class="header">
@@ -189,8 +207,8 @@ get_header(); ?>
 					</div>
 					<div class="components">
 						<?php
-						while ( $posts->have_posts() ) : $posts->the_post();
-							get_template_part( 'template-parts/components/ri', 'play', [ 'class' => 'mini' ] );
+						while ( $videos->have_posts() ) : $videos->the_post();
+							get_template_part( 'template-parts/voto/components/ri', 'play', [ 'class' => 'mini' ] );
 						endwhile;
 						?>
 					</div>
