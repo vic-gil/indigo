@@ -57,7 +57,7 @@ class Reporte_Indigo_Section_Voto {
 		$terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 
 		if( is_tax('ri-voto') && is_archive() )
-			wp_enqueue_style( 'voto-style', get_stylesheet_directory_uri() . "/assets/css/voto.css", [], "20210125" );
+			wp_enqueue_style( 'voto-style', get_stylesheet_directory_uri() . "/assets/css/voto.css", [], "20210305" );
 	}
 
 }
