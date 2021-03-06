@@ -56,7 +56,7 @@ require get_template_directory() . '/inc/reporte-indigo-customizer.php';
 require get_template_directory() . '/inc/reporte-indigo-feed.php';
 
 // Custom
-// require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.php';
+require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.php';
 
 // AMP
 require get_template_directory() . '/inc/reporte-indigo-amp.php';
@@ -271,7 +271,7 @@ function reporte_indigo_scripts () {
 		wp_enqueue_script( 'smart-ads', 'https://ced.sascdn.com/tag/1056/smart.js', [], '', false );
 		wp_script_add_data( 'smart-ads', 'async', true );
 
-		wp_enqueue_script( 'indigo', get_template_directory_uri() . '/assets/js/indigo.min.js', [], '', true );
+		wp_enqueue_script( 'indigo', get_template_directory_uri() . '/assets/js/indigo.min.js', [], '1.0.0', true );
 		wp_script_add_data( 'indigo', 'async', true );
 
 		wp_enqueue_script('bootstrap-min-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js', '', '5.0.0', true);
@@ -501,7 +501,6 @@ function add_google_tag_manager_script() {
 		  window.dataLayer = window.dataLayer || [];
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
-
 		  gtag('config', 'UA-5285176-1');
 		</script>
 		HTML;
