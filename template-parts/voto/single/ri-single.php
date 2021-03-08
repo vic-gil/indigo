@@ -151,7 +151,7 @@ $terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 		?>
 		<div class="container-videos">
 			<div class="header">
-				<?=get_the_title();?>
+				El valor del voto
 			</div>
 			<div class="body">
 				<div class="wrap">
