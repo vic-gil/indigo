@@ -817,6 +817,12 @@ function wp_term_chk_radio( $args ) {
 
 add_filter( 'wp_terms_checklist_args', 'wp_term_chk_radio' );
 
+function wpp_limit_query_execution_time($fields, $options){
+    return '/*+ MAX_EXECUTION_TIME(3000) */ ' . $fields;
+}
+
+add_filter('wpp_query_fields', 'wpp_limit_query_execution_time', 10, 2);
+
 // Extiende un campo en REST API
 add_action('rest_api_init', function() {
 	register_rest_field(
