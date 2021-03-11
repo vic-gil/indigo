@@ -335,7 +335,7 @@ class Reporte_Indigo_Styles {
 		if ( is_search() )
 			echo '<style type="text/css">' . self::style_breadcrumb() . self::style_general_author() . '</style>';
 
-		if( is_page_template('page-templates/newsletter.php') )
+		if( is_page_template('page-templates/newsletter.php') || is_page_template('page-templates/newsletter-voto.php') )
 			echo '<style type="text/css">' . self::style_newsletter() . '</style>';
 
 		if( is_404() )
