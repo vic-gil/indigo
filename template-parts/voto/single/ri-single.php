@@ -115,7 +115,7 @@ $terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 				?>
 				<div class="anuncios vcontent mt">
 					<div class="wrap">
-						<<a href="<?=get_permalink( get_page_by_title( 'Newsletter el valor del voto' ) );?>" title="Ir a newsletter del valor del voto">
+						<a href="<?=get_permalink( get_page_by_title( 'Newsletter el valor del voto' ) );?>" title="Ir a newsletter del valor del voto">
 							<img src="<?=get_template_directory_uri()?>/assets/images/custom/valor-del-voto-newsletter.png" alt="banner-newsletter" loading="lazy" width="300" height="600">
 						</a>
 					</div>
