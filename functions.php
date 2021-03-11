@@ -307,7 +307,7 @@ function add_non_critical_section_styles() {
 	if( is_404() )
 		wp_enqueue_style( '404-style', get_stylesheet_directory_uri() . "/assets/css/404.css", [], "20210125" );
 
-	if( is_page_template('page-templates/newsletter.php') )
+	if( is_page_template('page-templates/newsletter.php') || is_page_template('page-templates/newsletter-voto.php') )
 		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "/assets/css/newsletter.css", [], "20210125" );
 
 	if( is_page_template('page-templates/ventas.php') )
