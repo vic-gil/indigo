@@ -115,9 +115,9 @@ $terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 				?>
 				<div class="anuncios vcontent mt">
 					<div class="wrap">
-						<div style="width:100%;height:300px;display:flex;justify-content:center;">
-							Promo de encuestas
-						</div>
+						<<a href="<?=get_permalink( get_page_by_title( 'Newsletter el valor del voto' ) );?>" title="Ir a newsletter del valor del voto">
+							<img src="<?=get_template_directory_uri()?>/assets/images/custom/valor-del-voto-newsletter.png" alt="banner-newsletter" loading="lazy" width="300" height="600">
+						</a>
 					</div>
 				</div>
 			</div>
@@ -161,7 +161,7 @@ $terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 					<div class="logo">
 						<figure>
 							<picture>
-								<img src="<?=get_template_directory_uri()?>/assets/images/custom/valor-del-voto@3x.png" width="230" height="230">
+								<img src="<?=get_template_directory_uri()?>/assets/images/custom/valor-del-voto@3x.png" alt="logo valor del voto" loading="lazy" width="230" height="230" />
 							</picture>
 						</figure>
 					</div>
