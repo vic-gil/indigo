@@ -73,7 +73,17 @@ get_header(); ?>
     								</div>
 								</div>
 							</form>
-
+							
+							<script type="text/javascript">
+								document.querySelector('#mc-embedded-subscribe-form').addEventListener('keydown', function(e) {
+								    if (e.keyIdentifier == 'U+000A' || e.keyIdentifier == 'Enter' || e.keyCode == 13) {
+								        if (e.target.nodeName == 'INPUT' && ( e.target.type == 'text' || e.target.type == 'email' ) ) {
+								            e.preventDefault();
+								            return false;
+								        }
+								    }
+								}, true);
+							</script>
 							<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
 							<script type='text/javascript'>
 								(function($) {
