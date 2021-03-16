@@ -54,19 +54,85 @@ function reporte_indigo_customize_home( $wp_customize ) {
 			'type'          	=> 'theme_mod',
 			'capability'		=> 'edit_theme_options',
 			'sanitize_callback' => 'reporte_indigo_sanitize_header_settings',
-			'transport'     	=> 'refresh'
+			'transport'     	=> 'postMessage'
 		]
 	);
 
 	$wp_customize->add_control( 
 		new WP_Customize_RI_Control(
 			$wp_customize,
-			'ri_home_top_control',
+			'ri_home_top_setting',
 			[
 				'label' => __( 'Selecciona un post', 'mytheme' ),
 				'section' => 'reporte_indigo_home_section',
-				'settings' => 'ri_home_top_setting',
 				'post_type' => 'page'
+			]
+		)
+	);
+
+
+	/**
+	 * Notificaciones Push
+	 */
+	$wp_customize->add_panel( 
+		'reporte_indigo_push_panel', 
+		[
+			'priority'    	=> 150,
+			'capability'  	=> 'edit_theme_options',
+			'title'       	=> __('Notificaciones Push', 'reporte_indigo'),
+			'description' 	=> __('Configuraciones avanzadas de las notificaciones push', 'reporte_indigo')
+		]
+	);
+
+	/**
+	 * Configuración de temas disponibles para push
+	 *
+	 */
+	$wp_customize->add_section( 
+		'reporte_indigo_push_temas_section', 
+		[
+			'title'      	=> __('Temas', 'reporte_indigo'),
+			'priority'   	=> 1,
+			'description'	=> __('Selecciona los temas que estarán disponibles para ser notificadas', 'reporte_indigo'),
+			'panel'      	=> 'reporte_indigo_push_panel',
+			'capability' 	=> 'edit_theme_options'
+		]
+	);
+
+	/**
+	 * Agregar donde se guardara la opción del control
+	 *
+	**/
+
+	$wp_customize->add_setting( 
+		'ri_temas_push',
+		[
+			'type'          => 'theme_mod',
+			'capability'    => 'edit_theme_options',
+			'default' 		=> '',
+			'transport'     => 'postMessage'
+		]
+	);
+
+	/**
+	 * Agregar el control
+	 *
+	**/
+
+	$wp_customize->add_control( 
+		new WP_Customize_RI_Select(
+			$wp_customize,
+			'ri_temas_push',
+			[
+				'label' 		=> __( 'Selecciona los temas que se mostrarán', 'reporte_indigo' ),
+				'description' 	=> __('Selecciona los temas ', 'reporte_indigo'),
+				'section' 		=> 'reporte_indigo_push_temas_section',
+				'input_attrs' 	=> [
+					'multiselect' => true,
+					'maximumSelectionLength' => 10,
+					'placeholder' => __( 'Selecciona los temas', 'reporte_indigo' )
+				],
+				'choices' 		=> get_my_post_types()
 			]
 		)
 	);

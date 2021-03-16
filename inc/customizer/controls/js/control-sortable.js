@@ -1,7 +1,12 @@
 ( function( $ ) {
 	'use strict';
 
-	const hasDuplicates = () => {
+	const hasDuplicates = ( array, permitEmpty = true ) => {
+		if( ! permitEmpty )
+			array =  array.filter(function(el) { return el; });
+
+		console.log(array);
+
 		let all = [];
 		for (let i = 0; i < array.length; ++i) {
 			let value = array[i];
@@ -15,7 +20,7 @@
 
 	wp.customize( 'ri_home_top_setting', function( setting ) {
 	    setting.bind( function( value ) {
-	    	if(hasDuplicates){
+	    	if( hasDuplicates( value.split(","), false ) ){
 	    		setting.notifications.add( 'repeat_post', new wp.customize.Notification(
 					'repeat_post',
 					{
@@ -25,7 +30,7 @@
 				    }
 				) );
 	    	} else {
-	    		
+	    		setting.notifications.remove( 'repeat_post' );
 	    	}
 	    } );
 	} );
