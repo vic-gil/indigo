@@ -245,7 +245,6 @@ function reporte_indigo_customize_config( $wp_customize ) {
 			'settings'		=> 'ri_img_error_delay',
 			'priority'		=> 1,
 			'type' 			=> 'radio',
-			'default' 		=> 0,
 			'choices' 		=> [
 				0 => "No",
 				1 => "Si"
@@ -279,6 +278,7 @@ function reporte_indigo_customize_config( $wp_customize ) {
 		[
 			'type'          => 'theme_mod',
 			'capability'    => 'edit_theme_options',
+			'default' 		=> 0,
 			'transport'     => 'refresh'
 		]
 	);
@@ -297,7 +297,6 @@ function reporte_indigo_customize_config( $wp_customize ) {
 			'settings'		=> 'ri_yt_video',
 			'priority'		=> 1,
 			'type' 			=> 'radio',
-			'default' 		=> 0,
 			'choices' 		=> [
 				0 => "Con un botón personalizado que carga el iframe",
 				1 => "Con el iframe por defecto de youtube ( Malo para métricas )",
@@ -331,6 +330,7 @@ function reporte_indigo_customize_config( $wp_customize ) {
 		[
 			'type'          => 'theme_mod',
 			'capability'    => 'edit_theme_options',
+			'default' 		=> 0,
 			'transport'     => 'refresh'
 		]
 	);
@@ -349,10 +349,60 @@ function reporte_indigo_customize_config( $wp_customize ) {
 			'settings'		=> 'ri_embed',
 			'priority'		=> 1,
 			'type' 			=> 'radio',
-			'default' 		=> 0,
 			'choices' 		=> [
 				0 => "Mediante un plugin",
 				1 => "Nativo del tema"
+			]
+		]
+	);
+
+	/**
+	 * Configuración de funciones experimentales del tema
+	 *
+	 */
+	$wp_customize->add_section( 
+		'reporte_indigo_experimental_section', 
+		[
+			'title'      	=> __('Funciones experimentales', 'reporte_indigo'),
+			'priority'   	=> 5,
+			'description'	=> __('Funciones experimentales del tema', 'reporte_indigo'),
+			'panel'      	=> 'reporte_indigo_config_panel',
+			'capability' 	=> 'edit_theme_options'
+		]
+	);
+
+	/**
+	 * Agregar donde se guardara la opción del control
+	 *
+	**/
+
+	$wp_customize->add_setting( 
+		'ri_experimental',
+		[
+			'type'          => 'theme_mod',
+			'capability'    => 'edit_theme_options',
+			'default' 		=> 0,
+			'transport'     => 'refresh'
+		]
+	);
+
+	/**
+	 * Agregar el control
+	 *
+	**/
+
+	$wp_customize->add_control( 
+		'ri_experimental_control',
+		[
+			'label'   		=> __('¿Activar funciones experimentales?', 'reporte_indigo'),
+			'description'	=> __('¡Precaución!, no lo active en instancias de producción ó si no sabe como funcionan (publica los cambios y actualiza está página para verlos)', 'reporte_indigo'),
+			'section' 		=> 'reporte_indigo_experimental_section',
+			'settings'		=> 'ri_experimental',
+			'priority'		=> 1,
+			'type' 			=> 'radio',
+			'choices' 		=> [
+				0 => "Inactivo",
+				1 => "Activo"
 			]
 		]
 	);
