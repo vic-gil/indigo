@@ -48,10 +48,6 @@ require get_template_directory() . '/inc/perfomance/perfomance-reporte-indigo-yo
 // Customizer
 require get_template_directory() . '/inc/reporte-indigo-customizer.php';
 
-// Controls
-// require get_template_directory() . '/inc/customizer/controls/control-reporte-indigo-sortable.php';
-// require get_template_directory() . '/inc/customizer/customizer-reporte-indigo-home.php';
-
 // Feed
 require get_template_directory() . '/inc/reporte-indigo-feed.php';
 
@@ -60,6 +56,14 @@ require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.ph
 
 // AMP
 require get_template_directory() . '/inc/reporte-indigo-amp.php';
+
+// Experimental
+if( get_theme_mod( "ri_experimental", false ) == 1 ):
+	require get_template_directory() . '/inc/customizer/controls/control-reporte-indigo-sortable.php';
+	require get_template_directory() . '/inc/customizer/controls/control-reporte-indigo-select.php';
+	require get_template_directory() . '/inc/customizer/customizer-reporte-indigo-home.php';
+	require get_template_directory() . '/inc/reporte-indigo-one-signal.php';
+endif;
 
 /*
  * El cache del navegador sólo está disponible para
@@ -297,7 +301,7 @@ function add_non_critical_section_styles() {
 		$terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 
 		if ( has_term($terms, 'ri-voto') ) :
-			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single-voto.css", [], "20210305" );
+			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single-voto.css", [], "20210125" );
 		else :
 			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single.css", [], "20210125" );
 		endif;
@@ -497,6 +501,13 @@ function add_google_tag_manager_script() {
 	if(! amp_is_request()) {
 		echo <<<HTML
 		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-WN384TH');</script>
+		<!-- End Google Tag Manager -->
+		<!-- Google Tag Manager -->
 		<script>
 		(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -541,6 +552,17 @@ function add_clickio_header_binding() {
 
 add_action( 'wp_head', 'add_clickio_header_binding', 1 );
 
+function add_gtag_init_script() {
+	echo <<<HTML
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WN384TH"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	HTML;
+}
+
+add_action( 'ri_body_init', 'add_gtag_init_script', 1 );
+
 function add_clickio_script() {
 	if( is_single() || is_singular () ):
 		if( wp_is_mobile() ):
@@ -561,7 +583,7 @@ function add_clickio_script() {
 	endif;
 }
 
-add_action( 'ri_body_init', 'add_clickio_script', 1 );
+add_action( 'ri_body_init', 'add_clickio_script', 2 );
 
 function add_clickio_sticky() {
 	if( is_single() || is_singular () ):
@@ -575,7 +597,7 @@ function add_clickio_sticky() {
 		endif;
 	endif;
 }
-add_action( 'ri_body_init', 'add_clickio_sticky', 1 );
+add_action( 'ri_body_init', 'add_clickio_sticky', 3 );
 
 function add_custom_scripts() {
 	echo get_theme_mod("ri_custom_scripts");
