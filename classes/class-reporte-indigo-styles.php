@@ -251,13 +251,25 @@ class Reporte_Indigo_Styles {
 	}
 
 	/**
-	 * Estilo de la seccion terminos
+	 * Estilo de la seccion indigo play
 	 *
 	 * @return void
 	**/
 
 	static function style_ri_youtube() {
 		$style = 'ri-youtube{display:flex;position:absolute;top:0;left:0;width:100%;height:100%;background:#000;z-index:5;background-color:transparent;contain:content;background-position:center center;background-size:cover;cursor:pointer}ri-youtube::before{content:\'\';display:block;position:absolute;top:0;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAADGCAYAAAAT+OqFAAAAdklEQVQoz42QQQ7AIAgEF/T/D+kbq/RWAlnQyyazA4aoAB4FsBSA/bFjuF1EOL7VbrIrBuusmrt4ZZORfb6ehbWdnRHEIiITaEUKa5EJqUakRSaEYBJSCY2dEstQY7AuxahwXFrvZmWl2rh4JZ07z9dLtesfNj5q0FU3A5ObbwAAAABJRU5ErkJggg==);background-position:top;background-repeat:repeat-x;height:60px;padding-bottom:50px;width:100%;transition:all .2s cubic-bezier(0,0,.2,1)}ri-youtube::after{content:"";display:block;padding-bottom:calc(100% / (16 / 9))}ri-youtube>iframe{width:100%;height:100%;position:absolute;top:0;left:0;border:0}ri-youtube>.riyt-playbtn{width:68px;height:48px;position:absolute;cursor:pointer;transform:translate3d(-50%,-50%,0);top:50%;left:50%;z-index:1;background-color:transparent;background-image:url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 68 48"><path fill="%23f00" fill-opacity="0.8" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z"></path><path d="M 45,24 27,14 27,34" fill="%23fff"></path></svg>\');filter:grayscale(100%);transition:filter .1s cubic-bezier(0,0,.2,1);border:none}ri-youtube .riyt-playbtn:focus,ri-youtube:hover>.riyt-playbtn{filter:none}ri-youtube.riyt-activated{cursor:unset}ri-youtube.riyt-activated::before,ri-youtube.riyt-activated>.riyt-playbtn{width:.00001px;height:.00001px;opacity:0;pointer-events:none}.riyt-visually-hidden{clip:rect(0 0 0 0);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px}';
+
+		return $style;
+	}
+
+	/**
+	 * Estilo de la seccion preferencias
+	 *
+	 * @return void
+	**/
+
+	static function style_ri_preferencias() {
+		$style = '.breadcrumb{margin-bottom:1rem}.breadcrumb>*{display:-ms-flexbox;display:flex;align-items:center;-ms-flex-wrap:wrap;flex-wrap:wrap;padding:.75rem 1rem;background-color:#e9ecef;border-radius:.25rem;align-items:center}.breadcrumb ol{list-style:none}.breadcrumb ol li{display:inline-flex;font-family:Roboto,sans-serif;font-weight:400!important;font-style:normal!important;line-height:1.2;line-height:1.2}.breadcrumb ol li+li:before{content:"/";padding:0 .5rem}.breadcrumb ol h1{font-size:1rem;color:#3e4c59}.breadcrumb ol a{font-size:1rem;color:#3e4c59}.breadcrumb ol a[aria-current=page]{color:#6c757d}.accordion{font-family:Roboto;font-weight:400!important;font-style:normal!important;font-size:10pt;color:#fff!important;text-transform:uppercase!important;background-color:#3474be;cursor:pointer;padding:.75rem 1rem;width:100%;text-align:left;border:none;outline:0;transition:.4s}.accordion:after{content:"\2795";font-size:13px;color:transparent;text-shadow:0 0 #fff;float:right;margin-left:5px}.accordion:hover{background-color:#3474be}.active{background-color:#3474be}.active:after{content:"\2796"}.panel{padding:0 1rem;background-color:#fff;max-height:0;overflow:hidden;transition:max-height .2s ease-out;box-shadow:0 .125rem .25rem rgba(0,0,0,.075)!important}.panel form{padding:1rem 1rem}.panel label{display:-ms-flex;display:flex;align-items:center;padding-top:.5rem;padding-bottom:.5rem;font-family:Roboto;font-weight:700!important;font-style:normal!important;font-size:10pt;text-transform:uppercase!important;cursor:pointer;flex:0 0 auto;width:50%}@media (min-width:768px){.panel label{flex:0 0 auto;width:33.33333%}}@media (min-width:992px){.panel label{flex:0 0 auto;width:25%}}.panel input[type=checkbox]{margin-right:5px}.panel .submit{margin-top:1rem;text-align:right}.panel .submit input{width:90px;transition:all .3s ease-out}.panel form .submit input{width:90px;transition:all .3s ease-out}.panel form.sending .submit input{color:#999!important;background:0 0!important}.panel form.done .submit input{color:#fff!important;background:#28a745!important}';
 
 		return $style;
 	}
@@ -358,6 +370,9 @@ class Reporte_Indigo_Styles {
 
 		if( is_page_template('page-templates/terminos.php') || is_page_template('page-templates/privacidad.php') )
 			echo '<style type="text/css">' . self::style_terminos() . '</style>';
+
+		if( is_page_template('page-templates/preferencias.php') )
+			echo '<style type="text/css">' . self::style_ri_preferencias() . '</style>';
 
 		if( is_page_template('page-templates/voto.php') )
 			echo '<style type="text/css">' . self::style_voto() . '</style>';
