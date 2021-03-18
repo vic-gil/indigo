@@ -116,7 +116,6 @@ class Reporte_Indigo_One_Signal {
 	}
 
 	function onesignal_send_notification_filter($fields, $new_status, $old_status, $post) {
-		print_r(get_post_type());
 		$fields['filters'] = [
 			[
 				'field' 	=> 'tag',
@@ -125,13 +124,23 @@ class Reporte_Indigo_One_Signal {
 				'value' 	=> '1'
 			]	
 		];
+
+		$fields['web_buttons'] = [
+			[
+				'id'	=> 'configuration-button',
+				'text'	=> 'Configuración de preferencias',
+				'icon'	=> 'https://www.reporteindigo.com/iconos/icon150x150.png',
+				'url'	=> 'https://www.reporteindigo.com/preferencias/',
+			]
+		];
+
 		return $fields;
 	}
 
 }
 
 $ri_one_signal = new Reporte_Indigo_One_Signal();
-add_action('wp_head', array($ri_one_signal, 'on_loaded_head'), 99);
-add_action('wp_footer', array($ri_one_signal, 'on_loaded_footer'), 99);
+add_action('wp_head', [$ri_one_signal, 'on_loaded_head'], 99);
+add_action('wp_footer', [$ri_one_signal, 'on_loaded_footer'], 99);
 
-add_filter('onesignal_send_notification', array($ri_one_signal, 'onesignal_send_notification_filter'), 10, 4);
+add_filter('onesignal_send_notification', [$ri_one_signal, 'onesignal_send_notification_filter'], 10, 4);
