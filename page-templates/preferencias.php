@@ -10,7 +10,6 @@
  */
 
 get_header(); ?>
-
 <main>
 	<div class="container wm">
 		<div class="components">
@@ -28,9 +27,6 @@ get_header(); ?>
 					</li>
 				</ol>
 			</nav>
-			<?php
-			if( ! wp_is_mobile() ):
-			?>
 			<button class="accordion">Notificaciones</button>
 			<div class="panel">
 				<form onsubmit="event.preventDefault(); sendTags(this);">
@@ -55,12 +51,7 @@ get_header(); ?>
 					</fieldset>
 				</form>
 			</div>
-			<?php
-			endif;
-			?>
 		</div>
 	</div>
 </main>
-
 <?php get_footer(); ?>
-
