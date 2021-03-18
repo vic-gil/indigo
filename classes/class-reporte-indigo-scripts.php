@@ -727,6 +727,83 @@ class Reporte_Indigo_Scripts {
 	}
 
 	/**
+	 * El script para redireccionar imagenes con error
+	 *
+	 * @param bool  $echo Define el formato de cadena o impresión
+	 *
+	 * @return String|void JS Script;
+	**/
+	static function preferences($echo = TRUE) {
+		$all = '<script type="text/javascript">
+			"use strict"
+			OneSignal.push(["getTags", function(tags) {
+		        for (let key in tags){
+		        	if(tags[key] == 1)
+		        		document.querySelector(`#tag-${key}`).checked = true;
+		        }
+		    }]);
+
+		    let acc = document.querySelectorAll(".accordion");
+
+			for (let i = 0; i < acc.length; i++) {
+				acc[i].addEventListener("click", function() {
+					this.classList.toggle("active");
+					let panel = this.nextElementSibling;
+						panel.style.maxHeight = (panel.style.maxHeight) ? null : panel.scrollHeight + "px";
+				});
+			}
+
+			const sendTags = (form) => {
+				let sendButton = form.querySelector("input[type=\'submit\'");
+				let defaultValue = form.querySelector("input[type=\'submit\'").value;
+				let inputs = form.querySelectorAll("input[type=\'checkbox\']");
+				let tags = {};
+
+				form.classList.add("sending");
+				sendButton.value = "Enviando";
+				sendButton.disabled = true;
+
+				for (let input of inputs){
+					tags[input.value] = (input.checked) ? 1 : 0;
+				}
+
+				setTimeout(function(){
+					OneSignal.push(function() {
+						OneSignal.sendTags(tags, function(tagsSent) {
+							form.classList.add("done");
+							sendButton.value = "Enviado";
+
+							OneSignal.sendSelfNotification(
+							    "Reporte Índigo",
+							    "Sus preferencias han sido actualizadas",
+							    "https://www.reporteindigo.com/page?_osp=do_not_open",
+							    "https://www.reporteindigo.com/iconos/icon150x150.png",
+							    {
+							        notificationType: "configuration-feature"
+							    }
+							);
+
+							setTimeout(function(){ 
+								form.classList.remove("sending", "done"); 
+								sendButton.value = defaultValue;
+								sendButton.disabled = false;
+							}, 3000);
+
+						});
+					});
+				}, 1000);
+			}
+		</script>';
+
+		$script = '<script type="text/javascript">"use strict";OneSignal.push(["getTags",function(e){for(let t in e)1==e[t]&&(document.querySelector(`#tag-${t}`).checked=!0)}]);let acc=document.querySelectorAll(".accordion");for(let e=0;e<acc.length;e++)acc[e].addEventListener("click",function(){this.classList.toggle("active");let e=this.nextElementSibling;e.style.maxHeight=e.style.maxHeight?null:e.scrollHeight+"px"});const sendTags=(e=>{let t=e.querySelector("input[type=\'submit\'"),n=e.querySelector("input[type=\'submit\'").value,i=e.querySelectorAll("input[type=\'checkbox\']"),o={};e.classList.add("sending"),t.value="Enviando",t.disabled=!0;for(let e of i)o[e.value]=e.checked?1:0;setTimeout(function(){OneSignal.push(function(){OneSignal.sendTags(o,function(i){e.classList.add("done"),t.value="Enviado",OneSignal.sendSelfNotification("Reporte Índigo","Sus preferencias han sido actualizadas","https://www.reporteindigo.com/page?_osp=do_not_open","https://www.reporteindigo.com/iconos/icon150x150.png",{notificationType:"configuration-feature"}),setTimeout(function(){e.classList.remove("sending","done"),t.value=n,t.disabled=!1},3e3)})})},1e3)});</script>';
+
+		if( $echo )
+			echo $script;
+		else
+			return $script;
+	}
+
+	/**
 	 * El script para direccionar a la página de términos de la unión europea
 	 *
 	 * @param bool  $echo Define el formato de cadena o impresión
@@ -794,6 +871,10 @@ class Reporte_Indigo_Scripts {
 
 		} else {
 			self::jwplayer();
+		}
+
+		if( is_page_template('page-templates/preferencias.php') ) {
+			self::preferences();
 		}
 
 	}
