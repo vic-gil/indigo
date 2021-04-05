@@ -57,6 +57,10 @@ require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.ph
 // AMP
 require get_template_directory() . '/inc/reporte-indigo-amp.php';
 
+//PWA
+if( is_plugin_active('pwa/pwa.php') )
+	require get_template_directory() . '/pwa/reporte-indigo-pwa.php';
+
 // Experimental
 if( get_theme_mod( "ri_experimental", false ) == 1 ):
 	require get_template_directory() . '/inc/customizer/controls/control-reporte-indigo-sortable.php';
