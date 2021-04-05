@@ -59,7 +59,13 @@ $terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 				?>
 				<div class="container-opinion">
 					<div class="header">
-						Opinión #ElValorDelVoto
+						<div class="htop">
+							<img src="<?=get_template_directory_uri()?>/assets/images/custom/reporte-top-voto.svg" alt="logo-valor-del-voto-top" />
+						</div>
+						<div class="hbottom">
+							<span>Opinión</span>
+							<img src="<?=get_template_directory_uri()?>/assets/images/custom/reporte-bottom-voto.svg" alt="logo-valor-del-voto-bottom" />
+						</div>
 					</div>
 					<div class="wrap">
 					<?php
@@ -94,11 +100,12 @@ $terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 				?>
 				<div class="container-estados">
 					<div class="header">
-						ESTADOS #ElValorDelVoto
+						<span>Estados</span>
+						<img src="<?=get_template_directory_uri()?>/assets/images/custom/indigo-el-voto-short.svg" alt="logo-valor-del-voto-short" />
 					</div>
 					<div class="container-title">
 						<h2>
-							<a href="<?=get_permalink( get_page_by_title( 'El Valor del Voto' ) );?>">#ELVALORDELVOTO</a>
+							<a href="<?=get_permalink( get_page_by_title( 'El Valor del Voto' ) );?>">El valor del voto</a>
 						</h2>
 					</div>
 					<?php
@@ -150,9 +157,6 @@ $terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 		if( $videos->have_posts() ) : $index = 0;
 		?>
 		<div class="container-videos">
-			<div class="header">
-				El valor del voto
-			</div>
 			<div class="body">
 				<div class="wrap">
 					<div class="msg">
@@ -161,17 +165,19 @@ $terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 					<div class="logo">
 						<figure>
 							<picture>
-								<img src="<?=get_template_directory_uri()?>/assets/images/custom/valor-del-voto@3x.png" alt="logo valor del voto" loading="lazy" width="230" height="230" />
+								<img src="<?=get_template_directory_uri()?>/assets/images/custom/indigo-el-valor-del-voto.svg" alt="logo valor del voto" loading="lazy" width="243" height="84" />
 							</picture>
 						</figure>
 					</div>
 				</div>
-				<div class="components">
-					<?php
-					while ( $videos->have_posts() ) : $videos->the_post();
-						get_template_part( 'template-parts/voto/components/ri', 'play', [ 'class' => 'mini' ] );
-					endwhile;
-					?>
+				<div class="content">
+					<div class="components">
+						<?php
+						while ( $videos->have_posts() ) : $videos->the_post();
+							get_template_part( 'template-parts/voto/components/ri', 'play', [ 'class' => 'mini' ] );
+						endwhile;
+						?>
+					</div>
 				</div>
 			</div>
 		</div>
