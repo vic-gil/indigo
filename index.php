@@ -136,11 +136,12 @@ $exclude = reporte_indigo_exclude_posts('home');
 					Reporte_indigo_test::comment('Reproductor');
 
 					if( class_exists("Ri_player_db") ){
-						$db = get_option("wp_player_ri");
-						$db = ( ! empty( $db ) ) ? unserialize( base64_decode($db) ) : [];
-						$playlists = ( array_key_exists("youtube", $db) ) ? $db["youtube"]["playlists"] : [];
-
-						Reporte_indigo_templates::componente_reproductor($playlists);
+						$player = get_option("wp_player_ri");
+						$player = ( ! empty( $player ) ) ? unserialize( base64_decode($player) ) : false;
+						
+						if( false !== $player )
+							Reporte_indigo_templates::componente_reproductor($player);
+						
 					} else {
 						Reporte_indigo_test::log('Plugin no esta activo');
 					}
