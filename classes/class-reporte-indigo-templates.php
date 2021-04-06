@@ -848,26 +848,19 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		/**
 		 * Componente web reproductor
 		 *
-		 * @param array $data 		Array video data.
+		 * @param array $player Array player data.
 		 * @param string $variation HTML Class string.
 		 * @return void
 		 */
-		public static function componente_reproductor($data, $variation = "") {
-		?>
-		<div class="component-reproductor <?=$variation;?>" id="indigo-play">
-			<figure>
-				<picture>
-					<?php 
-						$image = [
-							'caption' 	=> $data[0]['title'],
-							'link' 		=> $data[0]["thumbnails"]["high"]["url"],
-							'width' 	=> $data[0]["thumbnails"]["high"]['width'],
-							'height' 	=> $data[0]["thumbnails"]["high"]['height'],
-						];
-						Reporte_indigo_templates::componente_imagen($image);	
-					?>
-				</picture>
-				<?php
+		public static function componente_reproductor($player, $variation = "") {
+			$data = ( array_key_exists("youtube", $player) ) ? $player["youtube"]["playlists"] : false;
+			$schedule = ( array_key_exists("programacion", $player) ) ? $player["programacion"] : false;
+			$title = $data[0]['title'];
+			$code = Reporte_Indigo_Utils::get_live_code($schedule);
+			?>
+			<div class="component-reproductor <?=$variation;?>" id="indigo-play">
+				<div class="reproductor-preview">
+					<?php
 					if( get_theme_mod('ri_yt_video', false) == 0 ):
 						Reporte_indigo_templates::componente_boton_youtube([
 							'title' => $data[0]['title'],
@@ -880,48 +873,67 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 						</div>
 					<?php
 					else:
-					?>
-						<ri-youtube params="listType=playlist&list=<?=$data[0]['id'];?>&disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
-							<button type="button" class="riyt-playbtn">
-								<span class="riyt-visually-hidden"><?=$data[0]['title'];?></span>
-							</button>
-						</ri-youtube>
-					<?php
+						
+
+						if ( false !== $code ) {
+							?>
+							<ri-youtube videoid="<?=$code;?>" style="background-image: url('https://i.ytimg.com/vi/<?=$code;?>/hqdefault.jpg');" params="disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
+								<button type="button" class="riyt-playbtn">
+									<span class="riyt-visually-hidden">En Vivo</span>
+								</button>
+							</ri-youtube>
+							<?php
+						} else {
+							?>
+							<ri-youtube style="background-image: url('<?=$data[0]["thumbnails"]["high"]["url"];?>');" params="listType=playlist&list=<?=$data[0]['id'];?>&disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
+								<button type="button" class="riyt-playbtn">
+									<span class="riyt-visually-hidden"><?=$data[0]['title'];?></span>
+								</button>
+							</ri-youtube>
+							<?php
+						}
 					endif;
 					?>
-			</figure>
-			<div class="entry-player">
-				<div class="player-title">
+				</div>
+				<style type="text/css">
+					.component-reproductor .reproductor-preview {
+						position: relative;
+						width: 100%;
+						padding-bottom: 56.25%;
+					}
+				</style>
+				<div class="entry-player">
+					<div class="player-title">
+						<div>
+							<h3><?=$title;?></h3>
+						</div>
+					</div>
 					<div>
-						<h3><?=$data[0]['title']?></h3>
+						<button type="button" class="btn-playlist btn-general">
+							<i class="fas fa-stream"></i>
+						</button>
 					</div>
 				</div>
-				<div>
-					<button type="button" class="btn-playlist btn-general">
-						<i class="fas fa-stream"></i>
-					</button>
+				<div class="stream-list" id="c-video-playlist">
+					<ul>
+						<?php
+						foreach ($data as $playlist) {
+						?>
+						<li data-id="<?=$playlist['id']?>" title="<?=$playlist['title'];?>" onclick="ytEvent(this)">
+							<span class="item-playlist-jwp" >
+								<?=$playlist['title'];?>
+							</span>
+						</li>
+						<?php
+						}
+						?>
+					</ul>
+				</div>
+				<div class="share-videos">
+					<button class="btn-general" type="button" onclick="shareDialog(this);" data-title="IndigoPlay" data-link="<?=site_url('indigo-videos');?>" aria-label="comparte">COMPARTIR</button>
 				</div>
 			</div>
-			<div class="stream-list" id="c-video-playlist">
-				<ul>
-					<?php
-					foreach ($data as $playlist) {
-					?>
-					<li data-id="<?=$playlist['id']?>" title="<?=$playlist['title'];?>" onclick="ytEvent(this)">
-						<span class="item-playlist-jwp" >
-							<?=$playlist['title'];?>
-						</span>
-					</li>
-					<?php
-					}
-					?>
-				</ul>
-			</div>
-			<div class="share-videos">
-				<button class="btn-general" type="button" onclick="shareDialog(this);" data-title="IndigoPlay" data-link="<?=site_url('indigo-videos');?>" aria-label="comparte">COMPARTIR</button>
-			</div>
-		</div>
-		<?php
+			<?php
 		}
 
 		/**
