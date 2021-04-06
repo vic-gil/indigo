@@ -22,6 +22,7 @@ define('POST_TYPE', serialize (array(
 require get_template_directory() . '/classes/class-reporte-indigo-taxonomies.php';
 require get_template_directory() . '/classes/class-reporte-indigo-post-types.php';
 require get_template_directory() . '/classes/class-reporte-indigo-test.php';
+require get_template_directory() . '/classes/class-reporte-indigo-utils.php';
 require get_template_directory() . '/classes/class-reporte-indigo-templates.php';
 require get_template_directory() . '/classes/class-reporte-indigo-scripts.php';
 require get_template_directory() . '/classes/class-reporte-indigo-styles.php';
