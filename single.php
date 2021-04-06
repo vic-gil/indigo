@@ -12,7 +12,7 @@ get_header(); ?>
 	while ( have_posts() ) : the_post();
 		$voto = get_the_terms( get_the_ID(), 'ri-voto' );
 		if ( false !== $voto && ! is_wp_error( $voto ) ):
-			get_template_part( 'template-parts/voto/single/ri', 'single', [ 'terms' => $terms ] );
+			get_template_part( 'template-parts/voto/single/ri', 'single' );
 		else:
 			get_template_part( 'template-parts/single/ri', 'general' );
 		endif;
