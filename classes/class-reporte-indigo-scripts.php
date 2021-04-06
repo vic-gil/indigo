@@ -513,12 +513,12 @@ class Reporte_Indigo_Scripts {
 				if( parent.classList.contains("interno") ){
 					parent.appendChild(innerPlayer);
 				} else {
-					document.querySelector("#indigo-play figure").appendChild(innerPlayer);	
+					document.querySelector("#indigo-play .reproductor-preview").appendChild(innerPlayer);	
 				}
 			}
 		</script>';
 
-		$script = '<script type="text/javascript">"use strict";const removePrevYTPlayer=()=>{for(let e of document.querySelectorAll(".inner-player-yt"))e.remove();for(let e of document.querySelectorAll("ri-youtube"))e.remove()},ytEvent=e=>{let t=e.dataset.id;e.dataset.title;removePrevYTPlayer();let l=e.parentElement,r=document.createElement("DIV");r.classList.add("inner-player-yt"),r.innerHTML=`<iframe type="text/html" style="max-width: 100%; width: 100%;" src="https://www.youtube.com/embed/?listType=playlist&list=${t}&disablekb=1&autoplay=1&playsinline=1&origin=' . get_site_url() . '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,l.classList.contains("interno")?l.appendChild(r):document.querySelector("#indigo-play figure").appendChild(r)};</script>';
+		$script = '<script type="text/javascript">"use strict";const removePrevYTPlayer=()=>{for(let e of document.querySelectorAll(".inner-player-yt"))e.remove();for(let e of document.querySelectorAll("ri-youtube"))e.remove()},ytEvent=e=>{let t=e.dataset.id;e.dataset.title;removePrevYTPlayer();let l=e.parentElement,r=document.createElement("DIV");r.classList.add("inner-player-yt"),r.innerHTML=`<iframe type="text/html" style="max-width: 100%; width: 100%;" src="https://www.youtube.com/embed/?listType=playlist&list=${t}&disablekb=1&autoplay=1&playsinline=1&origin=' . get_site_url() . '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,l.classList.contains("interno")?l.appendChild(r):document.querySelector("#indigo-play .reproductor-preview").appendChild(r)};</script>';
 
 		if( $echo )
 			echo $script;
