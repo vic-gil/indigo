@@ -29,8 +29,6 @@ if ( ! class_exists( 'Reporte_Indigo_Utils' ) ) {
 			$code = false;
 			$weekday = current_time('w');
 
-			error_log( print_r($schedule, true) );
-
 			if( array_key_exists( $weekday, $schedule ) ) {
 				
 				if( is_array( $schedule[$weekday] ) ) {
