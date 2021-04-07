@@ -29,10 +29,13 @@ if ( ! class_exists( 'Reporte_Indigo_Utils' ) ) {
 			$code = false;
 			$weekday = current_time('w');
 
+			error_log( print_r($schedule, true) );
+
 			if( array_key_exists( $weekday, $schedule ) ) {
+				
 				if( is_array( $schedule[$weekday] ) ) {
 					$current_time = current_time('His');
-					error_log($current_time);
+					
 					foreach ( $schedule[$weekday] as $show ) {
 						$start = str_replace( ':', '', $show['start'] );
 						$end = str_replace( ':', '', $show['end'] );
@@ -40,13 +43,14 @@ if ( ! class_exists( 'Reporte_Indigo_Utils' ) ) {
 						if( $start <= $current_time && $end >= $current_time ) {
 							$title = $show['title'];
 							preg_match('/embed\/([^"]+)"/', $show['embed'], $match);
-							$code = $match[1];
+							$code = [ 'code' => $match[1], 'title' => $show['title'], 'description' => $show['description'] ];
 							break;
 						}
 
 					}
 
-				} 
+				}
+
 			}
 
 			return $code;
