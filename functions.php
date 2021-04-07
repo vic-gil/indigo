@@ -254,9 +254,9 @@ function reporte_indigo_scripts () {
   		wp_deregister_style('wordpress-popular-posts-css');
 
   		wp_dequeue_style( 'wp-block-library' );
-	    	wp_dequeue_style( 'wp-block-library-theme' );
-	    	wp_dequeue_style( 'wc-block-style' );
-	    	wp_dequeue_style( 'wp-block-library' );
+	    wp_dequeue_style( 'wp-block-library-theme' );
+	    wp_dequeue_style( 'wc-block-style' );
+	    wp_dequeue_style( 'wp-block-library' );
 
 	    if( ! is_single() ){
 	    	wp_dequeue_style('embedpress');
@@ -288,7 +288,7 @@ function reporte_indigo_scripts () {
 
 		wp_enqueue_style('swiper-min-css', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css', [], '4.5.0', 'all' );
 		wp_enqueue_style('fontawesome-min-css', get_template_directory_uri() . '/assets/fonts/fontawesome/fontawesome.min.css', [], '1.0.0', 'all' );
-		
+
 		wp_script_add_data( 'hoverintent-js', 'async', true );
 		wp_script_add_data( 'admin-bar', 'async', true );
 		wp_script_add_data( 'embedpress-pdfobject', 'async', true );
@@ -485,7 +485,6 @@ add_action( 'wp_head', 'siteweb_pingback_header' );
 
 function add_comscore_script() {
 	if( ! amp_is_request() ) {
-		$name = get_bloginfo('name');
 		echo <<<HTML
 		<!-- Begin comScore Tag-->
 		<script>
@@ -497,9 +496,6 @@ function add_comscore_script() {
 			el.parentNode.insertBefore(s, el);
 		})();
 		</script>
-		<noscript>
-		  	<img src="http://b.scorecardresearch.com/p?c1=2&c2=19249540&cv=2.0&cj=1" title="{$name}" alt="{$name}" />
-		</noscript>
 		<!-- End comScore Tag-->
 		HTML;
 	}
@@ -541,11 +537,11 @@ add_action( 'wp_head', 'add_google_tag_manager_script', 1 );
 
 function add_smart_script() {
 	echo <<<HTML
-	<script type="text/javascript">
 	<!-- Smart Script -->
+	<script type="text/javascript">
 	var sas = sas || {};sas.cmd = sas.cmd || [];sas.cmd.push(function() {sas.setup({ networkid: 1056, domain: "", async: true });});
-	<!-- End Smart Script -->
 	</script>
+	<!-- End Smart Script -->
 	HTML;
 }
 
@@ -563,7 +559,14 @@ function add_clickio_header_binding() {
 add_action( 'wp_head', 'add_clickio_header_binding', 1 );
 
 function add_gtag_init_script() {
+	$name = get_bloginfo('name');
+
 	echo <<<HTML
+	<!-- Begin comScore Tag-->
+	<noscript>
+		<img src="http://b.scorecardresearch.com/p?c1=2&c2=19249540&cv=2.0&cj=1" title="{$name}" alt="{$name}" />
+	</noscript>
+	<!-- End comScore Tag-->
 	<!-- Google Tag Manager (noscript) -->
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WN384TH"
 	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
