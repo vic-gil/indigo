@@ -540,12 +540,12 @@ class Reporte_Indigo_Scripts {
 			"use strict";
 			setTimeout( () => {
 				const elem = document.createElement("script");
-				elem.src = "' . get_template_directory_uri() . '/assets/js/ri-youtube.js";
+				elem.src = "' . get_template_directory_uri() . '/assets/js/ri-youtube.js?20210405";
 				document.head.append(elem);
 			}, 1000);
 		</script>';
 
-		$script = '<script type="text/javascript">"use strict";setTimeout(()=>{const e=document.createElement("script");e.src="' . get_template_directory_uri() . '/assets/js/ri-youtube.js",document.head.append(e)},1e3);</script>';
+		$script = '<script type="text/javascript">"use strict";setTimeout(()=>{const e=document.createElement("script");e.src="' . get_template_directory_uri() . '/assets/js/ri-youtube.js?20210405",document.head.append(e)},1e3);</script>';
 
 		if( $echo )
 			echo $script;
