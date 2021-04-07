@@ -29,7 +29,7 @@ if ( ! class_exists( 'Reporte_Indigo_Utils' ) ) {
 			$code = false;
 			$weekday = current_time('w');
 
-			if( array_key_exists( $weekday, $schedule ) ) {
+			if( is_array( $schedule ) && array_key_exists( $weekday, $schedule ) ) {
 				
 				if( is_array( $schedule[$weekday] ) ) {
 					$current_time = current_time('His');
