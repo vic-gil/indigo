@@ -16,24 +16,41 @@ get_header();
 		<div class="components">
 			<?php
 			$playlists = [];
+			$banners = [3,7];
+			$code = false;
 			if( class_exists("Ri_player_db") ){
-				$db = get_option("wp_player_ri");
-				$db = ( ! empty( $db ) ) ? unserialize( base64_decode($db) ) : [];
-				$playlists = ( array_key_exists("youtube", $db) ) ? $db["youtube"]["playlists"] : [];
+				$player = get_option("wp_player_ri");
+				$player = ( ! empty( $player ) ) ? unserialize( base64_decode($player) ) : false;
+				$playlists = ( array_key_exists("youtube", $player) ) ? $player["youtube"]["playlists"] : [];
+				$schedule = ( array_key_exists("programacion", $player) ) ? $player["programacion"] : false;
+				$code = Reporte_Indigo_Utils::get_live_code($schedule);
 			}
+
+			if( false !== $code ) {
+				$banners = [2,6];
+				Reporte_indigo_templates::componente_videos($code, '', true, true);
+				Reporte_indigo_templates::componente_titulo(false, "Más Playlist");
+			}
+
 			foreach ($playlists as $key => $playlist) {
+
 				if( $key == 0 ) {
-					Reporte_indigo_templates::componente_videos($playlist, '', true, true);
-					Reporte_indigo_templates::componente_titulo(false, "Más Playlist");
+					if( false !== $code ) {
+						Reporte_indigo_templates::componente_videos($playlist, 'vmini', false, false, 'high');
+					} else {
+						Reporte_indigo_templates::componente_videos($playlist, '', true, true);
+						Reporte_indigo_templates::componente_titulo(false, "Más Playlist");
+					}
 				}
 
 				if( $key >= 1 )
 					Reporte_indigo_templates::componente_videos($playlist, 'vmini', false, false, 'high');
+				
 
-				if( $key == 3 )
+				if( $key == $banners[0] )
 					Reporte_indigo_templates::componente_spotify('Escucha el playlist de Indigo Noticias desde tu Spotify','https://open.spotify.com/show/1RWrVBm0irB3PP5AripRRC?si=bV88dX_cQmOKxGPrppK6lg');
 
-				if( $key == 7 ){
+				if( $key == $banners[1] ){
 				?>
 				<div class="anuncios mt">
 					<div class="wrap">
