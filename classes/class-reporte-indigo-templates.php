@@ -873,11 +873,10 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 						</div>
 					<?php
 					else:
-						
-
 						if ( false !== $code ) {
+							$title = $code['title'];
 							?>
-							<ri-youtube videoid="<?=$code;?>" style="background-image: url('https://i.ytimg.com/vi/<?=$code;?>/hqdefault.jpg');" params="disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
+							<ri-youtube videoid="<?=$code['code'];?>" style="background-image: url('https://i.ytimg.com/vi/<?=$code['code'];?>/hqdefault.jpg');" params="disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
 								<button type="button" class="riyt-playbtn">
 									<span class="riyt-visually-hidden">En Vivo</span>
 								</button>
@@ -895,13 +894,6 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					endif;
 					?>
 				</div>
-				<style type="text/css">
-					.component-reproductor .reproductor-preview {
-						position: relative;
-						width: 100%;
-						padding-bottom: 56.25%;
-					}
-				</style>
 				<div class="entry-player">
 					<div class="player-title">
 						<div>
@@ -1075,18 +1067,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				<?php
 				}
 				?>
-				<figure class="interno">
-					<picture>
-						<?php
-							$image = [
-								'caption' 	=> $data['title'],
-								'link' 		=> $data["thumbnails"][$res]["url"],
-								'width' 	=> $data["thumbnails"][$res]['width'],
-								'height' 	=> $data["thumbnails"][$res]['height'],
-							];
-							Reporte_indigo_templates::componente_imagen($image);	
-						?>
-					</picture>
+				<div class="reproductor-preview">
 					<?php
 					if( get_theme_mod('ri_yt_video', false) == 0 ):
 						Reporte_indigo_templates::componente_boton_youtube([
@@ -1100,16 +1081,26 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 						</div>
 					<?php
 					else:
-					?>
-						<ri-youtube params="listType=playlist&list=<?=$data['id'];?>&disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
-							<button type="button" class="riyt-playbtn">
-								<span class="riyt-visually-hidden"><?=$data['title'];?></span>
-							</button>
-						</ri-youtube>
-					<?php
+						if( ! array_key_exists('code', $data) ) {
+							?>
+							<ri-youtube style="background-image: url('<?=$data["thumbnails"][$res]["url"];?>');" params="listType=playlist&list=<?=$data['id'];?>&disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
+								<button type="button" class="riyt-playbtn">
+									<span class="riyt-visually-hidden"><?=$data['title'];?></span>
+								</button>
+							</ri-youtube>
+							<?php
+						} else {
+							?>
+							<ri-youtube videoid="<?=$data['code'];?>" style="background-image: url('https://i.ytimg.com/vi/<?=$data['code'];?>/hqdefault.jpg');" params="disablekb=1&playsinline=1&autoplay=1&origin=<?=get_site_url();?>">
+								<button type="button" class="riyt-playbtn">
+									<span class="riyt-visually-hidden">En Vivo</span>
+								</button>
+							</ri-youtube>
+							<?php
+						}
 					endif;
 					?>
-				</figure>
+				</div>
 				<?php
 				if ( ! $in_header) {
 				?>
