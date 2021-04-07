@@ -305,7 +305,7 @@ add_action( 'wp_enqueue_scripts', 'reporte_indigo_scripts' );
 **/
 function add_non_critical_section_styles() {
 	if( is_home() )
-		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/assets/css/home.css", [], "20210125" );
+		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/assets/css/home.css", [], "20210406" );
 
 	if( is_single() ) :
 		$terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
@@ -331,7 +331,7 @@ function add_non_critical_section_styles() {
 		wp_enqueue_style( 'terminos-style', get_stylesheet_directory_uri() . "/assets/css/terminos.css", [], "20210125" );
 
 	if( is_page_template('page-templates/indigo_noticias.php') )
-		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/noticias.css", [], "20210125" );
+		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/noticias.css", [], "20210406" );
 
 	if( is_page_template('page-templates/indigo_videos.php') )
 		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/play.css", [], "20210125" );
