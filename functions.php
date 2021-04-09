@@ -71,7 +71,6 @@ if( get_theme_mod( "ri_experimental", false ) == 1 ):
 endif;
 
 require get_template_directory() . '/proposal/surveys/shortcode.php';
-require get_template_directory() . '/proposal/surveys/embed.php';
 require get_template_directory() . '/proposal/surveys/surveys.php';
 
 
