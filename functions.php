@@ -315,7 +315,7 @@ function add_non_critical_section_styles() {
 		$terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 
 		if ( has_term($terms, 'ri-voto') ) :
-			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single-voto.css", [], "20210408" );
+			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single-voto.css", [], "20210409" );
 		else :
 			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single.css", [], "20210408" );
 		endif;
