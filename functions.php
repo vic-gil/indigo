@@ -233,8 +233,12 @@ endif;
 
 
 function reporte_indigo_scripts () {
-
 	if( ! is_admin() ) {
+		// Inhabilitar jquery si no eres administrador
+		if( ! current_user_can('administrator') ) {
+			wp_deregister_script('jquery');
+		}
+
 		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 		remove_action( 'admin_print_styles', 'print_emoji_styles' );
 		remove_action('wp_head', 'wlwmanifest_link');
@@ -276,9 +280,6 @@ function reporte_indigo_scripts () {
 
 		// Cargar fuentes
 		wp_enqueue_style('roboto-font', 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,700&display=swap', [], '', 'all' );
-
-		// Desactivar script
-		wp_deregister_script('jquery');
 
 		// Cargar scripts
 		wp_enqueue_script( 'smart-ads', 'https://ced.sascdn.com/tag/1056/smart.js', [], '', false );
