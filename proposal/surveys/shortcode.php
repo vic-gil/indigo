@@ -20,6 +20,10 @@ class Reporte_Indigo_Shortcodes {
             add_action( 'wp_ajax_ri_surveys', [ 'Reporte_Indigo_Shortcodes', 'get_surveys' ] );
         }
 
+        add_action( 'admin_head', function(){
+            echo '<script>const active_theme_uri = "' . get_template_directory_uri() . '";</script>';
+        });
+
         add_shortcode( 'ri_survey', [ 'Reporte_Indigo_Shortcodes', 'survey_shortcode' ] );
         add_action( 'wp_enqueue_scripts', [ 'Reporte_Indigo_Shortcodes', 'enqueue_scripts' ] );
     }

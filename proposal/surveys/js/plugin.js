@@ -3,8 +3,7 @@
 	tinymce.PluginManager.add( 'encuestas', function( editor ){
 		editor.addButton( 'encuestas', {
 			title: 'Encuestas',
-			text: 'Encuestas',
-			icon: false,
+			image: active_theme_uri + '/assets/images/iconos/editor/survey.png',
 			onclick: async function(){
 				editor.windowManager.open({
 					title: 'Selecciona una encuesta  ',
