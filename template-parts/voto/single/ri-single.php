@@ -14,7 +14,7 @@ $terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 <article class="container wm">
 	<div class="components">
 		<?php
-		Reporte_indigo_templates::componente_titulo(FALSE, 'El Valor del Voto'); 
+		Reporte_indigo_templates::componente_titulo(FALSE, 'El Valor del Voto');
 		?>
 		<div class="col-lg-8">
 			<div class="components">
@@ -80,6 +80,33 @@ $terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 				<?php
 				endif;
 				wp_reset_postdata();
+				
+				if( ! empty( $selected_posts = get_option("wp_front_valor_voto_ld_ri") ) ) {
+					$selected_posts = unserialize( $selected_posts );
+
+					if( ! in_array($selected_posts[0], $exclude) ) {
+						$entradas = new WP_Query([
+							'posts_per_page'	=> count($selected_posts),
+							'post_type' 		=> 'any',
+							'post__in' 			=> $selected_posts,
+							'post_status'      	=> 'publish',
+							'suppress_filters' 	=> false,
+							'no_found_rows' 	=> true,
+							'orderby' 			=> 'post__in'
+						]);
+
+						if ( $entradas->have_posts() ): 
+							while ( $entradas->have_posts() ): $entradas->the_post();
+								get_template_part( 'template-parts/voto/components/ri', 'tarjeta' );
+
+								$exclude[] = get_the_ID();
+							endwhile;
+						endif;
+						wp_reset_postdata();
+					}
+
+				}
+
 				$estados = new WP_Query([
 					'post_type' 				=> ['ri-reporte'],
 					'posts_per_page' 			=> 4,
