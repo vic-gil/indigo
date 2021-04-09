@@ -70,6 +70,11 @@ if( get_theme_mod( "ri_experimental", false ) == 1 ):
 	require get_template_directory() . '/inc/reporte-indigo-one-signal.php';
 endif;
 
+require get_template_directory() . '/proposal/surveys/shortcode.php';
+require get_template_directory() . '/proposal/surveys/embed.php';
+require get_template_directory() . '/proposal/surveys/surveys.php';
+
+
 /*
  * El cache del navegador sólo está disponible para
  * usuarios que no tengan sesión
@@ -305,7 +310,7 @@ add_action( 'wp_enqueue_scripts', 'reporte_indigo_scripts' );
 **/
 function add_non_critical_section_styles() {
 	if( is_home() )
-		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/assets/css/home.css", [], "20210406" );
+		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/assets/css/home.css", [], "20210125" );
 
 	if( is_single() ) :
 		$terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
@@ -331,7 +336,7 @@ function add_non_critical_section_styles() {
 		wp_enqueue_style( 'terminos-style', get_stylesheet_directory_uri() . "/assets/css/terminos.css", [], "20210125" );
 
 	if( is_page_template('page-templates/indigo_noticias.php') )
-		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/noticias.css", [], "20210406" );
+		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/noticias.css", [], "20210125" );
 
 	if( is_page_template('page-templates/indigo_videos.php') )
 		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/play.css", [], "20210125" );
@@ -356,6 +361,9 @@ function add_non_critical_section_styles() {
 
 	if ( is_post_type_archive('ri-latitud') )
 		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/assets/css/latitud.css", [], "20210125" );
+
+	if ( is_post_type_archive('ri-encuestas') )
+		wp_enqueue_style( 'encuestas-style', get_stylesheet_directory_uri() . "/assets/css/latitud.css", [], "20210125" );
 
 	if ( is_post_type_archive('ri-reporte') )
 		wp_enqueue_style( 'reporte-style', get_stylesheet_directory_uri() . "/assets/css/reporte.css", [], "20210125" );
@@ -777,6 +785,12 @@ function reporte_indigo_main_query($query) {
 				$query->set( 'offset', $offset + ( ( $query->query_vars['paged'] - 2 ) * $ppp ) );
 			}
 
+		endif;
+
+		if ( is_post_type_archive('ri-encuestas') ) :
+			$query->set( 'posts_per_page', 5 );
+			$query->set( 'no_found_rows', false );
+			$query->set( 'suppress_filters', false );
 		endif;
 
 		if ( is_post_type_archive('ri-fan') ) :
