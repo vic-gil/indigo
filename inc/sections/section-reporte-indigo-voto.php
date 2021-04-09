@@ -9,11 +9,6 @@
 
 class Reporte_Indigo_Section_Voto {
 
-	// static function create_post_type() {
-	// 	$voto = new Reporte_Indigo_Post_Types('El valor del voto', 'voto', 'ri-voto', 'dashicons-id');
-	// 	$voto->create_post_type();
-	// }
-
 	static function create_taxonomy(){
 		$post_types = array(
 			'ri-reporte',
@@ -57,13 +52,10 @@ class Reporte_Indigo_Section_Voto {
 		$terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 
 		if( is_tax('ri-voto') && is_archive() )
-			wp_enqueue_style( 'voto-style', get_stylesheet_directory_uri() . "/assets/css/voto.css", [], "20210401" );
+			wp_enqueue_style( 'voto-style', get_stylesheet_directory_uri() . "/assets/css/voto.css", [], "20210408" );
 	}
 
 }
 
 add_action( 'init', ['Reporte_Indigo_Section_Voto',  'create_taxonomy'], 0 );
 add_action( 'get_footer', ['Reporte_Indigo_Section_Voto',  'create_stylesheet'] );
-// add_filter( 'ri_add_jwplayer_in_post_type', ['Reporte_Indigo_Section_Voto', 'add_post_type']);
-// add_filter( 'ri_add_read_time_in_post_type', ['Reporte_Indigo_Section_Voto', 'add_post_type']);
-// add_filter( 'ri_add_taxonomy_tema_in_post_type', ['Reporte_Indigo_Section_Voto', 'add_post_type']);
