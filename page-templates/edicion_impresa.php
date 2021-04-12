@@ -30,7 +30,7 @@ get_header(); ?>
 			<section class="digital">
 				<div class="wrap">
 					<div class="embed-container">
-						<iframe class="lazyload" load="lazy" src="https://p88.capitalmedia.mx/ediciones/1158-ReporteIndigoDF/58775/html5/index.html#DisablePreview=true" frameborder="0" allowfullscreen></iframe>
+						<iframe class="lazyload" load="lazy" src="https://services.publish88.com/app/newspaper/publicacion-1158" frameborder="0" allowfullscreen></iframe>
 					</div>
 				</div>
 			</section>
