@@ -872,6 +872,15 @@ function wpp_limit_query_execution_time($fields, $options){
 
 add_filter('wpp_query_fields', 'wpp_limit_query_execution_time', 10, 2);
 
+
+function reporte_indigo_query_vars( $vars ) {
+	$vars[] = 'publisher';
+
+	return $vars;
+}
+
+add_filter('query_vars', 'reporte_indigo_query_vars' );
+
 // Extiende un campo en REST API
 add_action('rest_api_init', function() {
 	register_rest_field(
