@@ -120,6 +120,48 @@ function ri_amp_custom_css() {
 * {
 	font-family: "Roboto", sans-serif !important;
 }
+.ri-block-survey {
+	width:100%;
+}
+.ri-block-survey .header {
+	padding: 1rem;
+	background: #609abb;
+}
+.ri-block-survey .header div {
+	font-size: 2rem;
+	font-weight: bold;
+	color: #fff;
+}
+.ri-block-survey .body {
+	padding: 10px;
+}
+.ri-block-survey .body .survey-title {
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin-bottom: .5rem;
+}
+.ri-block-survey .body {
+	background: #d9ecf9;
+}
+.ri-block-survey .body .survey-content,.ri-block-survey .body .survey-button {
+	font-size: 1rem;
+	margin-bottom: .5rem;
+}
+.ri-block-survey .body .survey-button {
+	text-align: center;
+}
+.ri-block-survey .body .survey-button a {
+	background: #007bff;
+	border: none;
+	color: #fff;
+	padding: .375rem .75rem;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 1rem;
+	margin: 4px 2px;
+	cursor: pointer;
+}
 .amp-wp-header {
 	position: sticky;
 	top: 0;
