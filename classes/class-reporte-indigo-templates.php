@@ -113,6 +113,11 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 			$url = $author ? $data['photo'] : $data['link'];
 			$width = ( ! empty($data['width']) ) ? $data['width'] : '';
 			$height = ( ! empty($data['height']) ) ? $data['height'] : '';
+			$id = '';
+
+			if( array_key_exists('id', $data) ) {
+				$id = "data-id='{$data['id']}'";
+			}
 
 			$rewrite = true;
 			if($rewrite == true) {
@@ -120,7 +125,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 			}
 
 		?>
-			<img itemprop="contentUrl" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="<?=$url?>" alt="<?=$title?>" width="<?=$width;?>" height="<?=$height;?>" class="lazyload" loading="lazy" />
+			<img <?=$id;?> itemprop="contentUrl" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="<?=$url?>" alt="<?=$title?>" width="<?=$width;?>" height="<?=$height;?>" class="lazyload" loading="lazy" />
 		<?php
 		}
 
@@ -853,8 +858,8 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 * @return void
 		 */
 		public static function componente_reproductor($player, $variation = "") {
-			$data = ( array_key_exists("youtube", $player) ) ? $player["youtube"]["playlists"] : false;
-			$schedule = ( array_key_exists("programacion", $player) ) ? $player["programacion"] : false;
+			$data = ( array_key_exists('youtube', $player) ) ? $player['youtube']['playlists'] : false;
+			$schedule = ( array_key_exists('programacion', $player) ) ? $player['programacion'] : false;
 			$title = $data[0]['title'];
 			$code = Reporte_Indigo_Utils::get_live_code($schedule);
 			?>
@@ -935,24 +940,62 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		 * @return void
 		 */
 		public static function componente_edicion($variation = "") {
+		$publicaciones = [
+			[	
+				'id' 		=> 1158,
+				'text' 		=> 'NACIONAL',
+				'caption' 	=> 'REPORTE INDIGO MÉXICO',
+				'link' 		=> 'https://services.publish88.com/app/newspaper/publicacion-1158/cover',
+				'width' 	=> 1346,
+				'height' 	=> 1677
+			],
+			[	
+				'id' 		=> 1156,
+				'text' 		=> 'MONTERREY',
+				'caption' 	=> 'REPORTE INDIGO MONTERREY',
+				'link' 		=> 'https://services.publish88.com/app/newspaper/publicacion-1156/cover',
+				'width' 	=> 1346,
+				'height' 	=> 1677
+			],
+			[	
+				'id' 		=> 1157,
+				'text' 		=> 'GUADALAJARA',
+				'caption' 	=> 'REPORTE INDIGO GUADALAJARA',
+				'link' 		=> 'https://services.publish88.com/app/newspaper/publicacion-1157/cover',
+				'width' 	=> 1346,
+				'height' 	=> 1677
+			]
+		];
 		?>
 		<div class="component-edicion <?=$variation;?>">
 			<div class="content">
-				<figure>
-					<picture>
-						<?php 
-							$image = [
-								'caption' => 'REPORTE INDIGO MÉXICO',
-								'link' => 'https://services.publish88.com/app/newspaper/publicacion-1158/cover',
-								'width' => 1346,
-								'height' => 1677
-							];
-							Reporte_indigo_templates::componente_imagen($image);	
+				<div class="swiper-container" id="sc-impresa">
+					<div class="swiper-wrapper">
+						<?php
+						foreach ($publicaciones as $publicacion) {
 						?>
-					</picture>
-				</figure>
+						<div class="swiper-slide">
+							<figure>
+								<a href="<?=esc_url( add_query_arg( 'publisher', $publicacion["id"], home_url("edicion-impresa") ) );?>" title="EDICIÓN DIGITAL">
+									<picture>
+										<?php
+										Reporte_indigo_templates::componente_imagen($publicacion);
+										?>
+									</picture>
+								</a>
+							</figure>
+							<figcaption>
+								<?=$publicacion['text'];?>
+							</figcaption>
+						</div>
+						<?php
+						}
+						?>
+					</div>
+					<div class="swiper-pagination"></div>
+				</div>
 				<div class="share-edicion">
-					<a href="<?=home_url("edicion-impresa");?>" title="EDICIÓN DIGITAL" role="button">
+					<a href="<?=esc_url( add_query_arg( 'publisher', $publicaciones[0]["id"], home_url("edicion-impresa") ) );?>" title="EDICIÓN DIGITAL" role="button">
 						VER EDICIÓN DIGITAL
 					</a>
 				</div>
