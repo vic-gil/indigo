@@ -310,7 +310,7 @@ add_action( 'wp_enqueue_scripts', 'reporte_indigo_scripts' );
 **/
 function add_non_critical_section_styles() {
 	if( is_home() )
-		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/assets/css/home.css", [], "20210125" );
+		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/assets/css/home.css", [], "20210411" );
 
 	if( is_single() ) :
 		$terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
@@ -318,7 +318,7 @@ function add_non_critical_section_styles() {
 		if ( has_term($terms, 'ri-voto') ) :
 			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single-voto.css", [], "20210410" );
 		else :
-			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single.css", [], "20210410" );
+			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single.css", [], "20210411" );
 		endif;
 		
 	endif;
