@@ -75,6 +75,7 @@ class Reporte_Indigo_Scripts {
 				   	sliders("sc-home-top", 1, 1);
 				    sliders("sc-home-enfoque", 2, 2);
 				    sliders("sc-home-desglose", 3, 1);
+				    sliders("sc-impresa", 4, 3);
 				}
 
 				var sliders = (selector, index, type) => {
@@ -86,37 +87,58 @@ class Reporte_Indigo_Scripts {
 				            autoHeight: true
 						};
 
-						if(type == 1) {
-							
-							let element = slider.querySelectorAll(".pagination");
+						switch( type ) {
+							case 1:
+								let element = slider.querySelectorAll(".pagination");
 
-							config.navigation = {
-								nextEl: ".sw-arrow.next",
-								prevEl: ".sw-arrow.prev"
-							};
+								config.navigation = {
+									nextEl: ".sw-arrow.next",
+									prevEl: ".sw-arrow.prev"
+								};
 
-							config.on = {
-								slideChangeTransitionEnd: () => {
-									for ( let element of slider.querySelectorAll(".pagination span") ) 
-										element.classList.remove("active");
+								config.on = {
+									slideChangeTransitionEnd: () => {
+										for ( let element of slider.querySelectorAll(".pagination span") ) 
+											element.classList.remove("active");
 
-									for (let pagination of element)
-										pagination.querySelector(`span:nth-child(${swiperInstances[index].activeIndex+1})`).classList.add("active");
+										for (let pagination of element)
+											pagination.querySelector(`span:nth-child(${swiperInstances[index].activeIndex+1})`).classList.add("active");
+									}
+								};
+
+								for (let pagination of element) {
+									pagination.addEventListener("click", function(){
+										let goto = event.target.dataset.index;
+										swiperInstances[index].slideTo((goto), 800);
+									});
 								}
-							};
+								break;
+							case 2:
+								config.pagination = {
+									el: ".swiper-pagination",
+									clickable: true
+								};
+								break;
+							case 3:
+								let edicionContainer = document.querySelector(".share-edicion a");
 
-							for (let pagination of element) {
-								pagination.addEventListener("click", function(){
-									let goto = event.target.dataset.index;
-									swiperInstances[index].slideTo((goto), 800);
-								});
-							}
-
-						} else {
-							config.pagination = {
-								el: "#sp-enfoque",
-								clickable: true
-							};
+								config.autoHeight = false;
+								config.pagination = {
+									el: ".swiper-pagination",
+									clickable: true
+								};
+								config.on = {
+									slideChangeTransitionEnd: () => {
+										for ( let element of slider.querySelectorAll(".swiper-slide") ) {
+											if ( element.classList.contains("swiper-slide-active") ){
+												let image = element.querySelector("img");
+												let id = image.dataset.id;
+												edicionContainer.href = edicionContainer.href.replace(/\d+/g, id);
+											}
+										}
+									}
+								};
+								break;
 						}
 
 						swiperInstances[index] = new Swiper(`#${selector}`, config);
@@ -127,7 +149,7 @@ class Reporte_Indigo_Scripts {
 				loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js", initSlider);
 			</script>';
 
-		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("sc-home-top",1,1),sliders("sc-home-enfoque",2,2),sliders("sc-home-desglose",3,1)};var sliders=(e,s,t)=>{let i=document.getElementById(e);if(void 0!==i&&null!=i){let n={slidesPerView:1,spaceBetween:15,autoHeight:!0};if(1==t){let e=i.querySelectorAll(".pagination");n.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},n.on={slideChangeTransitionEnd:()=>{for(let e of i.querySelectorAll(".pagination span"))e.classList.remove("active");for(let t of e)t.querySelector(`span:nth-child(${swiperInstances[s].activeIndex+1})`).classList.add("active")}};for(let t of e)t.addEventListener("click",function(){let e=event.target.dataset.index;swiperInstances[s].slideTo(e,800)})}else n.pagination={el:"#sp-enfoque",clickable:!0};swiperInstances[s]=new Swiper(`#${e}`,n)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
+		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("sc-home-top",1,1),sliders("sc-home-enfoque",2,2),sliders("sc-home-desglose",3,1),sliders("sc-impresa",4,3)};var sliders=(e,i,s)=>{let t=document.getElementById(e);if(void 0!==t&&null!=t){let a={slidesPerView:1,spaceBetween:15,autoHeight:!0};switch(s){case 1:let e=t.querySelectorAll(".pagination");a.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},a.on={slideChangeTransitionEnd:()=>{for(let e of t.querySelectorAll(".pagination span"))e.classList.remove("active");for(let s of e)s.querySelector(`span:nth-child(${swiperInstances[i].activeIndex+1})`).classList.add("active")}};for(let s of e)s.addEventListener("click",function(){let e=event.target.dataset.index;swiperInstances[i].slideTo(e,800)});break;case 2:a.pagination={el:".swiper-pagination",clickable:!0};break;case 3:let n=document.querySelector(".share-edicion a");a.autoHeight=!1,a.pagination={el:".swiper-pagination",clickable:!0},a.on={slideChangeTransitionEnd:()=>{for(let e of t.querySelectorAll(".swiper-slide"))if(e.classList.contains("swiper-slide-active")){let i=e.querySelector("img").dataset.id;n.href=n.href.replace(/\d+/g,i)}}}}swiperInstances[i]=new Swiper(`#${e}`,a)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
 
 		if( $echo )
 			echo $script;
@@ -141,6 +163,7 @@ class Reporte_Indigo_Scripts {
 				
 				const initSlider = () => {
 				   	sliders("deslizador-single", 1, 2);
+				   	sliders("sc-impresa", 4, 3);
 				}
 
 				var sliders = (selector, index, type) => {
@@ -149,12 +172,37 @@ class Reporte_Indigo_Scripts {
 						let config = {
 							slidesPerView: 1,
 				            spaceBetween: 15,
-				            autoHeight: true,
-				            navigation: {
-				            	nextEl: ".sw-arrow.next",
-								prevEl: ".sw-arrow.prev"
-				            }
+				            autoHeight: true
 						};
+
+						switch (type) {
+							case 2:
+								config.navigation = {
+									nextEl: ".sw-arrow.next",
+									prevEl: ".sw-arrow.prev"
+								}
+								break;
+							case 3:
+								let edicionContainer = document.querySelector(".share-edicion a");
+
+								config.autoHeight = false;
+								config.pagination = {
+									el: ".swiper-pagination",
+									clickable: true
+								};
+								config.on = {
+									slideChangeTransitionEnd: () => {
+										for ( let element of slider.querySelectorAll(".swiper-slide") ) {
+											if ( element.classList.contains("swiper-slide-active") ){
+												let image = element.querySelector("img");
+												let id = image.dataset.id;
+												edicionContainer.href = edicionContainer.href.replace(/\d+/g, id);
+											}
+										}
+									}
+								};
+								break;
+						}
 
 						swiperInstances[index] = new Swiper(`#${selector}`, config);
 
@@ -164,7 +212,7 @@ class Reporte_Indigo_Scripts {
 				loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js", initSlider);
 			</script>';
 
-		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("deslizador-single",1,2)};var sliders=(e,i,s)=>{let t=document.getElementById(e);if(void 0!==t&&null!=t){let s={slidesPerView:1,spaceBetween:15,autoHeight:!0,navigation:{nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"}};swiperInstances[i]=new Swiper(`#${e}`,s)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
+		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("deslizador-single",1,2),sliders("sc-impresa",4,3)};var sliders=(e,i,s)=>{let r=document.getElementById(e);if(void 0!==r&&null!=r){let t={slidesPerView:1,spaceBetween:15,autoHeight:!0};switch(s){case 2:t.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"};break;case 3:let e=document.querySelector(".share-edicion a");t.autoHeight=!1,t.pagination={el:".swiper-pagination",clickable:!0},t.on={slideChangeTransitionEnd:()=>{for(let i of r.querySelectorAll(".swiper-slide"))if(i.classList.contains("swiper-slide-active")){let s=i.querySelector("img").dataset.id;e.href=e.href.replace(/\d+/g,s)}}}}swiperInstances[i]=new Swiper(`#${e}`,t)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
 
 		if( $echo )
 			echo $script;
