@@ -8,8 +8,11 @@
  * @subpackage Reporte Indigo
  * @since Reporte Indigo 3.0.0
  */
-
-get_header(); ?>
+get_header(); 
+$edicion = get_query_var( 'publisher' );
+$edicion = intval( $edicion );
+$edicion = in_array( $edicion, [1158, 1156, 1157] ) ? $edicion : 1158;
+?>
 <main>
 	<div class="container wm">
 		<div class="components">
@@ -30,7 +33,7 @@ get_header(); ?>
 			<section class="digital">
 				<div class="wrap">
 					<div class="embed-container">
-						<iframe class="lazyload" load="lazy" src="https://services.publish88.com/app/newspaper/publicacion-1158#DisablePreview=true" frameborder="0" allowfullscreen></iframe>
+						<iframe class="lazyload" load="lazy" src="https://services.publish88.com/app/newspaper/publicacion-<?=$edicion;?>#DisablePreview=true" frameborder="0" allowfullscreen></iframe>
 					</div>
 				</div>
 			</section>
