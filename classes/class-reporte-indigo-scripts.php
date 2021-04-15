@@ -789,21 +789,29 @@ class Reporte_Indigo_Scripts {
 		        	if(tags[key] == 1)
 		        		document.querySelector(`#tag-${key}`).checked = true;
 		        }
+		        document.querySelector("#panel-notification .onload-accordion").remove();
 		    }]);
 
 		    let acc = document.querySelectorAll(".accordion");
 
 			for (let i = 0; i < acc.length; i++) {
+
+				if( acc[i].classList.contains("active") ) {
+					let panel = acc[i].nextElementSibling;
+						panel.style.maxHeight = (panel.style.maxHeight) ? null : panel.scrollHeight + "px";
+				}
+
 				acc[i].addEventListener("click", function() {
 					this.classList.toggle("active");
 					let panel = this.nextElementSibling;
 						panel.style.maxHeight = (panel.style.maxHeight) ? null : panel.scrollHeight + "px";
 				});
+
 			}
 
 			const sendTags = (form) => {
-				let sendButton = form.querySelector("input[type=\'submit\'");
-				let defaultValue = form.querySelector("input[type=\'submit\'").value;
+				let sendButton = form.querySelector("input[type=\'submit\']");
+				let defaultValue = form.querySelector("input[type=\'submit\']").value;
 				let inputs = form.querySelectorAll("input[type=\'checkbox\']");
 				let tags = {};
 
@@ -843,7 +851,7 @@ class Reporte_Indigo_Scripts {
 			}
 		</script>';
 
-		$script = '<script type="text/javascript">"use strict";OneSignal.push(["getTags",function(e){for(let t in e)1==e[t]&&(document.querySelector(`#tag-${t}`).checked=!0)}]);let acc=document.querySelectorAll(".accordion");for(let e=0;e<acc.length;e++)acc[e].addEventListener("click",function(){this.classList.toggle("active");let e=this.nextElementSibling;e.style.maxHeight=e.style.maxHeight?null:e.scrollHeight+"px"});const sendTags=(e=>{let t=e.querySelector("input[type=\'submit\'"),n=e.querySelector("input[type=\'submit\'").value,i=e.querySelectorAll("input[type=\'checkbox\']"),o={};e.classList.add("sending"),t.value="Enviando",t.disabled=!0;for(let e of i)o[e.value]=e.checked?1:0;setTimeout(function(){OneSignal.push(function(){OneSignal.sendTags(o,function(i){e.classList.add("done"),t.value="Enviado",OneSignal.sendSelfNotification("Reporte Índigo","Sus preferencias han sido actualizadas","https://www.reporteindigo.com/page?_osp=do_not_open","https://www.reporteindigo.com/iconos/icon150x150.png",{notificationType:"configuration-feature"}),setTimeout(function(){e.classList.remove("sending","done"),t.value=n,t.disabled=!1},3e3)})})},1e3)});</script>';
+		$script = '<script type="text/javascript">"use strict";OneSignal.push(["getTags",function(e){for(let t in e)1==e[t]&&(document.querySelector(`#tag-${t}`).checked=!0);document.querySelector("#panel-notification .onload-accordion").remove()}]);let acc=document.querySelectorAll(".accordion");for(let e=0;e<acc.length;e++){if(acc[e].classList.contains("active")){let t=acc[e].nextElementSibling;t.style.maxHeight=t.style.maxHeight?null:t.scrollHeight+"px"}acc[e].addEventListener("click",function(){this.classList.toggle("active");let e=this.nextElementSibling;e.style.maxHeight=e.style.maxHeight?null:e.scrollHeight+"px"})}const sendTags=e=>{let t=e.querySelector("input[type=\'submit\']"),n=e.querySelector("input[type=\'submit\']").value,i=e.querySelectorAll("input[type=\'checkbox\']"),o={};e.classList.add("sending"),t.value="Enviando",t.disabled=!0;for(let e of i)o[e.value]=e.checked?1:0;setTimeout(function(){OneSignal.push(function(){OneSignal.sendTags(o,function(i){e.classList.add("done"),t.value="Enviado",OneSignal.sendSelfNotification("Reporte Índigo","Sus preferencias han sido actualizadas","https://www.reporteindigo.com/page?_osp=do_not_open","https://www.reporteindigo.com/iconos/icon150x150.png",{notificationType:"configuration-feature"}),setTimeout(function(){e.classList.remove("sending","done"),t.value=n,t.disabled=!1},3e3)})})},1e3)};</script>';
 
 		if( $echo )
 			echo $script;
