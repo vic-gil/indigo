@@ -25,7 +25,6 @@ class Reporte_Indigo_Shortcodes {
         });
 
         add_shortcode( 'ri_survey', [ 'Reporte_Indigo_Shortcodes', 'survey_shortcode' ] );
-        add_action( 'wp_enqueue_scripts', [ 'Reporte_Indigo_Shortcodes', 'enqueue_scripts' ] );
     }
 
     public static function survey_shortcode( $atts, $content = null, $tag = '' ) {
@@ -56,6 +55,8 @@ class Reporte_Indigo_Shortcodes {
                 $content = get_the_content();
                 $survey_link = get_post_type_archive_link( 'ri-encuestas' );
 
+                $content = str_replace('img', 'img onclick="fullsize(this);"', $content);
+
                 $output = <<<HTML
                 <div class="ri-block-survey {$style}">
                     <div class="header">
@@ -81,17 +82,50 @@ class Reporte_Indigo_Shortcodes {
                         </div>
                     </div>
                 </div>
+                <style type="text/css">
+                    .modal-image {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100vw;
+                        height: auto;
+                        min-height: 100vh;
+                        background: #000;
+                        z-index: 99999;
+                        overflow: scroll;
+                    }
+
+                    .modal-image div {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 100%;
+                        height: auto;
+                        min-height: 100vh;
+                    }
+
+                    .modal-image .close {
+                        position: absolute;
+                        display: flex;
+                        right: 1rem;
+                        top: 1rem;
+                        color: #fff;
+                        border-radius: 25%;
+                        background: rgba(255, 255, 255, 0.5);
+                        padding: 1rem;
+                        cursor: pointer;
+                    }
+
+                    .modal-image img {
+                        width: 100%;
+                        height: auto;
+                    }
+                </style>
             HTML;
             endwhile;
         endif;
 
         return $output;
-    }
-
-    public static function enqueue_scripts(  ) {
-        global $post;
-
-        $has_shortcode = has_shortcode( $post->post_content, 'ri_survey');
     }
 
     public static function register_mce_buttons( $buttons ) {
@@ -135,5 +169,4 @@ class Reporte_Indigo_Shortcodes {
     }
 
 }
-
 ?>
