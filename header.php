@@ -9,13 +9,13 @@
 ?>
 
 <!DOCTYPE html>
-<html <?php language_attributes(); ?> class="no-js">
+<html <?php language_attributes(); ?>>
 	<?php header("Refresh: 1800;"); ?>
 	<head>
-		<title><?php if (is_single() ) { single_post_title('', true); } else { bloginfo('name'); } ?></title>
+		<title><?php if ( is_single() ) { single_post_title('', true); } else { bloginfo('name'); } ?></title>
 		<meta charset="<?php bloginfo( 'charset' ); ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+		<meta http-equiv="x-ua-compatible" content="ie=edge, chrome=1">
 		<meta http-equiv="cleartype" content="on">
 		<meta name="author" content="<?php if ( is_single() ) { single_post_title('', true); } else { bloginfo('name'); } ?>" />
 		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
@@ -28,13 +28,7 @@
 		<meta name="msvalidate.01" content="7CFA2C8C16223F10EB60365CBAD65A67" />
 		<meta http-equiv="Content-Type" content="text/html; charset=<?php bloginfo( 'charset' ); ?>" />
 		<meta name="application-name" content="<?=bloginfo('name');?>"/>
-		<meta name="msapplication-TileColor" content="#FFFFFF" />
-		<meta name="msapplication-TileImage" content="<?=IMAGESPATH;?>/iconos/icon144x144.png" />
-		<meta name="msapplication-square70x70logo" content="<?=IMAGESPATH;?>/iconos/icon70x70.png" />
-		<meta name="msapplication-square150x150logo" content="<?=IMAGESPATH;?>/iconos/icon150x150.png" />
-		<meta name="msapplication-square310x310logo" content="<?=IMAGESPATH;?>/iconos/icon310x310.png" />
 		<link rel="shortcut icon" href="<?=IMAGESPATH;?>/iconos/icon16x16.png" />
-		<link rel="apple-touch-icon" href="<?=IMAGESPATH;?>/iconos/icon192x192.png">
 		<link rel="icon" type="image/png" sizes="192x192" href="<?=IMAGESPATH;?>/iconos/icon192x192.png" />
 		<?php wp_head(); ?>
 	</head>
@@ -65,7 +59,7 @@
 									'format' => '70740',
 									'site' => '70494',
 									'page' => '535121',
-									'delay' => 2200,
+									'delay' => 0,
 								]);
 							?>
 						</div>
@@ -174,7 +168,8 @@
 				'format' => '70857',
 				'site' => '70494',
 				'page' => '535121',
-				'delay' => 5000
+				'delay' => 5000,
+				'loading' => false
 			]);
 			?>
 		</header>
