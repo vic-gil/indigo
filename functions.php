@@ -5,7 +5,7 @@ define('IMAGESPATH', get_template_directory_uri().'/assets/images');
 define('PAGESPATH', get_template_directory_uri().'/assets/pages');
 define('THEMEPATH', get_template_directory_uri(). '/');
 define('SITEURL', site_url('/') );
-define('POST_TYPE', serialize (array(
+define('POST_TYPE'), serialize([
 	'ri-reporte',
 	'ri-opinion',
 	'ri-latitud',
@@ -16,7 +16,7 @@ define('POST_TYPE', serialize (array(
 	'ri-documento-indigo',
 	'ri-salida-emergencia',
 	'ri-especial'
-)));
+]);
 
 // Clases necesarias para el funcionamiento del tema
 require get_template_directory() . '/classes/class-reporte-indigo-taxonomies.php';
@@ -28,9 +28,13 @@ require get_template_directory() . '/classes/class-reporte-indigo-scripts.php';
 require get_template_directory() . '/classes/class-reporte-indigo-styles.php';
 require get_template_directory() . '/classes/class-reporte-indigo-script-loader.php';
 
-
+// Custom Embed
 if( get_theme_mod( "ri_embed", false ) == 1 )
 	require get_template_directory() . '/classes/embed/class-reporte-indigo-oembed.php';
+
+// PWA
+if( get_theme_mod( "ri_pwa", false ) == 1 )
+	require get_template_directory() . '/pwa/reporte-indigo-pwa.php';
 
 // Clases para la carga de menús
 require get_template_directory() . '/inc/menus/menu-reporte-indigo-general-options.php';
@@ -57,10 +61,6 @@ require get_template_directory() . '/inc/sections/section-reporte-indigo-voto.ph
 
 // AMP
 require get_template_directory() . '/inc/reporte-indigo-amp.php';
-
-//PWA
-if( is_plugin_active('pwa/pwa.php') )
-	require get_template_directory() . '/pwa/reporte-indigo-pwa.php';
 
 // Experimental
 if( get_theme_mod( "ri_experimental", false ) == 1 ):
@@ -310,7 +310,7 @@ add_action( 'wp_enqueue_scripts', 'reporte_indigo_scripts' );
 **/
 function add_non_critical_section_styles() {
 	if( is_home() )
-		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/assets/css/home.css", [], "20210411" );
+		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/assets/css/home.css", [], "20210125" );
 
 	if( is_single() ) :
 		$terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
@@ -318,7 +318,7 @@ function add_non_critical_section_styles() {
 		if ( has_term($terms, 'ri-voto') ) :
 			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single-voto.css", [], "20210410" );
 		else :
-			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single.css", [], "20210411" );
+			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single.css", [], "20210410" );
 		endif;
 		
 	endif;
@@ -327,7 +327,7 @@ function add_non_critical_section_styles() {
 		wp_enqueue_style( '404-style', get_stylesheet_directory_uri() . "/assets/css/404.css", [], "20210125" );
 
 	if( is_page_template('page-templates/newsletter.php') || is_page_template('page-templates/newsletter-voto.php') )
-		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "/assets/css/newsletter.css", [], "20210413" );
+		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "/assets/css/newsletter.css", [], "20210125" );
 
 	if( is_page_template('page-templates/ventas.php') )
 		wp_enqueue_style( 'ventas-style', get_stylesheet_directory_uri() . "/assets/css/ventas.css", [], "20210125" );
@@ -905,5 +905,4 @@ add_action('rest_api_init', function() {
 	        'schema'          => null
 	    ]
 	);
-});
-?>
+});?>
