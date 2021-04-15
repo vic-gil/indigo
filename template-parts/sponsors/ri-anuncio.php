@@ -6,9 +6,19 @@
  * @subpackage Reporte Indigo
  * @since Reporte Indigo 3.0.0
  */
-
+$loading = isset( $args['loading'] ) ? $args['loading'] : true;
 ?>
-<div id="sas_<?=$args['format']?>"></div>
+<div id="sas_<?=$args['format']?>">
+	<?php
+	if($loading) {
+		echo <<<HTML
+		<div class="loading-add">
+			<span>ANUNCIO</span>
+		</div>
+		HTML;
+	}
+	?>
+</div>
 <script type="application/javascript">
 	setTimeout(
 		function(){ 
@@ -18,10 +28,15 @@
 		            pageId: <?=$args['page']?>,
 		            formatId: <?=$args['format']?>,
 		            target: ''
+		        },{
+		        	onLoad: function(e) {
+		        		document.querySelector(`#${e.formatId} .loading-add`).remove()
+		        	} 
 		        });
 		    });
 		}, 
-	<?=$args['delay']?>);
+		<?=$args['delay']?>
+	);
 </script>
 <noscript>
     <a href="" target="_blank">
