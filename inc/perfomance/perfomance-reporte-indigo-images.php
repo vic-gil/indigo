@@ -17,9 +17,6 @@ function custom_media_responsive_size($attr, $attachment, $size) {
 		$attr['class'] = $attr['class'] . ' lazyload';
 
 		if( ! empty( $attr['src'] ) ) :
-			$origin = get_theme_mod( 'ri_images_original', FALSE );
-			$replace = get_theme_mod( 'ri_images_replace', FALSE );
-
 			/**
 			 * Pasamos los valores de src a data-src para el plugin
 			 * Si tus imagenes se encuentran en un CDN (Amazon S3, Cludfront) aquí puedes cambiarlas
@@ -27,11 +24,6 @@ function custom_media_responsive_size($attr, $attachment, $size) {
 			 *
 			 */
 			$url = $attr['src'];
-			
-			if ( FALSE !== $origin && FALSE !== $replace ) {
-				$url = str_replace(get_site_url(), 'https://' . $replace, $url);
-				$url = str_replace($origin, $replace, $url);
-			}
 
 			$attr['data-src'] = $url;
 
@@ -54,11 +46,6 @@ function custom_media_responsive_size($attr, $attachment, $size) {
 			 *
 			 */
 			$srcset = $attr['srcset'];
-
-			if ( FALSE !== $origin && FALSE !== $replace ) {
-				$srcset = str_replace(get_site_url(), 'https://' . $replace, $url);
-				$srcset = str_replace($origin, $replace, $url);
-			}
 
 			$attr['data-srcset'] = $srcset;
 
@@ -146,13 +133,6 @@ add_filter('wp_get_attachment_image_attributes', 'custom_media_responsive_size',
 **/
 
 function custom_user_avatar($avatar, $id_or_email = NULL, $size = NULL, $align = NULL, $alt = NULL) {
-	$origin = get_theme_mod( 'ri_images_original', FALSE );
-	$replace = get_theme_mod( 'ri_images_replace', FALSE );
-
-	if ( FALSE !== $origin && FALSE !== $replace ) {
-		$avatar = str_replace( $origin, $replace, $avatar );
-	}
-
 	$avatar = str_replace( 'photo"', 'photo lazyload" width="150" height="150" loading="lazy"', $avatar );
 
 	if($size == 'thumbnail')
@@ -164,28 +144,4 @@ function custom_user_avatar($avatar, $id_or_email = NULL, $size = NULL, $align =
 }
 
 add_filter( 'get_wp_user_avatar', 'custom_user_avatar', 1, 5);
-
-/**
- * Añadir attributos a la url imagen
- *
- * @param array|false 	$image 			Array con la imagen seleccionada o false si no existe
- * @param int 			$attachment_id  ID de la Imagen Adjunta
- * @param string|int[]  $size 			Tamaño de la imagen o arreglo con el ancho y alto
- * @param bool 			$icon 			La imagen será tratado como icono
- *
- * @return object wp_get_attachment_image_src()
-**/
-
-function images_cdn_filter( $image, $attachment_id, $size, $icon ) {
-	$origin = get_theme_mod( 'ri_images_original', FALSE );
-	$replace = get_theme_mod( 'ri_images_replace', FALSE );
-
-	if ( FALSE !== $origin && FALSE !== $replace ) {
-		$image[0] = str_replace( $origin, $replace, $image[0] );
-	}
-
-    return $image;
-}
-add_filter('wp_get_attachment_image_src', 'images_cdn_filter', 10, 4);
-
 ?>
