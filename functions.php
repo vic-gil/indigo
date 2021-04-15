@@ -5,7 +5,7 @@ define('IMAGESPATH', get_template_directory_uri().'/assets/images');
 define('PAGESPATH', get_template_directory_uri().'/assets/pages');
 define('THEMEPATH', get_template_directory_uri(). '/');
 define('SITEURL', site_url('/') );
-define('POST_TYPE'), serialize([
+define('POST_TYPE', serialize([
 	'ri-reporte',
 	'ri-opinion',
 	'ri-latitud',
@@ -16,7 +16,7 @@ define('POST_TYPE'), serialize([
 	'ri-documento-indigo',
 	'ri-salida-emergencia',
 	'ri-especial'
-]);
+]));
 
 // Clases necesarias para el funcionamiento del tema
 require get_template_directory() . '/classes/class-reporte-indigo-taxonomies.php';
