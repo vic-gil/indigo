@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Cambia el dominio de la dirección canonica de la nota
  * esto es temporal hasta reindexar las tablas de Yoast
@@ -30,3 +29,4 @@ function opengraph_url( $url ) {
 }
 
 add_filter( 'wpseo_opengraph_url', 'opengraph_url' );
+?>
