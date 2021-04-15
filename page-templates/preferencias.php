@@ -8,7 +8,6 @@
  * @subpackage Reporte Indigo
  * @since Reporte Indigo 3.0.0
  */
-
 get_header(); ?>
 <main>
 	<div class="container wm">
@@ -27,8 +26,16 @@ get_header(); ?>
 					</li>
 				</ol>
 			</nav>
-			<button class="accordion">Notificaciones</button>
-			<div class="panel">
+			<button class="accordion active">Notificaciones</button>
+			<div class="panel" id="panel-notification">
+				<div class="onload-accordion">
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="background: transparent; display: block; shape-rendering: auto;" width="60px" height="60px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+						<circle cx="50" cy="50" fill="none" stroke="#AFCAE9" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
+					  		<animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1.408450704225352s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+						</circle>
+						<span>Recuperando preferencias</span>
+					</svg>
+				</div>
 				<form onsubmit="event.preventDefault(); sendTags(this);">
 					<fieldset class="components">
 						<?php
