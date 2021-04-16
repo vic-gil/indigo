@@ -14,47 +14,50 @@ function custom_media_responsive_size($attr, $attachment, $size) {
 		 * Agregamos la clase lazyload a todas las imágenes
 		 *
 		 */
-		$attr['class'] = $attr['class'] . ' lazyload';
+		if ( $attr['loading'] === 'lazy' ) :
+			$attr['class'] = $attr['class'] . ' lazyload';
 
-		if( ! empty( $attr['src'] ) ) :
-			/**
-			 * Pasamos los valores de src a data-src para el plugin
-			 * Si tus imagenes se encuentran en un CDN (Amazon S3, Cludfront) aquí puedes cambiarlas
-			 * mediante una exprresión regular
-			 *
-			 */
-			$url = $attr['src'];
+			if( ! empty( $attr['src'] ) ) :
+				/**
+				 * Pasamos los valores de src a data-src para el plugin
+				 * Si tus imagenes se encuentran en un CDN (Amazon S3, Cludfront) aquí puedes cambiarlas
+				 * mediante una exprresión regular
+				 *
+				 */
+				$url = $attr['src'];
 
-			$attr['data-src'] = $url;
+				$attr['data-src'] = $url;
 
-			/**
-			 * Pixel 1x1 transparente
-			 *
-			 */
-			if( ! amp_is_request() ) :
-				$attr['src'] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+				/**
+				 * Pixel 1x1 transparente
+				 *
+				 */
+				if( ! amp_is_request() ) :
+					$attr['src'] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+				endif;
+
 			endif;
 
-		endif;
+			if( ! empty( $attr['srcset'] ) ) :
 
-		if( ! empty( $attr['srcset'] ) ) :
+				/**
+				 * Pasamos los valores de srcset a data-srcset para el plugin
+				 * Si tus imagenes se encuentran en un CDN (Amazon S3, Cludfront) aquí puedes cambiarlas
+				 * mediante una exprresión regular
+				 *
+				 */
 
-			/**
-			 * Pasamos los valores de srcset a data-srcset para el plugin
-			 * Si tus imagenes se encuentran en un CDN (Amazon S3, Cludfront) aquí puedes cambiarlas
-			 * mediante una exprresión regular
-			 *
-			 */
-			$srcset = $attr['srcset'];
+				$srcset = $attr['srcset'];
 
-			$attr['data-srcset'] = $srcset;
+				$attr['data-srcset'] = $srcset;
 
-			/**
-			 * Limpiamos el campo srcset
-			 *
-			 */
-		   	$attr['srcset'] = '';
+				/**
+				 * Limpiamos el campo srcset
+				 *
+				 */
+			   	$attr['srcset'] = '';
 
+			endif;
 		endif;
 		
 		/**
@@ -144,4 +147,5 @@ function custom_user_avatar($avatar, $id_or_email = NULL, $size = NULL, $align =
 }
 
 add_filter( 'get_wp_user_avatar', 'custom_user_avatar', 1, 5);
+
 ?>
