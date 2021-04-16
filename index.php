@@ -31,9 +31,11 @@ $exclude = reporte_indigo_exclude_posts('home');
 			<div class="swiper-container" id="sc-home-top">
 				<div class="swiper-wrapper">
 				<?php
-				if ( $entradas->have_posts() ): 
+				if ( $entradas->have_posts() ): $index = 0;
 					while ( $entradas->have_posts() ): $entradas->the_post();
-						get_template_part( 'template-parts/components/ri', 'deslizador', [ 'total' => $entradas->post_count ] );
+						get_template_part( 'template-parts/components/ri', 'deslizador', [ 'total' => $entradas->post_count, 'loading' => ($index == 0) ? 'eager' : 'lazy' ] );
+
+						$index++;
 					endwhile;
 				endif;
 				wp_reset_postdata();
