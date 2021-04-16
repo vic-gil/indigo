@@ -6,6 +6,7 @@
  * @subpackage Reporte Indigo
  * @since Reporte Indigo 3.0.0
  */
+$loading = array_key_exists('loading', $args) ? $args['loading'] : 'lazy';
 $jwplayer = get_post_meta( get_the_ID(), '_mediaid_jwp_meta', TRUE );
 $total = array_key_exists('total', $args) ? intval($args['total']) : FALSE;
 ?>
@@ -14,7 +15,7 @@ $total = array_key_exists('total', $args) ? intval($args['total']) : FALSE;
 		<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
 			<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 				<picture>
-					<?php the_post_thumbnail("large"); ?>
+					<?php the_post_thumbnail("medium_large", [ 'loading' => $loading ]); ?>
 				</picture>
 			</a>
 		</figure>
