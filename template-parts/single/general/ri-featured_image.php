@@ -41,7 +41,7 @@ $tema = get_the_terms( get_the_ID(), 'ri-tema');
 		?>
 		<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
 			<picture>
-				<?php the_post_thumbnail("large"); ?>
+				<?php the_post_thumbnail("large", ['loading' => 'eager']); ?>
 			</picture>
 		</figure>
 		<?php	
