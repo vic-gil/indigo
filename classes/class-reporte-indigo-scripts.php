@@ -146,10 +146,10 @@ class Reporte_Indigo_Scripts {
 					}
 				}
 				
-				loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js", initSlider);
+				loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.5.6/swiper-bundle.min.js", initSlider);
 			</script>';
 
-		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("sc-home-top",1,1),sliders("sc-home-enfoque",2,2),sliders("sc-home-desglose",3,1),sliders("sc-impresa",4,3)};var sliders=(e,i,s)=>{let t=document.getElementById(e);if(void 0!==t&&null!=t){let a={slidesPerView:1,spaceBetween:15,autoHeight:!0};switch(s){case 1:let e=t.querySelectorAll(".pagination");a.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},a.on={slideChangeTransitionEnd:()=>{for(let e of t.querySelectorAll(".pagination span"))e.classList.remove("active");for(let s of e)s.querySelector(`span:nth-child(${swiperInstances[i].activeIndex+1})`).classList.add("active")}};for(let s of e)s.addEventListener("click",function(){let e=event.target.dataset.index;swiperInstances[i].slideTo(e,800)});break;case 2:a.pagination={el:".swiper-pagination",clickable:!0};break;case 3:let n=document.querySelector(".share-edicion a");a.autoHeight=!1,a.pagination={el:".swiper-pagination",clickable:!0},a.on={slideChangeTransitionEnd:()=>{for(let e of t.querySelectorAll(".swiper-slide"))if(e.classList.contains("swiper-slide-active")){let i=e.querySelector("img").dataset.id;n.href=n.href.replace(/\d+/g,i)}}}}swiperInstances[i]=new Swiper(`#${e}`,a)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
+		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("sc-home-top",1,1),sliders("sc-home-enfoque",2,2),sliders("sc-home-desglose",3,1),sliders("sc-impresa",4,3)};var sliders=(e,i,s)=>{let t=document.getElementById(e);if(void 0!==t&&null!=t){let a={slidesPerView:1,spaceBetween:15,autoHeight:!0};switch(s){case 1:let e=t.querySelectorAll(".pagination");a.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},a.on={slideChangeTransitionEnd:()=>{for(let e of t.querySelectorAll(".pagination span"))e.classList.remove("active");for(let s of e)s.querySelector(`span:nth-child(${swiperInstances[i].activeIndex+1})`).classList.add("active")}};for(let s of e)s.addEventListener("click",function(){let e=event.target.dataset.index;swiperInstances[i].slideTo(e,800)});break;case 2:a.pagination={el:".swiper-pagination",clickable:!0};break;case 3:let n=document.querySelector(".share-edicion a");a.autoHeight=!1,a.pagination={el:".swiper-pagination",clickable:!0},a.on={slideChangeTransitionEnd:()=>{for(let e of t.querySelectorAll(".swiper-slide"))if(e.classList.contains("swiper-slide-active")){let i=e.querySelector("img").dataset.id;n.href=n.href.replace(/\d+/g,i)}}}}swiperInstances[i]=new Swiper(`#${e}`,a)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.5.6/swiper-bundle.min.js",initSlider);</script>';
 
 		if( $echo )
 			echo $script;
@@ -209,10 +209,10 @@ class Reporte_Indigo_Scripts {
 					}
 				}
 				
-				loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js", initSlider);
+				loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.5.6/swiper-bundle.min.js", initSlider);
 			</script>';
 
-		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("deslizador-single",1,2),sliders("sc-impresa",4,3)};var sliders=(e,i,s)=>{let r=document.getElementById(e);if(void 0!==r&&null!=r){let t={slidesPerView:1,spaceBetween:15,autoHeight:!0};switch(s){case 2:t.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"};break;case 3:let e=document.querySelector(".share-edicion a");t.autoHeight=!1,t.pagination={el:".swiper-pagination",clickable:!0},t.on={slideChangeTransitionEnd:()=>{for(let i of r.querySelectorAll(".swiper-slide"))if(i.classList.contains("swiper-slide-active")){let s=i.querySelector("img").dataset.id;e.href=e.href.replace(/\d+/g,s)}}}}swiperInstances[i]=new Swiper(`#${e}`,t)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
+		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("deslizador-single",1,2),sliders("sc-impresa",4,3)};var sliders=(e,i,s)=>{let r=document.getElementById(e);if(void 0!==r&&null!=r){let t={slidesPerView:1,spaceBetween:15,autoHeight:!0};switch(s){case 2:t.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"};break;case 3:let e=document.querySelector(".share-edicion a");t.autoHeight=!1,t.pagination={el:".swiper-pagination",clickable:!0},t.on={slideChangeTransitionEnd:()=>{for(let i of r.querySelectorAll(".swiper-slide"))if(i.classList.contains("swiper-slide-active")){let s=i.querySelector("img").dataset.id;e.href=e.href.replace(/\d+/g,s)}}}}swiperInstances[i]=new Swiper(`#${e}`,t)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.5.6/swiper-bundle.min.js",initSlider);</script>';
 
 		if( $echo )
 			echo $script;
@@ -277,11 +277,11 @@ class Reporte_Indigo_Scripts {
 				}
 			}
 			
-			loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js", initSlider);
+			loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.5.6/swiper-bundle.min.js", initSlider);
 		
 		</script>';
 
-		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("sc-home-enfoque",2,2)};var sliders=(e,t,i)=>{let s=document.getElementById(e);if(void 0!==s&&null!=s){let n={slidesPerView:1,spaceBetween:15,autoHeight:!0};if(1==i){let e=s.querySelectorAll(".pagination");n.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},n.on={slideChangeTransitionEnd:()=>{for(let e of s.querySelectorAll(".pagination span"))e.classList.remove("active");for(let i of e)i.querySelector(`span:nth-child(${swiperInstances[t].activeIndex+1})`).classList.add("active")}};for(let i of e)i.addEventListener("click",function(){let e=event.target.dataset.index;swiperInstances[t].slideTo(e,800)})}else n.pagination={el:"#sp-enfoque",clickable:!0};swiperInstances[t]=new Swiper(`#${e}`,n)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
+		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("sc-home-enfoque",2,2)};var sliders=(e,t,i)=>{let s=document.getElementById(e);if(void 0!==s&&null!=s){let n={slidesPerView:1,spaceBetween:15,autoHeight:!0};if(1==i){let e=s.querySelectorAll(".pagination");n.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},n.on={slideChangeTransitionEnd:()=>{for(let e of s.querySelectorAll(".pagination span"))e.classList.remove("active");for(let i of e)i.querySelector(`span:nth-child(${swiperInstances[t].activeIndex+1})`).classList.add("active")}};for(let i of e)i.addEventListener("click",function(){let e=event.target.dataset.index;swiperInstances[t].slideTo(e,800)})}else n.pagination={el:"#sp-enfoque",clickable:!0};swiperInstances[t]=new Swiper(`#${e}`,n)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.5.6/swiper-bundle.min.js",initSlider);</script>';
 
 		if( $echo )
 			echo $script;
@@ -354,11 +354,11 @@ class Reporte_Indigo_Scripts {
 				}
 			}
 			
-			loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js", initSlider);
+			loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.5.6/swiper-bundle.min.js", initSlider);
 		
 		</script>';
 
-		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("slider-fan",1,1)};var sliders=(e,t,i)=>{let s=document.getElementById(e);if(void 0!==s&&null!=s){let n={slidesPerView:1,spaceBetween:15,autoHeight:!0};if(1==i){let e=s.querySelectorAll(".pagination");n.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},n.on={slideChangeTransitionEnd:()=>{for(let e of s.querySelectorAll(".pagination span"))e.classList.remove("active");for(let i of e)i.querySelector(`span:nth-child(${swiperInstances[t].activeIndex+1})`).classList.add("active")}};for(let i of e)i.addEventListener("click",function(){let e=event.target.dataset.index;swiperInstances[t].slideTo(e,800)})}else n.pagination={el:"#sp-enfoque",clickable:!0};swiperInstances[t]=new Swiper(`#${e}`,n)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js",initSlider);</script>';
+		$script = '<script type="text/javascript">"use strict";let swiperInstances=[];const initSlider=()=>{sliders("slider-fan",1,1)};var sliders=(e,t,i)=>{let s=document.getElementById(e);if(void 0!==s&&null!=s){let n={slidesPerView:1,spaceBetween:15,autoHeight:!0};if(1==i){let e=s.querySelectorAll(".pagination");n.navigation={nextEl:".sw-arrow.next",prevEl:".sw-arrow.prev"},n.on={slideChangeTransitionEnd:()=>{for(let e of s.querySelectorAll(".pagination span"))e.classList.remove("active");for(let i of e)i.querySelector(`span:nth-child(${swiperInstances[t].activeIndex+1})`).classList.add("active")}};for(let i of e)i.addEventListener("click",function(){let e=event.target.dataset.index;swiperInstances[t].slideTo(e,800)})}else n.pagination={el:"#sp-enfoque",clickable:!0};swiperInstances[t]=new Swiper(`#${e}`,n)}};loadScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.5.6/swiper-bundle.min.js",initSlider);</script>';
 
 		if( $echo )
 			echo $script;
