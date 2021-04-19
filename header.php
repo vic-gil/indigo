@@ -7,7 +7,6 @@
  * @since Reporte Indigo 3.0.0
  */
 ?>
-
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 	<?php header("Refresh: 1800;"); ?>
@@ -164,6 +163,35 @@
 				</div>
 			</div>
 			<?php
+			if( ! empty( $selected_posts = get_option("ri_section_ultimo_momento") ) ) :
+				$entradas = new WP_Query([
+					'posts_per_page'	=> count($selected_posts),
+					'post_type' 		=> 'any',
+					'post__in' 			=> $selected_posts,
+					'post_status'      	=> 'publish',
+					'suppress_filters' 	=> false,
+					'no_found_rows' 	=> true,
+					'orderby' 			=> 'post__in'
+				]);
+
+				if ( $entradas->have_posts() ):
+					$main_id = get_the_ID();
+					?>
+					<div class="container wmt">
+						<div class="components">
+						<?php
+						while ( $entradas->have_posts() ): $entradas->the_post();
+							if( $main_id != get_the_ID() ) 
+								get_template_part('template-parts/ab-test/components/alerts/ri', 'alertas');
+							break;
+						endwhile;
+						?>
+						</div>
+					</div>
+					<?php
+				endif;
+				wp_reset_postdata();
+			endif;
 			get_template_part('template-parts/sponsors/ri', 'anuncio', [
 				'format' => '70857',
 				'site' => '70494',
