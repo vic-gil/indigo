@@ -28,10 +28,6 @@ $loading = isset( $args['loading'] ) ? $args['loading'] : true;
 		            pageId: <?=$args['page']?>,
 		            formatId: <?=$args['format']?>,
 		            target: ''
-		        },{
-		        	onLoad: function(e) {
-		        		document.querySelector(`#${e.formatId} .loading-add`).remove()
-		        	} 
 		        });
 		    });
 		}, 
