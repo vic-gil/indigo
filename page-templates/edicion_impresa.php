@@ -32,6 +32,13 @@ $edicion = in_array( $edicion, [1158, 1156, 1157] ) ? $edicion : 1158;
 			</nav>
 			<section class="digital">
 				<div class="wrap">
+					<div class="select-publish">
+						<div class="btn-group" role="group" aria-label="select">
+							<a class="<?=($edicion == 1158) ? "active" : "";?>" href="<?=esc_url( add_query_arg( 'publisher', 1158, home_url("edicion-impresa") ) );?>" title="Ir a edición impresa Nacional" role="button">Nacional</a>
+							<a class="<?=($edicion == 1156) ? "active" : "";?>" href="<?=esc_url( add_query_arg( 'publisher', 1156, home_url("edicion-impresa") ) );?>" title="Ir a edición impresa Monterrey" role="button">Monterrey</a>
+							<a class="<?=($edicion == 1157) ? "active" : "";?>" href="<?=esc_url( add_query_arg( 'publisher', 1157, home_url("edicion-impresa") ) );?>" title="Ir a edición impresa Guadalajara" role="button">Guadalajara</a>
+						</div>
+					</div>
 					<div class="embed-container">
 						<iframe class="lazyload" load="lazy" src="https://services.publish88.com/app/newspaper/publicacion-<?=$edicion;?>#DisablePreview=true" frameborder="0" allowfullscreen></iframe>
 					</div>
