@@ -164,6 +164,7 @@
 			</div>
 			<?php
 			if( ! empty( $selected_posts = get_option("ri_section_ultimo_momento") ) ) :
+				$selected_posts = unserialize( $selected_posts );
 				$entradas = new WP_Query([
 					'posts_per_page'	=> count($selected_posts),
 					'post_type' 		=> 'any',
