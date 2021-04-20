@@ -3,7 +3,7 @@
 	<div class="container wm">
 		<div class="components">
 			<div class="term_title">
-				<h1><?php post_type_archive_title('', true)?> <i class="fas fa-angle-double-right"></i></h1>
+				<h1><?php post_type_archive_title('', true)?> <i class="ri-icon-angle-double-right"></i></h1>
 			</div>
 		</div>
 		<div class="components">
@@ -38,14 +38,14 @@
 		?>
 			<div class="component-pagination">
 				<div class="wrap">
-					<span class="page-dir"><?php previous_posts_link('<span class="fas fa-angle-left"></span>'); ?></span>
+					<span class="page-dir"><?php previous_posts_link('<span class="ri-icon-angle-left"></span>'); ?></span>
 					<div class="page-number">
 						<?=paginate_links([
 							'mid_size' => 1,
 							'prev_next' => false
 						]);?>
 					</div>
-					<span class="page-dir"><?php next_posts_link('<span class="fas fa-angle-right"></span>'); ?></span>
+					<span class="page-dir"><?php next_posts_link('<span class="ri-icon-angle-right"></span>'); ?></span>
 				</div>
 			</div>
 		</div>

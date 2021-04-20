@@ -24,7 +24,7 @@ get_header();?>
 			</nav>
 			<section class="component-error">
 				<div class="entries">
-					<span class="fas fa-exclamation-circle"></span>
+					<span class="ri-icon-exclamation-circle"></span>
 					<p><span class="error">error</span></p>
 					<p><span class="code">404</span></p>
 					<p><span class="msg">LO SENTIMOS, ESTA PÁGINA NO EXISTE</span></p>

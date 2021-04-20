@@ -119,7 +119,7 @@
 						while ( $videos->have_posts() ): $videos->the_post();
 							get_template_part( 'template-parts/components/ri', 'play', [ 'class' => 'mini', 'local' => FALSE ] );
 						endwhile;
-						echo '<div class="tc"><a href="<?=get_permalink( get_page_by_path( \'indigo-videos\' ) ) ?>" title="Ir a entradas nacionales" class="btn-general" role="button">Ver más videos <i class="fas fa-caret-right"></i></a></div>';
+						echo '<div class="tc"><a href="<?=get_permalink( get_page_by_path( \'indigo-videos\' ) ) ?>" title="Ir a entradas nacionales" class="btn-general" role="button">Ver más videos <i class="ri-icon-caret-right"></i></a></div>';
 					endif;
 					echo '</div></div></div>'; // Con esto cerramos contenedor de video
 					echo '<div class="container wm"><div class="components">'; // Abrimos un nuevo contenedor
@@ -143,14 +143,14 @@
 		<div class="components">
 			<div class="component-pagination">
 				<div class="wrap">
-					<span class="page-dir"><?php previous_posts_link('<span class="fas fa-angle-left"></span>'); ?></span>
+					<span class="page-dir"><?php previous_posts_link('<span class="ri-icon-angle-left"></span>'); ?></span>
 					<div class="page-number">
 						<?=paginate_links([
 							'mid_size' => 1,
 							'prev_next' => false
 						]);?>
 					</div>
-					<span class="page-dir"><?php next_posts_link('<span class="fas fa-angle-right"></span>'); ?></span>
+					<span class="page-dir"><?php next_posts_link('<span class="ri-icon-angle-right"></span>'); ?></span>
 				</div>
 			</div>
 		</div>
