@@ -45,7 +45,7 @@
 						</a>
 					</div>
 					<div class="newsletter">
-						<a href="<?=get_permalink(get_page_by_path( 'Newsletter' ));?>"><span class="fas fa-plus-circle"></span> SUSCRÍBETE</a>
+						<a href="<?=get_permalink(get_page_by_path( 'Newsletter' ));?>"><span class="ri-icon-plus-circle"></span> SUSCRÍBETE</a>
 					</div>
 				</div>
 			</div>
@@ -77,27 +77,32 @@
 					<div class="nav-social">
 						<ul>
 							<li>
-								<a href="https://www.facebook.com/R.Indigo" title="Síguenos en Facebook" target="_blank" class="fab fa-facebook-f" rel="noopener noreferrer" aria-label="Síguenos en Facebook">
+								<a href="https://www.facebook.com/R.Indigo" title="Síguenos en Facebook" target="_blank" class="ri-icon-facebook-f" rel="noopener noreferrer" aria-label="Síguenos en Facebook">
 									<span>Facebook</span>
 								</a>
 							</li>
 							<li>
-								<a href="https://twitter.com/Reporte_Indigo" title="Síguenos en Twitter" target="_blank" class="fab fa-twitter" rel="noopener noreferrer" aria-label="Síguenos en Twitter">
+								<a href="https://twitter.com/Reporte_Indigo" title="Síguenos en Twitter" target="_blank" class="ri-icon-twitter" rel="noopener noreferrer" aria-label="Síguenos en Twitter">
 									<span>Twitter</span>
 								</a>
 							</li>
 							<li>
-								<a href="https://www.youtube.com/user/reporteindigo" title="Suscríbete a nuestro canal de Youtube" target="_blank" class="fab fa-youtube" rel="noopener noreferrer" aria-label="Suscríbete a nuestro canal de Youtube">
+								<a href="https://www.youtube.com/user/reporteindigo" title="Suscríbete a nuestro canal de Youtube" target="_blank" class="ri-icon-youtube" rel="noopener noreferrer" aria-label="Suscríbete a nuestro canal de Youtube">
 									<span>Youtube</span>
 								</a>
 							</li>
 							<li>
-								<a href="https://www.instagram.com/reporte_indigo" title="Síguenos en Instagram" target="_blank" class="fab fa-instagram" rel="noopener noreferrer" aria-label="Síguenos en Instagram">
+								<a href="https://www.instagram.com/reporte_indigo" title="Síguenos en Instagram" target="_blank" class="ri-icon-instagram" rel="noopener noreferrer" aria-label="Síguenos en Instagram">
 									<span>Instagram</span>
 								</a>
 							</li>
 							<li>
-								<a href="https://t.me/rindigo_noticias" title="Suscríbete al grupo de Telegram" target="_blank" class="fab fa-telegram-plane" rel="noopener noreferrer" aria-label="Suscríbete al grupo de Telegram">
+								<a href="https://www.tiktok.com/@reporteindigo" title="Síguenos en TikTok" target="_blank" class="ri-icon-tiktok" rel="noopener noreferrer" aria-label="Síguenos en TikTok">
+									<span>TikTok</span>
+								</a>
+							</li>
+							<li>
+								<a href="https://t.me/rindigo_noticias" title="Suscríbete al grupo de Telegram" target="_blank" class="ri-icon-telegram-plane" rel="noopener noreferrer" aria-label="Suscríbete al grupo de Telegram">
 									<span>Telegram</span>
 								</a>
 							</li>
@@ -109,12 +114,12 @@
 						</a>
 					</div>
 					<div class="nav-suscribe">
-						<a href="<?=get_permalink(get_page_by_path( 'Newsletter' ));?>"><span class="fas fa-plus-circle"></span> SUSCRÍBETE</a>
+						<a href="<?=get_permalink(get_page_by_path( 'Newsletter' ));?>"><span class="ri-icon-plus-circle"></span> SUSCRÍBETE</a>
 					</div>
 				</div>
 				<div class="sx2">
 					<div class="nav-burger exec" id="exec-menu">
-						<span class="fas fa-bars"></span>
+						<span class="ri-icon-bars"></span>
 					</div>
 					<div class="nav-logo">
 						<a href="<?=home_url();?>" title="<?=get_bloginfo('name');?>">
@@ -131,7 +136,7 @@
 						?>
 					</nav>
 					<div class="nav-search exec" id="exec-search">
-						<span class="fas fa-search"></span>
+						<span class="ri-icon-search"></span>
 					</div>
 				</div>
 			</div>
@@ -158,7 +163,7 @@
 				<div class="components">
 					<form method="get" action="<?=get_bloginfo('url');?>" role="search" aria-label="En todo el sitio">
 						<input type = "text" placeholder="¿Qué nota estás buscando?" role="searchbox" aria-label="Buscar" name="s" autocomplete="off">
-						<button class="fas fa-search" role="button" id="button-search" type="submit"><span>Búsqueda</span></button>
+						<button class="ri-icon-search" role="button" id="button-search" type="submit"><span>Búsqueda</span></button>
 					</form>
 				</div>
 			</div>
