@@ -42,7 +42,7 @@ get_header(); ?>
 									</label>
 									<div class="group">
 										<input type="text" value="" name="FNAME" class="required" id="mce-FNAME" aria-label="name">
-										<span class="fas fa-user"></span>
+										<span class="ri-icon-user"></span>
 									</div>
 								</div>
 								<div class="mc-field-group">
@@ -51,7 +51,7 @@ get_header(); ?>
 									</label>
 									<div class="group">
 										<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" aria-label="email">
-										<span class="fas fa-envelope"></span>
+										<span class="ri-icon-envelope"></span>
 									</div>
 								</div>
 								<div id="mce-responses" class="clear">

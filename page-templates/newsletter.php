@@ -42,7 +42,7 @@ get_header(); ?>
 									</label>
 									<div class="group">
 										<input type="text" value="" name="MMERGE1" class="required" id="mce-MMERGE1" aria-label="email" aria-describedby="button-suscribe">
-										<span class="fas fa-user"></span>
+										<span class="ri-icon-user"></span>
 									</div>
 								</div>
 								<div class="mc-field-group">
@@ -51,7 +51,7 @@ get_header(); ?>
 									</label>
 									<div class="group">
 										<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" aria-label="email" aria-describedby="button-suscribe">
-										<span class="fas fa-envelope"></span>
+										<span class="ri-icon-envelope"></span>
 									</div>
 								</div>
 								<div class="mc-field-group">
@@ -73,7 +73,7 @@ get_header(); ?>
     								</div>
 								</div>
 							</form>
-							
+
 							<script type="text/javascript">
 								document.querySelector('#mc-embedded-subscribe-form').addEventListener('keydown', function(e) {
 								    if (e.keyIdentifier == 'U+000A' || e.keyIdentifier == 'Enter' || e.keyCode == 13) {

@@ -33,8 +33,8 @@ get_header(); ?>
 						<circle cx="50" cy="50" fill="none" stroke="#AFCAE9" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
 					  		<animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1.408450704225352s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
 						</circle>
-						<span>Recuperando preferencias</span>
 					</svg>
+					<span>Recuperando preferencias</span>
 				</div>
 				<form onsubmit="event.preventDefault(); sendTags(this);">
 					<fieldset class="components">
