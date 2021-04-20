@@ -292,7 +292,6 @@ function reporte_indigo_scripts () {
 		wp_script_add_data( 'bootstrap-min-js', 'async', true );
 
 		wp_enqueue_style('swiper-min-css', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css', [], '4.5.0', 'all' );
-		wp_enqueue_style('fontawesome-min-css', get_template_directory_uri() . '/assets/fonts/fontawesome/fontawesome.min.css', [], '1.0.0', 'all' );
 
 		wp_script_add_data( 'hoverintent-js', 'async', true );
 		wp_script_add_data( 'admin-bar', 'async', true );

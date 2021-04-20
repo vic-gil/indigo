@@ -55,7 +55,7 @@
 			?>
 		</div>
 		<div class="component-pagination">
-			<span class="page-dir"><?php previous_posts_link('<span class="fas fa-angle-left"></span>'); ?></span>
+			<span class="page-dir"><?php previous_posts_link('<span class="ri-icon-angle-left"></span>'); ?></span>
 			<div class="page-number">
 				<?=paginate_links([
 					'mid_size' => 1,
@@ -63,7 +63,7 @@
 				]);
 				?>
 			</div>
-			<span class="page-dir"><?php next_posts_link('<span class="fas fa-angle-right"></span>'); ?></span>
+			<span class="page-dir"><?php next_posts_link('<span class="ri-icon-angle-right"></span>'); ?></span>
 		</div>
 	</div>
 </main>
