@@ -66,7 +66,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		public static function componente_boton_jwplayer($json, $title = "", $class = "jw-play") {
 		?>
 			<button type="button" class="<?=$class;?>" data-json="<?=$json?>" data-title="<?=$title;?>" aria-label="play" title="<?=$title;?>" onclick="jwEvent(this); return false;">
-				<i class="fas fa-play"></i>
+				<i class="ri-icon-play"></i>
 			</button>
 		<?php
 		}
@@ -80,7 +80,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		public static function componente_boton_youtube($data) {
 		?>
 			<button type="button" class="jw-play" data-id="<?=$data['id']?>" data-title="<?=$data['title']?>" aria-label="play" onclick="ytEvent(this); return false;">
-				<i class="fas fa-play"></i>
+				<i class="ri-icon-play"></i>
 			</button>
 		<?php
 		}
@@ -93,10 +93,10 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 		public static function componente_boton_deslizamiento() {
 		?>
 			<div class="sw-arrow prev">
-				<button class="fas fa-angle-left" aria-label="anterior"></button>
+				<button class="ri-icon-angle-left" aria-label="anterior"></button>
 			</div>
 			<div class="sw-arrow next">
-				<button class="fas fa-angle-right" aria-label="siguiente"></button>
+				<button class="ri-icon-angle-right" aria-label="siguiente"></button>
 			</div>
 		<?php
 		}
@@ -235,7 +235,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 							<?php
 							for($j = 0; $j < $total; $j++) {
 							?>
-								<span class="fas fa-circle"></span>
+								<span class="ri-icon-circle"></span>
 							<?php
 							}
 							?>
@@ -390,7 +390,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					<div class="form">
 						<label><span class="sr-only">Suscribete</span><input type="text" name="suscribe" /></label>
 						<button type="button" id="button-suscribe" aria-label="Suscríbete">
-							<i class="fas fa-paper-plane"></i>
+							<i class="ri-icon-paper-plane"></i>
 						</button>
 					</div>
 				</a>
@@ -414,12 +414,12 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				if(FALSE !== $slug){
 				?>
 				<a href="<?=site_url($slug);?>" title="<?=$title?>">
-					<?=$title;?><i class="fas fa-angle-double-right"></i>
+					<?=$title;?><i class="ri-icon-angle-double-right"></i>
 				</a>
 				<?php
 				} else {
 				?>
-				<?=$title;?><i class="fas fa-angle-double-right"></i>
+				<?=$title;?><i class="ri-icon-angle-double-right"></i>
 				<?php	
 				}
 				?>
@@ -511,7 +511,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					</div>
 				</div>
 				<footer>
-					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="fas fa-share-alt" aria-label="comparte">
+					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="ri-icon-share-alt" aria-label="comparte">
 					</button>
 				</footer>
 			</article>
@@ -564,7 +564,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					</div>
 				</div>
 				<footer>
-					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="fas fa-share-alt" aria-label="comparte">
+					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="ri-icon-share-alt" aria-label="comparte">
 					</button>
 				</footer>
 			</article>
@@ -687,7 +687,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 				if($share){
 				?>
 				<footer>
-					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="fas fa-share-alt" aria-label="comparte">
+					<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="ri-icon-share-alt" aria-label="comparte">
 					</button>
 				</footer>
 				<?php
@@ -907,7 +907,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 					</div>
 					<div>
 						<button type="button" class="btn-playlist btn-general">
-							<i class="fas fa-stream"></i>
+							<i class="ri-icon-stream"></i>
 						</button>
 					</div>
 				</div>
@@ -1075,7 +1075,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 							<?php
 							} else {
 							?>
-							<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="fas fa-share-alt" aria-label="comparte"></button>
+							<button type="button" onclick="utilerias.share(this);" data-link="<?=$data["format_link"]?>" data-title="<?=rawurlencode($data["post_title"]);?>" class="ri-icon-share-alt" aria-label="comparte"></button>
 							<?php
 							}
 							?>
@@ -1183,7 +1183,7 @@ if ( ! class_exists( 'Reporte_indigo_templates' ) ) {
 			<div class="wrap">
 				<div class="msg">
 					<span class="txt"><?=$title;?></span>
-					<span class="icon fab fa-spotify"></span>
+					<span class="icon ri-icon-spotify"></span>
 				</div>
 				<div>
 					<a href="<?=esc_url($url);?>" class="btn-general" title="spotify" target="_blank">Ir a playlist</a>
