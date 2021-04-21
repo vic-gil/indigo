@@ -111,7 +111,7 @@ $excerpt = array_key_exists('excerpt', $args) ? $args['excerpt'] : TRUE;
 		if($share):
 		?>
 		<footer>
-			<button type="button" onclick="shareDialog(this);" data-link="<?php the_permalink(); ?>" data-title="<?=get_the_title();?>" class="fas fa-share-alt" aria-label="comparte">
+			<button type="button" onclick="shareDialog(this);" data-link="<?php the_permalink(); ?>" data-title="<?=get_the_title();?>" class="ri-icon-share-alt" aria-label="comparte">
 			</button>
 		</footer>
 		<?php

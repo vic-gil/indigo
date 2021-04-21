@@ -42,7 +42,7 @@ $total = array_key_exists('total', $args) ? intval($args['total']) : FALSE;
 				<?php
 				for($i = 0; $i < $total; $i++) {
 				?>
-					<span class="fas fa-circle <?= ($i == 0) ? 'active' : ''?>" data-index="<?=($i);?>"></span>
+					<span class="ri-icon-circle <?= ($i == 0) ? 'active' : ''?>" data-index="<?=($i);?>"></span>
 				<?php
 				}
 				?>

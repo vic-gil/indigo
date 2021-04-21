@@ -69,7 +69,7 @@ $share = array_key_exists('share', $args) ? $args['share'] : true;
 					}
 					?>
 				</div>
-				<div class="swiper-pagination" id="sp-enfoque"></div>
+				<div class="swiper-pagination"></div>
 			</div>
 		</div>
 		<?php

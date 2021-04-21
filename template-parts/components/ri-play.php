@@ -81,7 +81,7 @@ $class = array_key_exists('class', $args) ? $args['class'] : '';
 					<?php
 					} else {
 					?>
-					<button type="button" onclick="shareDialog(this);" data-link="<?php the_permalink(); ?>" data-title="<?=get_the_title();?>" class="fas fa-share-alt" aria-label="comparte"></button>
+					<button type="button" onclick="shareDialog(this);" data-link="<?php the_permalink(); ?>" data-title="<?=get_the_title();?>" class="ri-icon-share-alt" aria-label="comparte"></button>
 					<?php
 					}
 					?>
