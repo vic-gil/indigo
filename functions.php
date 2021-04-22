@@ -39,6 +39,9 @@ if( get_theme_mod( "ri_pwa", false ) == 1 )
 // Clases para la carga de menús
 require get_template_directory() . '/inc/menus/menu-reporte-indigo-general-options.php';
 
+// Etiquetas personalizadas del tema
+require get_template_directory() . '/inc/reporte-indigo-template-tags.php';
+
 // Clases para la carga de metaboxes
 require get_template_directory() . '/inc/metaboxes/metabox-reporte-indigo-jwplayer.php';
 require get_template_directory() . '/inc/metaboxes/metabox-reporte-indigo-lectura.php';
@@ -266,6 +269,10 @@ function reporte_indigo_scripts () {
 	    wp_dequeue_style( 'wc-block-style' );
 	    wp_dequeue_style( 'wp-block-library' );
 
+	    // Remove from RSS feeds also
+		remove_filter( 'the_content_feed', 'wp_staticize_emoji');
+		remove_filter( 'comment_text_rss', 'wp_staticize_emoji');
+
 	    if( ! is_single() ){
 	    	wp_dequeue_style('embedpress');
 		    wp_deregister_style('embedpress');
@@ -274,24 +281,26 @@ function reporte_indigo_scripts () {
 		  	wp_deregister_style('embedpress_blocks-cgb-style-css');
 	    }
 
-	    // Remove from RSS feeds also
-		remove_filter( 'the_content_feed', 'wp_staticize_emoji');
-		remove_filter( 'comment_text_rss', 'wp_staticize_emoji');
+	    // Register Scripts
+	    wp_register_script( 'smart-ads', 'https://ced.sascdn.com/tag/1056/smart.js', [], '', false );
+	    wp_register_script( 'indigo', get_template_directory_uri() . '/assets/js/indigo.min.js', [], '1.0.0', true );
+	    wp_register_script( 'bootstrap-min-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js', '', '5.0.0', true );
 
 		// Cargar fuentes
 		wp_enqueue_style('roboto-font', 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,700&display=swap', [], '', 'all' );
 
-		// Cargar scripts
-		wp_enqueue_script( 'smart-ads', 'https://ced.sascdn.com/tag/1056/smart.js', [], '', false );
+		// Cargar css de swiper
+		wp_enqueue_style('swiper-min-css', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css', [], '4.5.0', 'all' );
+
+		// Enqueue Scripts
+		wp_enqueue_script( 'smart-ads' );
 		wp_script_add_data( 'smart-ads', 'async', true );
 
-		wp_enqueue_script( 'indigo', get_template_directory_uri() . '/assets/js/indigo.min.js', [], '1.0.0', true );
+		wp_enqueue_script( 'indigo' );
 		wp_script_add_data( 'indigo', 'async', true );
 
-		wp_enqueue_script('bootstrap-min-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js', '', '5.0.0', true);
+		wp_enqueue_script( 'bootstrap-min-js' );
 		wp_script_add_data( 'bootstrap-min-js', 'async', true );
-
-		wp_enqueue_style('swiper-min-css', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css', [], '4.5.0', 'all' );
 
 		wp_script_add_data( 'hoverintent-js', 'async', true );
 		wp_script_add_data( 'admin-bar', 'async', true );
@@ -308,70 +317,88 @@ add_action( 'wp_enqueue_scripts', 'reporte_indigo_scripts' );
  *
 **/
 function add_non_critical_section_styles() {
+	wp_register_style( 'home-style', ri_get_file_url('/assets/css/', 'home.css'), [], ri_get_version_file('/assets/css/', 'home.css'), 'all' );
+	wp_register_style( 'single-style', ri_get_file_url('/assets/css/', 'single-voto.css'), [], ri_get_version_file('/assets/css/', 'single-voto.css'), 'all' );
+	wp_register_style( 'single-voto-style', ri_get_file_url('/assets/css/', 'single.css'), [], ri_get_version_file('/assets/css/', 'single.css'), 'all' );
+	wp_register_style( '404-style', ri_get_file_url('/assets/css/', '404.css'), [], ri_get_version_file('/assets/css/', '404.css'), 'all' );
+	wp_register_style( 'newsletter-style', ri_get_file_url('/assets/css/', 'newsletter.css'), [], ri_get_version_file('/assets/css/', 'newsletter.css'), 'all' );
+	wp_register_style( 'ventas-style', ri_get_file_url('/assets/css/', 'ventas.css'), [], ri_get_version_file('/assets/css/', 'ventas.css'), 'all' );
+	wp_register_style( 'terminos-style', ri_get_file_url('/assets/css/', 'terminos.css'), [], ri_get_version_file('/assets/css/', 'terminos.css'), 'all' );
+	wp_register_style( 'noticias-style', ri_get_file_url('/assets/css/', 'noticias.css'), [], ri_get_version_file('/assets/css/', 'noticias.css'), 'all' );
+	wp_register_style( 'taxonomy-style', ri_get_file_url('/assets/css/', 'taxonomy.css'), [], ri_get_version_file('/assets/css/', 'taxonomy.css'), 'all' );
+	wp_register_style( 'opinion-style', ri_get_file_url('/assets/css/', 'opinion.css'), [], ri_get_version_file('/assets/css/', 'opinion.css'), 'all' );
+	wp_register_style( 'desglose-style', ri_get_file_url('/assets/css/', 'desglose.css'), [], ri_get_version_file('/assets/css/', 'desglose.css'), 'all' );
+	wp_register_style( 'fan-style', ri_get_file_url('/assets/css/', 'fan.css'), [], ri_get_version_file('/assets/css/', 'fan.css'), 'all' );
+	wp_register_style( 'piensa-style', ri_get_file_url('/assets/css/', 'piensa.css'), [], ri_get_version_file('/assets/css/', 'piensa.css'), 'all' );
+	wp_register_style( 'latitud-style', ri_get_file_url('/assets/css/', 'latitud.css'), [], ri_get_version_file('/assets/css/', 'latitud.css'), 'all' );
+	wp_register_style( 'reporte-style', ri_get_file_url('/assets/css/', 'reporte.css'), [], ri_get_version_file('/assets/css/', 'reporte.css'), 'all' );
+	wp_register_style( 'author-style', ri_get_file_url('/assets/css/', 'author.css'), [], ri_get_version_file('/assets/css/', 'author.css'), 'all' );
+
+
 	if( is_home() )
-		wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . "/assets/css/home.css", [], "20210125" );
+		wp_enqueue_style( 'home-style' );
 
 	if( is_single() ) :
 		$terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 
 		if ( has_term($terms, 'ri-voto') ) :
-			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single-voto.css", [], "20210410" );
+			wp_enqueue_style( 'single-voto-style' );
 		else :
-			wp_enqueue_style( 'single-style', get_stylesheet_directory_uri() . "/assets/css/single.css", [], "20210410" );
+			wp_enqueue_style( 'single-style' );
 		endif;
 		
 	endif;
 
 	if( is_404() )
-		wp_enqueue_style( '404-style', get_stylesheet_directory_uri() . "/assets/css/404.css", [], "20210125" );
+		wp_enqueue_style( '404-style' );
 
 	if( is_page_template('page-templates/newsletter.php') || is_page_template('page-templates/newsletter-voto.php') )
-		wp_enqueue_style( 'newsletter-style', get_stylesheet_directory_uri() . "/assets/css/newsletter.css", [], "20210125" );
+		wp_enqueue_style( 'newsletter-style' );
 
 	if( is_page_template('page-templates/ventas.php') )
-		wp_enqueue_style( 'ventas-style', get_stylesheet_directory_uri() . "/assets/css/ventas.css", [], "20210125" );
+		wp_enqueue_style( 'ventas-style' );
 
 	if( is_page_template('page-templates/terminos.php') || is_page_template('page-templates/privacidad.php') )
-		wp_enqueue_style( 'terminos-style', get_stylesheet_directory_uri() . "/assets/css/terminos.css", [], "20210125" );
+		wp_enqueue_style( 'terminos-style' );
 
 	if( is_page_template('page-templates/indigo_noticias.php') )
-		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/noticias.css", [], "20210125" );
+		wp_enqueue_style( 'noticias-style' );
 
 	if( is_page_template('page-templates/indigo_videos.php') )
-		wp_enqueue_style( 'noticias-style', get_stylesheet_directory_uri() . "/assets/css/play.css", [], "20210125" );
+		wp_enqueue_style( 'noticias-style' );
 
 	if( is_tax('ri-categoria') || is_tax('ri-tema') || is_tax('ri-columna') || is_tax('ri-ciudad') )
-		wp_enqueue_style( 'taxonomy-style', get_stylesheet_directory_uri() . "/assets/css/taxonomy.css", [], "20210125" );
+		wp_enqueue_style( 'taxonomy-style' );
 
 	if ( is_post_type_archive('ri-opinion') )
-		wp_enqueue_style( 'opinion-style', get_stylesheet_directory_uri() . "/assets/css/opinion.css", [], "20210125" );
+		wp_enqueue_style( 'opinion-style' );
 
 	if ( is_post_type_archive('ri-desglose') )
-		wp_enqueue_style( 'desglose-style', get_stylesheet_directory_uri() . "/assets/css/desglose.css", [], "20210125" );
+		wp_enqueue_style( 'desglose-style' );
 
 	if ( is_post_type_archive('ri-fan') )
-		wp_enqueue_style( 'fan-style', get_stylesheet_directory_uri() . "/assets/css/fan.css", [], "20210125" );
+		wp_enqueue_style( 'fan-style' );
 
 	if ( is_post_type_archive('ri-piensa') )
-		wp_enqueue_style( 'piensa-style', get_stylesheet_directory_uri() . "/assets/css/piensa.css", [], "20210125" );
+		wp_enqueue_style( 'piensa-style' );
 
 	if ( is_post_type_archive('ri-indigonomics') )
-		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/assets/css/latitud.css", [], "20210125" );
+		wp_enqueue_style( 'latitud-style' );
 
 	if ( is_post_type_archive('ri-latitud') )
-		wp_enqueue_style( 'latitud-style', get_stylesheet_directory_uri() . "/assets/css/latitud.css", [], "20210125" );
+		wp_enqueue_style( 'latitud-style' );
 
 	if ( is_post_type_archive('ri-encuestas') )
-		wp_enqueue_style( 'encuestas-style', get_stylesheet_directory_uri() . "/assets/css/latitud.css", [], "20210125" );
+		wp_enqueue_style( 'latitud-style' );
 
 	if ( is_post_type_archive('ri-reporte') )
-		wp_enqueue_style( 'reporte-style', get_stylesheet_directory_uri() . "/assets/css/reporte.css", [], "20210125" );
+		wp_enqueue_style( 'reporte-style' );
 
 	if ( is_author() )
-		wp_enqueue_style( 'author-style', get_stylesheet_directory_uri() . "/assets/css/author.css", [], "20210125" );
+		wp_enqueue_style( 'author-style' );
 
 	if ( is_search() )
-		wp_enqueue_style( 'author-style', get_stylesheet_directory_uri() . "/assets/css/author.css", [], "20210125" );
+		wp_enqueue_style( 'author-style' );
 
 };
 
