@@ -21,7 +21,6 @@
 								'suppress_filters' 		=> false,
 								'ignore_sticky_posts'	=> true,
 								'no_found_rows' 		=> true,
-								'post__not_in'			=> $exclude,
 								'tax_query' 			=> [
 									[
 										'taxonomy' 		=> 'ri-categoria',
@@ -226,4 +225,3 @@
 	</div>
 </main>
 <?php get_footer(); ?>
-
