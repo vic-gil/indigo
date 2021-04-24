@@ -317,9 +317,10 @@ add_action( 'wp_enqueue_scripts', 'reporte_indigo_scripts' );
  *
 **/
 function add_non_critical_section_styles() {
+	// Register scripts
 	wp_register_style( 'home-style', ri_get_file_url('/assets/css/', 'home.css'), [], ri_get_version_file('/assets/css/', 'home.css'), 'all' );
-	wp_register_style( 'single-style', ri_get_file_url('/assets/css/', 'single-voto.css'), [], ri_get_version_file('/assets/css/', 'single-voto.css'), 'all' );
-	wp_register_style( 'single-voto-style', ri_get_file_url('/assets/css/', 'single.css'), [], ri_get_version_file('/assets/css/', 'single.css'), 'all' );
+	wp_register_style( 'single-style', ri_get_file_url('/assets/css/', 'single.css'), [], ri_get_version_file('/assets/css/', 'single.css'), 'all' );
+	wp_register_style( 'single-voto-style', ri_get_file_url('/assets/css/', 'single-voto.css'), [], ri_get_version_file('/assets/css/', 'single-voto.css'), 'all' );
 	wp_register_style( '404-style', ri_get_file_url('/assets/css/', '404.css'), [], ri_get_version_file('/assets/css/', '404.css'), 'all' );
 	wp_register_style( 'newsletter-style', ri_get_file_url('/assets/css/', 'newsletter.css'), [], ri_get_version_file('/assets/css/', 'newsletter.css'), 'all' );
 	wp_register_style( 'ventas-style', ri_get_file_url('/assets/css/', 'ventas.css'), [], ri_get_version_file('/assets/css/', 'ventas.css'), 'all' );
@@ -334,16 +335,16 @@ function add_non_critical_section_styles() {
 	wp_register_style( 'reporte-style', ri_get_file_url('/assets/css/', 'reporte.css'), [], ri_get_version_file('/assets/css/', 'reporte.css'), 'all' );
 	wp_register_style( 'author-style', ri_get_file_url('/assets/css/', 'author.css'), [], ri_get_version_file('/assets/css/', 'author.css'), 'all' );
 
-
+	// Enqueue scripts
 	if( is_home() )
 		wp_enqueue_style( 'home-style' );
 
 	if( is_single() ) :
 		$terms = wp_list_pluck( get_terms( 'ri-voto' ), 'term_id' );
 
-		if ( has_term($terms, 'ri-voto') ) :
+		if ( has_term($terms, 'ri-voto') ):
 			wp_enqueue_style( 'single-voto-style' );
-		else :
+		else:
 			wp_enqueue_style( 'single-style' );
 		endif;
 		
@@ -931,4 +932,5 @@ add_action('rest_api_init', function() {
 	        'schema'          => null
 	    ]
 	);
-});?>
+});
+?>
