@@ -17,11 +17,9 @@ $class = array_key_exists('class', $args) ? $args['class'] : '';
 			</h3>
 		</header>
 		<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
-			<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
-				<picture>
-					<?php the_post_thumbnail("large"); ?>
-				</picture>
-			</a>
+			<picture>
+				<?php the_post_thumbnail("large"); ?>
+			</picture>
 			<?php
 			if( ! empty( $jwplayer ) ) {
 				Reporte_indigo_templates::componente_boton_jwplayer( $jwplayer );
