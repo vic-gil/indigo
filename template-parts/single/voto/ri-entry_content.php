@@ -22,5 +22,8 @@
 		);
 		?>
 		</div>
+		<div style="position:relative; overflow:hidden; padding-bottom:62.5%">
+			<script id="jw-iframe-embed-TQ8NKbeX-ixhD10k3" type="text/javascript" async src="https://cdn.jwplayer.com/iframe-embed/TQ8NKbeX-ixhD10k3.js"></script>
+		</div>
 	</div>
 </section>
