@@ -21,6 +21,36 @@ class RI_AMP_Clickio_Banner_Embed extends AMP_Base_Embed_Handler {
 	}
 
 	public function add_clickio_banners( $content ) {
+
+        $dom = new DOMDocument();
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+
+        $dom->loadXML('<root>' . $content . '</root>');
+
+        $xPath = new DOMXPath( $dom );
+        $pTags = $xPath->query('//p');
+
+
+        $count = 0;
+        foreach ( $pTags as $pTag ) {
+            $loop_every = ( $pTags->length > 25) ? 4 : 3;
+            $count = ( $count == $loop_every ) ? 1 : $count + 1;
+
+            if($count == $loop_every) {
+                $ad = $dom->createElement('amp-ad');
+                $ad->setAttribute('width', '336');
+                $ad->setAttribute('height', '280');
+                $ad->setAttribute('type', 'doubleclick');
+                $ad->setAttribute('data-slot', '/45470634/clickio_area_652881_336x280');
+                $ad->setAttribute('data-multi-size-validation', 'false');
+                $pTag->appendChild($ad);
+            }
+
+        }
+
+        $content = preg_replace('#.*?<root>\s*(.*)\s*</root>#s', '\1', $dom->saveXML() );
+
 		$banner = [
 			'<amp-ad width="300" height="250" type="doubleclick" data-slot="/45470634/clickio_area_642195_300x250" data-multi-size-validation="false"></amp-ad>',
 			'<amp-ad width="300" height="250" type="doubleclick" data-slot="/45470634/clickio_area_642194_300x250" data-multi-size-validation="false"></amp-ad>',
