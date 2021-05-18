@@ -14,8 +14,8 @@ class RI_AMP_Clickio_Banner_Embed extends AMP_Base_Embed_Handler {
 
 	public function get_scripts() {
         return [
-            'amp-ad' 			=> 'https://cdn.ampproject.org/v0/amp-ad-0.1.js',
-            'amp-iframe' 		=> 'https://cdn.ampproject.org/v0/amp-iframe-0.1.js',
+            'amp-ad' 		=> 'https://cdn.ampproject.org/v0/amp-ad-0.1.js',
+            'amp-iframe' 	=> 'https://cdn.ampproject.org/v0/amp-iframe-0.1.js',
             'amp-sticky-ad' 	=> 'https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js'
         ];
 	}
@@ -26,11 +26,10 @@ class RI_AMP_Clickio_Banner_Embed extends AMP_Base_Embed_Handler {
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = true;
 
-        $dom->loadXML('<root>' . $content . '</root>');
+        $dom->loadHTML('<?xml encoding="utf-8" ?><root>' . $content . '</root>');
 
         $xPath = new DOMXPath( $dom );
         $pTags = $xPath->query('//p');
-
 
         $count = 0;
         foreach ( $pTags as $pTag ) {
@@ -49,7 +48,7 @@ class RI_AMP_Clickio_Banner_Embed extends AMP_Base_Embed_Handler {
 
         }
 
-        $content = preg_replace('#.*?<root>\s*(.*)\s*</root>#s', '\1', $dom->saveXML() );
+        $content = preg_replace('#.*?<root>\s*(.*)\s*</root>#s', '\1', $dom->saveHTML() );
 
 		$banner = [
 			'<amp-ad width="300" height="250" type="doubleclick" data-slot="/45470634/clickio_area_642195_300x250" data-multi-size-validation="false"></amp-ad>',
