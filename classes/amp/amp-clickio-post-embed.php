@@ -14,8 +14,8 @@ class RI_AMP_Clickio_Banner_Embed extends AMP_Base_Embed_Handler {
 
 	public function get_scripts() {
         return [
-            'amp-ad' 		=> 'https://cdn.ampproject.org/v0/amp-ad-0.1.js',
-            'amp-iframe' 	=> 'https://cdn.ampproject.org/v0/amp-iframe-0.1.js',
+            'amp-ad' 			=> 'https://cdn.ampproject.org/v0/amp-ad-0.1.js',
+            'amp-iframe' 		=> 'https://cdn.ampproject.org/v0/amp-iframe-0.1.js',
             'amp-sticky-ad' 	=> 'https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js'
         ];
 	}
@@ -26,7 +26,7 @@ class RI_AMP_Clickio_Banner_Embed extends AMP_Base_Embed_Handler {
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = true;
 
-        $dom->loadHTML('<?xml encoding="utf-8" ?><root>' . $content . '</root>');
+        $dom->loadHTML('<?xml encoding="utf-8" ?>' . $content . '');
 
         $xPath = new DOMXPath( $dom );
         $pTags = $xPath->query('//p');
@@ -43,12 +43,17 @@ class RI_AMP_Clickio_Banner_Embed extends AMP_Base_Embed_Handler {
                 $ad->setAttribute('type', 'doubleclick');
                 $ad->setAttribute('data-slot', '/45470634/clickio_area_652881_336x280');
                 $ad->setAttribute('data-multi-size-validation', 'false');
-                $pTag->appendChild($ad);
+
+                $container = $dom->createElement('div');
+                $container->setAttribute( 'class', 'amp-ad-container' );
+                $container->appendChild($ad);
+
+                $pTag->appendChild($container);
             }
 
         }
 
-        $content = preg_replace('#.*?<root>\s*(.*)\s*</root>#s', '\1', $dom->saveHTML() );
+        $content = $dom->saveHTML();
 
 		$banner = [
 			'<amp-ad width="300" height="250" type="doubleclick" data-slot="/45470634/clickio_area_642195_300x250" data-multi-size-validation="false"></amp-ad>',
