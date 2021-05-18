@@ -91,7 +91,7 @@ function ri_amp_related_posts( $data ) {
 add_filter( 'amp_post_template_data', 'ri_amp_related_posts' );
 
 /**
- * Añade un arrreglo con las entradas relacionadas por tema
+ * Añade un arreglo con las entradas relacionadas por tema
  *
  * @param array  $embed_handler_classes Manejadores
  *
@@ -106,6 +106,23 @@ function ri_amp_add_clickio_banners( $embed_handler_classes ) {
 }
 
 add_filter( 'amp_content_embed_handlers', 'ri_amp_add_clickio_banners', 10, 2 );
+
+/**
+ * Añade el icono del sitio a AMP
+ *
+ * @param array  $embed_handler_classes Manejadores
+ *
+ * @return array Manejadores modificados
+ *
+ **/
+
+function ri_amp_setup_favicon() {
+    ?>
+    <link rel="shortcut icon" href="<?=get_site_icon_url();?>" />
+    <?php
+}
+
+add_action( 'amp_post_template_head', 'ri_amp_setup_favicon' );
 
 
 /**
