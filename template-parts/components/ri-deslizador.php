@@ -15,7 +15,7 @@ $total = array_key_exists('total', $args) ? intval($args['total']) : FALSE;
 		<figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject">
 			<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 				<picture>
-					<?php the_post_thumbnail("medium_large", [ 'loading' => $loading ]); ?>
+					<?php the_post_thumbnail("full", [ 'loading' => $loading ]); ?>
 				</picture>
 			</a>
 		</figure>
