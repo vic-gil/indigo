@@ -60,61 +60,6 @@ function custom_media_responsive_size($attr, $attachment, $size) {
 			endif;
 		endif;
 		
-		/**
-		 * ¡LA MAGIA OCURRE AQUÍ!
-		 * Esto requiere de mucho análisis y de requisitos de tu tema
-		 * usa la configuracion que necesites mediante una medida
-		 * ejemplo `medium_large`, `large` y la sección ejemplo
-		 * is_home(), is_category() para mostrar las imagenes en su tamaño 
-		 * ideal mediante diseño responsivo.
-		 *
-		 * Si no estás familiarizado con esto consulta. HTML y AMP
-		 * @link https://developer.mozilla.org/es/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
-		 * @link https://amp.dev/es/documentation/guides-and-tutorials/develop/style_and_layout/art_direction/
-		 *
-		 */
-		$attr['sizes'] = "(min-width: 1024px) 500px, (min-width: 768px) 300px, (min-width: 414px) 200px, 300px";
-
-		if( is_home() ) :
-			
-			if( $size === "medium_large" ) :
-				$attr['sizes'] = "(min-width: 1024px) 500px, (min-width: 768px) 300px, (min-width: 414px) 200px, 300px";
-			endif;
-
-			if( $size === "large" ) :
-				$attr['sizes'] = "(min-width: 1024px) 500px, (min-width: 768px) 300px, (min-width: 414px) 200px, 300px";
-			endif;
-
-		endif;
-
-		if ( is_post_type_archive('ri-latitud') ) : 
-
-			if( $size === "medium_large" ) :
-				$attr['sizes'] = "(min-width: 1024px) 500px, (min-width: 768px) 300px, (min-width: 414px) 200px, 300px";
-			endif;
-
-			if( $size === "large" ) :
-				$attr['sizes'] = "(min-width: 1024px) 500px, (min-width: 768px) 300px, (min-width: 414px) 200px, 300px";
-			endif;
-
-		endif;
-
-		if ( is_category() ) :
-
-		endif;
-
-		if ( is_tax() ) :
-
-		endif;
-
-		if ( is_search() ) :
-
-		endif;
-
-		if ( is_author() ) :
-
-		endif;
-
 	endif;
 
 	return $attr;
