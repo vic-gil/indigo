@@ -777,10 +777,31 @@ function reporte_indigo_main_query($query) {
 		endif;
 
 		if ( is_post_type_archive('ri-indigonomics') ) :
-			$query->set( 'posts_per_page', 13 );
-			$query->set( 'post_status', 'publish' );
-			$query->set( 'no_found_rows', false );
-			$query->set( 'suppress_filters', false );
+            // $query->set( 'posts_per_page', 13 );
+            // $query->set( 'post_status', 'publish' );
+            // $query->set( 'no_found_rows', false );
+            // $query->set( 'suppress_filters', false );
+
+            $query->set( 'post_status', 'publish' );
+            $query->set( 'no_found_rows', false );
+            $query->set( 'suppress_filters', false );
+
+            /**
+             * Si cambias el apartado offset procura cambiarlo en
+             * la función acoplada al filtro found_posts
+             * add_filter( 'found_posts', ... );
+             *
+             **/
+            $offset = 9;
+            $ppp = 13;
+
+            if ( ! $query->is_paged() ) {
+                $query->set( 'posts_per_page', $ppp );
+            } else {
+                $query->set( 'posts_per_page', $ppp );
+                $query->set( 'offset', $offset + ( ( $query->query_vars['paged'] - 2 ) * $ppp ) );
+            }
+
 		endif;
 
 		if ( is_post_type_archive('ri-piensa') ) :
@@ -866,6 +887,13 @@ function reporte_indigo_main_query($query) {
 add_action( 'pre_get_posts', 'reporte_indigo_main_query' );
 
 function homepage_offset_pagination( $found_posts, $query ) {
+
+    if( ! is_admin() && $query->is_main_query() ) {
+        if ( is_post_type_archive('ri-indigonomics') ) :
+            $offset = 9;
+            $found_posts = $found_posts + $offset;
+        endif;
+    }
     
     if( ! is_admin() && $query->is_main_query() ) {
     	if ( is_post_type_archive('ri-piensa') ) :
@@ -932,5 +960,4 @@ add_action('rest_api_init', function() {
 	        'schema'          => null
 	    ]
 	);
-});
-?>
+});?>
