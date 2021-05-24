@@ -293,55 +293,102 @@ $exclude = reporte_indigo_exclude_posts('home');
 			?>
 		</div>
 	</div>
-	<div class="container">
-		<div class="components">
-		<?php
-		$entradas = new WP_Query([
-			'post_type' 			=> 'ri-indigonomics',
-			'posts_per_page' 		=> 4,
-			'post_status'      		=> 'publish',
-			'suppress_filters' 		=> false,
-			'ignore_sticky_posts'	=> true,
-			'no_found_rows' 		=> true,
-			'post__not_in'			=> $exclude
-		]);
+    <div class="container">
+        <div class="components">
+            <div class="col-lg-8">
+                <div class="components">
+                    <?php
+                        $entradas = new WP_Query([
+                            'post_type' 			=> 'ri-indigonomics',
+                            'posts_per_page' 		=> 3,
+                            'post_status'      		=> 'publish',
+                            'suppress_filters' 		=> false,
+                            'ignore_sticky_posts'	=> true,
+                            'no_found_rows' 		=> true,
+                            'post__not_in'			=> $exclude
+                        ]);
 
-		if ( $entradas->have_posts() ): $index = 0;
-			while ( $entradas->have_posts() ): $entradas->the_post();
-				
-				if($index == 0){
-					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vlarge' ] );
-					
-					$one = new WP_Query([
-						'post_type' 			=> 'ri-filosofia',
-						'posts_per_page' 		=> 1,
-						'post_status'      		=> 'publish',
-						'suppress_filters' 		=> false,
-						'ignore_sticky_posts'	=> true,
-						'no_found_rows' 		=> true
-					]);
-					if ( $one->have_posts() ):
-						while ( $one->have_posts() ): $one->the_post();
-							get_template_part( 'template-parts/components/ri', 'twitter_plus' );
-						endwhile;
-					endif;
-					wp_reset_postdata();
+                        if ( $entradas->have_posts() ): $index = 0;
+                            while ( $entradas->have_posts() ): $entradas->the_post();
 
-					Reporte_indigo_templates::componente_separador();
-				}
+                                if($index == 0){
+                                    get_template_part( 'template-parts/components/ri', 'general' );
+                                    Reporte_indigo_templates::componente_separador();
+                                }
 
-				if($index > 0){
-					get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vmini' ] );
-				}
+                                if($index > 0){
+                                    get_template_part( 'template-parts/components/ri', 'general', [ 'class' => 'vsmall' ] );
+                                }
 
-				$exclude_video[] = get_the_ID();
-				$index++;
-			endwhile;
-		endif;
-		wp_reset_postdata();
-		?>
-		</div>
-	</div>
+                                $exclude_video[] = get_the_ID();
+                                $index++;
+                            endwhile;
+                        endif;
+                        wp_reset_postdata();
+                    ?>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="components">
+                    <?php
+                        $one = new WP_Query([
+                            'post_type' 			=> 'ri-filosofia',
+                            'posts_per_page' 		=> 1,
+                            'post_status'      		=> 'publish',
+                            'suppress_filters' 		=> false,
+                            'ignore_sticky_posts'	=> true,
+                            'no_found_rows' 		=> true
+                        ]);
+                        if ( $one->have_posts() ):
+                            while ( $one->have_posts() ): $one->the_post();
+                                get_template_part( 'template-parts/components/ri', 'twitter_plus' );
+                            endwhile;
+                        endif;
+                        wp_reset_postdata();
+                    ?>
+                    <div class="bi-component">
+                        <div class="wrap">
+                            <div class="header">
+                                <img src="<?=get_template_directory_uri()?>/assets/images/custom/binsider.png" alt="Bussiness Insider" />
+                            </div>
+                            <div class="body">
+                                <?php
+                                $entradas = new WP_Query([
+                                    'post_type' 			=> 'ri-indigonomics',
+                                    'posts_per_page' 		=> 3,
+                                    'post_status'      		=> 'publish',
+                                    'suppress_filters' 		=> false,
+                                    'ignore_sticky_posts'	=> true,
+                                    'no_found_rows' 		=> true,
+                                    'post__not_in'			=> $exclude
+                                ]);
+
+                                if ( $entradas->have_posts() ): $index = 0;
+                                    while ( $entradas->have_posts() ): $entradas->the_post();
+
+                                        if( $index == 0 ) {
+                                            get_template_part('template-parts/components/bi/bi-card');
+                                            echo '<hr>';
+                                        } else {
+                                            get_template_part('template-parts/components/bi/bi-card', 'simple');
+
+                                            if( $index !== 2 )
+                                                echo '<hr>';
+                                        }
+
+                                        $exclude_video[] = get_the_ID();
+                                        $index++;
+                                    endwhile;
+                                endif;
+                                wp_reset_postdata();
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 	<?php Reporte_indigo_test::comment('Latitud y Lo más visto'); ?>
 	<div class="container">
 		<div class="components">
