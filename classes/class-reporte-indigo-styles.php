@@ -298,6 +298,19 @@ class Reporte_Indigo_Styles {
 		return $style;
 	}
 
+
+    /**
+     * Estilo de la seccion bussiness insider
+     *
+     * @return void
+     **/
+
+	static function style_bi() {
+	    $style = '.bi-component{margin-top:1rem;margin-bottom:1rem}.bi-component .wrap{background-color:#3474be}.bi-component .header{text-align:right}.bi-component .body{padding:1rem 1rem}.bi-component hr{background-color:rgba(255,255,255,0.8)}.bi-card{margin-bottom:1rem}.bi-card article{display:flex}.bi-card figure{margin-bottom:0rem;flex:0 0 auto;width:41.66667%}.bi-card picture{position:relative;display:block;width:100%;padding-top:100%;border-radius:3px;overflow:hidden;margin:0;background:#DDD}.bi-card picture img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}.bi-card .entry-data{margin-left:1rem}.bi-card h2 a{font-family:"Roboto";font-size:12pt !important;font-weight:500 !important;font-style:normal !important;color:#2dc3f6;text-transform:uppercase}.bi-card h3 a{font-family:Roboto;font-weight:700 !important;font-style:normal !important;font-size:18pt !important;line-height:22pt !important;color:#fff}.bi-card h3 a{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}.bi-card p{font-family:Roboto;font-size:14pt !important;line-height:18pt !important;font-weight:400 !important;font-style:normal !important;color:#fff}.bi-card p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.bi-card address{margin-bottom:0rem}.bi-card address a{font-family:Roboto;font-weight:500 !important;font-style:normal !important;font-size:10pt !important;color:#99d3ff;margin:0 !important}.bi-card-simple{margin-bottom:1rem}.bi-card-simple h2 a{font-family:"Roboto";font-size:12pt !important;font-weight:500 !important;font-style:normal !important;color:#2dc3f6;text-transform:uppercase}.bi-card-simple h3 a{font-family:Roboto;font-size:18pt !important;line-height:22pt !important;font-weight:700 !important;font-style:normal !important;color:#fff}.bi-card-simple h3 a{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}.bi-card-simple p{font-family:Roboto;font-size:14pt !important;line-height:18pt !important;font-weight:400 !important;font-style:normal !important;color:#fff}.bi-card-simple p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.bi-card-simple address a{font-family:Roboto;font-size:10pt !important;font-weight:500 !important;font-style:normal !important;color:#99d3ff;margin:0 !important}';
+
+	    return $style;
+    }
+
 	/**
 	 * Función que ejecuta la clase
 	 *
@@ -327,7 +340,7 @@ class Reporte_Indigo_Styles {
 			echo '<style type="text/css">' . self::style_general() . '</style>';
 
 		if ( is_post_type_archive('ri-indigonomics') )
-			echo '<style type="text/css">' . self::style_general() . self::style_filosofia_indigonomics() . '</style>';
+			echo '<style type="text/css">' . self::style_general() . self::style_filosofia_indigonomics() . self::style_bi() . '</style>';
 
 		if ( is_post_type_archive('ri-piensa') )
 			echo '<style type="text/css">' . self::style_general() . self::style_enfoque_piensa() . '</style>';
