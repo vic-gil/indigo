@@ -755,25 +755,21 @@ class Reporte_Indigo_Scripts {
 			"use strict";
 			const ri_especial_con = document.querySelector(".component-especial figure img");
 			const ri_especial_img = ri_especial_con.dataset.src;
+			const ri_especial_img_srcset = ri_especial_con.dataset.srcset;
 			
 			const hoverSpecial = (data) => {
 				let url = data.dataset.link;
 				ri_especial_con.src = url;
-				console.warn("hoverSpecial");
-				console.warn(ri_especial_con);
-				console.warn(url);
+				ri_especial_con.srcset = "";
 			}
 
 			const originalSpecial = () => {
 				ri_especial_con.src = ri_especial_img;
-				console.warn("originalSpecial");
-				console.warn(ri_especial_con);
-				console.warn(ri_especial_img);
+				ri_especial_con.srcset = ri_especial_img_srcset;
 			}
 		</script>';
 
-		$script = '<script type="text/javascript">"use strict";const ri_especial_con=document.querySelector(".component-especial figure img"),ri_especial_img=ri_especial_con.dataset.src,hoverSpecial=e=>{let c=e.dataset.link;ri_especial_con.src=c,console.warn("hoverSpecial"),console.warn(ri_especial_con),console.warn(c)},originalSpecial=()=>{ri_especial_con.src=ri_especial_img,console.warn("originalSpecial"),console.warn(ri_especial_con),console.warn(ri_especial_img)};</script>';
-
+		$script = '<script type="text/javascript">"use strict";const ri_especial_con=document.querySelector(".component-especial figure img"),ri_especial_img=ri_especial_con.dataset.src,ri_especial_img_srcset=ri_especial_con.dataset.srcset,hoverSpecial=e=>{let i=e.dataset.link;ri_especial_con.src=i,ri_especial_con.srcset=""},originalSpecial=()=>{ri_especial_con.src=ri_especial_img,ri_especial_con.srcset=ri_especial_img_srcset};</script>';
 		if( $echo )
 			echo $script;
 		else
