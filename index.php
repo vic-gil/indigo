@@ -349,7 +349,7 @@ $exclude = reporte_indigo_exclude_posts('home');
                     <div class="bi-component">
                         <div class="wrap">
                             <div class="header">
-                                <img src="<?=get_template_directory_uri()?>/assets/images/custom/binsider.png" alt="Bussiness Insider" />
+                                <img src="<?=get_template_directory_uri()?>/assets/images/custom/bi.png" alt="Bussiness Insider" />
                             </div>
                             <div class="body">
                                 <?php
