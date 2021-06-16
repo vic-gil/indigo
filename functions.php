@@ -593,6 +593,22 @@ function add_clickio_header_binding() {
 
 add_action( 'wp_head', 'add_clickio_header_binding', 1 );
 
+function add_gtag_marketing_script() {
+	echo <<<HTML
+	<!-- Global site tag (gtag.js) - Google Ads: 370492652 -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=AW-370492652"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'AW-370492652');
+	</script>
+	HTML;
+}
+
+add_action( 'wp_head', 'add_gtag_marketing_script', 1 );
+
 function add_gtag_init_script() {
 	$name = get_bloginfo('name');
 
