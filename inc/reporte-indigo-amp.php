@@ -91,6 +91,24 @@ function ri_amp_related_posts( $data ) {
 add_filter( 'amp_post_template_data', 'ri_amp_related_posts' );
 
 /**
+ * Añade un sanitizador para JWPlayer en AMP
+ *
+ * @param array     $sanitizer_classes Un arreglo con todas las clases sanitizadoras
+ * @param WP_Object $post El post actual
+ *
+ * @return array El arreglo con nuestro sanitizador agregado
+ *
+ **/
+
+function xyz_amp_add_jwp_sanitizer( $sanitizer_classes, $post ) {
+    require_once( get_template_directory() . '/classes/amp/amp-jwp-post-embed.php' );
+    $sanitizer_classes[ 'XYZ_AMP_JWP_Sanitizer' ] = [];
+    return $sanitizer_classes;
+}
+
+add_filter( 'amp_content_sanitizers', 'xyz_amp_add_jwp_sanitizer', 10, 2 );
+
+/**
  * Añade un arreglo con las entradas relacionadas por tema
  *
  * @param array  $embed_handler_classes Manejadores
