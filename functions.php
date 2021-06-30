@@ -76,6 +76,8 @@ endif;
 require get_template_directory() . '/proposal/surveys/shortcode.php';
 require get_template_directory() . '/proposal/surveys/surveys.php';
 
+require get_template_directory() . '/proposal/jwplayer/reporte-indigo-jwplayer.php';
+require get_template_directory() . '/proposal/jwplayer/jwplayer.php';
 
 /*
  * El cache del navegador sólo está disponible para
