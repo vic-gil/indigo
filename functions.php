@@ -611,6 +611,14 @@ function add_gtag_marketing_script() {
 
 add_action( 'wp_head', 'add_gtag_marketing_script', 1 );
 
+function add_adsense_script() {
+    echo <<<HTML
+    <script data-ad-client="ca-pub-2350018958169079" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    HTML;
+}
+
+add_action( 'wp_head', 'add_adsense_script', 1 );
+
 function add_gtag_init_script() {
 	$name = get_bloginfo('name');
 
